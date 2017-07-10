@@ -74,7 +74,7 @@
 										<td><c:out value="${user.address}" /></td>
 										<td><c:out value="${user.userType}" /></td>
 										<td><c:out value="${user.status}" /></td>
-										<td><a href="#"> <i class="fa fa-edit"></i>Edit
+										<td><a href="#"> <i class="fa fa-edit"></i>View
 										</a></td>
 									</tr>
 								</c:forEach>
