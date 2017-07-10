@@ -64,7 +64,7 @@ public class DateUtils {
 		return (day + "-" + m + "-" + year);
 	}
 
-	public int calculateAge(Date dob) {
+	public static int calculateAge(Date dob) {
 		int age = 0;
 		String d1 = DateUtils.dateFormat(dob);
 		String d2 = DateUtils.dateFormat(new java.util.Date());
