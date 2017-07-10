@@ -147,7 +147,7 @@
 					<!-- User Form -->
 
 					<!-- /.box-body -->
-					<div class="box-footer">Provide the Project Detail </div>
+					<div class="box-footer">Project Detail </div>
 					<!-- /.box-footer-->
 				</div>
 				<!-- /.box -->
@@ -196,20 +196,19 @@
 	}
 	
 	function editfxn(){
-		
 		if(document.getElementById("editbtn").value == "edit"){
 			document.getElementById("editbtn").innerHTML="Update";
 			document.getElementById("editbtn").value="update";	
 			var form = document.getElementById("projectEditForm");
 			var elements = form.elements;
+			
 			for (var i = 0, len = elements.length; i < len; ++i) {
 			    elements[i].disabled = false;
 			}
 		}
 		else if (document.getElementById("editbtn").value == "update"){
 			document.projectEditForm.submit();
-		}
-		
+		}	
 	}
 	
 		function validateForm(form) {
