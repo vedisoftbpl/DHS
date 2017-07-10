@@ -175,11 +175,6 @@
 								</div>
 								<!-- /.col -->
 								<div class="col-md-6">
-
-
-
-
-
 									<!-- form group -->
 									<!-- Created By -->
 									<div class="form-group" id="divUserFormCreatedBy">
@@ -362,9 +357,8 @@
 			for (var i = 0, len = elements.length; i < len; ++i) {
 			    elements[i].disabled = false;
 			}
-		}
-		else if (document.getElementById("editbtn").value == "update"){
-			document.projectEditForm.submit();
+			document.getElementById('editbtn').removeAttribute('onclick');
+			document.getElementById('editbtn').type='submit';
 		}	
 	}
 	

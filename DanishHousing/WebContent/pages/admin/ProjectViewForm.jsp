@@ -1,6 +1,6 @@
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="../design/Top.jsp"%>
-<body class="hold-transition skin-blue sidebar-mini" onload = "formin();">
+<body class="hold-transition skin-blue sidebar-mini" onload="formin();">
 	<!-- Site wrapper -->
 	<div class="wrapper">
 		<jsp:include page="../design/Header.jsp" flush="true" />
@@ -38,13 +38,16 @@
 					</div>
 
 					<!-- Project Form -->
-					
+
 					<div class="form-group" id="typeError">
-				<label class="control-label" id="errorTop"></label>
-			</div>
-			
-			
-					<form action="${pageContext.request.contextPath}/admin/pages/ProjectFormController" method="post" name="projectEditForm" id ="projectEditForm">
+						<label class="control-label" id="errorTop"></label>
+					</div>
+
+
+					<form
+						action="${pageContext.request.contextPath}/admin/pages/ProjectFormController"
+						method="post" name="projectEditForm" id="projectEditForm"
+						onsubmit="return validateForm(this)">
 						<div class="box-body">
 							<div class="row">
 								<div class="col-md-6">
@@ -54,10 +57,10 @@
 									<div class="form-group" id="divProjectFormName">
 										<label>Project Name</label>
 										<div class="input-group">
-											<span class="input-group-addon"><i class="fa fa-building"></i></span>
-											<input type="text" class="form-control"
-												placeholder="Project Name" id="ProjectName"
-												name="ProjectName" />
+											<span class="input-group-addon"><i
+												class="fa fa-building"></i></span> <input type="text"
+												class="form-control" placeholder="Project Name"
+												id="ProjectName" name="ProjectName" />
 										</div>
 										<p id="errorProjectName"></p>
 									</div>
@@ -66,10 +69,10 @@
 
 
 
-								<!--  form-group -->
+									<!--  form-group -->
 									<!-- Project Type -->
-		
-		
+
+
 									<div class="form-group" id="divProjectType">
 										<label>Project Type</label>
 										<div class="input-group">
@@ -78,18 +81,18 @@
 											</div>
 											<select class="form-control select2" id="ProjectType"
 												name="ProjectType" style="width: 100%;">
-												
+
 												<option selected="selected" value="B">Bunglow</option>
 												<option value="P">Plot</option>
-										
+
 											</select>
 										</div>
 									</div>
 									<!-- End Project Type-->
 									<!-- /.form-group -->
 
-    
-								
+
+
 									<!-- form group -->
 
 
@@ -107,11 +110,11 @@
 								<!-- /.col -->
 								<div class="col-md-6">
 
-										<input type="hidden" class="form-control"
-												 id="operation" name="operation" value = "create"/>
+									<input type="hidden" class="form-control" id="operation"
+										name="operation" value="create" />
 
 
-									
+
 
 									<!-- form group -->
 
@@ -123,16 +126,17 @@
 									<!-- /. form group -->
 
 									<!-- form group -->
-									<br>		<br>		<br>		<br>		<br>
-									
+									<br> <br> <br> <br> <br>
+
 									<div class="row"></div>
 									<div class="col-xs-4" align="center">
-										<button type="button"
-											class="btn btn-primary btn-block" id="editbtn" value = "edit" name = "editbtn"
-											onclick="editfxn();" >Edit Project</button>
+										<button type="button" class="btn btn-primary btn-block"
+											id="editbtn" value="edit" name="editbtn" onclick="editfxn();">Edit
+											Project</button>
 									</div>
 									<div class="col-xs-4" align="center">
-										<button type="reset" class="btn btn-block btn-danger" value = "cancel" name = "cancel" id="cancel">Cancel</button>
+										<button type="reset" class="btn btn-block btn-danger"
+											value="cancel" name="cancel" id="cancel">Cancel</button>
 									</div>
 
 									<!-- / .form group -->
@@ -147,7 +151,7 @@
 					<!-- User Form -->
 
 					<!-- /.box-body -->
-					<div class="box-footer">Project Detail </div>
+					<div class="box-footer">Project Detail</div>
 					<!-- /.box-footer-->
 				</div>
 				<!-- /.box -->
@@ -163,7 +167,7 @@
 	<%@ include file="../design/Bottom.jsp"%>
 	<!-- iCheck -->
 	<!-- jQuery 2.2.3 -->
-	<script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
+	<!-- <script src="plugins/jQuery/jquery-2.2.3.min.js"></script> -->
 
 	<script>
 	<c:choose>
@@ -205,9 +209,8 @@
 			for (var i = 0, len = elements.length; i < len; ++i) {
 			    elements[i].disabled = false;
 			}
-		}
-		else if (document.getElementById("editbtn").value == "update"){
-			document.projectEditForm.submit();
+			document.getElementById('editbtn').removeAttribute('onclick');
+			document.getElementById('editbtn').type='submit';
 		}	
 	}
 	
