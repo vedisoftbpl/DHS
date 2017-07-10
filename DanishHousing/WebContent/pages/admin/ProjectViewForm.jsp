@@ -209,9 +209,11 @@
 			for (var i = 0, len = elements.length; i < len; ++i) {
 			    elements[i].disabled = false;
 			}
-			document.getElementById('editbtn').removeAttribute('onclick');
-			document.getElementById('editbtn').type='submit';
-		}	
+		}
+			else if(document.getElementById("editbtn").value == "update" && validateForm(form)){
+				document.projectEditForm.submit();
+				}
+			
 	}
 	
 		function validateForm(form) {
