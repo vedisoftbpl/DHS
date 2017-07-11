@@ -79,7 +79,7 @@
 										<td><c:out value="${acc.clBal}" /></td>
 										<td><c:out value="${acc.ifsc}" /></td>
 										<td><c:out value="${acc.branch}" /></td>
-										<td><a href="#"> <i class="fa fa-edit"></i>Edit
+										<td><a href="#"> <i class="fa fa-edit"></i>View
 										</a></td>
 
 									</tr>
