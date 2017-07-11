@@ -63,7 +63,7 @@
 							class="fa fa-circle-o"></i> Individuals</a></li>
 					<li><a href="../forms/editors.html"><i
 							class="fa fa-circle-o"></i> Contracts</a></li>
-					<li><a href="../forms/editors.html"><i
+					<li><a href="${pageContext.request.contextPath}/admin/pages/ContractDocumentsController"><i
 							class="fa fa-circle-o"></i> Contract Documents</a></li>
 					<li><a href="../forms/editors.html"><i
 							class="fa fa-circle-o"></i> Installments Receipts</a></li>
