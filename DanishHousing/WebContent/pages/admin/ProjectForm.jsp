@@ -1,5 +1,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ include file="../design/Top.jsp"%>
+<!-- select style -->
+<link rel="stylesheet" href="../../plugins/select2/select2.css">
 <body class="hold-transition skin-blue sidebar-mini">
 	<!-- Site wrapper -->
 	<div class="wrapper">
@@ -78,11 +80,9 @@
 												<i class="fa  fa-info-circle"></i>
 											</div>
 											<select class="form-control select2" id="ProjectType"
-												name="ProjectType" style="width: 100%;">
-												
-												<option selected="selected" value="B">Bunglow</option>
+												name="ProjectType" style="width: 100%;" >
+												<option value="B">Bungalow</option>
 												<option value="P">Plot</option>
-										
 											</select>
 										</div>
 									</div>
@@ -161,6 +161,8 @@
 	</div>
 	<!-- ./wrapper -->
 	<%@ include file="../design/Bottom.jsp"%>
+	<!-- select2 -->
+	<script src="../../plugins/select2/select2.js"></script>
 	<!-- iCheck -->
 	<!-- jQuery 2.2.3 -->
 	<script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
@@ -209,4 +211,9 @@
 			//End Project Name Validation
 			return true;
 		}
+		$(function() {
+			//Initialize Select2 Elements
+			$(".select2").select2();
+
+		});
 	</script>

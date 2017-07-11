@@ -131,7 +131,23 @@
 								<div class="col-md-6">
 
 
-
+									<!-- form group -->
+									<!-- Co_Code -->
+									<div class="form-group" id="divAccountFormCoCode">
+										<label>Co_Code</label>
+										<div class="input-group">
+											<span class="input-group-addon">
+												<i class="fa   fa-info-circle"></i></span>
+											<input type="text" class="form-control"
+												placeholder="Code(e.g. 12)" id="coCode"
+												name="coCode" />
+										</div>
+										<p id="errorCoCode"></p>
+									</div>
+									<!-- End Co_Code -->
+									<!-- /.form group -->
+									
+									
 
 									<!-- form group -->
 									<!-- Opening Balance -->
@@ -148,21 +164,7 @@
 									<!-- End Opening Balance -->
 									<!-- /.form group -->
 									
-									<!-- form group -->
-									<!-- Co_Code -->
-									<div class="form-group" id="divAccountFormCoCode">
-										<label>Co_Code</label>
-										<div class="input-group">
-											<span class="input-group-addon">
-												<i class="fa   fa-info-circle"></i></span>
-											<input type="text" class="form-control"
-												placeholder="Code(e.g. 12)" id="coCode"
-												name="coCode" />
-										</div>
-										<p id="errorCoCode"></p>
-									</div>
-									<!-- End Co_Code -->
-									<!-- /.form group -->
+									
 
 									<!-- form group -->
 									<!-- Opening Date -->
@@ -337,6 +339,28 @@
 				document.getElementById("divAccountFormBranch").className = 'form-group has-success';
 			}
 			//End Branch Validation
+			
+			
+			//Co_Code Validation
+			var code = document.getElementById("coCode").value;
+			if (code == null || code === "") {
+				document.getElementById("errorCoCode").innerHTML = error;
+				document.getElementById("divAccountFormCoCode").className = 'alert alert-danger alert-dismissible';
+				return false;
+			}
+			if (!(code == null || code === "")) {
+				var codeValid = /^[a-zA-Z-.\d ]+$/;  						 //  which validation
+				if (!codeValid.test(code)) {
+					document.getElementById("errorCoCode").innerHTML = 'Invalid Code';
+					document.getElementById("divAccountFormCoCode").className = 'alert alert-danger alert-dismissible';
+					return false;
+				}
+				document.getElementById("errorCoCode").innerHTML = "";
+				document.getElementById("divAccountFormCoCode").className = 'form-group has-success';
+			}
+			//End Co_Code Validation
+			
+			
 
 			//Opening Balance Validation
 			var bal = document.getElementById("openingBalance").value;
@@ -357,16 +381,10 @@
 			}
 			//End Opening Balance Validation
 			
-			//Co_Code Validation
-			var code = document.getElementById("coCode").value;
-			if (code == null || code === "") {
-				document.getElementById("errorCoCode").innerHTML = error;
-				document.getElementById("divAccountFormCoCode").className = 'alert alert-danger alert-dismissible';
-				return false;
-			}
 			
-				
-			//End Co_Code Validation
+			
+			
+		
 
 			return true;
 		}
