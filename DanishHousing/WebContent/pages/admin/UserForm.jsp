@@ -129,7 +129,7 @@
 												<i class="fa fa-calendar"></i>
 											</div>
 											<input type="text" class="form-control pull-right"
-												id="datepicker1" name="datepicker1" />
+												id="datepicker1" name="datepicker1" required/>
 										</div>
 										<p id="errorUserDateOfBirth"></p>
 										<!-- /.input group -->
@@ -149,7 +149,7 @@
 												<i class="fa fa-calendar"></i>
 											</div>
 											<input type="text" class="form-control pull-right"
-												id="datepicker2" name="datepicker2" />
+												id="datepicker2" name="datepicker2" required/>
 										</div>
 										<p id="errorUserDateOfJoin"></p>
 										<!-- /.input group -->
@@ -213,7 +213,7 @@
 												name="userFormAddress"></textarea>
 										</div>
 										<p id="errorUserAddress"></p>
-
+                                       </div>
 										<!-- End Address -->
 
 										<!-- /.form group -->
@@ -261,7 +261,7 @@
 												<div class="input-group-addon">
 													<i class="fa fa-photo"></i>
 												</div>
-												<input type="file" required id="userPhoto" name="userPhoto"
+												<input type="file"  id="userPhoto" name="userPhoto"
 													class="btn btn-block btn-default btn" />
 											</div>
 											<p id="errorPhoto"></p>
@@ -291,25 +291,28 @@
 								<!-- /.box -->
 							</div>
 							<!-- /.col -->
+							</form>
 							</div>
-					</form>
+					
 
 					<!-- User Form -->
 
 					<!-- /.box-body -->
 					<div class="box-footer">Provide the User Detail For
 						Registration</div>
-					<!-- /.box-footer-->
+					
+					</section><!-- /.box-footer-->
 				</div>
 				<!-- /.box -->
-			</section>
+			
+			
 			<!-- /.content -->
 		</div>
 		<!-- /.content-wrapper -->
 		<%@ include file="../design/Footer.jsp"%>
 		<!-- Control Sidebar -->
 		<jsp:include page="../design/SideBar.jsp" flush="true" />
-	</div>
+
 	<!-- ./wrapper -->
 	<%@ include file="../design/Bottom.jsp"%>
 	<script src="../../plugins/datepicker/bootstrap-datepicker.js"></script>
@@ -391,7 +394,7 @@
 				return false;
 			}
 
-			if (pass.length <= 8) {
+			if (pass.length < 8) {
 				document.getElementById("errorPassword").innerHTML = 'Password should be atleast 8 character';
 				document.getElementById("divUserFormPassword").className = 'alert alert-danger alert-dismissible';
 				return false;
@@ -437,14 +440,51 @@
 			//Address Validation
 			var add = document.getElementById("userAddress").value;
 			if (add == null || add === "") {
-				document.getElementById("userAddress").innerHTML = error;
+				document.getElementById("errorUserAddress").innerHTML = error;
 				document.getElementById("divUserFormAddress").className = 'alert alert-danger alert-dismissible';
 				return false;
 
 			}
-			document.getElementById("userAddress").innerHTML = "";
+			document.getElementById("errorUserAddress").innerHTML = "";
 			document.getElementById("divUserFormAddress").className = 'form-group has-success';
 			//End Address Validation
+			
+			//Photo Validation
+			var photo = document.getElementById("userPhoto").value;
+			if (photo == null || photo === "") {
+				document.getElementById("errorPhoto").innerHTML = error;
+				document.getElementById("divUserFormPhoto").className = 'alert alert-danger alert-dismissible';
+				return false;
+
+			}
+			document.getElementById("errorPhoto").innerHTML = "";
+			document.getElementById("divUserFormPhoto").className = 'form-group has-success';
+			//End Photo Validation
+			
+			//Date of Birth Validation
+			//var dob = document.getElementById("datepicker1").value;
+			//document.getElementById("errorUserDateOfBirth").innerHTML = 'vALUE = ' + dob;
+			//if (dob == null || dob === "") {
+			//	document.getElementById("errorUserDateOfBirth").innerHTML = error;
+			//	document.getElementById("divFormUserDateOfBirth").className = 'alert alert-danger alert-dismissible';
+				//return false;
+
+			//}
+			//document.getElementById("errorUserDateOfBirth").innerHTML = "";
+			//document.getElementById("divFormUserDateOfBirth").className = 'form-group has-success';
+			//End Date of Birth Validation
+			
+			//Date of Join Validation
+			//var doj = document.getElementById("datepicker2").value;
+			//if (doj == null || doj === "") {
+			//	document.getElementById("errorUserDateOfJoin").innerHTML = error;
+			//	document.getElementById("divFormUserDateOfJoin").className = 'alert alert-danger alert-dismissible';
+			//	return false;
+
+			//}
+			//document.getElementById("errorUserDateOfJoin").innerHTML = "";
+			//document.getElementById("divFormUserDateOfJoin").className = 'form-group has-success';
+			//End Date of Join Validation
 
 			
 			return true;
