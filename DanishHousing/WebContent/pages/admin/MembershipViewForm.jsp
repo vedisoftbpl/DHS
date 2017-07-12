@@ -53,9 +53,8 @@
 									<!-- Custom Tabs -->
 									<div class="nav-tabs-custom">
 										<ul class="nav nav-tabs">
-											<li class="active"><a href="#tab_1" data-toggle="tab">Tab
-													1</a></li>
-											<li><a href="#tab_2" data-toggle="tab">Tab 2</a></li>
+											<li class="active"><a href="#tab_1" data-toggle="tab">Member Details</a></li>
+											<li><a href="#tab_2" data-toggle="tab">Plot Details</a></li>
 
 
 										</ul>
@@ -430,44 +429,8 @@
 
 														<!-- End Project Code -->
 														<!-- /.form-group -->
-
-
-
-														<!--  form-group -->
-														<!-- Member No. -->
-
-														<div class="form-group" id="divMemberNo">
-															<label>Member No.</label>
-															<div class="input-group">
-																<span class="input-group-addon"><i
-																	class="fa fa-user"></i></span> <input type="text"
-																	class="form-control" id="memberNo" name="memberNo" />
-															</div>
-															<p id="errorMemberNo"></p>
-														</div>
-
-														<!-- End Member No. -->
-
-														<!-- /.form-group -->
-
-														<!-- form group -->
-														<!-- Member Age -->
-
-														<div class="form-group" id="divMemberAge">
-															<label>Member Age</label>
-															<div class="input-group">
-																<span class="input-group-addon"><i
-																	class="fa fa-user"></i></span> <input type="text"
-																	class="form-control" id="memberAge" name="memberAge" />
-															</div>
-															<p id="errorMemberAge"></p>
-														</div>
-
-														<!-- End Member Age -->
-
-														<!-- /.form group -->
-
-
+														
+														<!-- form-group -->
 														<!-- Plot Size -->
 														<div class="form-group" id="divPlotSize">
 															<label>Plot Size</label>
@@ -483,7 +446,7 @@
 														<!-- /.form group -->
 
 
-
+														<!-- form-group -->
 														<!--Net Plot Size -->
 														<div class="form-group" id="divNetPlotSize">
 															<label>Net Plot Size</label>
@@ -499,6 +462,7 @@
 														<!--Net Plot Size -->
 														<!-- /.form group -->
 
+														<!-- form-group -->
 														<!-- Plot No. -->
 														<div class="form-group" id="divPlotNo">
 															<label>Plot No.</label>
@@ -627,47 +591,10 @@
 														<!-- Cost -->
 
 
-														<!-- form group -->
-														<!-- Created By -->
-														<div class="form-group" id="divCreatedBy">
-															<label>Created By</label>
-															<div class="input-group">
-																<div class="input-group-addon">
-																	<i class="fa  fa-user-plus"></i>
-																</div>
-																<input type="text" class="form-control"
-																	value="${requestScope.createdby}" id="createdBy"
-																	name="createdBy" readonly="readonly">
-
-															</div>
-														</div>
-														<!-- End Created By -->
-
-														<!-- /.form group -->
-
-
-
-
-														<!-- form group -->
-														<!--Last Update-->
-														<div class="form-group" id="divLastUpdate">
-															<label>Last Update</label>
-
-															<div class="input-group date">
-																<div class="input-group-addon">
-																	<i class="fa fa-calendar"></i>
-																</div>
-																<input type="text" class="form-control pull-right"
-																	value="${requestScope.lastUpdate}" id="datepicker2"
-																	name="datepicker2" readonly="readonly" required />
-															</div>
-															<p id="errorLastUpdate"></p>
-															<!-- /.input group -->
-														</div>
-														<!--Last Update -->
+														
 														<!-- /.form group -->
 														<input type="hidden" class="form-control" id="operation"
-															name="operation" value="create" />
+															name="operation" value="edit" />
 														<!-- / .form group -->
 													</div>
 													<!-- /.box-body -->
@@ -696,7 +623,7 @@
 								</div>
 							</div>
 							<!-- /.box-body -->
-							<div class="box-footer">Member Detail.</div>
+							<div class="box-footer">Member Details.</div>
 							<!-- /.box-footer-->
 						</div>
 						<!-- /.box -->
@@ -1009,41 +936,13 @@
 			}
 			//End Entrance Fee Validation
 
-			//Member No. Validation
-			var memberNo = document.getElementById("memberNo").value;
-			if (!(memberNo == null || memberNo === "")) {
-				var memno = /^\d$/;
-				if (!(memberNo.match(memno))) {
-					document.getElementById("errorMemberNo").innerHTML = "Invalid Member Number";
-					document.getElementById("divMemberNo").className = 'alert alert-warning alert-dismissible';
-					return false;
-				}
-				document.getElementById("errorMemberNo").innerHTML = "";
-				document.getElementById("divMemberNo").className = 'form-group has-success';
-			}
-			//End Member No. Validation
-
-			//Member Age Validation
-			var memberAge = document.getElementById("memberAge").value;
-			if (!(memberAge == null || memberAge === "")) {
-				var memage = /^\d$/;
-				if (!(memberAge.match(memage))) {
-					document.getElementById("errorMemberAge").innerHTML = "Invalid Member Age";
-					document.getElementById("divMemberAge").className = 'alert alert-warning alert-dismissible';
-					return false;
-				}
-				document.getElementById("errorMemberAge").innerHTML = "";
-				document.getElementById("divMemberAge").className = 'form-group has-success';
-			}
-			//End Member Age Validation
-
 			//Plot Size Validation
 			var plotSize = document.getElementById("plotSize").value;
 
 			if (!(plotSize == null || plotSize === "")) {
-				var plotSizeValid = /^[X-*-x-\d ]+$/; 											//  which validation ?????????????????????????????????
-				if (!plotSizeValid.test(plotSize)) {
-					document.getElementById("errorPlotSize").innerHTML = 'Invalid Plot Size';
+				var plotSizeValid = /^\d+(\.\d+)?[ ]?[Xx][ ]?\d+(\.\d+)?$/; 											
+				if (!plotSize.match(plotSizeValid)) {
+					document.getElementById("errorPlotSize").innerHTML = 'Invalid PlotSize Format, supply length x width ';
 					document.getElementById("divPlotSize").className = 'alert alert-danger alert-dismissible';
 					return false;
 				}
@@ -1071,7 +970,7 @@
 			var plotNo = document.getElementById("plotSize").value;
 
 			if (!(plotNo == null || plotNo === "")) {
-				var plotNoValid = /^[a-zA-Z-X-*-x--\-/-\d ]+$/; 									//  which validation  ????????????????????????????
+				var plotNoValid = /^[a-zA-Z0-9-\\/ ]+$/; 									
 				if (!plotNoValid.test(plotNo)) {
 					document.getElementById("errorPlotNo").innerHTML = 'Invalid Plot No.';
 					document.getElementById("divPlotNo").className = 'alert alert-danger alert-dismissible';
