@@ -93,7 +93,7 @@
 											</c:when>
 										</c:choose>
 										
-										<td><a href="#"> <i class="fa fa-edit"></i>Edit
+										<td><a href="#"> <i class="fa fa-edit"></i>View
 										</a></td>
 
 									</tr>

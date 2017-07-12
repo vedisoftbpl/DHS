@@ -401,7 +401,7 @@
 					<!-- User Form -->
 
 					<!-- /.box-body -->
-					<div class="box-footer">Provide the User Detail For Registration</div>
+					<div class="box-footer">Provide the Member Detail For Registration</div>
 					<!-- /.box-footer-->
 				</div>
 				<!-- /.box -->
