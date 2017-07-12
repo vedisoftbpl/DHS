@@ -343,13 +343,13 @@
 		<c:when test="${param.msg=='1'}">
 		$(document).ready(function() {
 			$("#typeError").addClass("form-group has-error");
-			$("#errorTop").html("Record Added Successfully.");
+			$("#errorTop").html("Record Updated Successfully.");
 		});
 		</c:when>
 		<c:when test="${param.msg=='2'}">
 		$(document).ready(function() {
 			$("#typeError").addClass("form-group has-error");
-			$("#errorTop").html("Fail to Add Record.");
+			$("#errorTop").html("Fail to Update Record.");
 		});
 		</c:when>
 		</c:choose>

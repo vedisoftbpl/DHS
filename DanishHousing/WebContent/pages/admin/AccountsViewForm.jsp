@@ -311,7 +311,7 @@
 		$("#typeError").addClass("form-group has-error");
 		$("#errorTop")
 		.html(
-				"Record Added Successfully.");
+				"Record Updated Successfully.");
 	});
 	</c:when>
 	<c:when test="${param.msg=='2'}">
@@ -319,7 +319,7 @@
 		$("#typeError").addClass("form-group has-error");
 		$("#errorTop")
 		.html(
-				"Fail to Add Record.");
+				"Fail to Update Record.");
 	});
 	</c:when>
 	</c:choose>
