@@ -72,7 +72,7 @@
 											</c:when>
 										</c:choose>
 
-										<td><a href="#"> <i class="fa fa-edit"></i>View
+										<td><a href="${pageContext.request.contextPath}/admin/pages/ProjectFormController?operation=show&showId=${project.projectId}"> <i class="fa fa-edit"></i>View
 										</a></td>
 
 									</tr>
