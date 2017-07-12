@@ -39,6 +39,16 @@ public class ProjectFormController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		int id =0;
+		if(request.getParameter("showId") != null && request.getParameter("showId").trim().length() > 0) {
+			 id = Integer.parseInt(request.getParameter("showId"));
+		}
+		
+		
+		
+		
+		
+		
 		String projectName = new String();
 		if(request.getParameter("ProjectName") != null && request.getParameter("ProjectName").trim().length() > 0) {
 			projectName = request.getParameter("ProjectName");
@@ -56,7 +66,7 @@ public class ProjectFormController extends HttpServlet {
 		System.out.println(projectName + " " + projType);
 		
 		String page = "/pages/admin/ProjectForm.jsp";
-		
+		String page1= "/pages/admin/ProjectViewForm.jsp";
 		if(operation.equals("create")){
 			ProjectsDao dao = new ProjectsDao();
 			Projects p = new Projects(projectName, projType);
@@ -69,6 +79,25 @@ public class ProjectFormController extends HttpServlet {
 				response.sendRedirect("/DanishHousing" + page + "?msg=2");
 			//RequestDispatcher rd = request.getRequestDispatcher(page);
 			//rd.forward(request, response);
+		}
+		else if(operation.equals("show")){
+			ProjectsDao dao = new ProjectsDao();
+			Projects p = new Projects();
+			p = dao.find(id);
+			request.setAttribute("project",p);
+			RequestDispatcher rd = request.getRequestDispatcher(page1);
+			rd.forward(request, response);
+		}
+		else if(operation.equals("edit")){
+			ProjectsDao dao = new ProjectsDao();
+			Projects p = new Projects(id,projectName, projType);
+			System.out.println(p);
+			Boolean b = dao.edit(p);
+			if(b)
+				response.sendRedirect("/DanishHousing" + page1 + "?msg=1");
+			else
+				response.sendRedirect("/DanishHousing" + page1 + "?msg=2");
+				
 		}
 		else {
 			RequestDispatcher rd = request.getRequestDispatcher(page);

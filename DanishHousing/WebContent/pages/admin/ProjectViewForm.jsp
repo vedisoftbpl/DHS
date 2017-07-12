@@ -54,6 +54,11 @@
 							<div class="row">
 								<div class="col-md-6">
 
+
+										<input type="hidden" class="form-control" id="showId"
+										name="showId" value="${requestScope.project.projectId}" />
+										
+										
 									<!--  form-group -->
 									<!-- Project Name -->
 									<div class="form-group" id="divProjectFormName">
@@ -62,7 +67,7 @@
 											<span class="input-group-addon"><i
 												class="fa fa-building"></i></span> <input type="text"
 												class="form-control" placeholder="Project Name"
-												id="ProjectName" name="ProjectName" />
+												id="ProjectName" name="ProjectName" value="${requestScope.project.projectName}"/>
 										</div>
 										<p id="errorProjectName"></p>
 									</div>
@@ -82,8 +87,8 @@
 												<i class="fa  fa-info-circle"></i>
 											</div>
 											<select class="form-control select2" id="ProjectType"
-												name="ProjectType" style="width: 100%;" >
-												<option value="B">Bungalow</option>
+												name="ProjectType" style="width: 100%;" value="${requestScope.project.bungProject}" >
+											<option value="B">Bungalow</option>
 												<option value="P">Plot</option>
 											</select>
 										</div>
@@ -111,7 +116,7 @@
 								<div class="col-md-6">
 
 									<input type="hidden" class="form-control" id="operation"
-										name="operation" value="create" />
+										name="operation" value="edit" />
 
 
 
@@ -178,7 +183,7 @@
 		$("#typeError").addClass("form-group has-error");
 		$("#errorTop")
 		.html(
-				"Record Added Successfully.");
+				"Record Updated Successfully.");
 	});
 	</c:when>
 	<c:when test="${param.msg=='2'}">
@@ -186,7 +191,7 @@
 		$("#typeError").addClass("form-group has-error");
 		$("#errorTop")
 		.html(
-				"Fail to Add Record.");
+				"Fail to update Record.");
 	});
 	</c:when>
 	</c:choose>
