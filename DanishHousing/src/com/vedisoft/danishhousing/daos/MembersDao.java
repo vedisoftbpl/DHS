@@ -8,7 +8,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import com.vedisoft.danishhousing.config.ConnectionPool;
-import com.vedisoft.danishhousing.pojos.Account;
 import com.vedisoft.danishhousing.pojos.Members;;
 
 public class MembersDao {
@@ -18,7 +17,7 @@ public class MembersDao {
 		pool.initialize();
 		Connection conn = pool.getConnection();
 		try {
-			String sql = "insert into members" + " (" + "mr_mrs_mis, membnme,f_h_rel,f_h_name,dob,email,moccu,mobile,aadhar,photo,"
+			String sql = "insert into members" + " (" + "prefix, membnme,f_h_rel,f_h_name,dob,email,moccu,mobile,aadhar,photo,"
 					+ "mad1,mad2,mad3,adressproof,nome_name,nome_rela,membfee,entrfee,live_dead, userid,lastupdate) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 			PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			ps.setString(1, member.getPrefix());
@@ -73,7 +72,7 @@ public class MembersDao {
 		pool.initialize();
 		Connection conn = pool.getConnection();
 		try {
-			String sql = "update members set mr_mrs_mis = ?, membnme= ?,f_h_rel= ?,f_h_name= ?,dob= ?,email= ?,moccu= ?,mobile= ?,aadhar= ?,photo= ?,"
+			String sql = "update members set prefix = ?, membnme= ?,f_h_rel= ?,f_h_name= ?,dob= ?,email= ?,moccu= ?,mobile= ?,aadhar= ?,photo= ?,"
 					+ "mad1= ?,mad2= ?,mad3= ?,adressproof= ?,nome_name= ?,nome_rela= ?,membfee= ?,entrfee= ?,userid= ?,lastupdate= ?,membno= ?,projcd= ?"
 					+ ",plsize= ?,nplsize= ?,reg_cor= ?,plno= ?,tplno= ?,mage= ?,recedte= ?,fullpay= ?,inst1= ?,inst2= ?,inst3= ?,transf= ?,opbal= ?,"
 					+ "water_con= ?,sec_dep= ?,wt_cn_dt= ?,opdte= ?,regi= ?,regdte= ?,regno= ?,r_c= ?,nocdte= ?,live_dead= ?,refdte= ?,diversion= ?,finalamt= ?"
@@ -213,7 +212,7 @@ public class MembersDao {
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
 				member.setMemberId(memberId);
-				member.setPrefix(rs.getString("mr_mrs_mis"));
+				member.setPrefix(rs.getString("prefix"));
 				member.setMemName(rs.getString("membnme"));
 				member.setfHRelation(rs.getString("f_h_rel"));
 				member.setfHRelName(rs.getString("f_h_name"));
@@ -300,7 +299,7 @@ public class MembersDao {
 		while (rs.next()) {
 			Members member = new Members();
 			member.setMemberId(rs.getInt("member_id"));
-			member.setPrefix(rs.getString("mr_mrs_mis"));
+			member.setPrefix(rs.getString("prefix"));
 			member.setMemName(rs.getString("membnme"));
 			member.setfHRelation(rs.getString("f_h_rel"));
 			member.setfHRelName(rs.getString("f_h_name"));
@@ -397,7 +396,7 @@ public class MembersDao {
 		while (rs.next()) {
 			Members member = new Members();
 			member.setMemberId(rs.getInt("member_id"));
-			member.setPrefix(rs.getString("mr_mrs_mis"));
+			member.setPrefix(rs.getString("prefix"));
 			member.setMemName(rs.getString("membname"));
 			member.setfHRelation(rs.getString("f_h_rel"));
 			member.setfHRelName(rs.getString("f_h_name"));
