@@ -79,7 +79,7 @@
 										<td><c:out value="${acc.clBal}" /></td>
 										<td><c:out value="${acc.ifsc}" /></td>
 										<td><c:out value="${acc.branch}" /></td>
-										<td><a href="#"> <i class="fa fa-edit"></i>View
+										<td><a href="${pageContext.request.contextPath}/admin/pages/AccountFormController?operation=show&showId=${acc.accountId}"> <i class="fa fa-edit"></i>View
 										</a></td>
 
 									</tr>
