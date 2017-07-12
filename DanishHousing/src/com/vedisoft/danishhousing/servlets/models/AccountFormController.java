@@ -47,6 +47,12 @@ public class AccountFormController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
+		
+		int id =0;
+		if(request.getParameter("showId") != null && request.getParameter("showId").trim().length() > 0) {
+			 id = Integer.parseInt(request.getParameter("showId"));
+		}
+		
 		String bankName = new String();
 		if(request.getParameter("bankName")!= null && request.getParameter("bankName").trim().length() > 0) {
 			bankName = request.getParameter("bankName");
@@ -81,6 +87,9 @@ public class AccountFormController extends HttpServlet {
 		if (request.getParameter("datepicker") != null && request.getParameter("datepicker").trim().length() > 0) {
 			d = DateUtils.convertDate(request.getParameter("datepicker"));
 			//System.out.println(request.getParameter("datepicker"));
+			
+		//	Date startDate=new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("startDate")); //get the parameter convert it to a data type Date.
+
 		}
 		
 		String operation = new String();
@@ -89,11 +98,22 @@ public class AccountFormController extends HttpServlet {
 		}
 		
 		double receipt = 0;
+		if (request.getParameter("receipt") != null && request.getParameter("receipt").trim().length() > 0) {
+			receipt = Integer.parseInt(request.getParameter("receipt"));
+		}
+		
 		double payment = 0;
+		if (request.getParameter("payment") != null && request.getParameter("payment").trim().length() > 0) {
+			 payment = Integer.parseInt(request.getParameter("payment"));
+		}
+		
 		double clbal = 0;
+		if (request.getParameter("closingBalance") != null && request.getParameter("closingBalance").trim().length() > 0) {
+			clbal = Integer.parseInt(request.getParameter("closingBalance"));
+		}
 		
 		String page = "/pages/admin/AccountsForm.jsp";
-
+		String page1= "/pages/admin/AccountsViewForm.jsp";
 		if (operation.equals("create")) {
 			AccountDao dao = new AccountDao();
 			Account a = new Account(coCode, bankCode, bankName, d, openingBalance, receipt, payment, clbal, ifscCode, branch);
@@ -105,7 +125,27 @@ public class AccountFormController extends HttpServlet {
 			else
 				response.sendRedirect("/DanishHousing" + page + "?msg=2");
 			
-		} else {
+		} 
+		else if(operation.equals("show")){
+			AccountDao dao = new AccountDao();
+			Account a = new Account();
+			a = dao.find(id);
+			request.setAttribute("account",a);
+			RequestDispatcher rd = request.getRequestDispatcher(page1);
+			rd.forward(request, response);
+		}
+		else if(operation.equals("edit")){
+			AccountDao dao = new AccountDao();
+			Account a = new Account(id,coCode, bankCode, bankName, d, openingBalance, receipt, payment, clbal, ifscCode, branch);
+			System.out.println(a);
+			Boolean b = dao.edit(a);
+			if(b)
+				response.sendRedirect("/DanishHousing" + page1 + "?msg=1");
+			else
+				response.sendRedirect("/DanishHousing" + page1 + "?msg=2");
+				
+		}
+		else {
 			RequestDispatcher rd = request.getRequestDispatcher(page);
 			rd.forward(request, response);
 		}

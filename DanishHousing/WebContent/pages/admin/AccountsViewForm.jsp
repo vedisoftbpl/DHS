@@ -50,6 +50,11 @@
 						<div class="box-body">
 							<div class="row">
 								<div class="col-md-6">
+								
+								
+									
+										<input type="hidden" class="form-control" id="showId"
+										name="showId" value="${requestScope.account.accountId}" />
 
 									<!--  form-group -->
 									<!-- Bank Name -->
@@ -58,7 +63,7 @@
 										<div class="input-group">
 											<span class="input-group-addon"><i class="fa fa-bank "></i></span>
 											<input type="text" class="form-control"
-												placeholder="Name of Bank" id="bankName" name="bankName" />
+												placeholder="Name of Bank" id="bankName" name="bankName" value="${requestScope.account.bkName}"/>
 										</div>
 										<p id="errorBankName"></p>
 									</div>
@@ -74,7 +79,7 @@
 											<span class="input-group-addon"><i
 												class="fa  fa-info-circle "></i></span> <input type="text"
 												class="form-control" placeholder="Bank Code" id="bankCode"
-												name="bankCode" />
+												name="bankCode"  value="${requestScope.account.bkCode}"/>
 										</div>
 										<p id="errorBankCode"></p>
 									</div>
@@ -91,7 +96,7 @@
 											<span class="input-group-addon"><i
 												class="fa  fa-info-circle "></i></span> <input type="text"
 												class="form-control" placeholder="IFSC Code of bank"
-												id="ifscCode" name="ifscCode" />
+												id="ifscCode" name="ifscCode" value="${requestScope.account.ifsc}" />
 										</div>
 										<p id="errorIfscCode"></p>
 
@@ -110,7 +115,7 @@
 												<i class="fa   fa-building-o"></i></span>
 											<input type="text" class="form-control"
 												placeholder="Name of Branch(e.g. Indrapuri)" id="branch"
-												name="branch" />
+												name="branch" value="${requestScope.account.branch}" />
 										</div>
 										<p id="errorBranch"></p>
 									</div>
@@ -126,7 +131,7 @@
 												<i class="fa   fa-info-circle"></i></span>
 											<input type="text" class="form-control"
 												placeholder="Code(e.g. 12)" id="coCode"
-												name="coCode" />
+												name="coCode" value="${requestScope.account.coCode}" />
 										</div>
 										<p id="errorCoCode"></p>
 									</div>
@@ -137,7 +142,7 @@
 
 									<!-- form group -->
 									<input type="hidden" class="form-control"
-												 id="operation" name="operation" value = "create"/>
+												 id="operation" name="operation" value = "edit"/>
 									<!-- /.form group -->
 
 									<!-- form group -->
@@ -159,7 +164,7 @@
 											<span class="input-group-addon">
 												<i class="fa  fa-inr"></i></span>
 											<input type="text" class="form-control"
-												 id="openingBalance" name="openingBalance" />
+												 id="openingBalance" name="openingBalance" value="${requestScope.account.opBal}" />
 										</div>
 										<p id="errorOpeningBalance"></p>
 									</div>
@@ -178,7 +183,8 @@
 												<i class="fa fa-calendar"></i>
 											</div>
 											<input type="text" class="form-control pull-right"
-												id="datepicker" name="datepicker" required="true" />
+												id="datepicker" name="datepicker" required="true" value="${requestScope.account.opDate}" />		
+													
 										</div>
 										<p id="errorOpeningDate"></p>
 										<!-- /.input group -->
@@ -188,15 +194,7 @@
 									<!-- /.form group -->
 									
 									
-									
-									
-									
-									
-									
-									
-									
-									
-									
+								
 									
 									
 									
@@ -210,7 +208,7 @@
 											<span class="input-group-addon">
 												<i class="fa  fa-inr"></i></span>
 											<input type="text" class="form-control"
-												 id="closingBalance" name="closingBalance" />
+												 id="closingBalance" name="closingBalance"  value="${requestScope.account.clBal}" />
 										</div>
 										<p id="errorCBalance"></p>
 									</div>
@@ -227,7 +225,7 @@
 											<span class="input-group-addon">
 												<i class="fa  fa-bars"></i></span>
 											<input type="text" class="form-control"
-												 id="receipt" name="receipt" />
+												 id="receipt" name="receipt" value="${requestScope.account.receipt}" />
 										</div>
 										<p id="errorReceipt"></p>
 									</div>
@@ -243,7 +241,7 @@
 											<span class="input-group-addon">
 												<i class="fa  fa-inr"></i></span>
 											<input type="text" class="form-control"
-												 id="payment" name="payment" />
+												 id="payment" name="payment" value="${requestScope.account.payment}" />
 										</div>
 										<p id="errorPayment"></p>
 									</div>
@@ -251,13 +249,6 @@
 									<!-- /.form group -->
 									
 									
-									
-									
-									
-									
-									
-									
-
 									<!--  form group -->
 
 									<!-- /. form group -->
