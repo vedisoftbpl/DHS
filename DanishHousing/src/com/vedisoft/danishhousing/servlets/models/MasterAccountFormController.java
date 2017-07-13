@@ -1,6 +1,8 @@
 package com.vedisoft.danishhousing.servlets.models;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
@@ -10,9 +12,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.vedisoft.danishhousing.config.DateUtils;
 import com.vedisoft.danishhousing.daos.AccountMasterDao;
 import com.vedisoft.danishhousing.daos.ProjectsDao;
 import com.vedisoft.danishhousing.pojos.AccountMaster;
+import com.vedisoft.danishhousing.pojos.AccountMasterFlagsEnum;
 import com.vedisoft.danishhousing.pojos.Projects;
 
 
@@ -42,6 +46,11 @@ public class MasterAccountFormController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		int id =0;
+		if(request.getParameter("showId") != null && request.getParameter("showId").trim().length() > 0) {
+			 id = Integer.parseInt(request.getParameter("showId"));
+		}
 		
 		String accountCode = new String();
 		if(request.getParameter("accountCode") != null && request.getParameter("accountCode").trim().length() > 0)
@@ -81,37 +90,95 @@ public class MasterAccountFormController extends HttpServlet {
 			address = request.getParameter("address");
 		}
 		
+		Date opdte = new Date();
+		if (request.getParameter("datepicker") != null && request.getParameter("datepicker").trim().length() > 0) {
+			opdte = DateUtils.convertDate(request.getParameter("datepicker"));
+		}
+		
+		double opBal = 0;
+		if (request.getParameter("openingBalance") != null && request.getParameter("openingBalance").trim().length() > 0) {
+			opBal = Double.parseDouble(request.getParameter("openingBalance"));
+		}
+		
+
+		double mBal = 0;
+		if (request.getParameter("minimumBalance") != null && request.getParameter("minimumBalance").trim().length() > 0) {
+			mBal = Double.parseDouble(request.getParameter("minimumBalance"));
+		}
+		
+		
+		String pexp = new String();
+		if(request.getParameter("pexp")!= null && request.getParameter("pexp").trim().length() > 0) {
+			pexp = request.getParameter("pexp");
+		}
+		
+		
 		String operation = new String();
 		if(request.getParameter("operation")!= null && request.getParameter("operation").trim().length() > 0) {
 			operation = request.getParameter("operation");
 		}
 		
 		String page = "/pages/admin/AccountMasterForm.jsp";
+		String page1 = "/pages/admin/AccountMasterViewForm.jsp";
 		
-		String pexp = new String();
-		Date opdte = new Date();
-		double opBal = 0;
-		double mbal = 0;
 		
+		
+		
+		
+		//ArrayList<AccountMasterFlagsEnum> enumList = new ArrayList<AccountMasterFlagsEnum>(Arrays.asList(AccountMasterFlagsEnum.values()) );
+		ProjectsDao pdao = new ProjectsDao();
+		request.setAttribute("projectList", pdao.findAll());
+		request.setAttribute("enumList", AccountMasterFlagsEnum.values());
 		
 		if(operation.equals("create")){
 			AccountMasterDao dao = new AccountMasterDao();
-			AccountMaster a = new AccountMaster(anxCd, accountCode, acName, address, acClass, opdte, opBal, mbal, pexp, ixpge, flag, projectCode);
+			AccountMaster a = new AccountMaster(anxCd, accountCode, acName, address, acClass, ixpge, flag, projectCode);
 			System.out.println(a);
 			int k = 0;
 			k = dao.create(a);
-			if(k > 0)
-				response.sendRedirect("/DanishHousing" + page + "?msg=1");
-			else
-				response.sendRedirect("/DanishHousing" + page + "?msg=2");
+			if(k > 0){
+				RequestDispatcher rd = request.getRequestDispatcher(page);
+				request.setAttribute("msg", 1);
+				rd.forward(request, response);
+			}else{
+				//response.sendRedirect("/DanishHousing" + page + "?msg=2");
+				RequestDispatcher rd = request.getRequestDispatcher(page);
+				request.setAttribute("msg", 2);
+				rd.forward(request, response);
+			}
 			
+		}else if(operation.equals("show")){
+			AccountMasterDao dao = new AccountMasterDao();
+			AccountMaster a = new AccountMaster();
+			a = dao.find(id);
+			System.out.println(a);
+			//System.out.println("Heloooooo");
+			request.setAttribute("accountmaster",a);
+			RequestDispatcher rd = request.getRequestDispatcher(page1);
+			rd.forward(request, response);
+			
+		}else if(operation.equals("edit")){
+			AccountMasterDao dao = new AccountMasterDao();
+			AccountMaster a = new AccountMaster(id,anxCd, accountCode, acName, address, acClass, opdte, opBal, mBal, pexp, ixpge, flag, projectCode);
+			System.out.println(a);
+			//System.out.println("Editform");
+			boolean status =false;
+			status = dao.edit(a);
+			if(status==true){
+				RequestDispatcher rd = request.getRequestDispatcher(page1);
+				request.setAttribute("msg", 1);
+				rd.forward(request, response);
+			}else{
+				RequestDispatcher rd = request.getRequestDispatcher(page1);
+				request.setAttribute("msg", 2);
+				rd.forward(request, response);
+			}
 		}
 		else {
 			System.out.println("Pass directly");
 			RequestDispatcher rd = request.getRequestDispatcher(page);
 			rd.forward(request, response);
 		}
-		
 		
 	}
 
