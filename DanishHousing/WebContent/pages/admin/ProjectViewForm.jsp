@@ -1,4 +1,4 @@
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+ <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="../design/Top.jsp"%>
 <!-- select style -->
 <link rel="stylesheet" href="../../plugins/select2/select2.css">
@@ -86,10 +86,11 @@
 											<div class="input-group-addon">
 												<i class="fa  fa-info-circle"></i>
 											</div>
-											<select class="form-control select2" id="ProjectType"
-												name="ProjectType" style="width: 100%;" value="${requestScope.project.bungProject}" >
-											<option value="B">Bungalow</option>
-												<option value="P">Plot</option>
+											<select class="form-control select2" id="ProjectType" name="ProjectType"
+												style="width: 100%;">
+												<c:forEach items="${requestScope.enumList}" var="val">
+													<option value="${val.getValue()}" ${requestScope.project.bungProject eq val.getValue() ? 'selected' : ''}>${val}</option>
+												</c:forEach>
 											</select>
 										</div>
 									</div>
