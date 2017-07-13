@@ -23,7 +23,7 @@ public class ProjectsDao {
 			PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 	
 			ps.setString(1, projects.getProjectName());
-			ps.setString(2, String.valueOf(projects.getBungProject()));
+			ps.setString(2, projects.getBungProject());
 			int x = ps.executeUpdate();
 			if (x == 0) {
 				return 0;
@@ -52,7 +52,7 @@ public class ProjectsDao {
 			PreparedStatement ps = conn.prepareStatement(sql);
 
 			ps.setString(1, projects.getProjectName());
-			ps.setString(2, String.valueOf(projects.getBungProject()));
+			ps.setString(2, projects.getBungProject());
 			ps.setInt(3, projects.getProjectId());
 
 			int x = ps.executeUpdate();
@@ -103,7 +103,7 @@ public class ProjectsDao {
 			if (rs.next()) {
 				projects.setProjectId(projectId);
 				projects.setProjectName(rs.getString("project_name"));
-				projects.setBungProject(rs.getString("bung_plot").charAt(0));
+				projects.setBungProject(rs.getString("bung_plot"));
 				
 			}
 		} catch (SQLException sq) {
@@ -114,7 +114,7 @@ public class ProjectsDao {
 		return projects;
 	}
 
-	public ArrayList<Projects> findAll() {
+	public  ArrayList<Projects> findAll() {
 		ConnectionPool pool = ConnectionPool.getInstance();
 		pool.initialize();
 		Connection conn = pool.getConnection();
@@ -127,7 +127,7 @@ public class ProjectsDao {
 				Projects projects = new Projects();
 				projects.setProjectId(rs.getInt("project_id"));
 				projects.setProjectName(rs.getString("project_name"));
-				projects.setBungProject(rs.getString("bung_plot").charAt(0));
+				projects.setBungProject(rs.getString("bung_plot"));
 				listProjects.add(projects);
 			}
 		} catch (SQLException sq) {
@@ -153,7 +153,7 @@ public class ProjectsDao {
 				Projects projects = new Projects();
 				projects.setProjectId(rs.getInt("project_id"));
 				projects.setProjectName(rs.getString("project_name"));
-				projects.setBungProject(rs.getString("bung_plot").charAt(0));
+				projects.setBungProject(rs.getString("bung_plot"));
 				listProjects.add(projects);
 			}
 		} catch (SQLException sq) {

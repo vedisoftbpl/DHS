@@ -4,16 +4,16 @@ public class Projects {
 	
 	private int projectId;
 	private String projectName;
-	private char bungProject;
+	private String bungProject;
 	public Projects() {
 		super();
 	}
-	public Projects(String projectName, char bungProject) {
+	public Projects(String projectName, String bungProject) {
 		super();
 		this.projectName = projectName;
 		this.bungProject = bungProject;
 	}
-	public Projects(int projectId, String projectName, char bungProject) {
+	public Projects(int projectId, String projectName, String bungProject) {
 		super();
 		this.projectId = projectId;
 		this.projectName = projectName;
@@ -31,10 +31,10 @@ public class Projects {
 	public void setProjectName(String projectName) {
 		this.projectName = projectName;
 	}
-	public char getBungProject() {
+	public String getBungProject() {
 		return bungProject;
 	}
-	public void setBungProject(char bungProject) {
+	public void setBungProject(String bungProject) {
 		this.bungProject = bungProject;
 	}
 	@Override
