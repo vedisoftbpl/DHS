@@ -79,10 +79,12 @@
 											<div class="input-group-addon">
 												<i class="fa  fa-info-circle"></i>
 											</div>
-											<select class="form-control select2" id="ProjectType"
-												name="ProjectType" style="width: 100%;" >
-												<option value="B">Bungalow</option>
-												<option value="P">Plot</option>
+									
+											<select class="form-control select2" id="ProjectType" name="ProjectType"
+												style="width: 100%;">
+												<c:forEach items="${requestScope.enumList}" var="val">
+													<option value="${val.getValue()}">${val}</option>
+												</c:forEach>
 											</select>
 										</div>
 									</div>
