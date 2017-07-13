@@ -62,6 +62,11 @@
 											<div class="tab-pane active" id="tab_1">
 												<div class="row">
 													<div class="col-md-6">
+													
+							
+										<input type="hidden" class="form-control" id="showId"
+										name="showId" value="${requestScope.member.memberId}" />
+		
 
 														<!--  form-group -->
 														<!-- Full Name -->
@@ -71,13 +76,13 @@
 																<span class="input-group-addon"><i
 																	class="fa fa-user"></i></span> <span class="col-xs-2"><select
 																	class="form-control select2" id="prefix" name="prefix"
-																	style="width: 80px;" required="required">
-																		<option>Mr.</option>
-																		<option>Mrs.</option>
-																		<option>Miss</option>
+																	style="width: 80px;" required="required" >
+																		<option ${requestScope.member.prefix eq 'Mr.' ? 'selected' : ''}>Mr.</option>
+																		<option ${requestScope.member.prefix eq 'Mrs.' ? 'selected' : ''}>Mrs.</option>
+																		<option ${requestScope.member.prefix eq 'Miss' ? 'selected' : ''}>Miss</option>
 																</select> </span> <span class="col-md-10"> <input type="text"
 																	class="form-control" placeholder="Full Name"
-																	id="memberFullName" name="memberFullName" />
+																	id="memberFullName" name="memberFullName"  value="${requestScope.member.memName}"/>
 																</span>
 															</div>
 															<p id="errorFullName"></p>
@@ -94,13 +99,13 @@
 																	class="fa fa-user"></i></span> <span class="col-xs-2"><select
 																	class="form-control select2" id="relation"
 																	name="relation" style="width: 80px;"
-																	required="required">
-																		<option>S/O</option>
-																		<option>D/O</option>
-																		<option>W/O</option>
+																	required="required" >
+																		<option ${requestScope.member.fHRelation eq 'S/O' ? 'selected' : ''}>S/O</option>
+																		<option ${requestScope.member.fHRelation eq 'D/O' ? 'selected' : ''}>D/O</option>
+																		<option ${requestScope.member.fHRelation eq 'W/O' ? 'selected' : ''}>W/O</option>
 																</select> </span> <span class="col-md-10"> <input type="text"
 																	class="form-control" placeholder="Full Name"
-																	id="relativeFullName" name="relativeFullName" />
+																	id="relativeFullName" name="relativeFullName" value="${requestScope.member.fHRelName}"/>
 																</span>
 															</div>
 															<p id="errorRelativeName"></p>
@@ -118,7 +123,7 @@
 																	<i class="fa fa-calendar"></i>
 																</div>
 																<input type="text" class="form-control pull-right"
-																	id="dob" name="dob" required="required" />
+																	id="dob" name="dob" required="required" value="${requestScope.member.dob}" />
 															</div>
 															<p id="errorDob"></p>
 															<!-- /.input group -->
@@ -129,7 +134,7 @@
 
 														<!--  form group -->
 														<!-- Category -->
-														<div class="form-group" id="divMemberFormCategory">
+								<!-- 						<div class="form-group" id="divMemberFormCategory">
 															<label>Category</label>
 															<div class="input-group">
 																<div class="input-group-addon">
@@ -137,7 +142,7 @@
 																</div>
 																<select class="form-control select2" id="category"
 																	name="category" style="width: 100%;"
-																	required="required">
+																	required="required" value="${requestScope.member.category}">
 																	<option>General</option>
 																	<option>Scheduled Caste(SC)</option>
 																	<option>Scheduled Tribe(ST)</option>
@@ -145,7 +150,7 @@
 																	<option>Others</option>
 																</select>
 															</div>
-														</div>
+													</div>										-->
 														<!-- End Category -->
 														<!-- /. form group -->
 
@@ -157,7 +162,7 @@
 																<span class="input-group-addon"><i
 																	class="fa fa-envelope"></i></span> <input type="email"
 																	class="form-control" placeholder="example@email.com"
-																	id="memberEmail" name="memberEmail" />
+																	id="memberEmail" name="memberEmail" value="${requestScope.member.email}"/>
 															</div>
 															<p id="errorEmail"></p>
 														</div>
@@ -172,7 +177,7 @@
 																<span class="input-group-addon"><i
 																	class="fa fa-black-tie"></i></span> <input type="text"
 																	class="form-control" placeholder="Occupation"
-																	id="memberOccupation" name="memberOccupation">
+																	id="memberOccupation" name="memberOccupation" value="${requestScope.member.memOccupation}">
 															</div>
 															<p id="errorOccupation"></p>
 														</div>
@@ -192,7 +197,7 @@
 																<input type="text" class="form-control"
 																	data-inputmask='"mask": "(+91) 99999-99999"' data-mask
 																	id="memberPhone" name="memberPhone"
-																	placeholder="(+91) 99999-99999" />
+																	placeholder="(+91) 99999-99999" value="${requestScope.member.mobile}" />
 															</div>
 															<p id="errorPhone"></p>
 															<!-- /.input group -->
@@ -211,7 +216,7 @@
 																</div>
 																<input type="text" class="form-control"
 																	id="memberAdhaar" name="memberAdhaar"
-																	placeholder="12 digit adhaar number" />
+																	placeholder="12 digit adhaar number" value="${requestScope.member.aadhar}"/>
 															</div>
 															<p id="errorAdhaar"></p>
 															<!-- /.input group -->
@@ -259,7 +264,7 @@
 																<span class="input-group-addon"><i
 																	class="fa fa-home"></i></span> <input type="text"
 																	class="form-control" placeholder="Address Line 1"
-																	id="memberAddress1" name="memberAddress1" />
+																	id="memberAddress1" name="memberAddress1" value="${requestScope.member.address1}"/>
 															</div>
 															<p id="errorAddress1"></p>
 														</div>
@@ -274,7 +279,7 @@
 																<span class="input-group-addon"><i
 																	class="fa fa-home"></i></span> <input type="text"
 																	class="form-control" placeholder="Address Line 2"
-																	id="memberAddress2" name="memberAddress2" />
+																	id="memberAddress2" name="memberAddress2" value="${requestScope.member.address2}"/>
 															</div>
 															<p id="errorAddress2"></p>
 														</div>
@@ -289,7 +294,7 @@
 																<span class="input-group-addon"><i
 																	class="fa fa-map-marker"></i></span> <input type="text"
 																	class="form-control" placeholder="City" id="memberCity"
-																	name="memberCity" />
+																	name="memberCity" value="${requestScope.member.address3}"/>
 															</div>
 															<p id="errorCity"></p>
 														</div>
@@ -306,12 +311,12 @@
 																</div>
 																<select class="form-control select2" id="addressProof"
 																	name="addressProof" style="width: 100%;"
-																	required="required">
-																	<option>Voter Id</option>
-																	<option>Driving License</option>
-																	<option>Passport</option>
-																	<option>PAN Card</option>
-																	<option>Ration Card</option>
+																	required="required" >
+																	<option ${requestScope.member.addProof eq 'Voter Id' ? 'selected' : ''}>Voter Id</option>
+																	<option ${requestScope.member.addProof eq 'Driving License' ? 'selected' : ''}>Driving License</option>
+																	<option ${requestScope.member.addProof eq 'Passport' ? 'selected' : ''}>Passport</option>
+																	<option ${requestScope.member.addProof eq 'PAN Card' ? 'selected' : ''}>PAN Card</option>
+																	<option ${requestScope.member.addProof eq 'Ration Card' ? 'selected' : ''}>Ration Card</option>
 																</select>
 															</div>
 														</div>
@@ -326,7 +331,7 @@
 																<span class="input-group-addon"><i
 																	class="fa fa-user"></i></span> <input type="text"
 																	class="form-control" placeholder="Full Name"
-																	id="memberNomineeName" name="memberNomineeName" />
+																	id="memberNomineeName" name="memberNomineeName" value="${requestScope.member.nomineeName}"/>
 															</div>
 															<p id="errorNomineeName"></p>
 														</div>
@@ -341,7 +346,7 @@
 																<span class="input-group-addon"><i
 																	class="fa fa-exchange"></i></span> <input type="text"
 																	class="form-control" placeholder="Relationship"
-																	id="memberNomineeRelation" name="memberNomineeRelation" />
+																	id="memberNomineeRelation" name="memberNomineeRelation" value="${requestScope.member.nomineeRelation}"/>
 															</div>
 															<p id="errorNomineeRelation"></p>
 														</div>
@@ -356,7 +361,7 @@
 																<span class="input-group-addon"> <i
 																	class="fa  fa-inr"></i></span> <input type="text"
 																	class="form-control" id="membershipFee"
-																	name="membershipFee" />
+																	name="membershipFee" value="${requestScope.member.memFee}"/>
 															</div>
 															<p id="errorMembershipFee"></p>
 														</div>
@@ -371,16 +376,14 @@
 																<span class="input-group-addon"> <i
 																	class="fa  fa-inr"></i></span> <input type="text"
 																	class="form-control" id="entranceFee"
-																	name="entranceFee" />
+																	name="entranceFee" value="${requestScope.member.memEntryFee}"/>
 															</div>
 															<p id="errorEntranceFee"></p>
 														</div>
 														<!-- End Entrance Fee -->
 														<!-- /.form group -->
 
-														<input type="hidden" class="form-control" id="operation"
-															name="operation" value="create" />
-
+													
 
 														<!-- form group -->
 
@@ -418,8 +421,8 @@
 																	<i class="fa  fa-bars"></i>
 																</div>
 																<select class="form-control select2" id="projectCode"
-																	name="projectCode" style="width: 100%;">
-																	<option selected="selected">0</option>
+																	name="projectCode" style="width: 100%;" value="${requestScope.member.projectCd}">
+																	<option >0</option>
 																	<option>1</option>
 																	<option>2</option>
 																	<option>3</option>
@@ -437,7 +440,7 @@
 															<div class="input-group">
 																<span class="input-group-addon"><i
 																	class="fa fa-info-circle "></i></span> <input type="text"
-																	class="form-control" id="plotSize" name="plotSize" />
+																	class="form-control" id="plotSize" name="plotSize" value="${requestScope.member.plotSize}"/>
 															</div>
 															<p id="errorPlotSize"></p>
 														</div>
@@ -454,7 +457,7 @@
 																<span class="input-group-addon"><i
 																	class="fa fa-info-circle "></i></span> <input type="text"
 																	class="form-control" id="netPlotSize"
-																	name="netPlotSize" />
+																	name="netPlotSize" value="${requestScope.member.netPlotSize}"/>
 															</div>
 															<p id="errorNetPlotSize"></p>
 														</div>
@@ -469,7 +472,7 @@
 															<div class="input-group">
 																<span class="input-group-addon"><i
 																	class="fa fa-info-circle "></i></span> <input type="text"
-																	class="form-control" id="plotNo" name="plotNo" />
+																	class="form-control" id="plotNo" name="plotNo" value="${requestScope.member.plotNo}"/>
 															</div>
 															<p id="errorPlotNo"></p>
 														</div>
@@ -488,7 +491,7 @@
 																	<i class="fa fa-calendar"></i>
 																</div>
 																<input type="text" class="form-control pull-right"
-																	id="datepicker1" name="datepicker1"  />
+																	id="datepicker1" name="datepicker1"  value="${requestScope.member.receiptdt}"/>
 															</div>
 															<p id="errorReceiptDate"></p>
 													<!-- /.input group -->
@@ -512,9 +515,9 @@
 																</div>
 																<select class="form-control select2"
 																	id=" residentialCommercial"
-																	name="residentialCommercial" style="width: 100%;">
-																	<option selected="selected">Residential</option>
-																	<option>Commercial</option>
+																	name="residentialCommercial" style="width: 100%;" >
+																	<option ${requestScope.member.rC eq 'R'.charAt(0) ? 'selected' : ''}>Residential</option>
+																	<option ${requestScope.member.rC eq 'C'.charAt(0) ? 'selected' : ''}>Commercial</option>
 
 																</select>
 															</div>
@@ -532,10 +535,10 @@
 																	<i class="fa  fa-bars"></i>
 																</div>
 																<select class="form-control select2"
-																	id=" residentialCommercial"
-																	name="residentialCommercial" style="width: 100%;">
-																	<option selected="selected">Live</option>
-																	<option>Dead</option>
+																	id="memberStatus" value="${requestScope.member.liveDead}"
+																	name="memberStatus" style="width: 100%;">
+																	<option ${requestScope.member.liveDead eq 'L'.charAt(0) ? 'selected' : ''}>Live</option>
+																	<option ${requestScope.member.liveDead eq 'D'.charAt(0) ? 'selected' : ''}>Dead</option>
 
 																</select>
 															</div>
@@ -553,7 +556,7 @@
 															<div class="input-group">
 																<span class="input-group-addon"> <i
 																	class="fa  fa-inr"></i></span> <input type="text"
-																	class="form-control" id="diversion" name="diversion">
+																	class="form-control" id="diversion" name="diversion" value="${requestScope.member.diversion}">
 															</div>
 															<p id="errorDiversion"></p>
 														</div>
@@ -568,7 +571,7 @@
 																<span class="input-group-addon"> <i
 																	class="fa  fa-inr"></i></span> <input type="text"
 																	class="form-control" id="extraAmount"
-																	name="extraAmount">
+																	name="extraAmount" value="${requestScope.member.extraAmount}">
 															</div>
 															<p id="errorExtraAmount"></p>
 														</div>
@@ -584,7 +587,7 @@
 															<div class="input-group">
 																<span class="input-group-addon"> <i
 																	class="fa  fa-inr"></i></span> <input type="text"
-																	class="form-control" id="cost" name="cost">
+																	class="form-control" id="cost" name="cost" value="${requestScope.member.cost}">
 															</div>
 															<p id="errorCost"></p>
 														</div>

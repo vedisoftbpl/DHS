@@ -55,6 +55,13 @@ public class MemberFormController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		
+		int id =0;
+		if(request.getParameter("showId") != null && request.getParameter("showId").trim().length() > 0) {
+		 id = Integer.parseInt(request.getParameter("showId"));
+			}
+		
+		
 		String prefix = new String();
 		if(request.getParameter("prefix")!= null && request.getParameter("prefix").trim().length() > 0) {
 			prefix = request.getParameter("prefix");
@@ -156,7 +163,70 @@ public class MemberFormController extends HttpServlet {
 			operation = request.getParameter("operation");
 		}
 		
+		int projectCd = 0;
+		if(request.getParameter("projectCode")!= null && request.getParameter("projectCode").trim().length() > 0) {
+			projectCd = Integer.parseInt(request.getParameter("projectCode"));
+		}
+		
+		
+		String plotSize = new String();
+		if(request.getParameter("plotSize")!= null && request.getParameter("plotSize").trim().length() > 0) {
+			plotSize  = request.getParameter("plotSize");
+		}
+		
+		float netPlotSize=0;
+		if(request.getParameter("netPlotSize")!= null && request.getParameter("netPlotSize").trim().length() > 0) {
+			netPlotSize = Integer.parseInt(request.getParameter("netPlotSize"));
+		}
+		
+		
+		String plotNo = new String();
+		if(request.getParameter("plotNo")!= null && request.getParameter("plotNo").trim().length() > 0) {
+			plotNo  = request.getParameter("plotNo");
+		}
+		
+		Date receiptdt = new Date();
+		if (request.getParameter("datepicker1") != null && request.getParameter("datepicker1").trim().length() > 0) {
+			receiptdt = DateUtils.convertDate(request.getParameter("datepicker1"));
+			
+		}
+		
+		char rC='\u0000';
+		if(request.getParameter("residentialCommercial")!= null && request.getParameter("residentialCommercial").trim().length() > 0) {
+			rC  = request.getParameter("residentialCommercial").charAt(0);
+		}
+		
+		
+		char liveDead='\u0000';
+		if(request.getParameter("memberStatus")!= null && request.getParameter("memberStatus").trim().length() > 0) {
+			liveDead  = request.getParameter("memberStatus").charAt(0);
+		}
+		
+		double diversion=0;
+		if (request.getParameter("diversion") != null && request.getParameter("diversion").trim().length() > 0) {
+			diversion = Double.parseDouble(request.getParameter("diversion"));
+		}
+		
+		double extraAmount=0;
+		if (request.getParameter("extraAmount") != null && request.getParameter("extraAmount").trim().length() > 0) {
+			extraAmount = Double.parseDouble(request.getParameter("extraAmount"));
+		}
+		
+		
+		double cost=0;
+		if (request.getParameter("cost") != null && request.getParameter("cost").trim().length() > 0) {
+			cost = Double.parseDouble(request.getParameter("cost"));
+		}
+		
+		
+		
+		
+		
+		
+		
+		
 		String page = "/pages/admin/MembershipForm.jsp";
+		String page1= "/pages/admin/MemberViewForm.jsp";
 		
 		HttpSession session = request.getSession();
 		Users user = null;
@@ -216,6 +286,80 @@ public class MemberFormController extends HttpServlet {
 					membershipFee, entranceFee, new Date(), 'L', memberPhone, memberEmail, dob,
 					memberPhoto, addressProof, memberAdhaar, new Date(), user.getUserId());
 			System.out.println(m);
+			int a = 0;
+			a = dao.create(m);
+			if(a > 0)
+				response.sendRedirect("/DanishHousing" + page + "?msg=1");
+			else
+				response.sendRedirect("/DanishHousing" + page + "?msg=2");
+		}
+		else if(operation.equals("show")){
+			MembersDao dao = new MembersDao();
+			Members m = new Members();
+			m = dao.find(id);
+			request.setAttribute("member",m);
+			RequestDispatcher rd = request.getRequestDispatcher(page1);
+			rd.forward(request, response);
+		}
+		else if(operation.equals("edit")){
+			
+			if(memberPhoto != null && memberPhoto.trim().length() > 0){
+				
+				
+				
+			String appPath = request.getServletContext().getRealPath("") + "pages\\";
+			String savePath = appPath +  SAVE_DIR;
+			System.out.println(appPath );
+			File fileSaveDir = new File(savePath);
+			String renamedFileName = new String();
+			if (!fileSaveDir.exists()) {
+				fileSaveDir.mkdir();
+			}
+			Collection<Part> allUploadedParts = request.getParts();
+			int i = 0;
+			for (Part part : allUploadedParts) {
+				// Part: class represents a part as uploaded to the server as part
+				// of a
+				// multipart/form-data request body. The part may represent either
+				// an
+				// uploaded file or form data.
+
+				// 2: Retain only file parts and not any form parts
+				// Get name of File
+
+				String fileName = part.getSubmittedFileName();
+
+				if (fileName == null)
+					continue;
+
+				// 3: Write the file to the disk
+				// convenience method to write an uploaded part to disk.
+
+				part.write(savePath + File.separator + fileName);
+				File f1 = new File(savePath + File.separator + fileName);
+				int index = fileName.lastIndexOf(".");
+				String primary = fileName.substring(0, index);
+				String secondary = fileName.substring(index);
+				renamedFileName =  primary + System.currentTimeMillis() + secondary;
+				String renamed = savePath + File.separator + renamedFileName;
+				File f2 = new File(renamed);
+				f1.renameTo(f2);
+				i++;
+			}
+			
+			
+			memberPhoto = renamedFileName;
+			System.out.println(memberPhoto);
+			
+			}
+			MembersDao dao = new MembersDao();
+			Members m = new Members(id,projectCd,plotSize,netPlotSize,plotNo,prefix, memberFullName, memberAddress1, memberAddress2, memberCity,
+					memberOccupation, relation, relativeFullName, memberNomineeRelation, memberNomineeName,
+					membershipFee, entranceFee, receiptdt,rC, liveDead,diversion, extraAmount,  cost ,memberPhone, memberEmail, dob,
+					memberPhoto, addressProof, memberAdhaar);
+			
+			
+					System.out.println(m);
 			int a = 0;
 			a = dao.create(m);
 			if(a > 0)
