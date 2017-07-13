@@ -4,9 +4,9 @@ public enum ProjectTypeEnum {
 	Bungalows("B"),
 	Plots_R("P-R"),
 	Plots_C("P-C"),
-	Shops("S"),
+	Shops("SH"),
 	Flats("F"),
-	School("S"),
+	School("SC"),
 	Hospital("H"),
 	CommunityHall("CH"),
 	Others("O");
