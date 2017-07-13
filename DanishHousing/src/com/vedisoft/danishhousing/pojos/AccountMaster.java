@@ -20,6 +20,20 @@ public class AccountMaster {
 	public AccountMaster() {
 		super();
 	}
+	
+	public AccountMaster(int anxCd, String acCode, String acName, String address, String acClass, String ixpge,
+			String flag, int projCd) {
+		super();
+		this.anxCd = anxCd;
+		this.acCode = acCode;
+		this.acName = acName;
+		this.address = address;
+		this.acClass = acClass;
+		this.ixpge = ixpge;
+		this.flag = flag;
+		this.projCd = projCd;
+	}
+
 	public AccountMaster(int anxCd, String acCode, String acName, String address, String acClass, Date opdte,
 			double opBal, double mBal, String pexp, String ixpge, String flag, int projCd) {
 		super();
