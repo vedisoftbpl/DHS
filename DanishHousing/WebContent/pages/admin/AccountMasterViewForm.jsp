@@ -65,7 +65,7 @@
 											<span class="input-group-addon"><i class="fa fa-bars"></i></span>
 											<input type="text" class="form-control"
 												placeholder="Account Code" id="accountCode"
-												name="accountCode" />
+												name="accountCode"  value="${requestScope.accountmaster.acCode}" />
 										</div>
 										<p id="errorAccountCode"></p>
 									</div>
@@ -79,7 +79,7 @@
 										<div class="input-group">
 											<span class="input-group-addon"><i class="fa fa-bars"></i></span>
 											<input type="text" class="form-control"
-												placeholder="ANX Code" id="anxCode" name="anxCode" />
+												placeholder="ANX Code" id="anxCode" name="anxCode" value="${requestScope.accountmaster.anxCd}"/>
 										</div>
 										<p id="errorAnxCode"></p>
 									</div>
@@ -94,7 +94,7 @@
 											<span class="input-group-addon"><i class="fa fa-user"></i></span>
 											<input type="text" class="form-control"
 												placeholder="account Name" id="accountName"
-												name="accountName" />
+												name="accountName" value="${requestScope.accountmaster.acName}"/>
 										</div>
 										<p id="errorAccountName"></p>
 									</div>
@@ -108,10 +108,10 @@
 											</div>
 											<select class="form-control select2" id="accountClass"
 												name="accountClass" style="width: 100%;">
-												<option selected="selected" value="A">Assets</option>
-												<option value="I">Income</option>
-												<option value="L">Liability</option>
-												<option value="E">Extended</option>
+												<option  value="A" ${requestScope.accountmaster.acClass eq 'A' ? 'selected' : ''}>Assets</option>
+												<option value="I" ${requestScope.accountmaster.acClass eq 'I' ? 'selected' : ''}>Income</option>
+												<option value="L" ${requestScope.accountmaster.acClass eq 'L' ? 'selected' : ''}>Liability</option>
+												<option value="E" ${requestScope.accountmaster.acClass eq 'E' ? 'selected' : ''}>Extended</option>
 											</select>
 										</div>
 									</div>
@@ -123,15 +123,14 @@
 												<i class="fa  fa-flag"></i>
 											</div>
 											<select class="form-control select2" id="flag" name="flag"
-												style="width: 100%;">
-												<option selected="selected" value="D">D</option>
-												<option value="P">P</option>
-												<option value="S">S</option>
-												<option value="O">O</option>
-												<option value="W">W</option>
-												<option value="M">M</option>
+												style="width: 100%;" >
+									
+												<c:forEach items="${requestScope.enumList}" var="val">
+													<option value="${val.getValue()}" ${requestScope.accountmaster.flag eq val.getValue() ? 'selected' : ''}>${val}</option>
+												</c:forEach>
 											</select>
 										</div>
+										<p id="errorFlag"></p>
 									</div>
 
 									<!-- /.form-group -->
@@ -140,17 +139,16 @@
 									<!--  form-group -->
 									<!-- Project Code -->
 									<div class="form-group" id="divProjectCode">
-										<label>Project Code</label>
+										<label>Project Name</label>
 										<div class="input-group">
 											<div class="input-group-addon">
 												<i class="fa  fa-bars"></i>
 											</div>
-											<select class="form-control select2" id="projectCode"
-												name="projectCode" style="width: 100%;">
-												<option selected="selected">0</option>
-												<option>1</option>
-												<option>2</option>
-												<option>3</option>
+											<select class="form-control select2" id="projectCode" name="projectCode"
+												style="width: 100%;" >
+												<c:forEach items="${requestScope.projectList}" var="project">
+													<option value="${project.getProjectId()}" ${requestScope.accountmaster.projCd eq project.getProjectId() ? 'selected' : ''}>${project.getProjectName()}</option>
+												</c:forEach>
 											</select>
 										</div>
 									</div>
@@ -180,7 +178,7 @@
 										<div class="input-group">
 											<span class="input-group-addon"><i class="fa fa-bars"></i></span>
 											<input type="text" class="form-control" placeholder="IXPGE"
-												id="ixpge" name="ixpge" />
+												id="ixpge" name="ixpge" value="${requestScope.accountmaster.ixpge}"/>
 										</div>
 										<p id="errorIxpge"></p>
 									</div>
@@ -205,7 +203,7 @@
 												<i class="fa fa-map-marker"></i>
 											</div>
 											<textarea class="form-control" rows="8"
-												placeholder="Enter your Address" id="address" name="address"></textarea>
+												placeholder="Enter your Address" id="address" name="address">${requestScope.accountmaster.address}</textarea>
 										</div>
 										<p id="errorAddress"></p>
 										 </div>
@@ -226,7 +224,7 @@
 													<i class="fa fa-calendar"></i>
 												</div>
 												<input type="text" class="form-control pull-right"
-													id="datepicker" name="datepicker"  />
+													id="datepicker" name="datepicker"  value="${requestScope.accountmaster.opdte}"/>
 											</div>
 											<p id="errorOpeningDate"></p>
 											<!-- /.input group -->
@@ -245,7 +243,7 @@
 												<span class="input-group-addon"> <i
 													class="fa  fa-inr"></i></span> <input type="text"
 													class="form-control" id="openingBalance"
-													name="openingBalance" />
+													name="openingBalance" value="${requestScope.accountmaster.opBal}"/>
 											</div>
 											<p id="errorOpeningBalance"></p>
 										</div>
@@ -262,7 +260,7 @@
 												<span class="input-group-addon"> <i
 													class="fa  fa-inr"></i></span> <input type="text"
 													class="form-control" id="minimumBalance"
-													name="minimumBalance" />
+													name="minimumBalance" value="${requestScope.accountmaster.mBal}"/>
 											</div>
 											<p id="errorMinimumBalance"></p>
 										</div>
@@ -277,7 +275,7 @@
 											<div class="input-group">
 												<span class="input-group-addon"> <i
 													class="fa  fa-bars"></i></span> <input type="text"
-													class="form-control" id="pexp" name="pexp" />
+													class="form-control" id="pexp" name="pexp" value="${requestScope.accountmaster.pexp}"/>
 											</div>
 											<p id="errorPexp"></p>
 										</div>
@@ -289,7 +287,12 @@
 
 										<!-- /.form group -->
 										<input type="hidden" class="form-control" id="operation"
-											name="operation" value="create" />
+											name="operation" value="edit" />
+											<input type="hidden" class="form-control" id="showId"
+										name="showId" value="${requestScope.accountmaster.masterAccountId}" />
+											
+											
+											
 
 										<!--  form group -->
 
@@ -298,8 +301,8 @@
 										<!-- form group -->
 										<br>
 										<div class="col-xs-4" align="center">
-											<button type="button" id="editbtn" value="edit"
-												name="editbtn" onclick="editfxn();"
+											<button  type="button" id="editbtn" value = "edit" name = "editbtn"
+											onclick="editfxn();"
 												class="btn btn-primary btn-block btn-flat">Edit</button>
 										</div>
 										<div class="col-xs-4" align="center">
@@ -340,16 +343,20 @@
 
 	<script>
 		<c:choose>
-		<c:when test="${param.msg=='1'}">
+		<c:when test="${requestScope.msg eq '1'}">
 		$(document).ready(function() {
-			$("#typeError").addClass("form-group has-error");
-			$("#errorTop").html("Record Updated Successfully.");
+			$("#typeError").addClass("form-group has-success");
+			$("#errorTop")
+			.html(
+					"Record Updated Successfully.");
 		});
 		</c:when>
-		<c:when test="${param.msg=='2'}">
+		<c:when test="${requestScope.msg eq '2'}">
 		$(document).ready(function() {
 			$("#typeError").addClass("form-group has-error");
-			$("#errorTop").html("Fail to Update Record.");
+			$("#errorTop")
+			.html(
+					"Fail to update Record.");
 		});
 		</c:when>
 		</c:choose>
@@ -366,7 +373,7 @@
 
 		function editfxn() {
 			if (document.getElementById("editbtn").value == "edit") {
-				document.getElementById("editbtn").innerHTML = "Update";
+				document.getElementById("editbtn").innerHTML ="Update";
 				document.getElementById("editbtn").value = "update";
 				var form = document.getElementById("accountMasterEditForm");
 				var elements = form.elements;
@@ -374,8 +381,7 @@
 				for (var i = 0, len = elements.length; i < len; ++i) {
 					elements[i].disabled = false;
 				}
-			} else if (document.getElementById("editbtn").value == "update"
-					&& validateForm(form)) {
+			} else if (document.getElementById("editbtn").value == "update" && validateForm(form)) {
 				document.accountMasterEditForm.submit();
 			}
 
@@ -422,18 +428,23 @@
 				return false;
 			}
 
-			if (!(name == null || name === "")) {
-				var nameValid = /^[a-zA-Z-.\d&()%]+$/;
-				if (!nameValid.test(name)) {
-					document.getElementById("errorAccountName").innerHTML = 'Invalid Account Name';
-					document.getElementById("divAccountName").className = 'alert alert-danger alert-dismissible';
-					return false;
-				}
+			
 				document.getElementById("errorAccountName").innerHTML = "";
 				document.getElementById("divAccountName").className = 'form-group has-success';
-			}
+			
 
 			//End Account Name Validation
+			
+			//Flag Validation
+			var flag = document.getElementById("flag").value;
+			if (flag == null ||flag == "") {
+				document.getElementById("errorFlag").innerHTML = error;
+				document.getElementById("divFlag").className = 'alert alert-danger alert-dismissible';
+				return false;
+			}
+			document.getElementById("errorFlag").innerHTML = "";
+			document.getElementById("divFlag").className = 'form-group has-success';
+			//End Flag Validation
 
 			//IXPGE Validation
 			var ixpge = document.getElementById("ixpge").value;
