@@ -47,7 +47,7 @@
 									New Project</a>
 							</div>
 						</div>
-						
+
 						<table id="example1" class="table table-bordered table-striped">
 							<thead>
 								<tr>
@@ -61,18 +61,24 @@
 									<tr>
 
 										<td><c:out value="${project.projectName}" /></td>
-										<c:choose>
-											
-											<c:when test="${project.bungProject eq 'B'.charAt(0)}">
-												<td>Bungalow</td>
-											</c:when>
 
-											<c:when test="${project.bungProject eq 'P'.charAt(0)}">
+
+										<c:forEach items="${requestScope.enumList}" var="proj">
+											<c:choose>
+												<c:when test="${project.bungProject eq proj.getValue()}">
+													<td><c:out value="${proj}" /></td>
+												</c:when>
+											</c:choose>
+										</c:forEach>
+										<c:choose>
+											<c:when test="${project.bungProject eq 'P'}">
 												<td>Plot</td>
 											</c:when>
-										</c:choose>
 
-										<td><a href="${pageContext.request.contextPath}/admin/pages/ProjectFormController?operation=show&showId=${project.projectId}"> <i class="fa fa-edit"></i>View
+										</c:choose>
+										<td><a
+											href="${pageContext.request.contextPath}/admin/pages/ProjectFormController?operation=show&showId=${project.projectId}">
+												<i class="fa fa-edit"></i>View
 										</a></td>
 
 									</tr>

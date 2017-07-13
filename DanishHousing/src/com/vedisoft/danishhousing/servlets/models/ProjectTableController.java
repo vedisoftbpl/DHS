@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.vedisoft.danishhousing.daos.ProjectsDao;
+import com.vedisoft.danishhousing.pojos.ProjectTypeEnum;
 import com.vedisoft.danishhousing.pojos.Projects;
 
 /**
@@ -44,6 +45,7 @@ public class ProjectTableController extends HttpServlet {
 		System.out.println("Size : " + projects.size());
 		request.setAttribute("projectList", projects);
 		String page = "/pages/admin/ProjectTable.jsp";
+		request.setAttribute("enumList", ProjectTypeEnum.values());
 		RequestDispatcher rd = request.getRequestDispatcher(page);
 		rd.forward(request, response);
 	}
