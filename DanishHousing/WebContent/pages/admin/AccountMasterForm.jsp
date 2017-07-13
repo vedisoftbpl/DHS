@@ -36,14 +36,16 @@
 							</button>
 						</div>
 					</div>
+
+					<div class="form-group" id="typeError">
+						<label class="control-label" id="errorTop"></label>
+					</div>
 					
-						<div class="form-group" id="typeError">
-				<label class="control-label" id="errorTop"></label>
-			</div>
 
 					<!-- User Form -->
-					<form action="${pageContext.request.contextPath}/admin/pages/MasterAccountFormController" method="post"
-						onsubmit="return validateForm(this)">
+					<form
+						action="${pageContext.request.contextPath}/admin/pages/MasterAccountFormController"
+						method="post" onsubmit="return validateForm(this)">
 						<div class="box-body">
 							<div class="row">
 								<div class="col-md-6">
@@ -99,7 +101,7 @@
 											</div>
 											<select class="form-control select2" id="accountClass"
 												name="accountClass" style="width: 100%;">
-												<option selected="selected" value="A" >Assets</option>
+												<option selected="selected" value="A">Assets</option>
 												<option value="I">Income</option>
 												<option value="L">Liability</option>
 												<option value="E">Extended</option>
@@ -115,12 +117,9 @@
 											</div>
 											<select class="form-control select2" id="flag" name="flag"
 												style="width: 100%;">
-												<option selected="selected" value="D">D</option>
-												<option value="P">P</option>
-												<option value="S">S</option>
-												<option value="O">O</option>
-												<option value="W">W</option>
-												<option value="M">M</option>
+												<c:forEach items="${requestScope.enumList}" var="val">
+													<option value="${val.getValue()}">${val}</option>
+												</c:forEach>
 											</select>
 										</div>
 									</div>
@@ -136,17 +135,16 @@
 									<!--  form-group -->
 									<!-- Project Code -->
 									<div class="form-group" id="divProjectCode">
-										<label>Project Code</label>
+										<label>Project Name</label>
 										<div class="input-group">
 											<div class="input-group-addon">
 												<i class="fa  fa-bars"></i>
 											</div>
-											<select class="form-control select2" id="projectCode"
-												name="projectCode" style="width: 100%;">
-												<option selected="selected" >0</option>
-												<option >1</option>
-												<option >2</option>
-												<option >3</option>
+											<select class="form-control select2" id="projectCode" name="projectCode"
+												style="width: 100%;" >
+												<c:forEach items="${requestScope.projectList}" var="project">
+													<option value="${project.getProjectId()}" >${project.getProjectName()}</option>
+												</c:forEach>
 											</select>
 										</div>
 									</div>
@@ -182,34 +180,34 @@
 												placeholder="Enter your Address" id="address" name="address"></textarea>
 										</div>
 										<p id="errorAddress"></p>
-
-										<!-- End Address -->
-
-										<!-- /.form group -->
-												<input type="hidden" class="form-control"
-												 id="operation" name="operation" value = "create"/>
-
-										<!--  form group -->
-
-										<!-- /. form group -->
-
-										<!-- form group -->
-										<br>
-										<div class="col-xs-4" align="center">
-											<button type="submit"
-												class="btn btn-primary btn-block btn-flat">Add</button>
-										</div>
-										<div class="col-xs-4" align="center">
-											<button type="reset" class="btn btn-block btn-danger">Cancel</button>
-										</div>
-
-										<!-- / .form group -->
 									</div>
-									<!-- /.box-body -->
+									<!-- End Address -->
+
+									<!-- /.form group -->
+									<input type="hidden" class="form-control" id="operation"
+										name="operation" value="create" />
+
+									<!--  form group -->
+
+									<!-- /. form group -->
+
+									<!-- form group -->
+									<br>
+									<div class="col-xs-4" align="center">
+										<button type="submit"
+											class="btn btn-primary btn-block btn-flat">Add</button>
+									</div>
+									<div class="col-xs-4" align="center">
+										<button type="reset" class="btn btn-block btn-danger">Cancel</button>
+									</div>
+
+									<!-- / .form group -->
 								</div>
-								<!-- /.box -->
+								<!-- /.box-body -->
 							</div>
-							<!-- /.col -->
+							<!-- /.box -->
+						</div>
+						<!-- /.col -->
 					</form>
 
 					<!-- User Form -->
@@ -234,26 +232,34 @@
 	<script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
 
 	<script>
-	<c:choose>
-	<c:when test="${param.msg=='1'}">
-	$(document).ready(function() {
-		$("#typeError").addClass("form-group has-error");
-		$("#errorTop")
-		.html(
-				"Record Added Successfully.");
-	});
-	</c:when>
-	<c:when test="${param.msg=='2'}">
-	$(document).ready(function() {
-		$("#typeError").addClass("form-group has-error");
-		$("#errorTop")
-		.html(
-				"Fail to Add Record.");
-	});
-	</c:when>
-	</c:choose>
+		<c:choose>
+		<c:when test="${requestScope.msg==1}">
+		$(document).ready(function() {
+			$("#typeError").addClass("form-group has-success");
+			$("#errorTop").html(" Record Added Successfully.");
+		});
+		</c:when>
+		<c:when test="${requestScope.msg==2}">
+		$(document).ready(function() {
+			$("#typeError").addClass("form-group has-error");
+			$("#errorTop").html(" Fail to Add Record.");
+		});
+		</c:when>
+		</c:choose>
 		function validateForm(form) {
 			error = "Please fill this field .";
+
+			//Account Code Validation
+			var acc = document.getElementById("accountCode").value;
+			if (acc == null || acc === "") {
+				document.getElementById("errorAccountCode").innerHTML = error;
+				document.getElementById("divAccountCode").className = 'alert alert-danger alert-dismissible';
+				return false;
+			}
+			document.getElementById("errorAccountCode").innerHTML = "";
+			document.getElementById("divAccountCode").className = 'form-group has-success';
+			//End Account Code Validation
+
 			//ANX Code Validation
 			var anxCd = document.getElementById("anxCode").value;
 			if (anxCd == null || anxCd === "") {
@@ -273,28 +279,6 @@
 			}
 			//End ANX Code Validation
 
-			//IXPGE Validation
-			var ixpge = document.getElementById("ixpge").value;
-			if (ixpge == null || taxNo === "") {
-				document.getElementById("errorIxpge").innerHTML = error;
-				document.getElementById("divIxpge").className = 'alert alert-danger alert-dismissible';
-				return false;
-			}
-			document.getElementById("errorIxpge").innerHTML = "";
-			document.getElementById("divIxpge").className = 'form-group has-success';
-			//End IXPGE Validation
-
-			//Account Code Validation
-			var acc = document.getElementById("accountCode").value;
-			if (acc == null || acc === "") {
-				document.getElementById("errorAccountCode").innerHTML = error;
-				document.getElementById("divAccountCode").className = 'alert alert-danger alert-dismissible';
-				return false;
-			}
-			document.getElementById("errorAccountCode").innerHTML = "";
-			document.getElementById("divAccountCode").className = 'form-group has-success';
-			//End Account Code Validation
-
 			//Account Name Validation
 			var name = document.getElementById("accountName").value;
 			if (name == null || name === "") {
@@ -303,18 +287,23 @@
 				return false;
 			}
 
-			if (!(name == null || name === "")) {
-				var nameValid = /^[a-zA-Z-.\d&()%]+$/;
-				if (!nameValid.test(name)) {
-					document.getElementById("errorAccountName").innerHTML = 'Invalid Account Name';
-					document.getElementById("divAccountName").className = 'alert alert-danger alert-dismissible';
-					return false;
-				}
+			
 				document.getElementById("errorAccountName").innerHTML = "";
 				document.getElementById("divAccountName").className = 'form-group has-success';
-			}
+			
 
 			//End Account Name Validation
+
+			//IXPGE Validation
+			var ixpge = document.getElementById("ixpge").value;
+			if (ixpge == null || ixpge === "") {
+				document.getElementById("errorIxpge").innerHTML = error;
+				document.getElementById("divIxpge").className = 'alert alert-danger alert-dismissible';
+				return false;
+			}
+			document.getElementById("errorIxpge").innerHTML = "";
+			document.getElementById("divIxpge").className = 'form-group has-success';
+			//End IXPGE Validation
 
 			//Address Validation
 			var add = document.getElementById("address").value;
