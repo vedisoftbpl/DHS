@@ -129,7 +129,7 @@
 												<i class="fa fa-calendar"></i>
 											</div>
 											<input type="text" class="form-control pull-right"
-												id="datepicker1" name="datepicker1" required/>
+												id="datepicker1" name="datepicker1" />
 										</div>
 										<p id="errorUserDateOfBirth"></p>
 										<!-- /.input group -->
@@ -149,7 +149,7 @@
 												<i class="fa fa-calendar"></i>
 											</div>
 											<input type="text" class="form-control pull-right"
-												id="datepicker2" name="datepicker2" required/>
+												id="datepicker2" name="datepicker2" />
 										</div>
 										<p id="errorUserDateOfJoin"></p>
 										<!-- /.input group -->
@@ -424,6 +424,31 @@
 				document.getElementById("divUserFormMobile").className = 'form-group has-success';
 			}
 			//End Mobile Validation
+			
+			//Date of Birth Validation
+			var dob = document.getElementById("datepicker1").value;
+			document.getElementById("errorUserDateOfBirth").innerHTML = 'vALUE = ' + dob;
+			if (dob == null || dob === "") {
+				document.getElementById("errorUserDateOfBirth").innerHTML = error;
+				document.getElementById("divFormUserDateOfBirth").className = 'alert alert-danger alert-dismissible';
+				return false;
+
+			}
+			document.getElementById("errorUserDateOfBirth").innerHTML = "";
+			document.getElementById("divFormUserDateOfBirth").className = 'form-group has-success';
+			//End Date of Birth Validation
+			
+			//Date of Join Validation
+			var doj = document.getElementById("datepicker2").value;
+			if (doj == null || doj === "") {
+				document.getElementById("errorUserDateOfJoin").innerHTML = error;
+				document.getElementById("divFormUserDateOfJoin").className = 'alert alert-danger alert-dismissible';
+				return false;
+
+			}
+			document.getElementById("errorUserDateOfJoin").innerHTML = "";
+			document.getElementById("divFormUserDateOfJoin").className = 'form-group has-success';
+			//End Date of Join Validation
 
 			//Designation Validation
 			var desig = document.getElementById("userDesignation").value;
@@ -461,30 +486,7 @@
 			document.getElementById("divUserFormPhoto").className = 'form-group has-success';
 			//End Photo Validation
 			
-			//Date of Birth Validation
-			//var dob = document.getElementById("datepicker1").value;
-			//document.getElementById("errorUserDateOfBirth").innerHTML = 'vALUE = ' + dob;
-			//if (dob == null || dob === "") {
-			//	document.getElementById("errorUserDateOfBirth").innerHTML = error;
-			//	document.getElementById("divFormUserDateOfBirth").className = 'alert alert-danger alert-dismissible';
-				//return false;
-
-			//}
-			//document.getElementById("errorUserDateOfBirth").innerHTML = "";
-			//document.getElementById("divFormUserDateOfBirth").className = 'form-group has-success';
-			//End Date of Birth Validation
 			
-			//Date of Join Validation
-			//var doj = document.getElementById("datepicker2").value;
-			//if (doj == null || doj === "") {
-			//	document.getElementById("errorUserDateOfJoin").innerHTML = error;
-			//	document.getElementById("divFormUserDateOfJoin").className = 'alert alert-danger alert-dismissible';
-			//	return false;
-
-			//}
-			//document.getElementById("errorUserDateOfJoin").innerHTML = "";
-			//document.getElementById("divFormUserDateOfJoin").className = 'form-group has-success';
-			//End Date of Join Validation
 
 			
 			return true;

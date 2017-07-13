@@ -59,7 +59,7 @@
 											<span class="input-group-addon"><i class="fa fa-user"></i></span>
 											<input type="text" class="form-control"
 												placeholder="Full Name" id="userFullName"
-												name="userFullName" />
+												name="userFullName" value="${requestScope.user.name}" />
 										</div>
 										<p id="errorFullName"></p>
 									</div>
@@ -74,7 +74,7 @@
 											<span class="input-group-addon"><i
 												class="fa fa-envelope"></i></span> <input type="email"
 												class="form-control" placeholder="example@email.com"
-												id="userEmail" name="userEmail" />
+												id="userEmail" name="userEmail" value="${requestScope.user.email}" />
 										</div>
 										<p id="errorEmail"></p>
 									</div>
@@ -89,7 +89,7 @@
 										<div class="input-group">
 											<span class="input-group-addon"><i class="fa fa-lock"></i></span>
 											<input type="password" class="form-control"
-												placeholder="Password" id="userPassword" name="userPassword">
+												placeholder="Password" id="userPassword" name="userPassword" value="${requestScope.user.password}">
 										</div>
 										<p id="errorPassword"></p>
 									</div>
@@ -110,7 +110,7 @@
 											<input type="text" class="form-control"
 												data-inputmask='"mask": "(+91) 99999-99999"' data-mask
 												id="userMobile" name="userMobile"
-												placeholder="(+91) 99999-99999" />
+												placeholder="(+91) 99999-99999" value="${requestScope.user.mobile}"/>
 										</div>
 										<p id="errorMobile"></p>
 										<!-- /.input group -->
@@ -129,7 +129,7 @@
 												<i class="fa fa-calendar"></i>
 											</div>
 											<input type="text" class="form-control pull-right"
-												id="datepicker1" name="datepicker1" required/>
+												id="datepicker1" name="datepicker1" required value="${requestScope.user.dob}"/>
 										</div>
 										<p id="errorUserDateOfBirth"></p>
 										<!-- /.input group -->
@@ -149,7 +149,7 @@
 												<i class="fa fa-calendar"></i>
 											</div>
 											<input type="text" class="form-control pull-right"
-												id="datepicker2" name="datepicker2" required/>
+												id="datepicker2" name="datepicker2" value="${requestScope.user.doj}" required/>
 										</div>
 										<p id="errorUserDateOfJoin"></p>
 										<!-- /.input group -->
@@ -165,7 +165,7 @@
 											<span class="input-group-addon"><i
 												class="fa fa-black-tie"></i></span> <input type="text"
 												class="form-control" placeholder="Designation"
-												id="userDesignation" name="userDesignation">
+												id="userDesignation" name="userDesignation" value="${requestScope.user.designation}">
 										</div>
 										<p id="errorDesignation"></p>
 									</div>
@@ -205,7 +205,7 @@
 											</div>
 											<textarea class="form-control" rows="8"
 												placeholder="Enter your Address" id="userAddress"
-												name="userFormAddress"></textarea>
+												name="userFormAddress" >${requestScope.user.address}</textarea>
 										</div>
 										<p id="errorUserAddress"></p>
                                        </div>
@@ -257,7 +257,7 @@
 													<i class="fa fa-photo"></i>
 												</div>
 												<input type="file"  id="userPhoto" name="userPhoto"
-													class="btn btn-block btn-default btn" />
+													class="btn btn-block btn-default btn" value="${requestScope.user.photo}"/>
 											</div>
 											<p id="errorPhoto"></p>
 										</div>
@@ -266,7 +266,7 @@
 										<!-- /.form group -->
 
 										<input type="hidden" class="form-control"
-												 id="operation" name="operation" value = "create"/>
+												 id="operation" name="operation" value = "edit"/>
 										
 
 										<!-- form group -->
