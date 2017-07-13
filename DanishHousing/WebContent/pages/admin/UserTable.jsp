@@ -74,7 +74,7 @@
 										<td><c:out value="${user.address}" /></td>
 										<td><c:out value="${user.userType}" /></td>
 										<td><c:out value="${user.status}" /></td>
-										<td><a href="#"> <i class="fa fa-edit"></i>View
+										<td><a href="${pageContext.request.contextPath}/admin/pages/UserFormController?operation=show&showId=${user.userId}"> <i class="fa fa-edit"></i>View
 										</a></td>
 									</tr>
 								</c:forEach>
