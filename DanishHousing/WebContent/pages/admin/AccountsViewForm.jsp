@@ -1,5 +1,6 @@
 <!-- daterange picker -->
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <link rel="stylesheet"
 	href="../../plugins/datepicker/datepicker3.css">
 <%@ include file="../design/Top.jsp"%>
@@ -182,8 +183,11 @@
 											<div class="input-group-addon">
 												<i class="fa fa-calendar"></i>
 											</div>
+											<span id="formattedDate" name="formattedDate"
+												style="display: none;"><fmt:formatDate type="date"
+													pattern="dd/MM/yyyy" value="${requestScope.account.opDate}" /></span>
 											<input type="text" class="form-control pull-right"
-												id="datepicker" name="datepicker" required="true" value="${requestScope.account.opDate}" />		
+												id="datepicker" name="datepicker" required="true" />		
 													
 										</div>
 										<p id="errorOpeningDate"></p>
@@ -324,6 +328,9 @@
 		}
 		document.getElementById("editbtn").disabled = false;
 		document.getElementById("cancel").disabled = false;
+		//Set formatted date in input fields
+		
+		document.getElementById("datepicker").value = document.getElementById("formattedDate").innerHTML;
 	}
 	
 	function editfxn(){
