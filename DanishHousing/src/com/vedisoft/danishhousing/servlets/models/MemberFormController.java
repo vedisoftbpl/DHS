@@ -18,6 +18,7 @@ import javax.servlet.http.Part;
 import com.vedisoft.danishhousing.config.DateUtils;
 import com.vedisoft.danishhousing.daos.MembersDao;
 import com.vedisoft.danishhousing.daos.ProjectsDao;
+import com.vedisoft.danishhousing.pojos.AccountMasterFlagsEnum;
 import com.vedisoft.danishhousing.pojos.Members;
 import com.vedisoft.danishhousing.pojos.Projects;
 import com.vedisoft.danishhousing.pojos.Users;
@@ -176,7 +177,7 @@ public class MemberFormController extends HttpServlet {
 		
 		float netPlotSize=0;
 		if(request.getParameter("netPlotSize")!= null && request.getParameter("netPlotSize").trim().length() > 0) {
-			netPlotSize = Integer.parseInt(request.getParameter("netPlotSize"));
+			netPlotSize = Float.parseFloat(request.getParameter("netPlotSize"));
 		}
 		
 		
@@ -219,14 +220,13 @@ public class MemberFormController extends HttpServlet {
 		}
 		
 		
-		
-		
-		
-		
+		ProjectsDao pdao = new ProjectsDao();
+		request.setAttribute("projectList", pdao.findAll());
+		request.setAttribute("enumList", AccountMasterFlagsEnum.values());
 		
 		
 		String page = "/pages/admin/MembershipForm.jsp";
-		String page1= "/pages/admin/MemberViewForm.jsp";
+		String page1= "/pages/admin/MembershipViewForm.jsp";
 		
 		HttpSession session = request.getSession();
 		Users user = null;
@@ -357,15 +357,17 @@ public class MemberFormController extends HttpServlet {
 					memberOccupation, relation, relativeFullName, memberNomineeRelation, memberNomineeName,
 					membershipFee, entranceFee, receiptdt,rC, liveDead,diversion, extraAmount,  cost ,memberPhone, memberEmail, dob,
 					memberPhoto, addressProof, memberAdhaar);
-			
-			
-					System.out.println(m);
-			int a = 0;
-			a = dao.create(m);
-			if(a > 0)
-				response.sendRedirect("/DanishHousing" + page + "?msg=1");
-			else
-				response.sendRedirect("/DanishHousing" + page + "?msg=2");
+			System.out.println(m);
+			Boolean b = dao.edit(m);
+			if (b) {
+				RequestDispatcher rd = request.getRequestDispatcher(page);
+				request.setAttribute("msg", 1);
+				rd.forward(request, response);
+			} else {
+				RequestDispatcher rd = request.getRequestDispatcher(page);
+				request.setAttribute("msg", 2);
+				rd.forward(request, response);
+			}
 		}
 		else {
 			RequestDispatcher rd = request.getRequestDispatcher(page);
