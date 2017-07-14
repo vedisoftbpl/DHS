@@ -1,9 +1,10 @@
 <!-- Date Range Picker -->
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <link rel="stylesheet" href="../../plugins/datepicker/datepicker3.css">
 
 <%@ include file="../design/Top.jsp"%>
-<body class="hold-transition skin-blue sidebar-mini" onload = "formin();">
+<body class="hold-transition skin-blue sidebar-mini" onload="formin();">
 	<!-- Site wrapper -->
 	<div class="wrapper">
 		<jsp:include page="../design/Header.jsp" flush="true" />
@@ -39,17 +40,33 @@
 							</button>
 						</div>
 					</div>
-				
+
 					<!-- User Form -->
 					<div class="form-group" id="typeError">
-				<label class="control-label" id="errorTop"></label>
-			</div>
-					
-					<form action="${pageContext.request.contextPath}/admin/pages/UserFormController" method="post"
-						name="userEditForm" id ="userEditForm" enctype="multipart/form-data" onsubmit="return validateForm(this)">
+						<label class="control-label" id="errorTop"></label>
+					</div>
+
+					<form
+						action="${pageContext.request.contextPath}/admin/pages/UserFormController"
+						method="post" name="userEditForm" id="userEditForm"
+						enctype="multipart/form-data" onsubmit="return validateForm(this)">
 						<div class="box-body">
 							<div class="row">
 								<div class="col-md-6">
+
+									<!-- Profile Image -->
+									<div class="box box-primary">
+										<div class="box-body box-profile">
+											<img class="profile-user-img img-responsive img-circle"
+												src="../../pages/photos/${requestScope.user.photo}"
+												alt="User profile picture">
+
+											<h3 class="profile-username text-center">${requestScope.user.name}</h3>
+
+										</div>
+										<!-- /.box-body -->
+									</div>
+									<!-- /.box -->
 
 									<!--  form-group -->
 									<!-- Full Name -->
@@ -74,7 +91,8 @@
 											<span class="input-group-addon"><i
 												class="fa fa-envelope"></i></span> <input type="email"
 												class="form-control" placeholder="example@email.com"
-												id="userEmail" name="userEmail" value="${requestScope.user.email}" />
+												id="userEmail" name="userEmail"
+												value="${requestScope.user.email}" />
 										</div>
 										<p id="errorEmail"></p>
 									</div>
@@ -89,7 +107,8 @@
 										<div class="input-group">
 											<span class="input-group-addon"><i class="fa fa-lock"></i></span>
 											<input type="password" class="form-control"
-												placeholder="Password" id="userPassword" name="userPassword" value="${requestScope.user.password}">
+												placeholder="Password" id="userPassword" name="userPassword"
+												value="${requestScope.user.password}">
 										</div>
 										<p id="errorPassword"></p>
 									</div>
@@ -110,7 +129,8 @@
 											<input type="text" class="form-control"
 												data-inputmask='"mask": "(+91) 99999-99999"' data-mask
 												id="userMobile" name="userMobile"
-												placeholder="(+91) 99999-99999" value="${requestScope.user.mobile}"/>
+												placeholder="(+91) 99999-99999"
+												value="${requestScope.user.mobile}" />
 										</div>
 										<p id="errorMobile"></p>
 										<!-- /.input group -->
@@ -128,8 +148,11 @@
 											<div class="input-group-addon">
 												<i class="fa fa-calendar"></i>
 											</div>
-											<input type="text" class="form-control pull-right"
-												id="datepicker1" name="datepicker1" required value="${requestScope.user.dob}"/>
+											<span id="formattedDate1" name="formattedDate1"
+												style="display: none;"><fmt:formatDate type="date"
+													pattern="dd/MM/yyyy" value="${requestScope.user.dob}" /></span> <input
+												type="text" class="form-control pull-right" id="datepicker1"
+												name="datepicker1" required />
 										</div>
 										<p id="errorUserDateOfBirth"></p>
 										<!-- /.input group -->
@@ -148,8 +171,12 @@
 											<div class="input-group-addon">
 												<i class="fa fa-calendar"></i>
 											</div>
+											<span id="formattedDate2" name="formattedDate2"
+												style="display: none;"><fmt:formatDate type="date"
+													pattern="dd/MM/yyyy" value="${requestScope.user.doj}" /></span>
 											<input type="text" class="form-control pull-right"
-												id="datepicker2" name="datepicker2" value="${requestScope.user.doj}" required/>
+												id="datepicker2" name="datepicker2"
+												value="${requestScope.user.doj}" required />
 										</div>
 										<p id="errorUserDateOfJoin"></p>
 										<!-- /.input group -->
@@ -165,7 +192,8 @@
 											<span class="input-group-addon"><i
 												class="fa fa-black-tie"></i></span> <input type="text"
 												class="form-control" placeholder="Designation"
-												id="userDesignation" name="userDesignation" value="${requestScope.user.designation}">
+												id="userDesignation" name="userDesignation"
+												value="${requestScope.user.designation}">
 										</div>
 										<p id="errorDesignation"></p>
 									</div>
@@ -175,6 +203,28 @@
 								</div>
 								<!-- /.col -->
 								<div class="col-md-6">
+
+
+									<!-- Profile Image -->
+									<div class="box box-primary">
+										<div class="box-body box-profile">
+
+
+
+
+											<ul class="list-group list-group-unbordered">
+												<li class="list-group-item"><b>Authorization Level</b>
+													<a class="pull-right">${requestScope.user.userType}</a></li>
+												<li class="list-group-item"><b>Email</b> <a
+													class="pull-right">${requestScope.user.email}</a></li>
+
+											</ul>
+											<br>
+											<br>
+										</div>
+										<!-- /.box-body -->
+									</div>
+									<!-- /.box -->
 									<!-- form group -->
 									<!-- Created By -->
 									<div class="form-group" id="divUserFormCreatedBy">
@@ -183,10 +233,10 @@
 											<div class="input-group-addon">
 												<i class="fa  fa-user-plus"></i>
 											</div>
-											<input type="text"
-												class="form-control" value="${requestScope.createdby}" 
-												id="userCreatedBy" name="userCreatedBy" readonly="readonly" >
-										
+											<input type="text" class="form-control"
+												value="${requestScope.user.createdBy}" id="userCreatedBy"
+												name="userCreatedBy" readonly="readonly">
+
 										</div>
 									</div>
 									<!-- End Created By -->
@@ -205,108 +255,111 @@
 											</div>
 											<textarea class="form-control" rows="8"
 												placeholder="Enter your Address" id="userAddress"
-												name="userFormAddress" >${requestScope.user.address}</textarea>
+												name="userFormAddress">${requestScope.user.address}</textarea>
 										</div>
 										<p id="errorUserAddress"></p>
-                                       </div>
-										<!-- End Address -->
-
-										<!-- /.form group -->
-
-
-										<!-- form group -->
-										<div class="form-group" id="divUserFormUserType">
-											<label>User Type</label>
-											<div class="input-group">
-												<div class="input-group-addon">
-													<i class="fa  fa-user-plus"></i>
-												</div>
-												<select class="form-control select2" id="userType"
-													name="userType" style="width: 100%;">
-													<option value="Administrator" selected="selected" >Administrator</option>
-													<option value="Accounts">Accounts</option>
-													<option value="Reception">Reception</option>
-													<option value="Data Entry">Data Entry</option>
-												</select>
-											</div>
-										</div>
-										<!-- Status -->
-										<div class="form-group" id="divUserFormStatus">
-											<label>Status</label>
-											<div class="input-group">
-												<div class="input-group-addon">
-													<i class="fa  fa-user-plus"></i>
-												</div>
-												<select class="form-control select2" id="userStatus"
-													name="userStatus" style="width: 100%;">
-													<option selected="selected" value = "Active">Active</option>
-													<option value="Inactive">Inactive</option>
-												</select>
-											</div>
-										</div>
-										<!-- End Status -->
-										<!-- /.form group -->
-
-										<!-- form group -->
-
-										<!-- Upload Photo -->
-										<div class="form-group" id="divUserFormPhoto">
-											<label for="exampleInputFile">Upload Photo</label>
-											<div class="input-group">
-												<div class="input-group-addon">
-													<i class="fa fa-photo"></i>
-												</div>
-												<input type="file"  id="userPhoto" name="userPhoto"
-													class="btn btn-block btn-default btn" value="${requestScope.user.photo}"/>
-											</div>
-											<p id="errorPhoto"></p>
-										</div>
-										<!-- End Upload Photo -->
-
-										<!-- /.form group -->
-
-										<input type="hidden" class="form-control"
-												 id="operation" name="operation" value = "edit"/>
-										
-
-										<!-- form group -->
-										<br>
-										<div class="col-xs-4" align="center">
-											<button  type="button" id="editbtn" value = "edit" name = "editbtn"
-											onclick="editfxn();"
-												class="btn btn-primary btn-block btn-flat">Edit User</button>
-										</div>
-										<div class="col-xs-4" align="center">
-											<button type="reset" value = "cancel" name = "cancel" id="cancel" class="btn btn-block btn-danger">Cancel</button>
-										</div>
-
-										<!-- / .form group -->
 									</div>
-									<!-- /.box-body -->
+									<!-- End Address -->
+
+									<!-- /.form group -->
+
+
+									<!-- form group -->
+									<div class="form-group" id="divUserFormUserType">
+										<label>User Type</label>
+										<div class="input-group">
+											<div class="input-group-addon">
+												<i class="fa  fa-user-plus"></i>
+											</div>
+											<select class="form-control select2" id="userType"
+												name="userType" style="width: 100%;">
+												<option value="Administrator" selected="selected">Administrator</option>
+												<option value="Accounts">Accounts</option>
+												<option value="Reception">Reception</option>
+												<option value="Data Entry">Data Entry</option>
+											</select>
+										</div>
+									</div>
+									<!-- Status -->
+									<div class="form-group" id="divUserFormStatus">
+										<label>Status</label>
+										<div class="input-group">
+											<div class="input-group-addon">
+												<i class="fa  fa-user-plus"></i>
+											</div>
+											<select class="form-control select2" id="userStatus"
+												name="userStatus" style="width: 100%;">
+												<option selected="selected" value="Active">Active</option>
+												<option value="Inactive">Inactive</option>
+											</select>
+										</div>
+									</div>
+									<!-- End Status -->
+									<!-- /.form group -->
+
+									<!-- form group -->
+
+									<!-- Upload Photo -->
+									<div class="form-group" id="divUserFormPhoto">
+										<label for="exampleInputFile">Upload Photo</label>
+										<div class="input-group">
+											<div class="input-group-addon">
+												<i class="fa fa-photo"></i>
+											</div>
+											<input type="file" id="userPhoto" name="userPhoto"
+												class="btn btn-block btn-default btn"
+												value="${requestScope.user.photo}" />
+										</div>
+										<p id="errorPhoto"></p>
+									</div>
+									<!-- End Upload Photo -->
+
+									<!-- /.form group -->
+
+									<input type="hidden" class="form-control" id="operation"
+										name="operation" value="edit" />
+
+
+									<!-- form group -->
+									<br>
+									<div class="col-xs-4" align="center">
+										<button type="button" id="editbtn" value="edit" name="editbtn"
+											onclick="editfxn();"
+											class="btn btn-primary btn-block btn-flat">Edit User</button>
+									</div>
+									<div class="col-xs-4" align="center">
+										<button type="reset" value="cancel" name="cancel" id="cancel"
+											class="btn btn-block btn-danger">Cancel</button>
+									</div>
+
+									<!-- / .form group -->
 								</div>
-								<!-- /.box -->
+								<!-- /.box-body -->
 							</div>
-							<!-- /.col -->
-							</form>
-							</div>
-					
-
-					<!-- User Form -->
-
-					<!-- /.box-body -->
-					<div class="box-footer">User Detail </div>
-					
-					</section><!-- /.box-footer-->
+							<!-- /.box -->
+						</div>
+						<!-- /.col -->
+					</form>
 				</div>
-				<!-- /.box -->
-			
-			
-			<!-- /.content -->
+
+
+				<!-- User Form -->
+
+				<!-- /.box-body -->
+				<div class="box-footer">User Detail</div>
+
+			</section>
+			<!-- /.box-footer-->
 		</div>
-		<!-- /.content-wrapper -->
-		<%@ include file="../design/Footer.jsp"%>
-		<!-- Control Sidebar -->
-		<jsp:include page="../design/SideBar.jsp" flush="true" />
+		<!-- /.box -->
+
+
+		<!-- /.content -->
+	</div>
+	<!-- /.content-wrapper -->
+	<%@ include file="../design/Footer.jsp"%>
+	<!-- Control Sidebar -->
+	<jsp:include page="../design/SideBar.jsp" flush="true" />
 
 	<!-- ./wrapper -->
 	<%@ include file="../design/Bottom.jsp"%>
@@ -316,56 +369,50 @@
 	<script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
 
 	<script>
-	<c:choose>
-	<c:when test="${param.msg=='1'}">
-	$(document).ready(function() {
-		$("#typeError").addClass("form-group has-error");
-		$("#errorTop")
-		.html(
-				"Record Updated Successfully.");
-	});
-	</c:when>
-	<c:when test="${param.msg=='2'}">
-	$(document).ready(function() {
-		$("#typeError").addClass("form-group has-error");
-		$("#errorTop")
-		.html(
-				"Fail to Update Record.");
-	});
-	</c:when>
-	</c:choose>
-	
-	
-	
-	
-	function formin(){
-		var form = document.getElementById("userEditForm");
-		var elements = form.elements;
-		for (var i = 0, len = elements.length; i < len; ++i) {
-		    elements[i].disabled = true;
-		}
-		document.getElementById("editbtn").disabled = false;
-		document.getElementById("cancel").disabled = false;
-	}
-	
-	function editfxn(){
-		if(document.getElementById("editbtn").value == "edit"){
-			document.getElementById("editbtn").innerHTML="Update";
-			document.getElementById("editbtn").value="update";	
+		<c:choose>
+		<c:when test="${param.msg=='1'}">
+		$(document).ready(function() {
+			$("#typeError").addClass("form-group has-error");
+			$("#errorTop").html("Record Updated Successfully.");
+		});
+		</c:when>
+		<c:when test="${param.msg=='2'}">
+		$(document).ready(function() {
+			$("#typeError").addClass("form-group has-error");
+			$("#errorTop").html("Fail to Update Record.");
+		});
+		</c:when>
+		</c:choose>
+
+		function formin() {
 			var form = document.getElementById("userEditForm");
 			var elements = form.elements;
 			for (var i = 0, len = elements.length; i < len; ++i) {
-			    elements[i].disabled = false;
+				elements[i].disabled = true;
 			}
+			document.getElementById("editbtn").disabled = false;
+			document.getElementById("cancel").disabled = false;
+			//Set formatted date in input fields
+			document.getElementById("datepicker1").value = document.getElementById("formattedDate1").innerHTML;
+			document.getElementById("datepicker2").value = document.getElementById("formattedDate2").innerHTML;
 		}
-		else if(document.getElementById("editbtn").value == "update" && validateForm(form)){
-			document.userEditForm.submit();
+
+		function editfxn() {
+			if (document.getElementById("editbtn").value == "edit") {
+				document.getElementById("editbtn").innerHTML = "Update";
+				document.getElementById("editbtn").value = "update";
+				var form = document.getElementById("userEditForm");
+				var elements = form.elements;
+				for (var i = 0, len = elements.length; i < len; ++i) {
+					elements[i].disabled = false;
+				}
+			} else if (document.getElementById("editbtn").value == "update"
+					&& validateForm(form)) {
+				document.userEditForm.submit();
 			}
-			
-			
-	}
-	
-	
+
+		}
+
 		function validateForm(form) {
 			error = "Please fill this field .";
 
@@ -452,22 +499,18 @@
 			}
 			//End Mobile Validation
 
-			
-			
-			
 			//Date of Birth Validation
 			var dob = document.getElementById("datepicker1").value;
 			//document.getElementById("errorUserDateOfBirth").innerHTML = 'vALUE = ' + dob;
 			if (dob == null || dob === "") {
 				document.getElementById("errorUserDateOfBirth").innerHTML = error;
 				document.getElementById("divFormUserDateOfBirth").className = 'alert alert-danger alert-dismissible';
-			return false;
+				return false;
 			}
 			document.getElementById("errorUserDateOfBirth").innerHTML = "";
 			document.getElementById("divFormUserDateOfBirth").className = 'form-group has-success';
 			//End Date of Birth Validation
-			
-			
+
 			//Date of Join Validation
 			var doj = document.getElementById("datepicker2").value;
 			if (doj == null || doj === "") {
@@ -479,9 +522,6 @@
 			document.getElementById("divFormUserDateOfJoin").className = 'form-group has-success';
 			//End Date of Join Validation
 
-			
-		
-			
 			//Designation Validation
 			var desig = document.getElementById("userDesignation").value;
 			if (desig == null || desig === "") {
@@ -505,7 +545,7 @@
 			document.getElementById("errorUserAddress").innerHTML = "";
 			document.getElementById("divUserFormAddress").className = 'form-group has-success';
 			//End Address Validation
-			
+
 			//Photo Validation
 			var photo = document.getElementById("userPhoto").value;
 			if (photo == null || photo === "") {
@@ -517,11 +557,7 @@
 			document.getElementById("errorPhoto").innerHTML = "";
 			document.getElementById("divUserFormPhoto").className = 'form-group has-success';
 			//End Photo Validation
-			
-			
-			
-			
-			
+
 			return true;
 		}
 		$(function() {

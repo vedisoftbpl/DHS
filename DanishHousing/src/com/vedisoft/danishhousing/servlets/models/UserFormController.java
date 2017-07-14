@@ -204,6 +204,7 @@ public class UserFormController extends HttpServlet {
 			// rd.forward(request, response);
 		} else if (operation.equals("edit")) {
 
+			if (userPhoto != null && userPhoto.trim().length() > 0){
 			String appPath = request.getServletContext().getRealPath("") + "pages\\";
 			String savePath = appPath + SAVE_DIR;
 			System.out.println(appPath);
@@ -248,6 +249,7 @@ public class UserFormController extends HttpServlet {
 
 			userPhoto = renamedFileName;
 			System.out.println(userPhoto);
+			}
 
 			UsersDao dao = new UsersDao();
 			System.out.println("Data :" + userName + userEmail + userPassword);

@@ -255,6 +255,47 @@ public class Members {
 		this.userId = userId;
 	}
 
+	
+	
+
+	public Members(int memberId, int projectCd, String plotSize, float netPlotSize, String plotNo, String prefix,
+			String memName, String address1, String address2, String address3, String memOccupation, String fHRelation,
+			String fHRelName, String nomineeRelation, String nomineeName, int memFee, int memEntryFee, Date receiptdt,
+			char rC, char liveDead, double diversion, double extraAmount, double cost, String mobile, String email,
+			Date dob, String photo, String addProof, String aadhar) {
+		super();
+		this.memberId = memberId;
+		this.projectCd = projectCd;
+		this.plotSize = plotSize;
+		this.netPlotSize = netPlotSize;
+		this.plotNo = plotNo;
+		this.prefix = prefix;
+		this.memName = memName;
+		this.address1 = address1;
+		this.address2 = address2;
+		this.address3 = address3;
+		this.memOccupation = memOccupation;
+		this.fHRelation = fHRelation;
+		this.fHRelName = fHRelName;
+		this.nomineeRelation = nomineeRelation;
+		this.nomineeName = nomineeName;
+		this.memFee = memFee;
+		this.memEntryFee = memEntryFee;
+		this.receiptdt = receiptdt;
+		this.rC = rC;
+		this.liveDead = liveDead;
+		this.diversion = diversion;
+		this.extraAmount = extraAmount;
+		this.cost = cost;
+		this.mobile = mobile;
+		this.email = email;
+		this.dob = dob;
+		this.photo = photo;
+		this.addProof = addProof;
+		this.aadhar = aadhar;
+		
+	}
+
 
 	public Members(String prefix, String memName, String address1, String address2, String address3,
 			String memOccupation, String fHRelation, String fHRelName, String nomineeRelation, String nomineeName,
