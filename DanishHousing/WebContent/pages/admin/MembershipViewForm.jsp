@@ -1,5 +1,6 @@
 <!-- daterange picker -->
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <link rel="stylesheet" href="../../plugins/datepicker/datepicker3.css">
 <!-- select style -->
 <link rel="stylesheet" href="../../plugins/select2/select2.css">
@@ -25,8 +26,15 @@
 			</section>
 			<!-- Main content -->
 			<section class="content">
+				
+				
 				<!-- User Form -->
-				<form action="./addAccountForm.htm" method="post"
+				
+				<div class="form-group" id="typeError">
+						<label class="control-label" id="errorTop"></label>
+					</div>
+				
+				<form action="${pageContext.request.contextPath}/admin/pages/MemberFormController" method="post"
 					onsubmit="return validateForm(this)" name="membershipEditForm"
 					id="membershipEditForm">
 					<!-- Default box -->
@@ -122,8 +130,11 @@
 																<div class="input-group-addon">
 																	<i class="fa fa-calendar"></i>
 																</div>
+																<span id="formattedDate1" name="formattedDate1"
+												style="display: none;"><fmt:formatDate type="date"
+													pattern="dd/MM/yyyy" value="${requestScope.member.dob}" /></span> 
 																<input type="text" class="form-control pull-right"
-																	id="dob" name="dob" required="required" value="${requestScope.member.dob}" />
+																	id="dob" name="dob" required="required"  />
 															</div>
 															<p id="errorDob"></p>
 															<!-- /.input group -->
@@ -132,27 +143,7 @@
 														<!--End Dob -->
 														<!-- /.form group -->
 
-														<!--  form group -->
-														<!-- Category -->
-								<!-- 						<div class="form-group" id="divMemberFormCategory">
-															<label>Category</label>
-															<div class="input-group">
-																<div class="input-group-addon">
-																	<i class="fa   fa-group"></i>
-																</div>
-																<select class="form-control select2" id="category"
-																	name="category" style="width: 100%;"
-																	required="required" value="${requestScope.member.category}">
-																	<option>General</option>
-																	<option>Scheduled Caste(SC)</option>
-																	<option>Scheduled Tribe(ST)</option>
-																	<option>Other Backward Classes(OBC)</option>
-																	<option>Others</option>
-																</select>
-															</div>
-													</div>										-->
-														<!-- End Category -->
-														<!-- /. form group -->
+											
 
 														<!--  form group -->
 														<!-- Email -->
@@ -234,7 +225,7 @@
 																</div>
 																<input type="file" id="memberPhoto" name="memberPhoto"
 																	class="btn btn-block btn-default btn"
-																	required="required" />
+																	 />
 															</div>
 															<p id="errorPhoto"></p>
 														</div>
@@ -421,11 +412,10 @@
 																	<i class="fa  fa-bars"></i>
 																</div>
 																<select class="form-control select2" id="projectCode"
-																	name="projectCode" style="width: 100%;" value="${requestScope.member.projectCd}">
-																	<option >0</option>
-																	<option>1</option>
-																	<option>2</option>
-																	<option>3</option>
+																	name="projectCode" style="width: 100%;" >
+																	<c:forEach items="${requestScope.projectList}" var="project">
+													<option value="${project.getProjectId()}" ${requestScope.member.projectCd eq project.getProjectId() ? 'selected' : ''}>${project.getProjectName()}</option>
+												</c:forEach>
 																</select>
 															</div>
 														</div>
@@ -490,8 +480,11 @@
 																<div class="input-group-addon">
 																	<i class="fa fa-calendar"></i>
 																</div>
+																<span id="formattedDate2" name="formattedDate2"
+												style="display: none;"><fmt:formatDate type="date"
+													pattern="dd/MM/yyyy" value="${requestScope.member.receiptdt}" /></span>
 																<input type="text" class="form-control pull-right"
-																	id="datepicker1" name="datepicker1"  value="${requestScope.member.receiptdt}"/>
+																	id="datepicker" name="datepicker"  />
 															</div>
 															<p id="errorReceiptDate"></p>
 													<!-- /.input group -->
@@ -535,7 +528,7 @@
 																	<i class="fa  fa-bars"></i>
 																</div>
 																<select class="form-control select2"
-																	id="memberStatus" value="${requestScope.member.liveDead}"
+																	id="memberStatus" 
 																	name="memberStatus" style="width: 100%;">
 																	<option ${requestScope.member.liveDead eq 'L'.charAt(0) ? 'selected' : ''}>Live</option>
 																	<option ${requestScope.member.liveDead eq 'D'.charAt(0) ? 'selected' : ''}>Dead</option>
@@ -690,6 +683,9 @@
 			}
 			document.getElementById("editbtn").disabled = false;
 			document.getElementById("cancel").disabled = false;
+			//Set formatted date in input fields
+			document.getElementById("dob").value = document.getElementById("formattedDate1").innerHTML;
+			document.getElementById("datepicker").value = document.getElementById("formattedDate2").innerHTML;
 		}
 
 		function editfxn() {
@@ -940,18 +936,18 @@
 			//End Entrance Fee Validation
 
 			//Plot Size Validation
-			var plotSize = document.getElementById("plotSize").value;
+		//	var plotSize = document.getElementById("plotSize").value;
 
-			if (!(plotSize == null || plotSize === "")) {
-				var plotSizeValid = /^\d+(\.\d+)?[ ]?[Xx][ ]?\d+(\.\d+)?$/; 											
-				if (!plotSize.match(plotSizeValid)) {
-					document.getElementById("errorPlotSize").innerHTML = 'Invalid PlotSize Format, supply length x width ';
-					document.getElementById("divPlotSize").className = 'alert alert-danger alert-dismissible';
-					return false;
-				}
-				document.getElementById("errorPlotSize").innerHTML = "";
-				document.getElementById("divPlotSize").className = 'form-group has-success';
-			}
+		//	if (!(plotSize == null || plotSize === "")) {
+		//		var plotSizeValid = /^\d+(\.\d+)?[ ]?[Xx][ ]?\d+(\.\d+)?$/; 											
+		//		if (!plotSize.match(plotSizeValid)) {
+		//			document.getElementById("errorPlotSize").innerHTML = 'Invalid PlotSize Format, supply length x width ';
+		//			document.getElementById("divPlotSize").className = 'alert alert-danger alert-dismissible';
+		//			return false;
+		//		}
+		//		document.getElementById("errorPlotSize").innerHTML = "";
+		//		document.getElementById("divPlotSize").className = 'form-group has-success';
+		//	}
 
 			//End Plot Size Validation
 
@@ -970,18 +966,18 @@
 			//End Net Plot Size Validation
 
 			//Plot No. Validation
-			var plotNo = document.getElementById("plotSize").value;
+	//		var plotNo = document.getElementById("plotSize").value;
 
-			if (!(plotNo == null || plotNo === "")) {
-				var plotNoValid = /^[a-zA-Z0-9-\\/ ]+$/; 									
-				if (!plotNoValid.test(plotNo)) {
-					document.getElementById("errorPlotNo").innerHTML = 'Invalid Plot No.';
-					document.getElementById("divPlotNo").className = 'alert alert-danger alert-dismissible';
-					return false;
-				}
-				document.getElementById("errorPlotNo").innerHTML = "";
-				document.getElementById("divPlotNo").className = 'form-group has-success';
-			}
+	//		if (!(plotNo == null || plotNo === "")) {
+	//			var plotNoValid = /^[a-zA-Z0-9-\\/ ]+$/; 									
+	//			if (!plotNoValid.test(plotNo)) {
+	//				document.getElementById("errorPlotNo").innerHTML = 'Invalid Plot No.';
+	//				document.getElementById("divPlotNo").className = 'alert alert-danger alert-dismissible';
+	//				return false;
+	//			}
+	//			document.getElementById("errorPlotNo").innerHTML = "";
+	//			document.getElementById("divPlotNo").className = 'form-group has-success';
+	//		}
 
 			//End Plot No. Validation
 
