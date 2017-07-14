@@ -68,6 +68,9 @@
 									</div>
 									<!-- /.box -->
 
+									<input type="hidden" class="form-control" id="showId"
+										name="showId" value="${requestScope.user.userId}" />
+
 									<!--  form-group -->
 									<!-- Full Name -->
 									<div class="form-group" id="divUserFormName">
@@ -273,10 +276,10 @@
 											</div>
 											<select class="form-control select2" id="userType"
 												name="userType" style="width: 100%;">
-												<option value="Administrator" selected="selected">Administrator</option>
-												<option value="Accounts">Accounts</option>
-												<option value="Reception">Reception</option>
-												<option value="Data Entry">Data Entry</option>
+												<option value="Administrator" ${requestScope.user.userType eq 'Administrator' ? 'selected' : ''} >Administrator</option>
+												<option value="Accounts" ${requestScope.user.userType eq 'Accounts' ? 'selected' : ''} >Accounts</option>
+												<option value="Reception" ${requestScope.user.userType eq 'Reception' ? 'selected' : ''} >Reception</option>
+												<option value="Data Entry" ${requestScope.user.userType eq 'Data Entry' ? 'selected' : ''} >Data Entry</option>
 											</select>
 										</div>
 									</div>
@@ -289,8 +292,8 @@
 											</div>
 											<select class="form-control select2" id="userStatus"
 												name="userStatus" style="width: 100%;">
-												<option selected="selected" value="Active">Active</option>
-												<option value="Inactive">Inactive</option>
+												<option  value="Active" ${requestScope.user.status eq 'Active' ? 'selected' : ''}>Active</option>
+												<option value="Inactive" ${requestScope.user.status eq 'Inactive' ? 'selected' : ''}>Inactive</option>
 											</select>
 										</div>
 									</div>
@@ -308,7 +311,7 @@
 											</div>
 											<input type="file" id="userPhoto" name="userPhoto"
 												class="btn btn-block btn-default btn"
-												value="${requestScope.user.photo}" />
+												/>
 										</div>
 										<p id="errorPhoto"></p>
 									</div>
@@ -372,7 +375,7 @@
 		<c:choose>
 		<c:when test="${param.msg=='1'}">
 		$(document).ready(function() {
-			$("#typeError").addClass("form-group has-error");
+			$("#c").addClass("form-group has-error");
 			$("#errorTop").html("Record Updated Successfully.");
 		});
 		</c:when>
@@ -547,15 +550,15 @@
 			//End Address Validation
 
 			//Photo Validation
-			var photo = document.getElementById("userPhoto").value;
-			if (photo == null || photo === "") {
-				document.getElementById("errorPhoto").innerHTML = error;
-				document.getElementById("divUserFormPhoto").className = 'alert alert-danger alert-dismissible';
-				return false;
+		//	var photo = document.getElementById("userPhoto").value;
+		//	if (photo == null || photo === "") {
+		//		document.getElementById("errorPhoto").innerHTML = error;
+		//		document.getElementById("divUserFormPhoto").className = 'alert alert-danger alert-dismissible';
+		//		return false;
 
-			}
-			document.getElementById("errorPhoto").innerHTML = "";
-			document.getElementById("divUserFormPhoto").className = 'form-group has-success';
+		//	}
+			//	document.getElementById("errorPhoto").innerHTML = "";
+		//	document.getElementById("divUserFormPhoto").className = 'form-group has-success';
 			//End Photo Validation
 
 			return true;
