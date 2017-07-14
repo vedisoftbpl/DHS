@@ -77,7 +77,7 @@ public class MembersDao {
 					+ "mad1= ?,mad2= ?,mad3= ?,adressproof= ?,nome_name= ?,nome_rela= ?,membfee= ?,entrfee= ?,userid= ?,lastupdate= ?,membno= ?,projcd= ?"
 					+ ",plsize= ?,nplsize= ?,reg_cor= ?,plno= ?,tplno= ?,mage= ?,recedte= ?,fullpay= ?,inst1= ?,inst2= ?,inst3= ?,transf= ?,opbal= ?,"
 					+ "water_con= ?,sec_dep= ?,wt_cn_dt= ?,opdte= ?,regi= ?,regdte= ?,regno= ?,r_c= ?,nocdte= ?,live_dead= ?,refdte= ?,diversion= ?,finalamt= ?"
-					+ ",maint= ?,water= ?,wsupdate= ?,establ= ?,wc_lr_dt= ?,wat_chg= ?,extamt= ?,cost= ? where member_id = ? ";
+					+ ",maint= ?,water= ?,wsupdte= ?,establ= ?,wc_lr_dt= ?,wat_chg= ?,extamt= ?,cost= ? where member_id = ? ";
 			PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			ps.setString(1, member.getPrefix());
 			ps.setString(2, member.getMemName());
@@ -165,7 +165,8 @@ public class MembersDao {
 			ps.setString(54, member.getWatChg());
 			ps.setDouble(55, member.getExtraAmount());
 			ps.setDouble(56, member.getCost());
-
+			ps.setInt(57 , member.getMemberId());
+			
 			int x = ps.executeUpdate();
 			if (x == 0) {
 				System.out.println("Record not Saved");
