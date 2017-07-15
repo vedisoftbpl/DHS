@@ -17,6 +17,7 @@ import javax.servlet.http.Part;
 
 import com.vedisoft.danishhousing.config.DateUtils;
 import com.vedisoft.danishhousing.daos.AccountDao;
+import com.vedisoft.danishhousing.daos.MembersDao;
 import com.vedisoft.danishhousing.daos.UsersDao;
 import com.vedisoft.danishhousing.pojos.Account;
 import com.vedisoft.danishhousing.pojos.Users;
@@ -204,7 +205,6 @@ public class UserFormController extends HttpServlet {
 			// rd.forward(request, response);
 		} else if (operation.equals("edit")) {
 
-			if (userPhoto != null && userPhoto.trim().length() > 0){
 			String appPath = request.getServletContext().getRealPath("") + "pages\\";
 			String savePath = appPath + SAVE_DIR;
 			System.out.println(appPath);
@@ -213,6 +213,7 @@ public class UserFormController extends HttpServlet {
 			if (!fileSaveDir.exists()) {
 				fileSaveDir.mkdir();
 			}
+			String oldFile = new UsersDao().find(id).getPhoto();
 			Collection<Part> allUploadedParts = request.getParts();
 			int i = 0;
 			for (Part part : allUploadedParts) {
@@ -246,10 +247,11 @@ public class UserFormController extends HttpServlet {
 				f1.renameTo(f2);
 				i++;
 			}
-
+			
+			File f3 = new File(savePath + File.separator + oldFile);
+			f3.delete();
 			userPhoto = renamedFileName;
 			System.out.println(userPhoto);
-			}
 
 			UsersDao dao = new UsersDao();
 			System.out.println("Data :" + userName + userEmail + userPassword);

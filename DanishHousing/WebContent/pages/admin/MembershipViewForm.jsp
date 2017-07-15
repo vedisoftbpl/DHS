@@ -26,17 +26,18 @@
 			</section>
 			<!-- Main content -->
 			<section class="content">
-				
-				
+
+
 				<!-- User Form -->
-				
+
 				<div class="form-group" id="typeError">
-						<label class="control-label" id="errorTop"></label>
-					</div>
-				
-				<form action="${pageContext.request.contextPath}/admin/pages/MemberFormController" method="post"
-					onsubmit="return validateForm(this)" name="membershipEditForm"
-					id="membershipEditForm">
+					<label class="control-label" id="errorTop"></label>
+				</div>
+
+				<form
+					action="${pageContext.request.contextPath}/admin/pages/MemberFormController"
+					method="post" onsubmit="return validateForm(this)"
+					name="membershipEditForm" id="membershipEditForm" enctype="multipart/form-data">
 					<!-- Default box -->
 					<div class="box">
 						<div class="box-header with-border">
@@ -61,7 +62,8 @@
 									<!-- Custom Tabs -->
 									<div class="nav-tabs-custom">
 										<ul class="nav nav-tabs">
-											<li class="active"><a href="#tab_1" data-toggle="tab">Member Details</a></li>
+											<li class="active"><a href="#tab_1" data-toggle="tab">Member
+													Details</a></li>
 											<li><a href="#tab_2" data-toggle="tab">Plot Details</a></li>
 
 
@@ -70,11 +72,23 @@
 											<div class="tab-pane active" id="tab_1">
 												<div class="row">
 													<div class="col-md-6">
-													
-							
-										<input type="hidden" class="form-control" id="showId"
-										name="showId" value="${requestScope.member.memberId}" />
-		
+														<!-- Profile Image -->
+														<div class="box box-primary">
+															<div class="box-body box-profile">
+																<img class="profile-user-img img-responsive img-circle"
+																	src="../../pages/photos/${requestScope.member.photo}"
+																	alt="User profile picture">
+
+																<h3 class="profile-username text-center">${requestScope.member.memName}</h3>
+
+															</div>
+															<!-- /.box-body -->
+														</div>
+														<!-- /.box -->
+
+														<input type="hidden" class="form-control" id="showId"
+															name="showId" value="${requestScope.member.memberId}" />
+
 
 														<!--  form-group -->
 														<!-- Full Name -->
@@ -84,13 +98,17 @@
 																<span class="input-group-addon"><i
 																	class="fa fa-user"></i></span> <span class="col-xs-2"><select
 																	class="form-control select2" id="prefix" name="prefix"
-																	style="width: 80px;" required="required" >
-																		<option ${requestScope.member.prefix eq 'Mr.' ? 'selected' : ''}>Mr.</option>
-																		<option ${requestScope.member.prefix eq 'Mrs.' ? 'selected' : ''}>Mrs.</option>
-																		<option ${requestScope.member.prefix eq 'Miss' ? 'selected' : ''}>Miss</option>
+																	style="width: 80px;" required="required">
+																		<option
+																			${requestScope.member.prefix eq 'Mr.' ? 'selected' : ''}>Mr.</option>
+																		<option
+																			${requestScope.member.prefix eq 'Mrs.' ? 'selected' : ''}>Mrs.</option>
+																		<option
+																			${requestScope.member.prefix eq 'Miss' ? 'selected' : ''}>Miss</option>
 																</select> </span> <span class="col-md-10"> <input type="text"
 																	class="form-control" placeholder="Full Name"
-																	id="memberFullName" name="memberFullName"  value="${requestScope.member.memName}"/>
+																	id="memberFullName" name="memberFullName"
+																	value="${requestScope.member.memName}" />
 																</span>
 															</div>
 															<p id="errorFullName"></p>
@@ -107,13 +125,17 @@
 																	class="fa fa-user"></i></span> <span class="col-xs-2"><select
 																	class="form-control select2" id="relation"
 																	name="relation" style="width: 80px;"
-																	required="required" >
-																		<option ${requestScope.member.fHRelation eq 'S/O' ? 'selected' : ''}>S/O</option>
-																		<option ${requestScope.member.fHRelation eq 'D/O' ? 'selected' : ''}>D/O</option>
-																		<option ${requestScope.member.fHRelation eq 'W/O' ? 'selected' : ''}>W/O</option>
+																	required="required">
+																		<option
+																			${requestScope.member.fHRelation eq 'S/O' ? 'selected' : ''}>S/O</option>
+																		<option
+																			${requestScope.member.fHRelation eq 'D/O' ? 'selected' : ''}>D/O</option>
+																		<option
+																			${requestScope.member.fHRelation eq 'W/O' ? 'selected' : ''}>W/O</option>
 																</select> </span> <span class="col-md-10"> <input type="text"
 																	class="form-control" placeholder="Full Name"
-																	id="relativeFullName" name="relativeFullName" value="${requestScope.member.fHRelName}"/>
+																	id="relativeFullName" name="relativeFullName"
+																	value="${requestScope.member.fHRelName}" />
 																</span>
 															</div>
 															<p id="errorRelativeName"></p>
@@ -131,10 +153,11 @@
 																	<i class="fa fa-calendar"></i>
 																</div>
 																<span id="formattedDate1" name="formattedDate1"
-												style="display: none;"><fmt:formatDate type="date"
-													pattern="dd/MM/yyyy" value="${requestScope.member.dob}" /></span> 
-																<input type="text" class="form-control pull-right"
-																	id="dob" name="dob" required="required"  />
+																	style="display: none;"><fmt:formatDate
+																		type="date" pattern="dd/MM/yyyy"
+																		value="${requestScope.member.dob}" /></span> <input
+																	type="text" class="form-control pull-right" id="dob"
+																	name="dob" required="required" />
 															</div>
 															<p id="errorDob"></p>
 															<!-- /.input group -->
@@ -143,7 +166,7 @@
 														<!--End Dob -->
 														<!-- /.form group -->
 
-											
+
 
 														<!--  form group -->
 														<!-- Email -->
@@ -153,7 +176,8 @@
 																<span class="input-group-addon"><i
 																	class="fa fa-envelope"></i></span> <input type="email"
 																	class="form-control" placeholder="example@email.com"
-																	id="memberEmail" name="memberEmail" value="${requestScope.member.email}"/>
+																	id="memberEmail" name="memberEmail"
+																	value="${requestScope.member.email}" />
 															</div>
 															<p id="errorEmail"></p>
 														</div>
@@ -168,7 +192,8 @@
 																<span class="input-group-addon"><i
 																	class="fa fa-black-tie"></i></span> <input type="text"
 																	class="form-control" placeholder="Occupation"
-																	id="memberOccupation" name="memberOccupation" value="${requestScope.member.memOccupation}">
+																	id="memberOccupation" name="memberOccupation"
+																	value="${requestScope.member.memOccupation}">
 															</div>
 															<p id="errorOccupation"></p>
 														</div>
@@ -188,7 +213,8 @@
 																<input type="text" class="form-control"
 																	data-inputmask='"mask": "(+91) 99999-99999"' data-mask
 																	id="memberPhone" name="memberPhone"
-																	placeholder="(+91) 99999-99999" value="${requestScope.member.mobile}" />
+																	placeholder="(+91) 99999-99999"
+																	value="${requestScope.member.mobile}" />
 															</div>
 															<p id="errorPhone"></p>
 															<!-- /.input group -->
@@ -207,7 +233,8 @@
 																</div>
 																<input type="text" class="form-control"
 																	id="memberAdhaar" name="memberAdhaar"
-																	placeholder="12 digit adhaar number" value="${requestScope.member.aadhar}"/>
+																	placeholder="12 digit adhaar number"
+																	value="${requestScope.member.aadhar}" />
 															</div>
 															<p id="errorAdhaar"></p>
 															<!-- /.input group -->
@@ -224,8 +251,7 @@
 																	<i class="fa fa-photo"></i>
 																</div>
 																<input type="file" id="memberPhoto" name="memberPhoto"
-																	class="btn btn-block btn-default btn"
-																	 />
+																	class="btn btn-block btn-default btn" />
 															</div>
 															<p id="errorPhoto"></p>
 														</div>
@@ -244,7 +270,7 @@
 													<!-- /.col -->
 													<div class="col-md-6">
 
-
+													<br><br><br><br><br><br><br><br><br>
 
 
 														<!--  form-group -->
@@ -255,7 +281,8 @@
 																<span class="input-group-addon"><i
 																	class="fa fa-home"></i></span> <input type="text"
 																	class="form-control" placeholder="Address Line 1"
-																	id="memberAddress1" name="memberAddress1" value="${requestScope.member.address1}"/>
+																	id="memberAddress1" name="memberAddress1"
+																	value="${requestScope.member.address1}" />
 															</div>
 															<p id="errorAddress1"></p>
 														</div>
@@ -270,7 +297,8 @@
 																<span class="input-group-addon"><i
 																	class="fa fa-home"></i></span> <input type="text"
 																	class="form-control" placeholder="Address Line 2"
-																	id="memberAddress2" name="memberAddress2" value="${requestScope.member.address2}"/>
+																	id="memberAddress2" name="memberAddress2"
+																	value="${requestScope.member.address2}" />
 															</div>
 															<p id="errorAddress2"></p>
 														</div>
@@ -285,7 +313,8 @@
 																<span class="input-group-addon"><i
 																	class="fa fa-map-marker"></i></span> <input type="text"
 																	class="form-control" placeholder="City" id="memberCity"
-																	name="memberCity" value="${requestScope.member.address3}"/>
+																	name="memberCity"
+																	value="${requestScope.member.address3}" />
 															</div>
 															<p id="errorCity"></p>
 														</div>
@@ -302,12 +331,21 @@
 																</div>
 																<select class="form-control select2" id="addressProof"
 																	name="addressProof" style="width: 100%;"
-																	required="required" >
-																	<option ${requestScope.member.addProof eq 'Voter Id' ? 'selected' : ''}>Voter Id</option>
-																	<option ${requestScope.member.addProof eq 'Driving License' ? 'selected' : ''}>Driving License</option>
-																	<option ${requestScope.member.addProof eq 'Passport' ? 'selected' : ''}>Passport</option>
-																	<option ${requestScope.member.addProof eq 'PAN Card' ? 'selected' : ''}>PAN Card</option>
-																	<option ${requestScope.member.addProof eq 'Ration Card' ? 'selected' : ''}>Ration Card</option>
+																	required="required">
+																	<option
+																		${requestScope.member.addProof eq 'Voter Id' ? 'selected' : ''}>Voter
+																		Id</option>
+																	<option
+																		${requestScope.member.addProof eq 'Driving License' ? 'selected' : ''}>Driving
+																		License</option>
+																	<option
+																		${requestScope.member.addProof eq 'Passport' ? 'selected' : ''}>Passport</option>
+																	<option
+																		${requestScope.member.addProof eq 'PAN Card' ? 'selected' : ''}>PAN
+																		Card</option>
+																	<option
+																		${requestScope.member.addProof eq 'Ration Card' ? 'selected' : ''}>Ration
+																		Card</option>
 																</select>
 															</div>
 														</div>
@@ -322,7 +360,8 @@
 																<span class="input-group-addon"><i
 																	class="fa fa-user"></i></span> <input type="text"
 																	class="form-control" placeholder="Full Name"
-																	id="memberNomineeName" name="memberNomineeName" value="${requestScope.member.nomineeName}"/>
+																	id="memberNomineeName" name="memberNomineeName"
+																	value="${requestScope.member.nomineeName}" />
 															</div>
 															<p id="errorNomineeName"></p>
 														</div>
@@ -337,7 +376,8 @@
 																<span class="input-group-addon"><i
 																	class="fa fa-exchange"></i></span> <input type="text"
 																	class="form-control" placeholder="Relationship"
-																	id="memberNomineeRelation" name="memberNomineeRelation" value="${requestScope.member.nomineeRelation}"/>
+																	id="memberNomineeRelation" name="memberNomineeRelation"
+																	value="${requestScope.member.nomineeRelation}" />
 															</div>
 															<p id="errorNomineeRelation"></p>
 														</div>
@@ -352,7 +392,8 @@
 																<span class="input-group-addon"> <i
 																	class="fa  fa-inr"></i></span> <input type="text"
 																	class="form-control" id="membershipFee"
-																	name="membershipFee" value="${requestScope.member.memFee}"/>
+																	name="membershipFee"
+																	value="${requestScope.member.memFee}" />
 															</div>
 															<p id="errorMembershipFee"></p>
 														</div>
@@ -367,14 +408,15 @@
 																<span class="input-group-addon"> <i
 																	class="fa  fa-inr"></i></span> <input type="text"
 																	class="form-control" id="entranceFee"
-																	name="entranceFee" value="${requestScope.member.memEntryFee}"/>
+																	name="entranceFee"
+																	value="${requestScope.member.memEntryFee}" />
 															</div>
 															<p id="errorEntranceFee"></p>
 														</div>
 														<!-- End Entrance Fee -->
 														<!-- /.form group -->
 
-													
+
 
 														<!-- form group -->
 
@@ -412,17 +454,19 @@
 																	<i class="fa  fa-bars"></i>
 																</div>
 																<select class="form-control select2" id="projectCode"
-																	name="projectCode" style="width: 100%;" >
-																	<c:forEach items="${requestScope.projectList}" var="project">
-													<option value="${project.getProjectId()}" ${requestScope.member.projectCd eq project.getProjectId() ? 'selected' : ''}>${project.getProjectName()}</option>
-												</c:forEach>
+																	name="projectCode" style="width: 100%;">
+																	<c:forEach items="${requestScope.projectList}"
+																		var="project">
+																		<option value="${project.getProjectId()}"
+																			${requestScope.member.projectCd eq project.getProjectId() ? 'selected' : ''}>${project.getProjectName()}</option>
+																	</c:forEach>
 																</select>
 															</div>
 														</div>
 
 														<!-- End Project Code -->
 														<!-- /.form-group -->
-														
+
 														<!-- form-group -->
 														<!-- Plot Size -->
 														<div class="form-group" id="divPlotSize">
@@ -430,7 +474,8 @@
 															<div class="input-group">
 																<span class="input-group-addon"><i
 																	class="fa fa-info-circle "></i></span> <input type="text"
-																	class="form-control" id="plotSize" name="plotSize" value="${requestScope.member.plotSize}"/>
+																	class="form-control" id="plotSize" name="plotSize"
+																	value="${requestScope.member.plotSize}" />
 															</div>
 															<p id="errorPlotSize"></p>
 														</div>
@@ -447,7 +492,8 @@
 																<span class="input-group-addon"><i
 																	class="fa fa-info-circle "></i></span> <input type="text"
 																	class="form-control" id="netPlotSize"
-																	name="netPlotSize" value="${requestScope.member.netPlotSize}"/>
+																	name="netPlotSize"
+																	value="${requestScope.member.netPlotSize}" />
 															</div>
 															<p id="errorNetPlotSize"></p>
 														</div>
@@ -462,7 +508,8 @@
 															<div class="input-group">
 																<span class="input-group-addon"><i
 																	class="fa fa-info-circle "></i></span> <input type="text"
-																	class="form-control" id="plotNo" name="plotNo" value="${requestScope.member.plotNo}"/>
+																	class="form-control" id="plotNo" name="plotNo"
+																	value="${requestScope.member.plotNo}" />
 															</div>
 															<p id="errorPlotNo"></p>
 														</div>
@@ -481,13 +528,14 @@
 																	<i class="fa fa-calendar"></i>
 																</div>
 																<span id="formattedDate2" name="formattedDate2"
-												style="display: none;"><fmt:formatDate type="date"
-													pattern="dd/MM/yyyy" value="${requestScope.member.receiptdt}" /></span>
-																<input type="text" class="form-control pull-right"
-																	id="datepicker" name="datepicker"  />
+																	style="display: none;"><fmt:formatDate
+																		type="date" pattern="dd/MM/yyyy"
+																		value="${requestScope.member.receiptdt}" /></span> <input
+																	type="text" class="form-control pull-right"
+																	id="datepicker" name="datepicker" />
 															</div>
 															<p id="errorReceiptDate"></p>
-													<!-- /.input group -->
+															<!-- /.input group -->
 														</div>
 														<!--End Receipt Date -->
 														<!-- /.form group -->
@@ -508,9 +556,11 @@
 																</div>
 																<select class="form-control select2"
 																	id=" residentialCommercial"
-																	name="residentialCommercial" style="width: 100%;" >
-																	<option ${requestScope.member.rC eq 'R'.charAt(0) ? 'selected' : ''}>Residential</option>
-																	<option ${requestScope.member.rC eq 'C'.charAt(0) ? 'selected' : ''}>Commercial</option>
+																	name="residentialCommercial" style="width: 100%;">
+																	<option
+																		${requestScope.member.rC eq 'R'.charAt(0) ? 'selected' : ''}>Residential</option>
+																	<option
+																		${requestScope.member.rC eq 'C'.charAt(0) ? 'selected' : ''}>Commercial</option>
 
 																</select>
 															</div>
@@ -527,11 +577,12 @@
 																<div class="input-group-addon">
 																	<i class="fa  fa-bars"></i>
 																</div>
-																<select class="form-control select2"
-																	id="memberStatus" 
+																<select class="form-control select2" id="memberStatus"
 																	name="memberStatus" style="width: 100%;">
-																	<option ${requestScope.member.liveDead eq 'L'.charAt(0) ? 'selected' : ''}>Live</option>
-																	<option ${requestScope.member.liveDead eq 'D'.charAt(0) ? 'selected' : ''}>Dead</option>
+																	<option
+																		${requestScope.member.liveDead eq 'L'.charAt(0) ? 'selected' : ''}>Live</option>
+																	<option
+																		${requestScope.member.liveDead eq 'D'.charAt(0) ? 'selected' : ''}>Dead</option>
 
 																</select>
 															</div>
@@ -549,7 +600,8 @@
 															<div class="input-group">
 																<span class="input-group-addon"> <i
 																	class="fa  fa-inr"></i></span> <input type="text"
-																	class="form-control" id="diversion" name="diversion" value="${requestScope.member.diversion}">
+																	class="form-control" id="diversion" name="diversion"
+																	value="${requestScope.member.diversion}">
 															</div>
 															<p id="errorDiversion"></p>
 														</div>
@@ -564,7 +616,8 @@
 																<span class="input-group-addon"> <i
 																	class="fa  fa-inr"></i></span> <input type="text"
 																	class="form-control" id="extraAmount"
-																	name="extraAmount" value="${requestScope.member.extraAmount}">
+																	name="extraAmount"
+																	value="${requestScope.member.extraAmount}">
 															</div>
 															<p id="errorExtraAmount"></p>
 														</div>
@@ -580,14 +633,15 @@
 															<div class="input-group">
 																<span class="input-group-addon"> <i
 																	class="fa  fa-inr"></i></span> <input type="text"
-																	class="form-control" id="cost" name="cost" value="${requestScope.member.cost}">
+																	class="form-control" id="cost" name="cost"
+																	value="${requestScope.member.cost}">
 															</div>
 															<p id="errorCost"></p>
 														</div>
 														<!-- Cost -->
 
 
-														
+
 														<!-- /.form group -->
 														<input type="hidden" class="form-control" id="operation"
 															name="operation" value="edit" />
@@ -623,24 +677,24 @@
 							<!-- /.box-footer-->
 						</div>
 						<!-- /.box -->
-						
-						
-						
-						
-						
-						
-				</div>	
+
+
+
+
+
+
+					</div>
 				</form>
 
-					<!-- User Form -->		
-						
-						
-						
-						
-						
-						
-						
-						
+				<!-- User Form -->
+
+
+
+
+
+
+
+
 			</section>
 			<!-- /.content -->
 		</div>
@@ -684,8 +738,10 @@
 			document.getElementById("editbtn").disabled = false;
 			document.getElementById("cancel").disabled = false;
 			//Set formatted date in input fields
-			document.getElementById("dob").value = document.getElementById("formattedDate1").innerHTML;
-			document.getElementById("datepicker").value = document.getElementById("formattedDate2").innerHTML;
+			document.getElementById("dob").value = document
+					.getElementById("formattedDate1").innerHTML;
+			document.getElementById("datepicker").value = document
+					.getElementById("formattedDate2").innerHTML;
 		}
 
 		function editfxn() {
@@ -936,18 +992,18 @@
 			//End Entrance Fee Validation
 
 			//Plot Size Validation
-		//	var plotSize = document.getElementById("plotSize").value;
+			//	var plotSize = document.getElementById("plotSize").value;
 
-		//	if (!(plotSize == null || plotSize === "")) {
-		//		var plotSizeValid = /^\d+(\.\d+)?[ ]?[Xx][ ]?\d+(\.\d+)?$/; 											
-		//		if (!plotSize.match(plotSizeValid)) {
-		//			document.getElementById("errorPlotSize").innerHTML = 'Invalid PlotSize Format, supply length x width ';
-		//			document.getElementById("divPlotSize").className = 'alert alert-danger alert-dismissible';
-		//			return false;
-		//		}
-		//		document.getElementById("errorPlotSize").innerHTML = "";
-		//		document.getElementById("divPlotSize").className = 'form-group has-success';
-		//	}
+			//	if (!(plotSize == null || plotSize === "")) {
+			//		var plotSizeValid = /^\d+(\.\d+)?[ ]?[Xx][ ]?\d+(\.\d+)?$/; 											
+			//		if (!plotSize.match(plotSizeValid)) {
+			//			document.getElementById("errorPlotSize").innerHTML = 'Invalid PlotSize Format, supply length x width ';
+			//			document.getElementById("divPlotSize").className = 'alert alert-danger alert-dismissible';
+			//			return false;
+			//		}
+			//		document.getElementById("errorPlotSize").innerHTML = "";
+			//		document.getElementById("divPlotSize").className = 'form-group has-success';
+			//	}
 
 			//End Plot Size Validation
 
@@ -966,18 +1022,18 @@
 			//End Net Plot Size Validation
 
 			//Plot No. Validation
-	//		var plotNo = document.getElementById("plotSize").value;
+			//		var plotNo = document.getElementById("plotSize").value;
 
-	//		if (!(plotNo == null || plotNo === "")) {
-	//			var plotNoValid = /^[a-zA-Z0-9-\\/ ]+$/; 									
-	//			if (!plotNoValid.test(plotNo)) {
-	//				document.getElementById("errorPlotNo").innerHTML = 'Invalid Plot No.';
-	//				document.getElementById("divPlotNo").className = 'alert alert-danger alert-dismissible';
-	//				return false;
-	//			}
-	//			document.getElementById("errorPlotNo").innerHTML = "";
-	//			document.getElementById("divPlotNo").className = 'form-group has-success';
-	//		}
+			//		if (!(plotNo == null || plotNo === "")) {
+			//			var plotNoValid = /^[a-zA-Z0-9-\\/ ]+$/; 									
+			//			if (!plotNoValid.test(plotNo)) {
+			//				document.getElementById("errorPlotNo").innerHTML = 'Invalid Plot No.';
+			//				document.getElementById("divPlotNo").className = 'alert alert-danger alert-dismissible';
+			//				return false;
+			//			}
+			//			document.getElementById("errorPlotNo").innerHTML = "";
+			//			document.getElementById("divPlotNo").className = 'form-group has-success';
+			//		}
 
 			//End Plot No. Validation
 

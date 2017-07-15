@@ -89,11 +89,6 @@ public class MemberFormController extends HttpServlet {
 			//System.out.println(request.getParameter("dob"));
 		}
 		
-		String category = new String();
-		if(request.getParameter("category")!= null && request.getParameter("category").trim().length() > 0) {
-			category = request.getParameter("category");
-		}
-		
 		String memberEmail = new String();
 		if(request.getParameter("memberEmail")!= null && request.getParameter("memberEmail").trim().length() > 0) {
 			memberEmail = request.getParameter("memberEmail");
@@ -302,11 +297,6 @@ public class MemberFormController extends HttpServlet {
 			rd.forward(request, response);
 		}
 		else if(operation.equals("edit")){
-			
-			if(memberPhoto != null && memberPhoto.trim().length() > 0){
-				
-				
-				
 			String appPath = request.getServletContext().getRealPath("") + "pages\\";
 			String savePath = appPath +  SAVE_DIR;
 			System.out.println(appPath );
@@ -315,6 +305,7 @@ public class MemberFormController extends HttpServlet {
 			if (!fileSaveDir.exists()) {
 				fileSaveDir.mkdir();
 			}
+			String oldFile = new MembersDao().find(id).getPhoto();
 			Collection<Part> allUploadedParts = request.getParts();
 			int i = 0;
 			for (Part part : allUploadedParts) {
@@ -328,7 +319,6 @@ public class MemberFormController extends HttpServlet {
 				// Get name of File
 
 				String fileName = part.getSubmittedFileName();
-
 				if (fileName == null)
 					continue;
 
@@ -346,12 +336,12 @@ public class MemberFormController extends HttpServlet {
 				f1.renameTo(f2);
 				i++;
 			}
-			
+			File f3 = new File(savePath + File.separator + oldFile);
+			f3.delete();
 			
 			memberPhoto = renamedFileName;
 			System.out.println(memberPhoto);
 			
-			}
 			MembersDao dao = new MembersDao();
 			Members m = new Members(id,projectCd,plotSize,netPlotSize,plotNo,prefix, memberFullName, memberAddress1, memberAddress2, memberCity,
 					memberOccupation, relation, relativeFullName, memberNomineeRelation, memberNomineeName,
