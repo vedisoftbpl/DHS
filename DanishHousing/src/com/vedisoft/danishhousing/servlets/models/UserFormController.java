@@ -255,7 +255,7 @@ public class UserFormController extends HttpServlet {
 
 			UsersDao dao = new UsersDao();
 			System.out.println("Data :" + userName + userEmail + userPassword);
-			Users u = new Users(userName, userEmail, userPassword, userDesignation, userMobile, userStatus, doj, dob,
+			Users u = new Users(id,userName, userEmail, userPassword, userDesignation, userMobile, userStatus, doj, dob,
 					userFormAddress, userPhoto, userCreatedBy, userType);
 			System.out.println(u);
 			boolean status = false;
