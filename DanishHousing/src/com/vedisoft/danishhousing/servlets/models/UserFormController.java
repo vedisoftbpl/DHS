@@ -216,6 +216,7 @@ public class UserFormController extends HttpServlet {
 			String oldFile = new UsersDao().find(id).getPhoto();
 			Collection<Part> allUploadedParts = request.getParts();
 			int i = 0;
+			boolean uploaded = false;
 			for (Part part : allUploadedParts) {
 				// Part: class represents a part as uploaded to the server as
 				// part
@@ -229,8 +230,8 @@ public class UserFormController extends HttpServlet {
 				// Get name of File
 
 				String fileName = part.getSubmittedFileName();
-
-				if (fileName == null)
+				System.out.println("file: " + fileName);
+				if (fileName == null || fileName == "")
 					continue;
 
 				// 3: Write the file to the disk
@@ -244,19 +245,22 @@ public class UserFormController extends HttpServlet {
 				renamedFileName = primary + System.currentTimeMillis() + secondary;
 				String renamed = savePath + File.separator + renamedFileName;
 				File f2 = new File(renamed);
-				f1.renameTo(f2);
+				uploaded = f1.renameTo(f2);
 				i++;
 			}
-			
-			File f3 = new File(savePath + File.separator + oldFile);
-			f3.delete();
-			userPhoto = renamedFileName;
-			System.out.println(userPhoto);
+			if (uploaded == true) {
+				File f3 = new File(savePath + File.separator + oldFile);
+				f3.delete();
+				userPhoto = renamedFileName;
+				System.out.println(userPhoto);
+			} else {
+				userPhoto = oldFile;
+			}
 
 			UsersDao dao = new UsersDao();
 			System.out.println("Data :" + userName + userEmail + userPassword);
-			Users u = new Users(id,userName, userEmail, userPassword, userDesignation, userMobile, userStatus, doj, dob,
-					userFormAddress, userPhoto, userCreatedBy, userType);
+			Users u = new Users(id, userName, userEmail, userPassword, userDesignation, userMobile, userStatus, doj,
+					dob, userFormAddress, userPhoto, userCreatedBy, userType);
 			System.out.println(u);
 			boolean status = false;
 			status = dao.edit(u);
