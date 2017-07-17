@@ -173,7 +173,7 @@
 	<c:choose>
 	<c:when test="${param.msg=='1'}">
 	$(document).ready(function() {
-		$("#typeError").addClass("form-group has-error");
+		$("#typeError").addClass("form-group has-success");
 		$("#errorTop")
 		.html(
 				"Record Added Successfully.");
