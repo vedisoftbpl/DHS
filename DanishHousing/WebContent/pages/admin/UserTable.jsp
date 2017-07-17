@@ -48,6 +48,10 @@
 							</div>
 						</div>
 						<br>
+						<div class="form-group" id="typeError">
+						<label class="control-label" id="errorTop"></label>
+					</div>
+					<br>
 						<table id="example1" class="table table-bordered table-striped">
 							<thead>
 								<tr>
@@ -114,6 +118,21 @@
 	<script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
 	<script src="../../plugins/datatables/dataTables.bootstrap.min.js"></script>
 	<script>
+	<c:choose>
+	<c:when test="${param.msg=='1'}">
+	$(document).ready(function() {
+		$("#c").addClass("form-group has-success");
+		$("#errorTop").html("Record Updated Successfully.");
+	});
+	</c:when>
+	<c:when test="${param.msg=='2'}">
+	$(document).ready(function() {
+		$("#typeError").addClass("form-group has-error");
+		$("#errorTop").html("Fail to Update Record.");
+	});
+	</c:when>
+	</c:choose>
+	
 		$(function() {
 			$("#example1").DataTable();
 		});
