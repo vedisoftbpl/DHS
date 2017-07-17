@@ -223,7 +223,7 @@ public class MemberFormController extends HttpServlet {
 		
 		String page = "/pages/admin/MembershipForm.jsp";
 		String page1= "/pages/admin/MembershipViewForm.jsp";
-		
+		String page2= "MemberTableController";
 		HttpSession session = request.getSession();
 		Users user = null;
 		if (session != null) {
@@ -360,11 +360,11 @@ public class MemberFormController extends HttpServlet {
 			System.out.println(m);
 			Boolean b = dao.edit(m);
 			if (b) {
-				RequestDispatcher rd = request.getRequestDispatcher(page);
+				RequestDispatcher rd = request.getRequestDispatcher(page2);
 				request.setAttribute("msg", 1);
 				rd.forward(request, response);
 			} else {
-				RequestDispatcher rd = request.getRequestDispatcher(page);
+				RequestDispatcher rd = request.getRequestDispatcher(page2);
 				request.setAttribute("msg", 2);
 				rd.forward(request, response);
 			}

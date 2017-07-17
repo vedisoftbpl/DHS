@@ -134,7 +134,7 @@ public class UserFormController extends HttpServlet {
 
 		String page = "/pages/admin/UserForm.jsp";
 		String page1 = "/pages/admin/UserViewForm.jsp";
-
+		String page2 = "UserTableController";
 		HttpSession session = request.getSession();
 		Users user = null;
 		if (session != null) {
@@ -266,9 +266,9 @@ public class UserFormController extends HttpServlet {
 			status = dao.edit(u);
 			request.setAttribute("createdby", user.getName());
 			if (status == true)
-				response.sendRedirect("/DanishHousing" + page1 + "?msg=1");
+				response.sendRedirect( page2 + "?msg=1");
 			else
-				response.sendRedirect("/DanishHousing" + page1 + "?msg=2");
+				response.sendRedirect( page2 + "?msg=2");
 			// RequestDispatcher rd = request.getRequestDispatcher(page +
 			// "?msg=1");
 			// rd.forward(request, response);

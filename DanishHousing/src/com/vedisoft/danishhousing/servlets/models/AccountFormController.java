@@ -75,7 +75,7 @@ public class AccountFormController extends HttpServlet {
 		
 		double openingBalance = 0;
 		if (request.getParameter("openingBalance") != null && request.getParameter("openingBalance").trim().length() > 0) {
-			openingBalance = Integer.parseInt(request.getParameter("openingBalance"));
+			openingBalance = Double.parseDouble(request.getParameter("openingBalance"));
 		}
 						
 		String coCode = new String();
@@ -99,21 +99,22 @@ public class AccountFormController extends HttpServlet {
 		
 		double receipt = 0;
 		if (request.getParameter("receipt") != null && request.getParameter("receipt").trim().length() > 0) {
-			receipt = Integer.parseInt(request.getParameter("receipt"));
+			receipt = Double.parseDouble(request.getParameter("receipt"));
 		}
 		
 		double payment = 0;
 		if (request.getParameter("payment") != null && request.getParameter("payment").trim().length() > 0) {
-			 payment = Integer.parseInt(request.getParameter("payment"));
+			 payment = Double.parseDouble(request.getParameter("payment"));
 		}
 		
 		double clbal = 0;
 		if (request.getParameter("closingBalance") != null && request.getParameter("closingBalance").trim().length() > 0) {
-			clbal = Integer.parseInt(request.getParameter("closingBalance"));
+			clbal = Double.parseDouble(request.getParameter("closingBalance"));
 		}
 		
 		String page = "/pages/admin/AccountsForm.jsp";
 		String page1= "/pages/admin/AccountsViewForm.jsp";
+		String page2= "AccountTableController";
 		if (operation.equals("create")) {
 			AccountDao dao = new AccountDao();
 			Account a = new Account(coCode, bankCode, bankName, d, openingBalance, receipt, payment, clbal, ifscCode, branch);
@@ -140,9 +141,9 @@ public class AccountFormController extends HttpServlet {
 			System.out.println(a);
 			Boolean b = dao.edit(a);
 			if(b)
-				response.sendRedirect("/DanishHousing" + page1 + "?msg=1");
+				response.sendRedirect( page2 + "?msg=1");
 			else
-				response.sendRedirect("/DanishHousing" + page1 + "?msg=2");
+				response.sendRedirect( page2 + "?msg=2");
 				
 		}
 		else {

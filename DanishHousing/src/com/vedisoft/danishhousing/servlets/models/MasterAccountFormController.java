@@ -120,10 +120,7 @@ public class MasterAccountFormController extends HttpServlet {
 		
 		String page = "/pages/admin/AccountMasterForm.jsp";
 		String page1 = "/pages/admin/AccountMasterViewForm.jsp";
-		
-		
-		
-		
+		String page2 = "MasterAccountTableController";
 		
 		//ArrayList<AccountMasterFlagsEnum> enumList = new ArrayList<AccountMasterFlagsEnum>(Arrays.asList(AccountMasterFlagsEnum.values()) );
 		ProjectsDao pdao = new ProjectsDao();
@@ -165,11 +162,11 @@ public class MasterAccountFormController extends HttpServlet {
 			boolean status =false;
 			status = dao.edit(a);
 			if(status==true){
-				RequestDispatcher rd = request.getRequestDispatcher(page1);
+				RequestDispatcher rd = request.getRequestDispatcher(page2);
 				request.setAttribute("msg", 1);
 				rd.forward(request, response);
 			}else{
-				RequestDispatcher rd = request.getRequestDispatcher(page1);
+				RequestDispatcher rd = request.getRequestDispatcher(page2);
 				request.setAttribute("msg", 2);
 				rd.forward(request, response);
 			}
