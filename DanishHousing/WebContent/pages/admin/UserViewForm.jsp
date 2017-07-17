@@ -42,9 +42,7 @@
 					</div>
 
 					<!-- User Form -->
-					<div class="form-group" id="typeError">
-						<label class="control-label" id="errorTop"></label>
-					</div>
+					
 
 					<form
 						action="${pageContext.request.contextPath}/admin/pages/UserFormController"
@@ -372,20 +370,7 @@
 	<script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
 
 	<script>
-		<c:choose>
-		<c:when test="${param.msg=='1'}">
-		$(document).ready(function() {
-			$("#c").addClass("form-group has-error");
-			$("#errorTop").html("Record Updated Successfully.");
-		});
-		</c:when>
-		<c:when test="${param.msg=='2'}">
-		$(document).ready(function() {
-			$("#typeError").addClass("form-group has-error");
-			$("#errorTop").html("Fail to Update Record.");
-		});
-		</c:when>
-		</c:choose>
+	
 
 		function formin() {
 			var form = document.getElementById("userEditForm");
