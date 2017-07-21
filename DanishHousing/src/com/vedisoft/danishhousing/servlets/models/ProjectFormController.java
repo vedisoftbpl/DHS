@@ -67,6 +67,7 @@ public class ProjectFormController extends HttpServlet {
 
 		String page = "/pages/admin/ProjectForm.jsp";
 		String page1 = "/pages/admin/ProjectViewForm.jsp";
+		String page2 ="ProjectTableController";
 
 		request.setAttribute("enumList", ProjectTypeEnum.values());
 
@@ -99,11 +100,11 @@ public class ProjectFormController extends HttpServlet {
 			System.out.println(p);
 			Boolean b = dao.edit(p);
 			if (b) {
-				RequestDispatcher rd = request.getRequestDispatcher(page);
+				RequestDispatcher rd = request.getRequestDispatcher(page2);
 				request.setAttribute("msg", 1);
 				rd.forward(request, response);
 			} else {
-				RequestDispatcher rd = request.getRequestDispatcher(page);
+				RequestDispatcher rd = request.getRequestDispatcher(page2);
 				request.setAttribute("msg", 2);
 				rd.forward(request, response);
 			}

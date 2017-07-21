@@ -44,11 +44,9 @@
 						</div>
 					</div>
 
-					<div class="form-group" id="typeError">
-						<label class="control-label" id="errorTop"></label>
-					</div>
+					
 
-					<!-- User Form -->
+					<!-- Account Maaster Form -->
 					<form
 						action="${pageContext.request.contextPath}/admin/pages/MasterAccountFormController"
 						method="post" name="accountMasterEditForm"
@@ -155,21 +153,6 @@
 
 									<!-- End Project Code -->
 									<!-- /.form-group -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 									<!--  form-group -->
 									<!-- IXPGE -->
@@ -345,24 +328,7 @@
 	<script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
 
 	<script>
-		<c:choose>
-		<c:when test="${requestScope.msg eq '1'}">
-		$(document).ready(function() {
-			$("#typeError").addClass("form-group has-success");
-			$("#errorTop")
-			.html(
-					"Record Updated Successfully.");
-		});
-		</c:when>
-		<c:when test="${requestScope.msg eq '2'}">
-		$(document).ready(function() {
-			$("#typeError").addClass("form-group has-error");
-			$("#errorTop")
-			.html(
-					"Fail to update Record.");
-		});
-		</c:when>
-		</c:choose>
+		
 
 		function formin() {
 			var form = document.getElementById("accountMasterEditForm");

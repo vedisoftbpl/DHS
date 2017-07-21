@@ -18,6 +18,7 @@ import javax.servlet.http.Part;
 import com.vedisoft.danishhousing.config.DateUtils;
 import com.vedisoft.danishhousing.daos.MembersDao;
 import com.vedisoft.danishhousing.daos.ProjectsDao;
+import com.vedisoft.danishhousing.daos.UsersDao;
 import com.vedisoft.danishhousing.pojos.AccountMasterFlagsEnum;
 import com.vedisoft.danishhousing.pojos.Members;
 import com.vedisoft.danishhousing.pojos.Projects;
@@ -222,7 +223,7 @@ public class MemberFormController extends HttpServlet {
 		
 		String page = "/pages/admin/MembershipForm.jsp";
 		String page1= "/pages/admin/MembershipViewForm.jsp";
-		
+		String page2= "MemberTableController";
 		HttpSession session = request.getSession();
 		Users user = null;
 		if (session != null) {
@@ -239,8 +240,10 @@ public class MemberFormController extends HttpServlet {
 			if (!fileSaveDir.exists()) {
 				fileSaveDir.mkdir();
 			}
+			String oldFile = new MembersDao().find(id).getPhoto();
 			Collection<Part> allUploadedParts = request.getParts();
 			int i = 0;
+			boolean uploaded = false;
 			for (Part part : allUploadedParts) {
 				// Part: class represents a part as uploaded to the server as part
 				// of a
@@ -253,7 +256,7 @@ public class MemberFormController extends HttpServlet {
 
 				String fileName = part.getSubmittedFileName();
 
-				if (fileName == null)
+				if (fileName == null || fileName == "")
 					continue;
 
 				// 3: Write the file to the disk
@@ -267,11 +270,18 @@ public class MemberFormController extends HttpServlet {
 				renamedFileName =  primary + System.currentTimeMillis() + secondary;
 				String renamed = savePath + File.separator + renamedFileName;
 				File f2 = new File(renamed);
-				f1.renameTo(f2);
+				uploaded = f1.renameTo(f2);
 				i++;
 			}
 			
-			
+			if (uploaded == true) {
+				File f3 = new File(savePath + File.separator + oldFile);
+				f3.delete();
+				memberPhoto = renamedFileName;
+				System.out.println(memberPhoto);
+			} else {
+				memberPhoto = oldFile;
+			}
 			memberPhoto = renamedFileName;
 			System.out.println(memberPhoto);
 			
@@ -350,11 +360,11 @@ public class MemberFormController extends HttpServlet {
 			System.out.println(m);
 			Boolean b = dao.edit(m);
 			if (b) {
-				RequestDispatcher rd = request.getRequestDispatcher(page);
+				RequestDispatcher rd = request.getRequestDispatcher(page2);
 				request.setAttribute("msg", 1);
 				rd.forward(request, response);
 			} else {
-				RequestDispatcher rd = request.getRequestDispatcher(page);
+				RequestDispatcher rd = request.getRequestDispatcher(page2);
 				request.setAttribute("msg", 2);
 				rd.forward(request, response);
 			}
