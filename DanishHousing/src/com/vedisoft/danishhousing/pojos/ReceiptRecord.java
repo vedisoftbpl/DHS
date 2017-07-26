@@ -40,6 +40,8 @@ public class ReceiptRecord {
 	private String branch;
 	private char dC;
 	private Date wLrDt;
+	private int userId;
+	private Date lastUpdate;
 	public ReceiptRecord() {
 		super();
 	}
@@ -47,7 +49,7 @@ public class ReceiptRecord {
 			int membNo, String fHNme, String mad1, String mad2, String mad3, Double cashAmt, Double chqAmt,
 			Double balChq, int cDd, Date cDdte, Double fullPay, Double inst1, Double inst2, Double inst3, int chalNo,
 			Date chalDte, String plSize, String plNo, int projCd, String chqDhr, String flag, char trCode,
-			String remarks, char rC, String pD, String accode, String branch, char dC, Date wLrDt) {
+			String remarks, char rC, String pD, String accode, String branch, char dC, Date wLrDt,int userId, Date lastUpdate) {
 		super();
 		this.sNo = sNo;
 		this.payType = payType;
@@ -85,12 +87,13 @@ public class ReceiptRecord {
 		this.branch = branch;
 		this.dC = dC;
 		this.wLrDt = wLrDt;
+		this.userId = userId;
+		this.lastUpdate = lastUpdate;
 	}
-	public ReceiptRecord(int recordId, int sNo, char payType, int slno, Date recDte, int receno, int membNo,
+	public ReceiptRecord( int sNo, char payType, int slno, Date recDte, int receno, int membNo,
 			Double cashAmt, Double chqAmt, int cDd, Date cDdte, String plSize, String plNo, int projCd, char trCode,
-			String remarks, char rC, String pD, String accode, String branch, char dC) {
+			String remarks, char rC, String pD, String accode, String branch, char dC,int userId, Date lastUpdate) {
 		super();
-		this.recordId = recordId;
 		this.sNo = sNo;
 		this.payType = payType;
 		this.slno = slno;
@@ -111,6 +114,20 @@ public class ReceiptRecord {
 		this.accode = accode;
 		this.branch = branch;
 		this.dC = dC;
+		this.userId = userId;
+		this.lastUpdate = lastUpdate;
+	}
+	public int getUserId() {
+		return userId;
+	}
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+	public Date getLastUpdate() {
+		return lastUpdate;
+	}
+	public void setLastUpdate(Date lastUpdate) {
+		this.lastUpdate = lastUpdate;
 	}
 	public int getRecordId() {
 		return recordId;
