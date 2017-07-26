@@ -28,13 +28,13 @@ public class TransactionRecords {
 	private Date chClDt;
 	private String cFlag;
 	private int partyCd;
-	public TransactionRecords() {
-		super();
-	}
+	private int userId;
+	private Date lastUpdate;
+	
 	public TransactionRecords(int sNo, int docNo, int slno, Date docDte, String docType, String acCode, String bkCode,
 			int chqNo, Date chDate, String bankBr, int membNo, double amt, String parti, String aP, int flag,
 			String vrNo, String sN, String sR, String docNoo, int projCd, Date wcLrDt, Date chClDt, String cFlag,
-			int partyCd) {
+			int partyCd,int userId, Date lastUpdate) {
 		super();
 		this.sNo = sNo;
 		this.docNo = docNo;
@@ -60,10 +60,12 @@ public class TransactionRecords {
 		this.chClDt = chClDt;
 		this.cFlag = cFlag;
 		this.partyCd = partyCd;
+		this.userId = userId;
+		this.lastUpdate = lastUpdate;
 	}
 	public TransactionRecords(int sNo, int docNo, int slno, Date docDte, String docType, String acCode, String bkCode,
 			int chqNo, Date chDate, String bankBr, int membNo, double amt, String parti, int flag, String vrNo,
-			int projCd) {
+			int projCd, int userId, Date lastUpdate) {
 		super();
 		this.sNo = sNo;
 		this.docNo = docNo;
@@ -81,6 +83,8 @@ public class TransactionRecords {
 		this.flag = flag;
 		this.vrNo = vrNo;
 		this.projCd = projCd;
+		this.userId = userId;
+		this.lastUpdate = lastUpdate;
 	}
 	public int getTrId() {
 		return trId;
@@ -231,6 +235,21 @@ public class TransactionRecords {
 	}
 	public void setPartyCd(int partyCd) {
 		this.partyCd = partyCd;
+	}
+	public int getUserId() {
+		return userId;
+	}
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+	public Date getLastUpdate() {
+		return lastUpdate;
+	}
+	public void setLastUpdate(Date lastUpdate) {
+		this.lastUpdate = lastUpdate;
+	}
+	public TransactionRecords() {
+		super();
 	}
 	@Override
 	public String toString() {
