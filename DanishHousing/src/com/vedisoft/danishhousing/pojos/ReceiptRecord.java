@@ -99,14 +99,29 @@ public class ReceiptRecord {
 		this.slno = slno;
 		this.recDte = recDte;
 		this.receno = receno;
+		this.prefix = " ";
+		this.membNme = " ";
 		this.membNo = membNo;
+		this.fHNme = " ";
+		this.mad1 = " ";
+		this.mad2 = " ";
+		this.mad3 = " ";
 		this.cashAmt = cashAmt;
 		this.chqAmt = chqAmt;
+		this.balChq = 0.0;
 		this.cDd = cDd;
 		this.cDdte = cDdte;
+		this.fullPay = 0.0;
+		this.inst1 = 0.0;
+		this.inst2 = 0.0;
+		this.inst3 = 0.0;
+		this.chalNo = 0;
+		this.chalDte = null;
 		this.plSize = plSize;
 		this.plNo = plNo;
 		this.projCd = projCd;
+		this.chqDhr = " ";
+		this.flag = " ";
 		this.trCode = trCode;
 		this.remarks = remarks;
 		this.rC = rC;
@@ -114,6 +129,7 @@ public class ReceiptRecord {
 		this.accode = accode;
 		this.branch = branch;
 		this.dC = dC;
+		this.wLrDt = null;
 		this.userId = userId;
 		this.lastUpdate = lastUpdate;
 	}

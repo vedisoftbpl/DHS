@@ -80,9 +80,17 @@ public class TransactionRecords {
 		this.membNo = membNo;
 		this.amt = amt;
 		this.parti = parti;
+		this.aP = " ";
 		this.flag = flag;
 		this.vrNo = vrNo;
+		this.sN = " ";
+		this.sR = " ";
+		this.docNoo = " ";
 		this.projCd = projCd;
+		this.wcLrDt = null;
+		this.chClDt = null;
+		this.cFlag = " ";
+		this.partyCd = 0;
 		this.userId = userId;
 		this.lastUpdate = lastUpdate;
 	}

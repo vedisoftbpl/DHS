@@ -32,6 +32,7 @@ public class AccountMaster {
 		this.ixpge = ixpge;
 		this.flag = flag;
 		this.projCd = projCd;
+		this.pexp = "";
 	}
 
 	public AccountMaster(int anxCd, String acCode, String acName, String address, String acClass, Date opdte,
