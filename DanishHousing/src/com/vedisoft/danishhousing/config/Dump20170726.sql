@@ -3,7 +3,7 @@ USE `danish_housing`;
 -- MySQL dump 10.13  Distrib 5.5.54, for debian-linux-gnu (x86_64)
 --
 -- Host: localhost    Database: danish_housing
--- ------------------------------------------------------
+-- -----------------------------------------------------
 -- Server version	5.5.54-0ubuntu0.12.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
