@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class AccountMaster {
 	
-	private int masterAccountId;
+	private int masterAccountId;	
 	private int anxCd;
 	private String acCode;
 	private String acName;
@@ -33,8 +33,10 @@ public class AccountMaster {
 		this.flag = flag;
 		this.projCd = projCd;
 		this.pexp = "";
+		this.opdte = null;
+		this.opBal = 0;
+		this.mBal = 0;
 	}
-
 	public AccountMaster(int anxCd, String acCode, String acName, String address, String acClass, Date opdte,
 			double opBal, double mBal, String pexp, String ixpge, String flag, int projCd) {
 		super();

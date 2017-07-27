@@ -235,14 +235,13 @@ public class AccountMasterDao {
 
 	public static void main(String[] args) {
 		AccountMasterDao dao = new AccountMasterDao();
-		// System.out.println(new Date());
-		// Date d1 = new Date();
-		// d1 = DateUtils.convertDate("01-04-2001");
-		// Date d2 = new Date();
-		// d1 = DateUtils.convertDate("25-07-1996");
-		// AccountMaster u = new AccountMaster(1,001,"A0001","AUDIT
-		// PAYABLE","","L",d1,0.00,0.00,"","","",0 );
-		// dao.create(u);
+//		 System.out.println(new Date());
+//		 Date d1 = new Date();
+//		 d1 = DateUtils.convertDate("01-04-2001");
+//		 Date d2 = new Date();
+//		 d1 = DateUtils.convertDate("25-07-1996");
+//		 AccountMaster u = new AccountMaster(001,"A0001","AUDIT PAYABLE","","L","0-2","D",0 );
+//		 dao.create(u);
 		//
 		// AccountMaster u = new AccountMaster();
 		// u.setMasterAccountId(1);;
@@ -264,9 +263,9 @@ public class AccountMasterDao {
 		// AccountMaster u = dao.find(1);
 		// System.out.println(u);
 		//
-		List<AccountMaster> list = dao.findAll();
-		for (AccountMaster u1 : list)
-			System.out.println(u1);
+//		List<AccountMaster> list = dao.findAll();
+//		for (AccountMaster u1 : list)
+//			System.out.println(u1);
 		//
 		// List<AccountMaster> list2 = dao.findAll(1, 2);
 		// for(AccountMaster u2 : list2)
