@@ -291,6 +291,7 @@ public class Members {
 			String fHRelName, String nomineeRelation, String nomineeName, int memFee, int memEntryFee, Date receiptdt,
 			char rC, char liveDead, double diversion, double extraAmount, double cost, String mobile, String email,
 			Date dob, String photo, String addProof, String aadhar,int userId,Date lastUpdate) {
+
 		super();
 		this.memberId = memberId;
 		this.projectCd = projectCd;
