@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.vedisoft.danishhousing.daos.AccountMasterDao;
 import com.vedisoft.danishhousing.daos.ProjectsDao;
 import com.vedisoft.danishhousing.pojos.AccountMaster;
+import com.vedisoft.danishhousing.pojos.AccountMasterFlagsEnum;
+import com.vedisoft.danishhousing.pojos.ProjectTypeEnum;
 import com.vedisoft.danishhousing.pojos.Projects;
 
 /**
@@ -45,6 +47,7 @@ public class MasterAccountTableController extends HttpServlet {
 		ArrayList<AccountMaster> accountmaster = dao.findAll();
 		//System.out.println("Size : " + projects.size());
 		request.setAttribute("accountMasterList", accountmaster);
+		request.setAttribute("enumList", AccountMasterFlagsEnum.values());
 		String page = "/pages/admin/AccountMasterTable.jsp";
 		RequestDispatcher rd = request.getRequestDispatcher(page);
 		rd.forward(request, response);

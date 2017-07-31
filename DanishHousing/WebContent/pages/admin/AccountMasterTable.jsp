@@ -49,39 +49,52 @@
 									New Account Master</a>
 							</div>
 						</div>
+							
 						<div class="form-group" id="typeError">
 						<label class="control-label" id="errorTop"></label>
 					</div>
-						<br>
+						
 						<table id="example1" class="table table-bordered table-striped">
 							<thead>
 								<tr>
-									<th>ANX. CD.</th>
 									<th>Account Code</th>
 									<th>Account Name</th>
 									<th>Account Class</th>
-									<th>Address</th>
-									<th>IXPGE</th>
 									<th>Flag</th>
 									<th>Project Code</th>
-
-
-									<th></th>
+									<th>View</th>
 								</tr>
 							</thead>
 							<tbody>
 								<c:forEach items="${requestScope.accountMasterList}" var="acmas">
 									<tr>
 
-										<td><c:out value="${acmas.anxCd}" /></td>
 										<td><c:out value="${acmas.acCode}" /></td>
 										<td><c:out value="${acmas.acName}" /></td>
-										<td><c:out value="${acmas.acClass}" /></td>
-										<td><c:out value="${acmas.address}" /></td>
-										<td><c:out value="${acmas.ixpge}" /></td>
-										<td><c:out value="${acmas.flag}" /></td>
+										<c:choose>
+												<c:when test="${acmas.acClass eq 'A'}">
+													<td><c:out value="Assests" /></td>
+												</c:when>
+												<c:when test="${acmas.acClass eq 'I'}">
+													<td><c:out value="Income" /></td>
+												</c:when>
+												<c:when test="${acmas.acClass eq 'L'}">
+													<td><c:out value="Liability" /></td>
+												</c:when>
+												<c:when test="${acmas.acClass eq 'E'}">
+													<td><c:out value="Extended" /></td>
+												</c:when>
+											</c:choose>
+											
+											
+										<c:forEach items="${requestScope.enumList}" var="flag">
+											<c:choose>
+												<c:when test="${acmas.flag eq flag.getValue()}">
+													<td><c:out value="${flag}" /></td>
+												</c:when>
+											</c:choose>
+										</c:forEach>
 										<td><c:out value="${acmas.projCd}" /></td>
-
 										<td><a href="${pageContext.request.contextPath}/admin/pages/MasterAccountFormController?operation=show&showId=${acmas.masterAccountId}"> <i class="fa fa-edit"></i>View
 										</a></td>
 
@@ -90,17 +103,13 @@
 
 							</tbody>
 							<tfoot>
-								<th>ANX. CD.</th>
-								<th>Account Code</th>
-								<th>Account Name</th>
-								<th>Account Class</th>
-								<th>Address</th>
-								<th>IXPGE</th>
-								<th>Flag</th>
-								<th>Project Code</th>
-
-
-								<th></th>
+							<tr>
+									<th>Account Code</th>
+									<th>Account Name</th>
+									<th>Account Class</th>
+									<th>Flag</th>
+									<th>Project Code</th>
+									<th>View</th>
 								</tr>
 							</tfoot>
 						</table>
@@ -126,7 +135,7 @@
 	<script src="../../plugins/datatables/dataTables.bootstrap.min.js"></script>
 	<script>
 	<c:choose>
-	<c:when test="${requestScope.msg eq '1'}">
+	<c:when test="${param.msg=='1'}">
 	$(document).ready(function() {
 		$("#typeError").addClass("form-group has-success");
 		$("#errorTop")
@@ -134,7 +143,7 @@
 				"Record Updated Successfully.");
 	});
 	</c:when>
-	<c:when test="${requestScope.msg eq '2'}">
+	<c:when test="${param.msg=='2'}">
 	$(document).ready(function() {
 		$("#typeError").addClass("form-group has-error");
 		$("#errorTop")
