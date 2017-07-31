@@ -47,11 +47,11 @@
 									class="fa fa-plus-square"></i> New User</a>
 							</div>
 						</div>
-						<br>
+					
 						<div class="form-group" id="typeError">
 						<label class="control-label" id="errorTop"></label>
 					</div>
-					<br>
+					
 						<table id="example1" class="table table-bordered table-striped">
 							<thead>
 								<tr>
@@ -59,11 +59,7 @@
 									<th>Email</th>
 									<th>Mobile</th>
 									<th>Designation</th>
-									<th>Date of Joining</th>
-									<th>Address</th>
-									<th>User Type</th>
-									<th>Status</th>
-									<th></th>
+									<th>View</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -74,10 +70,6 @@
 										<td><c:out value="${user.email}" /></td>
 										<td><c:out value="${user.mobile}" /></td>
 										<td><c:out value="${user.designation}" /></td>
-										<td><c:out value="${user.doj}" /></td>
-										<td><c:out value="${user.address}" /></td>
-										<td><c:out value="${user.userType}" /></td>
-										<td><c:out value="${user.status}" /></td>
 										<td><a href="${pageContext.request.contextPath}/admin/pages/UserFormController?operation=show&showId=${user.userId}"> <i class="fa fa-edit"></i>View
 										</a></td>
 									</tr>
@@ -90,11 +82,7 @@
 									<th>Email</th>
 									<th>Mobile</th>
 									<th>Designation</th>
-									<th>Date of Joining</th>
-									<th>Address</th>
-									<th>User Type</th>
-									<th>Status</th>
-									<th></th>
+									<th>View</th>
 								</tr>
 							</tfoot>
 						</table>
