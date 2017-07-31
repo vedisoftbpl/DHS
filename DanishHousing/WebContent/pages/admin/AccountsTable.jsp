@@ -1,4 +1,5 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <link rel="stylesheet"
 	href="../../plugins/datatables/dataTables.bootstrap.css">
 <%@ include file="../design/Top.jsp"%>
@@ -38,6 +39,8 @@
 							</button>
 						</div>
 					</div>
+					
+					
 
 					<!-- User Form -->
 					<div class="box-body">
@@ -47,27 +50,22 @@
 									class="fa fa-plus-square"></i> Add Account</a>
 							</div>
 						</div>
-						<br>
+						
 						
 								<div class="form-group" id="typeError">
 				<label class="control-label" id="errorTop"></label>
 			</div>
-			<br>
+		
 
 						<table id="example1" class="table table-bordered table-striped">
 							<thead>
 								<tr>
 									<th>Bank Name</th>
 									<th>Bank Code</th>
-									<th>Co_Code</th>
 									<th>Opening Date</th>
-									<th>Opening Balance</th>
-									<th>Receipt</th>
-									<th>Payment</th>
-									<th>Closing Balance</th>
 									<th>IFSC Code</th>
 									<th>Branch</th>
-									<th></th>
+									<th>View</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -76,12 +74,7 @@
 
 										<td><c:out value="${acc.bkName}" /></td>
 										<td><c:out value="${acc.bkCode}" /></td>
-										<td><c:out value="${acc.coCode}" /></td>
-										<td><c:out value="${acc.opDate}" /></td>
-										<td><c:out value="${acc.opBal}" /></td>
-										<td><c:out value="${acc.receipt}" /></td>
-										<td><c:out value="${acc.payment}" /></td>
-										<td><c:out value="${acc.clBal}" /></td>
+										<td><fmt:formatDate type="date" pattern="dd/MM/yyyy" value="${acc.opDate}" /></td>
 										<td><c:out value="${acc.ifsc}" /></td>
 										<td><c:out value="${acc.branch}" /></td>
 										<td><a href="${pageContext.request.contextPath}/admin/pages/AccountFormController?operation=show&showId=${acc.accountId}"> <i class="fa fa-edit"></i>View
@@ -95,15 +88,10 @@
 								<tr>
 									<th>Bank Name</th>
 									<th>Bank Code</th>
-									<th>Co_Code</th>
 									<th>Opening Date</th>
-									<th>Opening Balance</th>
-									<th>Receipt</th>
-									<th>Payment</th>
-									<th>Closing Balance</th>
 									<th>IFSC Code</th>
 									<th>Branch</th>
-									<th></th>
+									<th>View</th>
 								</tr>
 							</tfoot>
 						</table>
