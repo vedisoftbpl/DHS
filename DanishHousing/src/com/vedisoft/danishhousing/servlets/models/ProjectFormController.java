@@ -99,15 +99,10 @@ public class ProjectFormController extends HttpServlet {
 			Projects p = new Projects(id, projectName, projType);
 			System.out.println(p);
 			Boolean b = dao.edit(p);
-			if (b) {
-				RequestDispatcher rd = request.getRequestDispatcher(page2);
-				request.setAttribute("msg", 1);
-				rd.forward(request, response);
-			} else {
-				RequestDispatcher rd = request.getRequestDispatcher(page2);
-				request.setAttribute("msg", 2);
-				rd.forward(request, response);
-			}
+			if (b == true)
+				response.sendRedirect( page2 + "?msg=1");
+			else
+				response.sendRedirect( page2 + "?msg=2");
 		} else {
 			RequestDispatcher rd = request.getRequestDispatcher(page);
 			rd.forward(request, response);

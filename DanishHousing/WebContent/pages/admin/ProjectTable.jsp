@@ -52,13 +52,12 @@
 						<label class="control-label" id="errorTop"></label>
 					</div>
 						
-					<br>
 						<table id="example1" class="table table-bordered table-striped">
 							<thead>
 								<tr>
 									<th>Project Name</th>
 									<th>Project Type</th>
-									<th></th>
+									<th>View</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -95,7 +94,7 @@
 
 									<th>Project Name</th>
 									<th>Project Type</th>
-									<th></th>
+									<th>View</th>
 
 								</tr>
 							</tfoot>
