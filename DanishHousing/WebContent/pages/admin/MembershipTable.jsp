@@ -1,4 +1,5 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <link rel="stylesheet"
 	href="../../plugins/datatables/dataTables.bootstrap.css">
 <%@ include file="../design/Top.jsp"%>
@@ -43,51 +44,47 @@
 					<div class="box-body">
 						<div class="row no-print">
 							<div class="col-xs-12">
-								<a href="${pageContext.request.contextPath}/admin/pages/MemberFormController" class="btn btn-default"><i
-									class="fa fa-plus-square"></i> New Member</a>
+								<a
+									href="${pageContext.request.contextPath}/admin/pages/MemberFormController"
+									class="btn btn-default"><i class="fa fa-plus-square"></i>
+									New Member</a>
 							</div>
 						</div>
 						<div class="form-group" id="typeError">
-					<label class="control-label" id="errorTop"></label>
-				</div>
-				
-						<br>
+							<label class="control-label" id="errorTop"></label>
+						</div>
+
 						<table id="example1" class="table table-bordered table-striped">
 							<thead>
 								<tr>
-								   
-									
-									<th>Plot No.</th>
+
 									<th>Name</th>
 									<th>F/H Name</th>
 									<th>DOB</th>
 									<th>Address</th>
-									<th>Email</th>
 									<th>Mobile</th>
-									<th>Receipt Date</th>
 									<th>Status</th>
-									
-									
-									<th></th>
-									
+									<th>View</th>
+
 								</tr>
 							</thead>
 							<tbody>
-							
-							<c:forEach items="${requestScope.membersList}" var="member">
+
+								<c:forEach items="${requestScope.membersList}" var="member">
 									<tr>
-										
-										<td><c:out value="${member.plotNo}" /></td>
+
 										<td><c:out value="${member.memName}" /></td>
-										<td><c:out value="${member.fHRelation} ${member.fHRelName}" /></td>
-										<td><c:out value="${member.dob}" /></td>
-										<td><c:out value="${member.address1}, ${member.address2}, ${member.address3}" /></td>
-										<td><c:out value="${member.email}" /></td>
+										<td><c:out
+												value="${member.fHRelation} ${member.fHRelName}" /></td>
+										<td>
+										<fmt:formatDate type="date" pattern="dd/MM/yyyy" value="${member.dob}" />
+										</td>
+										<td><c:out
+												value="${member.address1}, ${member.address2}, ${member.address3}" /></td>
+
 										<td><c:out value="${member.mobile}" /></td>
-										<td><c:out value="${member.receiptdt}" /></td>
-										
 										<c:choose>
-											
+
 											<c:when test="${member.liveDead eq 'L'.charAt(0)}">
 												<td>Live</td>
 											</c:when>
@@ -96,31 +93,28 @@
 												<td>Dead</td>
 											</c:when>
 										</c:choose>
-										
-										<td><a href="${pageContext.request.contextPath}/admin/pages/MemberFormController?operation=show&showId=${member.memberId}"> <i class="fa fa-edit"></i>View
+
+										<td><a
+											href="${pageContext.request.contextPath}/admin/pages/MemberFormController?operation=show&showId=${member.memberId}">
+												<i class="fa fa-edit"></i>View
 										</a></td>
 
 									</tr>
 								</c:forEach>
-							
-							
+
+
 							</tbody>
 							<tfoot>
 								<tr>
-								   
-									
-									<th>Plot No.</th>
+
 									<th>Name</th>
 									<th>F/H Name</th>
 									<th>DOB</th>
 									<th>Address</th>
-									<th>Email</th>
 									<th>Mobile</th>
-									<th>Receipt Date</th>
 									<th>Status</th>
-									
-									<th></th>
-									
+									<th>View</th>
+
 								</tr>
 							</tfoot>
 						</table>
@@ -128,7 +122,7 @@
 					<!-- /.box-body -->
 					<!-- member Form -->
 					<!-- /.box-body -->
-					
+
 				</div>
 				<!-- /.box -->
 			</section>
@@ -144,21 +138,21 @@
 	<script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
 	<script src="../../plugins/datatables/dataTables.bootstrap.min.js"></script>
 	<script>
-	<c:choose>
-	<c:when test="${param.msg=='1'}">
-	$(document).ready(function() {
-		$("#typeError").addClass("form-group has-success");
-		$("#errorTop").html("Record Updated Successfully.");
-	});
-	</c:when>
-	<c:when test="${param.msg=='2'}">
-	$(document).ready(function() {
-		$("#typeError").addClass("form-group has-error");
-		$("#errorTop").html("Fail to Update Record.");
-	});
-	</c:when>
-	</c:choose>
-	
+		<c:choose>
+		<c:when test="${param.msg=='1'}">
+		$(document).ready(function() {
+			$("#typeError").addClass("form-group has-success");
+			$("#errorTop").html("Record Updated Successfully.");
+		});
+		</c:when>
+		<c:when test="${param.msg=='2'}">
+		$(document).ready(function() {
+			$("#typeError").addClass("form-group has-error");
+			$("#errorTop").html("Fail to Update Record.");
+		});
+		</c:when>
+		</c:choose>
+
 		$(function() {
 			$("#example1").DataTable();
 		});

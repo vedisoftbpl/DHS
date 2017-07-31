@@ -356,7 +356,7 @@ public class MemberFormController extends HttpServlet {
 			Members m = new Members(id,projectCd,plotSize,netPlotSize,plotNo,prefix, memberFullName, memberAddress1, memberAddress2, memberCity,
 					memberOccupation, relation, relativeFullName, memberNomineeRelation, memberNomineeName,
 					membershipFee, entranceFee, receiptdt,rC, liveDead,diversion, extraAmount,  cost ,memberPhone, memberEmail, dob,
-					memberPhoto, addressProof, memberAdhaar);
+					memberPhoto, addressProof, memberAdhaar,new Date(),user.getUserId());
 			System.out.println(m);
 			Boolean b = dao.edit(m);
 			if (b) {

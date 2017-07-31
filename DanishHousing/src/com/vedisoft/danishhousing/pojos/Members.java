@@ -290,7 +290,7 @@ public class Members {
 			String memName, String address1, String address2, String address3, String memOccupation, String fHRelation,
 			String fHRelName, String nomineeRelation, String nomineeName, int memFee, int memEntryFee, Date receiptdt,
 			char rC, char liveDead, double diversion, double extraAmount, double cost, String mobile, String email,
-			Date dob, String photo, String addProof, String aadhar) {
+			Date dob, String photo, String addProof, String aadhar,Date lastupdate,int userid) {
 		super();
 		this.memberId = memberId;
 		this.projectCd = projectCd;
@@ -321,7 +321,8 @@ public class Members {
 		this.photo = photo;
 		this.addProof = addProof;
 		this.aadhar = aadhar;
-
+		this.lastUpdate = lastupdate;
+		this.userId = userid;
 	}
 
 	

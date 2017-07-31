@@ -485,7 +485,7 @@
 														<!-- form-group -->
 														<!--Net Plot Size -->
 														<div class="form-group" id="divNetPlotSize">
-															<label>Net Plot Size</label>
+															<label>Net Plot Size (In square feet)</label>
 															<div class="input-group">
 																<span class="input-group-addon"><i
 																	class="fa fa-info-circle "></i></span> <input type="text"
@@ -1075,21 +1075,12 @@
 				format : 'dd/mm/yyyy',
 				autoclose : true
 			});
-			$('#dor').datepicker({
+			$('#datepicker').datepicker({
 				format : 'dd/mm/yyyy',
 				autoclose : true
 			});
 
 		});
 
-		$(function() {
-			$('#datepicker1').datepicker({
-				format : 'dd/mm/yyyy',
-				autoclose : true
-			});
-			//$('#datepicker2').datepicker({
-			//	format : 'dd/mm/yyyy',
-			//	autoclose : true
-			//});
-		});
+		
 	</script>
