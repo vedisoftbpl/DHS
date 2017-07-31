@@ -49,6 +49,80 @@ public class MembersDao {
 			if (member.getLastUpdate() != null)
 				lastUpdate = new java.sql.Date(member.getLastUpdate().getTime());
 			ps.setDate(21, lastUpdate);
+			ps.setInt(22, member.getMemberNo());
+			ps.setInt(23, member.getProjectCd());
+			ps.setString(24, member.getPlotSize());
+			ps.setDouble(25, member.getNetPlotSize());
+			ps.setString(26, member.getRegCor());
+			ps.setString(27, member.getPlotNo());
+			ps.setString(28, member.getTempPlotNo());
+			ps.setInt(29, member.getAge());
+			java.sql.Date recDte = null;
+			if (member.getReceiptdt() != null)
+				recDte = new java.sql.Date(member.getReceiptdt().getTime());
+			ps.setDate(30, recDte);
+			ps.setString(31, member.getFullPay());
+			ps.setString(32, member.getInst1());
+			ps.setString(33, member.getInst2());
+			ps.setString(34, member.getInst3());
+			ps.setString(35, member.getTransf());
+			ps.setDouble(36, member.getOpBal());
+			ps.setString(37, member.getWaterConn());
+			ps.setString(38, member.getSecDep());
+			java.sql.Date wtCnDte = null;
+			if (member.getWaterConnDate() != null)
+				wtCnDte = new java.sql.Date(member.getWaterConnDate().getTime());
+			ps.setDate(39, wtCnDte);
+			java.sql.Date opDte = null;
+			if (member.getOpDt() != null)
+				opDte = new java.sql.Date(member.getOpDt().getTime());
+			ps.setDate(40, opDte);
+			ps.setString(41, member.getRegi());
+			java.sql.Date regDt = null;
+			if (member.getRegDt() != null)
+				regDt = new java.sql.Date(member.getRegDt().getTime());
+			ps.setDate(42, regDt);
+			ps.setString(43, member.getRegNo());
+			ps.setString(44, "" + member.getrC());
+			java.sql.Date nocDte = null;
+			if (member.getNocDt() != null)
+				nocDte = new java.sql.Date(member.getNocDt().getTime());
+			ps.setDate(45, nocDte);
+			ps.setString(46, "" + member.getLiveDead());
+			java.sql.Date refDte = null;
+			if (member.getRefDt() != null)
+				refDte = new java.sql.Date(member.getRefDt().getTime());
+			ps.setDate(47, refDte);
+			ps.setDouble(48, member.getDiversion());
+			ps.setDouble(49, member.getFinalAmount());
+			ps.setString(50, member.getMaint());
+			ps.setString(51, member.getWater());
+			java.sql.Date wSupDate = null;
+			if (member.getWatSupplyDt() != null)
+				wSupDate = new java.sql.Date(member.getWatSupplyDt().getTime());
+			ps.setDate(52, wSupDate);
+			ps.setString(53, member.getEstabl());
+			java.sql.Date wcLrDt = null;
+			if (member.getWcLrDt() != null)
+				wcLrDt = new java.sql.Date(member.getWcLrDt().getTime());
+			ps.setDate(54, wcLrDt);
+			ps.setString(55, member.getWatChg());
+			ps.setDouble(56, member.getExtraAmount());
+			ps.setDouble(57, member.getCost());
+			ps.setString(58, member.getBuildFlag());
+			ps.setString(59, member.getmNominal());
+			ps.setInt(60 , member.getMutaNo1());
+			java.sql.Date mutaDt1 = null;
+			if (member.getMutaDt1()!= null)
+				wcLrDt = new java.sql.Date(member.getMutaDt1().getTime());
+			ps.setDate(61, mutaDt1);
+			ps.setString(62, member.getGender());
+			ps.setString(63, member.getCategory());
+			ps.setString(64, member.getDefaulter());
+			ps.setString(65, member.getMotherName());
+			ps.setString(66, member.getPanNo());
+			ps.setString(67, member.getEliInl());
+			ps.setInt(68 , member.getMemberId());
 			int x = ps.executeUpdate();
 			if (x == 0) {
 				return 0;
@@ -100,72 +174,86 @@ public class MembersDao {
 			ps.setString(16, member.getNomineeRelation());
 			ps.setInt(17, member.getMemFee());
 			ps.setInt(18, member.getMemEntryFee());
-			ps.setInt(19, member.getUserId());
+			ps.setString(19, String.valueOf(member.getLiveDead()));
+			ps.setInt(20, member.getUserId());
 			java.sql.Date lastUpdate = null;
 			if (member.getLastUpdate() != null)
 				lastUpdate = new java.sql.Date(member.getLastUpdate().getTime());
-			ps.setDate(20, lastUpdate);
-			ps.setInt(21, member.getMemberNo());
-			ps.setInt(22, member.getProjectCd());
-			ps.setString(23, member.getPlotSize());
-			ps.setDouble(24, member.getNetPlotSize());
-			ps.setString(25, member.getRegCor());
-			ps.setString(26, member.getPlotNo());
-			ps.setString(27, member.getTempPlotNo());
-			ps.setInt(28, member.getAge());
+			ps.setDate(21, lastUpdate);
+			ps.setInt(22, member.getMemberNo());
+			ps.setInt(23, member.getProjectCd());
+			ps.setString(24, member.getPlotSize());
+			ps.setDouble(25, member.getNetPlotSize());
+			ps.setString(26, member.getRegCor());
+			ps.setString(27, member.getPlotNo());
+			ps.setString(28, member.getTempPlotNo());
+			ps.setInt(29, member.getAge());
 			java.sql.Date recDte = null;
 			if (member.getReceiptdt() != null)
 				recDte = new java.sql.Date(member.getReceiptdt().getTime());
-			ps.setDate(29, recDte);
-			ps.setString(30, member.getFullPay());
-			ps.setInt(31, member.getInst1());
-			ps.setInt(32, member.getInst2());
-			ps.setInt(33, member.getInst3());
-			ps.setString(34, member.getTransf());
-			ps.setDouble(35, member.getOpBal());
-			ps.setString(36, member.getWaterConn());
-			ps.setString(37, member.getSecDep());
+			ps.setDate(30, recDte);
+			ps.setString(31, member.getFullPay());
+			ps.setString(32, member.getInst1());
+			ps.setString(33, member.getInst2());
+			ps.setString(34, member.getInst3());
+			ps.setString(35, member.getTransf());
+			ps.setDouble(36, member.getOpBal());
+			ps.setString(37, member.getWaterConn());
+			ps.setString(38, member.getSecDep());
 			java.sql.Date wtCnDte = null;
 			if (member.getWaterConnDate() != null)
 				wtCnDte = new java.sql.Date(member.getWaterConnDate().getTime());
-			ps.setDate(38, wtCnDte);
+			ps.setDate(39, wtCnDte);
 			java.sql.Date opDte = null;
 			if (member.getOpDt() != null)
 				opDte = new java.sql.Date(member.getOpDt().getTime());
-			ps.setDate(39, opDte);
-			ps.setString(40, member.getRegi());
+			ps.setDate(40, opDte);
+			ps.setString(41, member.getRegi());
 			java.sql.Date regDt = null;
 			if (member.getRegDt() != null)
 				regDt = new java.sql.Date(member.getRegDt().getTime());
-			ps.setDate(41, regDt);
-			ps.setString(42, member.getRegNo());
-			ps.setString(43, "" + member.getrC());
+			ps.setDate(42, regDt);
+			ps.setString(43, member.getRegNo());
+			ps.setString(44, "" + member.getrC());
 			java.sql.Date nocDte = null;
 			if (member.getNocDt() != null)
 				nocDte = new java.sql.Date(member.getNocDt().getTime());
-			ps.setDate(44, nocDte);
-			ps.setString(45, "" + member.getLiveDead());
+			ps.setDate(45, nocDte);
+			ps.setString(46, "" + member.getLiveDead());
 			java.sql.Date refDte = null;
 			if (member.getRefDt() != null)
 				refDte = new java.sql.Date(member.getRefDt().getTime());
-			ps.setDate(46, refDte);
-			ps.setDouble(47, member.getDiversion());
-			ps.setDouble(48, member.getFinalAmount());
-			ps.setString(49, member.getMaint());
-			ps.setString(50, member.getWater());
+			ps.setDate(47, refDte);
+			ps.setDouble(48, member.getDiversion());
+			ps.setDouble(49, member.getFinalAmount());
+			ps.setString(50, member.getMaint());
+			ps.setString(51, member.getWater());
 			java.sql.Date wSupDate = null;
 			if (member.getWatSupplyDt() != null)
 				wSupDate = new java.sql.Date(member.getWatSupplyDt().getTime());
-			ps.setDate(51, wSupDate);
-			ps.setString(52, member.getEstabl());
+			ps.setDate(52, wSupDate);
+			ps.setString(53, member.getEstabl());
 			java.sql.Date wcLrDt = null;
 			if (member.getWcLrDt() != null)
 				wcLrDt = new java.sql.Date(member.getWcLrDt().getTime());
-			ps.setDate(53, wcLrDt);
-			ps.setString(54, member.getWatChg());
-			ps.setDouble(55, member.getExtraAmount());
-			ps.setDouble(56, member.getCost());
-			ps.setInt(57 , member.getMemberId());
+			ps.setDate(54, wcLrDt);
+			ps.setString(55, member.getWatChg());
+			ps.setDouble(56, member.getExtraAmount());
+			ps.setDouble(57, member.getCost());
+			ps.setString(58, member.getBuildFlag());
+			ps.setString(59, member.getmNominal());
+			ps.setInt(60 , member.getMutaNo1());
+			java.sql.Date mutaDt1 = null;
+			if (member.getMutaDt1()!= null)
+				wcLrDt = new java.sql.Date(member.getMutaDt1().getTime());
+			ps.setDate(61, mutaDt1);
+			ps.setString(62, member.getGender());
+			ps.setString(63, member.getCategory());
+			ps.setString(64, member.getDefaulter());
+			ps.setString(65, member.getMotherName());
+			ps.setString(66, member.getPanNo());
+			ps.setString(67, member.getEliInl());
+			ps.setInt(68 , member.getMemberId());
 			
 			int x = ps.executeUpdate();
 			if (x == 0) {
@@ -257,9 +345,9 @@ public class MembersDao {
 				else
 					member.setReceiptdt(recDte);
 				member.setFullPay(rs.getString("fullpay"));
-				member.setInst1(rs.getInt("inst1"));
-				member.setInst2(rs.getInt("inst2"));
-				member.setInst3(rs.getInt("inst3"));
+				member.setInst1(rs.getString("inst1"));
+				member.setInst2(rs.getString("inst2"));
+				member.setInst3(rs.getString("inst3"));
 				member.setTransf(rs.getString("transf"));
 				member.setOpBal(rs.getDouble("opbal"));
 				member.setWaterConn(rs.getString("water_con"));
@@ -316,6 +404,20 @@ public class MembersDao {
 				member.setWatChg(rs.getString("wat_chg"));
 				member.setExtraAmount(rs.getDouble("extamt"));
 				member.setCost(rs.getDouble("cost"));
+				member.setBuildFlag(rs.getString("build_flag"));
+				member.setmNominal(rs.getString("m_nominal"));
+				member.setMutaNo1(rs.getInt("muta_no1"));
+				java.sql.Date mutaDt = rs.getDate("muta_dt1");
+				if (mutaDt != null)
+					member.setMutaDt1(new java.util.Date((mutaDt).getTime()));
+				else
+					member.setMutaDt1(mutaDt);
+				member.setGender(rs.getString("gender"));
+				member.setCategory(rs.getString("category"));
+				member.setDefaulter(rs.getString("defaulter"));
+				member.setMotherName(rs.getString("mother_name"));
+				member.setPanNo(rs.getString("pan_no"));
+				member.setEliInl(rs.getString("eli_inli"));
 			}
 		} catch (SQLException sq) {
 			System.out.println("Unable to find a row." + sq);
@@ -381,9 +483,9 @@ public class MembersDao {
 				else
 					member.setReceiptdt(recDte);
 				member.setFullPay(rs.getString("fullpay"));
-				member.setInst1(rs.getInt("inst1"));
-				member.setInst2(rs.getInt("inst2"));
-				member.setInst3(rs.getInt("inst3"));
+				member.setInst1(rs.getString("inst1"));
+				member.setInst2(rs.getString("inst2"));
+				member.setInst3(rs.getString("inst3"));
 				member.setTransf(rs.getString("transf"));
 				member.setOpBal(rs.getDouble("opbal"));
 				member.setWaterConn(rs.getString("water_con"));
@@ -440,6 +542,21 @@ public class MembersDao {
 				member.setWatChg(rs.getString("wat_chg"));
 				member.setExtraAmount(rs.getDouble("extamt"));
 				member.setCost(rs.getDouble("cost"));
+				member.setBuildFlag(rs.getString("build_flag"));
+				member.setmNominal(rs.getString("m_nominal"));
+				member.setMutaNo1(rs.getInt("muta_no1"));
+				java.sql.Date mutaDt = rs.getDate("muta_dt1");
+				if (mutaDt != null)
+					member.setMutaDt1(new java.util.Date((mutaDt).getTime()));
+				else
+					member.setMutaDt1(mutaDt);
+				member.setGender(rs.getString("gender"));
+				member.setCategory(rs.getString("category"));
+				member.setDefaulter(rs.getString("defaulter"));
+				member.setMotherName(rs.getString("mother_name"));
+				member.setPanNo(rs.getString("pan_no"));
+				member.setEliInl(rs.getString("eli_inli"));
+				
 				listMembers.add(member);
 			}
 		} catch (SQLException sq) {
@@ -508,9 +625,9 @@ public class MembersDao {
 				else
 					member.setReceiptdt(recDte);
 				member.setFullPay(rs.getString("fullpay"));
-				member.setInst1(rs.getInt("inst1"));
-				member.setInst2(rs.getInt("inst2"));
-				member.setInst3(rs.getInt("inst3"));
+				member.setInst1(rs.getString("inst1"));
+				member.setInst2(rs.getString("inst2"));
+				member.setInst3(rs.getString("inst3"));
 				member.setTransf(rs.getString("transf"));
 				member.setOpBal(rs.getDouble("opbal"));
 				member.setWaterConn(rs.getString("water_con"));
@@ -567,6 +684,20 @@ public class MembersDao {
 				member.setWatChg(rs.getString("wat_chg"));
 				member.setExtraAmount(rs.getDouble("extamt"));
 				member.setCost(rs.getDouble("cost"));
+				member.setBuildFlag(rs.getString("build_flag"));
+				member.setmNominal(rs.getString("m_nominal"));
+				member.setMutaNo1(rs.getInt("muta_no1"));
+				java.sql.Date mutaDt = rs.getDate("muta_dt1");
+				if (mutaDt != null)
+					member.setMutaDt1(new java.util.Date((mutaDt).getTime()));
+				else
+					member.setMutaDt1(mutaDt);
+				member.setGender(rs.getString("gender"));
+				member.setCategory(rs.getString("category"));
+				member.setDefaulter(rs.getString("defaulter"));
+				member.setMotherName(rs.getString("mother_name"));
+				member.setPanNo(rs.getString("pan_no"));
+				member.setEliInl(rs.getString("eli_inli"));
 				listMembers.add(member);
 			}
 		} catch (SQLException sq) {
