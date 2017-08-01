@@ -168,7 +168,7 @@ public class AccountDao {
 				if(rs.getDate("op_date") != null)
 				opDate = rs.getDate("op_date");
 				account.setOpDate(new java.util.Date(opDate.getTime()));
-				account.setReceipt(rs.getDouble("receipt"));
+				
 				account.setPayment(rs.getDouble("payment"));
 				account.setClBal(rs.getDouble("cl_bal"));
 				account.setIfsc(rs.getString("ifsc"));
@@ -206,7 +206,7 @@ public class AccountDao {
 				if(rs.getDate("op_date") != null)
 				opDate = rs.getDate("op_date");
 				account.setOpDate(new java.util.Date(opDate.getTime()));
-				account.setReceipt(rs.getDouble("receipt"));
+				
 				account.setPayment(rs.getDouble("payment"));
 				account.setClBal(rs.getDouble("cl_bal"));
 				account.setIfsc(rs.getString("ifsc"));
