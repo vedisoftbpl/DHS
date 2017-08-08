@@ -250,9 +250,6 @@
 
 			//End Account Name Validation
 
-			
-		
-
 			return true;
 		}
 	</script>

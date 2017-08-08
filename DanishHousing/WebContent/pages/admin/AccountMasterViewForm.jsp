@@ -414,7 +414,6 @@
 			document.getElementById("divFlag").className = 'form-group has-success';
 			//End Flag Validation
 
-			
 
 
 			//Opening Balance Validation
