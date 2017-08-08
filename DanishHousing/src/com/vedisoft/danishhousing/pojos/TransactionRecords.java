@@ -31,13 +31,12 @@ public class TransactionRecords {
 	private int userId;
 	private Date lastUpdate;
 	
-	public TransactionRecords(int sNo, int docNo, int slno, Date docDte, String docType, String acCode, String bkCode,
+	public TransactionRecords( int slno, Date docDte, String docType, String acCode, String bkCode,
 			int chqNo, Date chDate, String bankBr, int membNo, double amt, String parti, String aP, int flag,
 			String vrNo, String sN, String sR, String docNoo, int projCd, Date wcLrDt, Date chClDt, String cFlag,
 			int partyCd,int userId, Date lastUpdate) {
 		super();
-		this.sNo = sNo;
-		this.docNo = docNo;
+	
 		this.slno = slno;
 		this.docDte = docDte;
 		this.docType = docType;
@@ -63,11 +62,11 @@ public class TransactionRecords {
 		this.userId = userId;
 		this.lastUpdate = lastUpdate;
 	}
-	public TransactionRecords(int sNo, int docNo, int slno, Date docDte, String docType, String acCode, String bkCode,
+	public TransactionRecords( int docNo, int slno, Date docDte, String docType, String acCode, String bkCode,
 			int chqNo, Date chDate, String bankBr, int membNo, double amt, String parti, int flag, String vrNo,
 			int projCd, int userId, Date lastUpdate) {
 		super();
-		this.sNo = sNo;
+		
 		this.docNo = docNo;
 		this.slno = slno;
 		this.docDte = docDte;

@@ -3,7 +3,7 @@ package com.vedisoft.danishhousing.pojos;
 import java.util.Date;
 
 public class ReceiptRecord {
-	private int recordId;
+	
 	private int sNo;
 	private char payType;
 	private int slno;
@@ -42,16 +42,18 @@ public class ReceiptRecord {
 	private Date wLrDt;
 	private int userId;
 	private Date lastUpdate;
+	private String city;
+	
 	public ReceiptRecord() {
 		super();
 	}
-	public ReceiptRecord(int sNo, char payType, int slno, Date recDte, int receno, String prefix, String membNme,
+	public ReceiptRecord( char payType, int slno, Date recDte, int receno, String prefix, String membNme,
 			int membNo, String fHNme, String mad1, String mad2, String mad3, Double cashAmt, Double chqAmt,
 			Double balChq, int cDd, Date cDdte, Double fullPay, Double inst1, Double inst2, Double inst3, int chalNo,
 			Date chalDte, String plSize, String plNo, int projCd, String chqDhr, String flag, char trCode,
-			String remarks, char rC, String pD, String accode, String branch, char dC, Date wLrDt,int userId, Date lastUpdate) {
+			String remarks, char rC, String pD, String accode, String branch, char dC, Date wLrDt,int userId, Date lastUpdate , String city) {
 		super();
-		this.sNo = sNo;
+		
 		this.payType = payType;
 		this.slno = slno;
 		this.recDte = recDte;
@@ -89,12 +91,13 @@ public class ReceiptRecord {
 		this.wLrDt = wLrDt;
 		this.userId = userId;
 		this.lastUpdate = lastUpdate;
+		this.city = city;
 	}
-	public ReceiptRecord( int sNo, char payType, int slno, Date recDte, int receno, int membNo,
+	public ReceiptRecord( char payType, int slno, Date recDte, int receno, int membNo,
 			Double cashAmt, Double chqAmt, int cDd, Date cDdte, String plSize, String plNo, int projCd, char trCode,
-			String remarks, char rC, String pD, String accode, String branch, char dC,int userId, Date lastUpdate) {
+			String remarks, char rC, String pD, String accode, String branch, char dC,int userId, Date lastUpdate, String city) {
 		super();
-		this.sNo = sNo;
+		
 		this.payType = payType;
 		this.slno = slno;
 		this.recDte = recDte;
@@ -132,6 +135,7 @@ public class ReceiptRecord {
 		this.wLrDt = null;
 		this.userId = userId;
 		this.lastUpdate = lastUpdate;
+		this.city = city;
 	}
 	public int getUserId() {
 		return userId;
@@ -145,12 +149,7 @@ public class ReceiptRecord {
 	public void setLastUpdate(Date lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
-	public int getRecordId() {
-		return recordId;
-	}
-	public void setRecordId(int recordId) {
-		this.recordId = recordId;
-	}
+	
 	public int getsNo() {
 		return sNo;
 	}
@@ -367,9 +366,18 @@ public class ReceiptRecord {
 	public void setwLrDt(Date wLrDt) {
 		this.wLrDt = wLrDt;
 	}
+	
+	
+	
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
 	@Override
 	public String toString() {
-		return "ReceiptRecord [recordId=" + recordId + ", sNo=" + sNo + ", payType=" + payType + ", slno=" + slno
+		return "ReceiptRecord [ sNo=" + sNo + ", payType=" + payType + ", slno=" + slno
 				+ ", recDte=" + recDte + ", receno=" + receno + ", prefix=" + prefix + ", membNme=" + membNme
 				+ ", membNo=" + membNo + ", fHNme=" + fHNme + ", mad1=" + mad1 + ", mad2=" + mad2 + ", mad3=" + mad3
 				+ ", cashAmt=" + cashAmt + ", chqAmt=" + chqAmt + ", balChq=" + balChq + ", cDd=" + cDd + ", cDdte="

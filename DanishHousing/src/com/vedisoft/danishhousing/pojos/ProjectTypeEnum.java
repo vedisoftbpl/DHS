@@ -2,8 +2,8 @@ package com.vedisoft.danishhousing.pojos;
 
 public enum ProjectTypeEnum {
 	Bungalows("B"),
-	Plots_R("P-R"),
-	Plots_C("P-C"),
+	Plots_RESEDENTIAL("P-R"),
+	Plots_COMMERCIAL("P-C"),
 	Shops("SH"),
 	Flats("F"),
 	School("SC"),

@@ -6,9 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.vedisoft.danishhousing.config.ConnectionPool;
+import com.vedisoft.danishhousing.config.DateUtils;
 import com.vedisoft.danishhousing.pojos.Projects;
 
 public class ProjectsDao {
@@ -19,11 +21,15 @@ public class ProjectsDao {
 		pool.initialize();
 		Connection conn = pool.getConnection();
 		try {
-			String sql = "insert into projects" + " (" + " project_name, bung_plot) values(?,?)";
+			String sql = "insert into projects" + " (" + " project_name, bung_plot,opdt) values(?,?,?)";
 			PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 	
 			ps.setString(1, projects.getProjectName());
 			ps.setString(2, projects.getBungProject());
+			java.sql.Date opdt = null;
+			if (projects.getOpDate() != null)
+				opdt = new java.sql.Date(projects.getOpDate().getTime());
+			ps.setDate(3,opdt);
 			int x = ps.executeUpdate();
 			if (x == 0) {
 				return 0;
@@ -48,12 +54,16 @@ public class ProjectsDao {
 		pool.initialize();
 		Connection conn = pool.getConnection();
 		try {
-			String sql = "update projects set  project_name=?, bung_plot =? where project_id = ?";
+			String sql = "update projects set  project_name=?, bung_plot =? ,opdt = ? where project_id = ?";
 			PreparedStatement ps = conn.prepareStatement(sql);
 
 			ps.setString(1, projects.getProjectName());
 			ps.setString(2, projects.getBungProject());
-			ps.setInt(3, projects.getProjectId());
+			java.sql.Date opdt = null;
+			if (projects.getOpDate() != null)
+				opdt = new java.sql.Date(projects.getOpDate().getTime());
+			ps.setDate(3,opdt);
+			ps.setInt(4, projects.getProjectId());
 
 			int x = ps.executeUpdate();
 			if (x == 0) {
@@ -104,7 +114,11 @@ public class ProjectsDao {
 				projects.setProjectId(projectId);
 				projects.setProjectName(rs.getString("project_name"));
 				projects.setBungProject(rs.getString("bung_plot"));
-				
+				java.sql.Date opdt = rs.getDate("opdt");
+				if (opdt != null)
+					projects.setOpDate(new java.util.Date((opdt).getTime()));
+				else
+					projects.setOpDate(opdt);
 			}
 		} catch (SQLException sq) {
 			System.out.println("Unable to create a new row." + sq);
@@ -128,6 +142,11 @@ public class ProjectsDao {
 				projects.setProjectId(rs.getInt("project_id"));
 				projects.setProjectName(rs.getString("project_name"));
 				projects.setBungProject(rs.getString("bung_plot"));
+				java.sql.Date opdt = rs.getDate("opdt");
+				if (opdt != null)
+					projects.setOpDate(new java.util.Date((opdt).getTime()));
+				else
+					projects.setOpDate(opdt);
 				listProjects.add(projects);
 			}
 		} catch (SQLException sq) {
@@ -154,6 +173,11 @@ public class ProjectsDao {
 				projects.setProjectId(rs.getInt("project_id"));
 				projects.setProjectName(rs.getString("project_name"));
 				projects.setBungProject(rs.getString("bung_plot"));
+				java.sql.Date opdt = rs.getDate("opdt");
+				if (opdt != null)
+					projects.setOpDate(new java.util.Date((opdt).getTime()));
+				else
+					projects.setOpDate(opdt);
 				listProjects.add(projects);
 			}
 		} catch (SQLException sq) {
@@ -169,11 +193,12 @@ public class ProjectsDao {
 		ProjectsDao dao = new ProjectsDao();
 		//System.out.println(new Date());
 //		Date d1 = new Date();
-//		d1 = DateUtils.convertDate("01-04-2017");
+//		d1 = DateUtils.convertDate("01/04/2017");
 //		Date d2 = new Date();
 //		d1 = DateUtils.convertDate("25-07-1996");
-//		Projects u = new Projects(4,"Christo Enclave",'8');
-//		 dao.create(u);
+//		Projects u = new Projects("Christo Enclave New","B",d1);
+//		System.out.println(u); 
+//		dao.create(u);
 		//
 		// Projects u = new Projects();
 		 //u.setUserId(4);
@@ -191,9 +216,9 @@ public class ProjectsDao {
 	//	 dao.edit(u);
 		
 		// dao.remove(3);
-		
-//		 Projects u = dao.find(4);
-//		 System.out.println(u);
+//		Projects y = new Projects();
+//		 y = dao.find(4);
+//		 System.out.println(y);
 		
 		 List<Projects> list = dao.findAll();
 		 for(Projects u1 : list)
