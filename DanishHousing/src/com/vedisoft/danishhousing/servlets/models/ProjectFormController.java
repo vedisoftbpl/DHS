@@ -1,6 +1,7 @@
 package com.vedisoft.danishhousing.servlets.models;
 
 import java.io.IOException;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.vedisoft.danishhousing.config.DateUtils;
 import com.vedisoft.danishhousing.daos.ProjectsDao;
 import com.vedisoft.danishhousing.pojos.ProjectTypeEnum;
 import com.vedisoft.danishhousing.pojos.Projects;
@@ -62,6 +64,11 @@ public class ProjectFormController extends HttpServlet {
 		String projType = new String();
 		if (request.getParameter("ProjectType") != null && request.getParameter("ProjectType").trim().length() > 0)
 			projType = request.getParameter("ProjectType");
+		
+		Date opdte = null;
+		if (request.getParameter("datepicker1") != null && request.getParameter("datepicker1").trim().length() > 0) {
+			opdte = DateUtils.convertDate(request.getParameter("datepicker1"));
+		}
 
 		System.out.println(projectName + " " + projType);
 
@@ -73,7 +80,7 @@ public class ProjectFormController extends HttpServlet {
 
 		if (operation.equals("create")) {
 			ProjectsDao dao = new ProjectsDao();
-			Projects p = new Projects(projectName, projType);
+			Projects p = new Projects(projectName, projType,null);
 			System.out.println(p);
 			int a = 0;
 			a = dao.create(p);
@@ -96,16 +103,16 @@ public class ProjectFormController extends HttpServlet {
 			rd.forward(request, response);
 		} else if (operation.equals("edit")) {
 			ProjectsDao dao = new ProjectsDao();
-			Projects p = new Projects(id, projectName, projType);
+			Projects p = new Projects(id, projectName, projType,opdte);
 			System.out.println(p);
 			Boolean b = dao.edit(p);
 			if (b) {
 				RequestDispatcher rd = request.getRequestDispatcher(page2);
-				request.setAttribute("msg", 1);
+				request.setAttribute("msg", "1");
 				rd.forward(request, response);
 			} else {
 				RequestDispatcher rd = request.getRequestDispatcher(page2);
-				request.setAttribute("msg", 2);
+				request.setAttribute("msg", "2");
 				rd.forward(request, response);
 			}
 		} else {

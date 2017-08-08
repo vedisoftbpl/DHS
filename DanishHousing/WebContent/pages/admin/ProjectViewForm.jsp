@@ -1,4 +1,6 @@
  <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+ <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+ <link rel="stylesheet" href="../../plugins/datepicker/datepicker3.css">
 <%@ include file="../design/Top.jsp"%>
 <!-- select style -->
 <link rel="stylesheet" href="../../plugins/select2/select2.css">
@@ -93,8 +95,7 @@
 									</div>
 									<!-- End Project Type-->
 									<!-- /.form-group -->
-
-
+							
 
 									<!-- form group -->
 
@@ -129,7 +130,29 @@
 									<!-- /. form group -->
 
 									<!-- form group -->
-									<br> <br> <br> <br> <br>
+									<!-- Date of Birth -->
+									<div class="form-group" id="divProjectDate">
+										<label>Project Date :</label>
+
+										<div class="input-group date">
+											<div class="input-group-addon">
+												<i class="fa fa-calendar"></i>
+											</div>
+											<span id="formattedDate1" name="formattedDate1"
+												style="display: none;"><fmt:formatDate type="date"
+													pattern="dd/MM/yyyy" value="${requestScope.project.opDate}" /></span> <input
+												type="text" class="form-control pull-right" id="datepicker1"
+												name="datepicker1" required />
+										</div>
+										<p id="errorOpeningDate"></p>
+										<!-- /.input group -->
+									</div>
+									<!--End Date of Birth -->
+									<!-- /.form group -->
+									
+									
+										
+									<br> 
 
 									<div class="row"></div>
 									<div class="col-xs-4" align="center">
@@ -168,6 +191,7 @@
 	</div>
 	<!-- ./wrapper -->
 	<%@ include file="../design/Bottom.jsp"%>
+	<script src="../../plugins/datepicker/bootstrap-datepicker.js"></script>
 	<!-- select2 -->
 	<script src="../../plugins/select2/select2.js"></script>
 	<!-- iCheck -->
@@ -185,6 +209,7 @@
 		}
 		document.getElementById("editbtn").disabled = false;
 		document.getElementById("cancel").disabled = false;
+		document.getElementById("datepicker1").value = document.getElementById("formattedDate1").innerHTML;
 	}
 	
 	function editfxn(){
@@ -229,9 +254,17 @@
 			//End Project Name Validation
 			return true;
 		}
+		
 		$(function() {
 			//Initialize Select2 Elements
 			$(".select2").select2();
 
+		}) ;
+		$(function() {
+			$('#datepicker1').datepicker({
+				format : 'dd/mm/yyyy',
+				autoclose : true
+			});
+			
 		});
 	</script>
