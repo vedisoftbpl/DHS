@@ -32,25 +32,26 @@ public class Members {
 	private String inst3;
 	private String transf;
 	private double opBal;
-	private String waterConn;
-	private String secDep;
+	private double waterConn;
+	private double secDep;
 	private Date waterConnDate;
 	private Date opDt;
 	private String regi;
 	private Date regDt;
-	private String regNo;
+	private int regNo;
 	private char rC;
 	private Date nocDt;
 	private char liveDead;
+	private double refAmt;
 	private Date refDt;
 	private double diversion;
 	private String maint;
 	private String water;
 	private Date watSupplyDt;
 	private double finalAmount;
-	private String establ;
+	private double establ;
 	private Date wcLrDt;
-	private String watChg;
+	private double watChg;
 	private double extraAmount;
 	private double cost;
 	private String mobile;
@@ -80,13 +81,13 @@ public class Members {
 			String plotNo, String tempPlotNo, String prefix, String memName, String address1, String address2,
 			String address3, String memOccupation, int age, String fHRelation, String fHRelName, String nomineeRelation,
 			String nomineeName, int memFee, int memEntryFee, Date receiptdt, String fullPay, String inst1, String inst2,
-			String inst3, String transf, double opBal, String waterConn, String secDep, Date waterConnDate, Date opDt,
-			String regi, Date regDt, String regNo, char rC, Date nocDt, char liveDead, Date refDt, double diversion,
-			String maint, String water, Date watSupplyDt, double finalAmount, String establ, Date wcLrDt, String watChg,
-			double extraAmount, double cost, String mobile, String email, Date dob, String photo, String addProof,
-			String aadhar, Date lastUpdate, int userId, String col1, String col2, String col3, String col4,
-			String buildFlag, String mNominal, int mutaNo1, Date mutaDt1, String gender, String category,
-			String defaulter, String motherName, String panNo, String eliInl) {
+			String inst3, String transf, double opBal, double waterConn, double secDep, Date waterConnDate, Date opDt,
+			String regi, Date regDt, int regNo, char rC, Date nocDt, char liveDead, double refAmt, Date refDt,
+			double diversion, String maint, String water, Date watSupplyDt, double finalAmount, double establ,
+			Date wcLrDt, double watChg, double extraAmount, double cost, String mobile, String email, Date dob,
+			String photo, String addProof, String aadhar, Date lastUpdate, int userId, String col1, String col2,
+			String col3, String col4, String buildFlag, String mNominal, int mutaNo1, Date mutaDt1, String gender,
+			String category, String defaulter, String motherName, String panNo, String eliInl) {
 		super();
 		this.memberId = memberId;
 		this.projectCd = projectCd;
@@ -126,6 +127,7 @@ public class Members {
 		this.rC = rC;
 		this.nocDt = nocDt;
 		this.liveDead = liveDead;
+		this.refAmt = refAmt;
 		this.refDt = refDt;
 		this.diversion = diversion;
 		this.maint = maint;
@@ -165,13 +167,13 @@ public class Members {
 			String tempPlotNo, String prefix, String memName, String address1, String address2, String address3,
 			String memOccupation, int age, String fHRelation, String fHRelName, String nomineeRelation,
 			String nomineeName, int memFee, int memEntryFee, Date receiptdt, String fullPay, String inst1, String inst2,
-			String inst3, String transf, double opBal, String waterConn, String secDep, Date waterConnDate, Date opDt,
-			String regi, Date regDt, String regNo, char rC, Date nocDt, char liveDead, Date refDt, double diversion,
-			String maint, String water, Date watSupplyDt, double finalAmount, String establ, Date wcLrDt, String watChg,
-			double extraAmount, double cost, String mobile, String email, Date dob, String photo, String addProof,
-			String aadhar, Date lastUpdate, int userId, String col1, String col2, String col3, String col4,
-			String buildFlag, String mNominal, int mutaNo1, Date mutaDt1, String gender, String category,
-			String defaulter, String motherName, String panNo, String eliInl) {
+			String inst3, String transf, double opBal, double waterConn, double secDep, Date waterConnDate, Date opDt,
+			String regi, Date regDt, int regNo, char rC, Date nocDt, char liveDead, double refAmt, Date refDt,
+			double diversion, String maint, String water, Date watSupplyDt, double finalAmount, double establ,
+			Date wcLrDt, double watChg, double extraAmount, double cost, String mobile, String email, Date dob,
+			String photo, String addProof, String aadhar, Date lastUpdate, int userId, String col1, String col2,
+			String col3, String col4, String buildFlag, String mNominal, int mutaNo1, Date mutaDt1, String gender,
+			String category, String defaulter, String motherName, String panNo, String eliInl) {
 		super();
 		this.projectCd = projectCd;
 		this.memberNo = memberNo;
@@ -210,6 +212,7 @@ public class Members {
 		this.rC = rC;
 		this.nocDt = nocDt;
 		this.liveDead = liveDead;
+		this.refAmt = refAmt;
 		this.refDt = refDt;
 		this.diversion = diversion;
 		this.maint = maint;
@@ -286,49 +289,7 @@ public class Members {
 		this.userId = userId;
 	}
 
-	public Members(int memberId, int projectCd, String plotSize, float netPlotSize, String plotNo, String prefix,
-			String memName, String address1, String address2, String address3, String memOccupation, String fHRelation,
-			String fHRelName, String nomineeRelation, String nomineeName, int memFee, int memEntryFee, Date receiptdt,
-			char rC, char liveDead, double diversion, double extraAmount, double cost, String mobile, String email,
-			Date dob, String photo, String addProof, String aadhar,int userId,Date lastUpdate) {
-
-		super();
-		this.memberId = memberId;
-		this.projectCd = projectCd;
-		this.plotSize = plotSize;
-		this.netPlotSize = netPlotSize;
-		this.plotNo = plotNo;
-		this.prefix = prefix;
-		this.memName = memName;
-		this.address1 = address1;
-		this.address2 = address2;
-		this.address3 = address3;
-		this.memOccupation = memOccupation;
-		this.fHRelation = fHRelation;
-		this.fHRelName = fHRelName;
-		this.nomineeRelation = nomineeRelation;
-		this.nomineeName = nomineeName;
-		this.memFee = memFee;
-		this.memEntryFee = memEntryFee;
-		this.receiptdt = receiptdt;
-		this.rC = rC;
-		this.liveDead = liveDead;
-		this.diversion = diversion;
-		this.extraAmount = extraAmount;
-		this.cost = cost;
-		this.mobile = mobile;
-		this.email = email;
-		this.dob = dob;
-		this.photo = photo;
-		this.addProof = addProof;
-		this.aadhar = aadhar;
-		this.userId = userId;
-		this.lastUpdate = lastUpdate;
-
-	}
-
-	
-
+	// Consructor For Create Operation
 	public Members(String prefix, String memName, String address1, String address2, String address3,
 			String memOccupation, String fHRelation, String fHRelName, String nomineeRelation, String nomineeName,
 			int memFee, int memEntryFee, Date receiptdt, char liveDead, String mobile, String email, Date dob,
@@ -361,25 +322,26 @@ public class Members {
 		this.inst3 = "";
 		this.transf = "";
 		this.opBal = 0.0;
-		this.waterConn = null;
-		this.secDep = "";
+		this.waterConn = 0.0;
+		this.secDep = 0.0;
 		this.waterConnDate = null;
 		this.opDt = null;
 		this.regi = "";
 		this.regDt = null;
-		this.regNo = "";
+		this.regNo = 0;
 		this.rC = ' ';
 		this.nocDt = null;
 		this.liveDead = liveDead;
+		this.refAmt = 0.0;
 		this.refDt = null;
 		this.diversion = 0.0;
 		this.maint = "";
 		this.water = "";
 		this.watSupplyDt = null;
 		this.finalAmount = 0.0;
-		this.establ = "";
+		this.establ = 0.0;
 		this.wcLrDt = null;
-		this.watChg = "";
+		this.watChg = 0.0;
 		this.extraAmount = 0.0;
 		this.cost = 0.0;
 		this.mobile = mobile;
@@ -409,6 +371,87 @@ public class Members {
 
 	public Members() {
 		super();
+	}
+
+	// Consructor For Edit Operation
+	public Members(int memberId, int projectCd, String plotSize, float netPlotSize, String plotNo, String prefix,
+			String memName, String address1, String address2, String address3, String memOccupation, String fHRelation,
+			String fHRelName, String nomineeRelation, String nomineeName, int memFee, int memEntryFee, Date receiptdt,
+			String fullPay, String inst1, String inst2, String inst3, double opBal, double secDep, double waterConn,
+			String regi, Date regDt, int regNo, char rC, Date nocDt, char liveDead, double refAmt, Date refDt,
+			double diversion, Date waterConnDate, double finalAmount, double establ, double watChg, double extraAmount,
+			double cost, String mobile, String email, Date dob, String photo, String addProof, String aadhar,
+			String buildFlag, String mNominal, int mutaNo1, Date mutaDt1, String gender, String category,
+			String defaulter, String motherName, String panNo, String eliInl, int userId, Date lastUpdate) {
+
+		super();
+		this.memberId = memberId;
+		this.projectCd = projectCd;
+		this.plotSize = plotSize;
+		this.netPlotSize = netPlotSize;
+		this.regCor = "";
+		this.plotNo = plotNo;
+		this.tempPlotNo = "";
+		this.prefix = prefix;
+		this.memName = memName;
+		this.address1 = address1;
+		this.address2 = address2;
+		this.address3 = address3;
+		this.memOccupation = memOccupation;
+		this.fHRelation = fHRelation;
+		this.fHRelName = fHRelName;
+		this.nomineeRelation = nomineeRelation;
+		this.nomineeName = nomineeName;
+		this.memFee = memFee;
+		this.memEntryFee = memEntryFee;
+		this.receiptdt = receiptdt;
+		this.fullPay = fullPay;
+		this.inst1 = inst1;
+		this.inst2 = inst2;
+		this.inst3 = inst3;
+		this.transf = "";
+		this.opBal = opBal;
+		this.waterConn = waterConn;
+		this.secDep = secDep;
+		this.waterConnDate = waterConnDate;
+		this.opDt = null;
+		this.regi = regi;
+		this.regDt = regDt;
+		this.regNo = regNo;
+		this.rC = rC;
+		this.nocDt = nocDt;
+		this.liveDead = liveDead;
+		this.refAmt = refAmt;
+		this.refDt = refDt;
+		this.diversion = diversion;
+		this.maint = "";
+		this.water = "";
+		this.watSupplyDt = null;
+		this.finalAmount = finalAmount;
+		this.establ = establ;
+		this.wcLrDt = null;
+		this.watChg = watChg;
+		this.extraAmount = extraAmount;
+		this.cost = cost;
+		this.mobile = mobile;
+		this.email = email;
+		this.dob = dob;
+		this.photo = photo;
+		this.addProof = addProof;
+		this.aadhar = aadhar;
+		this.lastUpdate = lastUpdate;
+		this.userId = userId;
+		this.buildFlag = buildFlag;
+		this.mNominal = mNominal;
+		this.mutaNo1 = mutaNo1;
+		this.mutaDt1 = mutaDt1;
+		this.gender = gender;
+		this.category = category;
+		this.defaulter = defaulter;
+		this.motherName = motherName;
+		this.panNo = panNo;
+		this.eliInl = eliInl;
+
 	}
 
 	public int getMemberId() {
@@ -635,19 +678,19 @@ public class Members {
 		this.opBal = opBal;
 	}
 
-	public String getWaterConn() {
+	public double getWaterConn() {
 		return waterConn;
 	}
 
-	public void setWaterConn(String waterConn) {
+	public void setWaterConn(double waterConn) {
 		this.waterConn = waterConn;
 	}
 
-	public String getSecDep() {
+	public double getSecDep() {
 		return secDep;
 	}
 
-	public void setSecDep(String secDep) {
+	public void setSecDep(double secDep) {
 		this.secDep = secDep;
 	}
 
@@ -675,6 +718,14 @@ public class Members {
 		this.regi = regi;
 	}
 
+	public double getRefAmt() {
+		return refAmt;
+	}
+
+	public void setRefAmt(double refAmt) {
+		this.refAmt = refAmt;
+	}
+
 	public Date getRegDt() {
 		return regDt;
 	}
@@ -683,11 +734,11 @@ public class Members {
 		this.regDt = regDt;
 	}
 
-	public String getRegNo() {
+	public int getRegNo() {
 		return regNo;
 	}
 
-	public void setRegNo(String regNo) {
+	public void setRegNo(int regNo) {
 		this.regNo = regNo;
 	}
 
@@ -763,11 +814,11 @@ public class Members {
 		this.finalAmount = finalAmount;
 	}
 
-	public String getEstabl() {
+	public double getEstabl() {
 		return establ;
 	}
 
-	public void setEstabl(String establ) {
+	public void setEstabl(double establ) {
 		this.establ = establ;
 	}
 
@@ -779,11 +830,11 @@ public class Members {
 		this.wcLrDt = wcLrDt;
 	}
 
-	public String getWatChg() {
+	public double getWatChg() {
 		return watChg;
 	}
 
-	public void setWatChg(String watChg) {
+	public void setWatChg(double watChg) {
 		this.watChg = watChg;
 	}
 
@@ -991,17 +1042,15 @@ public class Members {
 				+ inst2 + ", inst3=" + inst3 + ", transf=" + transf + ", opBal=" + opBal + ", waterConn=" + waterConn
 				+ ", secDep=" + secDep + ", waterConnDate=" + waterConnDate + ", opDt=" + opDt + ", regi=" + regi
 				+ ", regDt=" + regDt + ", regNo=" + regNo + ", rC=" + rC + ", nocDt=" + nocDt + ", liveDead=" + liveDead
-				+ ", refDt=" + refDt + ", diversion=" + diversion + ", maint=" + maint + ", water=" + water
-				+ ", watSupplyDt=" + watSupplyDt + ", finalAmount=" + finalAmount + ", establ=" + establ + ", wcLrDt="
-				+ wcLrDt + ", watChg=" + watChg + ", extraAmount=" + extraAmount + ", cost=" + cost + ", mobile="
-				+ mobile + ", email=" + email + ", dob=" + dob + ", photo=" + photo + ", addProof=" + addProof
-				+ ", aadhar=" + aadhar + ", lastUpdate=" + lastUpdate + ", userId=" + userId + ", col1=" + col1
-				+ ", col2=" + col2 + ", col3=" + col3 + ", col4=" + col4 + ", buildFlag=" + buildFlag + ", mNominal="
-				+ mNominal + ", mutaNo1=" + mutaNo1 + ", mutaDt1=" + mutaDt1 + ", gender=" + gender + ", category="
-				+ category + ", defaulter=" + defaulter + ", motherName=" + motherName + ", panNo=" + panNo
-				+ ", eliInl=" + eliInl + "]";
+				+ ", refAmt=" + refAmt + ", refDt=" + refDt + ", diversion=" + diversion + ", maint=" + maint
+				+ ", water=" + water + ", watSupplyDt=" + watSupplyDt + ", finalAmount=" + finalAmount + ", establ="
+				+ establ + ", wcLrDt=" + wcLrDt + ", watChg=" + watChg + ", extraAmount=" + extraAmount + ", cost="
+				+ cost + ", mobile=" + mobile + ", email=" + email + ", dob=" + dob + ", photo=" + photo + ", addProof="
+				+ addProof + ", aadhar=" + aadhar + ", lastUpdate=" + lastUpdate + ", userId=" + userId + ", col1="
+				+ col1 + ", col2=" + col2 + ", col3=" + col3 + ", col4=" + col4 + ", buildFlag=" + buildFlag
+				+ ", mNominal=" + mNominal + ", mutaNo1=" + mutaNo1 + ", mutaDt1=" + mutaDt1 + ", gender=" + gender
+				+ ", category=" + category + ", defaulter=" + defaulter + ", motherName=" + motherName + ", panNo="
+				+ panNo + ", eliInl=" + eliInl + "]";
 	}
-
-	
 
 }

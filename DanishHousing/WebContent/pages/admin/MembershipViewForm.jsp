@@ -30,12 +30,13 @@
 
 				<!-- User Form -->
 
-				
+
 
 				<form
 					action="${pageContext.request.contextPath}/admin/pages/MemberFormController"
 					method="post" onsubmit="return validateForm(this)"
-					name="membershipEditForm" id="membershipEditForm" enctype="multipart/form-data">
+					name="membershipEditForm" id="membershipEditForm"
+					enctype="multipart/form-data">
 					<!-- Default box -->
 					<div class="box">
 						<div class="box-header with-border">
@@ -63,7 +64,7 @@
 											<li class="active"><a href="#tab_1" data-toggle="tab">Member
 													Details</a></li>
 											<li><a href="#tab_2" data-toggle="tab">Plot Details</a></li>
-
+											<li><a href="#tab_3" data-toggle="tab">More Details</a></li>
 
 										</ul>
 										<div class="tab-content">
@@ -154,8 +155,8 @@
 																	style="display: none;"><fmt:formatDate
 																		type="date" pattern="dd/MM/yyyy"
 																		value="${requestScope.member.dob}" /></span> <input
-																	type="text" class="form-control pull-right" id="dob"
-																	name="dob" required="required" />
+																	type="text" class="form-control pull-right datepicker"
+																	id="dob" name="dob" required="required" />
 															</div>
 															<p id="errorDob"></p>
 															<!-- /.input group -->
@@ -239,6 +240,25 @@
 														</div>
 														<!-- End Adhaar -->
 														<!-- /.form group -->
+														<!-- form group -->
+														<!-- PAN -->
+														<div class="form-group" id="divMemberFormPAN">
+															<label> PAN Number:</label>
+															<!-- .input group -->
+															<div class="input-group">
+																<div class="input-group-addon">
+																	<i class="fa fa-credit-card"></i>
+																</div>
+																<input type="text" class="form-control" id="memberPAN"
+																	name="memberPAN" placeholder=" PAN number"
+																	value="${requestScope.member.panNo}" />
+															</div>
+															<p id="errorPAN"></p>
+															<!-- /.input group -->
+														</div>
+														<!-- End PAN -->
+														<!-- /.form group -->
+
 
 														<!-- form group -->
 														<!-- Upload Photo -->
@@ -268,8 +288,23 @@
 													<!-- /.col -->
 													<div class="col-md-6">
 
-													<br><br><br><br><br><br><br><br><br>
+														<div class="box box-primary">
+										<div class="box-body box-profile">
 
+
+
+
+											<ul class="list-group list-group-unbordered">
+												<li class="list-group-item"><b>Member No.</b>
+													<a class="pull-right">${requestScope.member.memberId}</a></li>
+												
+
+											</ul>
+											<br><br>
+											<br><br>
+										</div>
+										<!-- /.box-body -->
+									</div>
 
 														<!--  form-group -->
 														<!-- Address Line 1 -->
@@ -349,7 +384,25 @@
 														</div>
 														<!-- End Address Proof -->
 														<!-- /.form group -->
-
+														<!--  form-group -->
+														<!--Mother's Name -->
+														<div class="form-group" id="divMemberFormMotherName">
+															<label> Mother's Name:</label>
+															<!-- .input group -->
+															<div class="input-group">
+																<div class="input-group-addon">
+																	<i class="fa fa-user"></i>
+																</div>
+																<input type="text" class="form-control"
+																	id="memberMotherName" name="memberMotherName"
+																	placeholder=" Mother's Name "
+																	value="${requestScope.member.motherName}" />
+															</div>
+															<p id="errorMemberMotherName"></p>
+															<!-- /.input group -->
+														</div>
+														<!-- End Mother's Name -->
+														<!-- /.form group -->
 														<!--  form-group -->
 														<!-- Nominee Name -->
 														<div class="form-group" id="divMemberFormNominee">
@@ -383,33 +436,55 @@
 														<!-- /.form-group -->
 
 														<!-- form group -->
-														<!-- Membership Fee -->
-														<div class="form-group" id="divMemberFormMembershipFee">
-															<label>Membership Fee</label>
+														<!-- Gender -->
+														<div class="form-group" id="divMemberFormGender">
+															<label>Gender</label>
 															<div class="input-group">
-																<span class="input-group-addon"> <i
-																	class="fa  fa-inr"></i></span> <input type="text"
-																	class="form-control" id="membershipFee"
-																	name="membershipFee"
-																	value="${requestScope.member.memFee}" />
+																<div class="input-group-addon">
+																	<i class="fa   fa-group"></i>
+																</div>
+																<select class="form-control select2" id="gender"
+																	name="gender" style="width: 100%;" required="required">
+																	<option
+																		${requestScope.member.gender eq 'Male' ? 'selected' : ''}>Male</option>
+																	<option
+																		${requestScope.member.gender eq 'Female' ? 'selected' : ''}>Female</option>
+																	<option
+																		${requestScope.member.gender eq 'Others' ? 'selected' : ''}>Others</option>
+																</select>
 															</div>
-															<p id="errorMembershipFee"></p>
+															<p id="errorGender"></p>
 														</div>
-														<!-- End Membership Fee -->
+														<!-- End Gender -->
 														<!-- /.form group -->
 
 														<!-- form group -->
-														<!-- Entrance Fee -->
-														<div class="form-group" id="divMemberFormEntranceFee">
-															<label>Entrance Fee</label>
+														<!-- Category -->
+														<div class="form-group" id="divMemberFormCategory">
+															<label>Category</label>
 															<div class="input-group">
-																<span class="input-group-addon"> <i
-																	class="fa  fa-inr"></i></span> <input type="text"
-																	class="form-control" id="entranceFee"
-																	name="entranceFee"
-																	value="${requestScope.member.memEntryFee}" />
+																<div class="input-group-addon">
+																	<i class="fa   fa-group"></i>
+																</div>
+																<select class="form-control select2" id="category"
+																	name="category" style="width: 100%;"
+																	required="required">
+																	<option value="GEN."
+																		${requestScope.member.category eq 'GEN.' ? 'selected' : ''}>General</option>
+																	<option value="SC"
+																		${requestScope.member.category eq 'SC' ? 'selected' : ''}>Scheduled
+																		Caste(SC)</option>
+																	<option value="ST"
+																		${requestScope.member.category eq 'ST' ? 'selected' : ''}>Scheduled
+																		Tribe(ST)</option>
+																	<option value="OBC"
+																		${requestScope.member.category eq 'OBC' ? 'selected' : ''}>Other
+																		Backward Classes(OBC)</option>
+																	<option
+																		${requestScope.member.gender eq 'category' ? 'selected' : ''}>Others</option>
+																</select>
 															</div>
-															<p id="errorEntranceFee"></p>
+															<p id="errorCategory"></p>
 														</div>
 														<!-- End Entrance Fee -->
 														<!-- /.form group -->
@@ -444,15 +519,15 @@
 													<div class="col-md-6">
 
 														<!--  form-group -->
-														<!-- Project Code -->
+														<!-- Project Name -->
 														<div class="form-group" id="divProjectCode">
-															<label>Project Code</label>
+															<label>Project Name</label>
 															<div class="input-group">
 																<div class="input-group-addon">
 																	<i class="fa  fa-bars"></i>
 																</div>
-																<select class="form-control select2" id="projectCode"
-																	name="projectCode" style="width: 100%;">
+																<select class="form-control select2" id="projectName"
+																	name="projectName" style="width: 100%;">
 																	<c:forEach items="${requestScope.projectList}"
 																		var="project">
 																		<option value="${project.getProjectId()}"
@@ -462,7 +537,7 @@
 															</div>
 														</div>
 
-														<!-- End Project Code -->
+														<!-- End Project Name -->
 														<!-- /.form-group -->
 
 														<!-- form-group -->
@@ -515,35 +590,6 @@
 														<!--Plot No. -->
 														<!-- /.form group -->
 
-
-														<!-- form group -->
-														<!--Receipt Date-->
-														<div class="form-group" id="divReceiptDate">
-															<label>Receipt Date</label>
-
-															<div class="input-group date">
-																<div class="input-group-addon">
-																	<i class="fa fa-calendar"></i>
-																</div>
-																<span id="formattedDate2" name="formattedDate2"
-																	style="display: none;"><fmt:formatDate
-																		type="date" pattern="dd/MM/yyyy"
-																		value="${requestScope.member.receiptdt}" /></span> <input
-																	type="text" class="form-control pull-right"
-																	id="datepicker" name="datepicker" />
-															</div>
-															<p id="errorReceiptDate"></p>
-															<!-- /.input group -->
-														</div>
-														<!--End Receipt Date -->
-														<!-- /.form group -->
-
-
-
-													</div>
-													<!-- /.col -->
-													<div class="col-md-6">
-
 														<!--  form-group -->
 														<!-- Residential/Commercial -->
 														<div class="form-group" id="divResidentialCommercial">
@@ -560,6 +606,145 @@
 																	<option
 																		${requestScope.member.rC eq 'C'.charAt(0) ? 'selected' : ''}>Commercial</option>
 
+																</select>
+															</div>
+														</div>
+
+														<!-- End  Residential/Commercial -->
+														<!-- /.form-group -->
+
+														<!-- form group -->
+														<!-- Establishment Charge -->
+														<div class="form-group" id="divEstablishmentCharge">
+															<label>Establishment Charge</label>
+															<div class="input-group">
+																<span class="input-group-addon"> <i
+																	class="fa  fa-inr"></i></span> <input type="text"
+																	class="form-control" id="establishmentCharge"
+																	name="establishmentCharge"
+																	value="${requestScope.member.establ}">
+															</div>
+															<p id="errorEstablishmentCharge"></p>
+														</div>
+														<!-- End Establishment Charge -->
+														<!-- /.form group -->
+
+														<!-- form group -->
+														<!-- Security Deposit -->
+														<div class="form-group" id="divSecurityDeposit">
+															<label>Security Deposit</label>
+															<div class="input-group">
+																<span class="input-group-addon"> <i
+																	class="fa  fa-inr"></i></span> <input type="text"
+																	class="form-control" id="securityDeposit"
+																	name="securityDeposit"
+																	value="${requestScope.member.secDep}">
+															</div>
+															<p id="errorSecurityDeposit"></p>
+														</div>
+														<!--End Security Deposit-->
+														<!-- /.form group -->
+
+
+
+													</div>
+													<!-- /.col -->
+													<div class="col-md-6">
+
+														<!--  form group -->
+														<!-- Cost -->
+														<div class="form-group" id="divCost">
+															<label>Cost</label>
+															<div class="input-group">
+																<span class="input-group-addon"> <i
+																	class="fa  fa-inr"></i></span> <input type="text"
+																	class="form-control" id="cost" name="cost"
+																	value="${requestScope.member.cost}">
+															</div>
+															<p id="errorCost"></p>
+														</div>
+														<!-- Cost -->
+
+
+
+														<!-- /.form group -->
+														<!--  form-group -->
+														<!--Fullpay -->
+														<div class="form-group" id="divFullpay">
+															<label>Fullpay</label>
+															<div class="input-group">
+																<div class="input-group-addon">
+																	<i class="fa  fa-bars"></i>
+																</div>
+																<select class="form-control select2" id="fullpay"
+																	name="fullpay" style="width: 100%;">
+																	<option
+																		${requestScope.member.fullPay eq 'Y' ? 'selected' : ''}>Yes</option>
+																	<option
+																		${requestScope.member.fullPay eq 'N' ? 'selected' : ''}>No</option>
+
+																</select>
+															</div>
+														</div>
+
+														<!-- End  Fullpay -->
+														<!-- /.form-group -->
+
+														<!--  form-group -->
+														<!-- Installment 1 -->
+														<div class="form-group" id="divResidentialCommercial">
+															<label> Installment 1</label>
+															<div class="input-group">
+																<div class="input-group-addon">
+																	<i class="fa  fa-bars"></i>
+																</div>
+																<select class="form-control select2" id=" inst1"
+																	name="inst1" style="width: 100%;">
+																	<option
+																		${requestScope.member.inst1 eq 'Y' ? 'selected' : ''}>Yes</option>
+																	<option
+																		${requestScope.member.inst1 eq 'N' ? 'selected' : ''}>No</option>
+																</select>
+															</div>
+														</div>
+
+														<!-- End  Installment 1 -->
+														<!-- /.form-group -->
+														<!--  form-group -->
+														<!-- Installment 2 -->
+														<div class="form-group" id="divResidentialCommercial">
+															<label> Installment 2</label>
+															<div class="input-group">
+																<div class="input-group-addon">
+																	<i class="fa  fa-bars"></i>
+																</div>
+																<select class="form-control select2" id=" inst2"
+																	name="inst2" style="width: 100%;">
+																	<option
+																		${requestScope.member.inst2 eq 'Y' ? 'selected' : ''}>Yes</option>
+																	<option
+																		${requestScope.member.inst2 eq 'N' ? 'selected' : ''}>No</option>
+
+																</select>
+															</div>
+														</div>
+
+														<!-- End  Installment 2 -->
+														<!-- /.form-group -->
+														<!--  form-group -->
+														<!-- Residential/Commercial -->
+														<div class="form-group" id="divResidentialCommercial">
+															<label> Installment 3</label>
+															<div class="input-group">
+																<div class="input-group-addon">
+																	<i class="fa  fa-bars"></i>
+																</div>
+																<select class="form-control select2" id=" inst3"
+																	name="inst3" style="width: 100%;">
+																	<option
+																		${requestScope.member.inst3 eq 'Y' ? 'selected' : ''}>Yes</option>
+																	<option
+																		${requestScope.member.inst3 eq 'N' ? 'selected' : ''}>No</option>
 																</select>
 															</div>
 														</div>
@@ -591,7 +776,272 @@
 
 
 
+														<!-- Opening Balance -->
+														<div class="form-group" id="divOpeningBalance">
+															<label>Opening Balance</label>
+															<div class="input-group">
+																<span class="input-group-addon"> <i
+																	class="fa  fa-inr"></i></span> <input type="text"
+																	class="form-control" id="openingBalance"
+																	name="openingBalance"
+																	value="${requestScope.member.opBal}">
+															</div>
+															<p id="errorOpeningBalance"></p>
+														</div>
+														<!-- Opening Balance -->
+														<!-- /.form group -->
+
+
+
+														<!-- / .form group -->
+													</div>
+													<!-- /.box-body -->
+												</div>
+											</div>
+											<!-- new tab -->
+											<div class="tab-pane" id="tab_3">
+												<div class="row">
+													<div class="col-md-6">
+														<!-- Member  No. -->
+														<div class="form-group" id="divRegistrationNo">
+															<label>Member No.</label>
+															<div class="input-group">
+																<span class="input-group-addon"><i
+																	class="fa fa-info-circle "></i></span> <input type="text"
+																	class="form-control" id="memberNo" name="memberNo"
+																	value="${requestScope.member.memberNo}" readonly/>
+															</div>
+															<p id="errorMemberNo"></p>
+														</div>
+
+														<!--End Member No. -->
+														<!-- /.form group -->
 														<!-- form group -->
+														<!-- Membership Fee -->
+														<div class="form-group" id="divMemberFormMembershipFee">
+															<label>Membership Fee</label>
+															<div class="input-group">
+																<span class="input-group-addon"> <i
+																	class="fa  fa-inr"></i></span> <input type="text"
+																	class="form-control" id="membershipFee"
+																	name="membershipFee"
+																	value="${requestScope.member.memFee}" />
+															</div>
+															<p id="errorMembershipFee"></p>
+														</div>
+														<!-- End Membership Fee -->
+														<!-- /.form group -->
+
+														<!-- form group -->
+														<!-- Entrance Fee -->
+														<div class="form-group" id="divMemberFormEntranceFee">
+															<label>Entrance Fee</label>
+															<div class="input-group">
+																<span class="input-group-addon"> <i
+																	class="fa  fa-inr"></i></span> <input type="text"
+																	class="form-control" id="entranceFee"
+																	name="entranceFee"
+																	value="${requestScope.member.memEntryFee}" />
+															</div>
+															<p id="errorEntranceFee"></p>
+														</div>
+														<!-- End Entrance Fee -->
+														<!-- /.form group -->
+														<!-- form group -->
+														<!--Receipt Date-->
+														<div class="form-group" id="divReceiptDate">
+															<label>Receipt Date</label>
+
+															<div class="input-group date">
+																<div class="input-group-addon">
+																	<i class="fa fa-calendar"></i>
+																</div>
+																<span id="formattedDate2" name="formattedDate2"
+																	style="display: none;"><fmt:formatDate
+																		type="date" pattern="dd/MM/yyyy"
+																		value="${requestScope.member.receiptdt}" /></span> <input
+																	type="text" class="form-control pull-right datepicker"
+																	id="receiptdt" name="receiptdt" />
+															</div>
+															<p id="errorReceiptDate"></p>
+															<!-- /.input group -->
+														</div>
+														<!--End Receipt Date -->
+														<!-- /.form group -->
+														<!--  form-group -->
+														<!-- Registered -->
+														<div class="form-group" id="divProjectCode">
+															<label>Registered</label>
+															<div class="input-group">
+																<div class="input-group-addon">
+																	<i class="fa  fa-bars"></i>
+																</div>
+																<select class="form-control select2" id="registered"
+																	name="registered" style="width: 100%;">
+
+																	<option value="Y"
+																		${requestScope.member.regi eq 'Y' ? 'selected' : ''}>Yes</option>
+																	<option value="N"
+																		${requestScope.member.regi eq 'N' ? 'selected' : ''}>No</option>
+
+																</select>
+															</div>
+														</div>
+
+														<!-- End Registered -->
+														<!-- /.form-group -->
+														<!-- form-group -->
+														<!--Registration Date-->
+														<div class="form-group" id="divRegistrationDate">
+															<label>Registration Date</label>
+
+															<div class="input-group date">
+																<div class="input-group-addon">
+																	<i class="fa fa-calendar"></i>
+																</div>
+																<span id="formattedDate3" name="formattedDate3"
+																	style="display: none;"><fmt:formatDate
+																		type="date" pattern="dd/MM/yyyy"
+																		value="${requestScope.member.regDt}" /></span> <input
+																	type="text" class="form-control pull-right datepicker"
+																	id="regDt" name="regDt" />
+															</div>
+															<p id="errorRegistrationDate"></p>
+															<!-- /.input group -->
+														</div>
+														<!--End Registration Date -->
+														<!-- /.form group -->
+														<!-- form-group -->
+														<!-- Registration No. -->
+														<div class="form-group" id="divRegistrationNo">
+															<label>Registration No.</label>
+															<div class="input-group">
+																<span class="input-group-addon"><i
+																	class="fa fa-info-circle "></i></span> <input type="text"
+																	class="form-control" id="registrationNo"
+																	name="registrationNo"
+																	value="${requestScope.member.regNo}" />
+															</div>
+															<p id="errorRegistrationNo"></p>
+														</div>
+
+														<!--End Registration No. -->
+														<!-- /.form group -->
+
+														<!-- form group -->
+														<!--NOC Date-->
+														<div class="form-group" id="divNOCDate">
+															<label>NOC Date</label>
+
+															<div class="input-group date">
+																<div class="input-group-addon">
+																	<i class="fa fa-calendar"></i>
+																</div>
+																<span id="formattedDate4" name="formattedDate4"
+																	style="display: none;"><fmt:formatDate
+																		type="date" pattern="dd/MM/yyyy"
+																		value="${requestScope.member.nocDt}" /></span> <input
+																	type="text" class="form-control pull-right datepicker"
+																	id="nocdt" name="nocdt" />
+															</div>
+															<p id="errorNOCDate"></p>
+															<!-- /.input group -->
+														</div>
+														<!--End NOC Date -->
+														<!-- /.form group -->
+														<!-- form group -->
+														<!--Reference Date-->
+														<div class="form-group" id="divReferenceDate">
+															<label>Reference Date</label>
+
+															<div class="input-group date">
+																<div class="input-group-addon">
+																	<i class="fa fa-calendar"></i>
+																</div>
+																<span id="formattedDate5" name="formattedDate5"
+																	style="display: none;"><fmt:formatDate
+																		type="date" pattern="dd/MM/yyyy"
+																		value="${requestScope.member.refDt}" /></span> <input
+																	type="text" class="form-control pull-right datepicker"
+																	id="refDt" name="refDt" />
+															</div>
+															<p id="errorReferenceDate"></p>
+															<!-- /.input group -->
+														</div>
+														<!--End Reference Date -->
+														<!-- /.form group -->
+
+														<!-- Reference Amount -->
+														<div class="form-group" id="divReferenceAmount">
+															<label>Reference Amount</label>
+															<div class="input-group">
+																<span class="input-group-addon"> <i
+																	class="fa  fa-inr"></i></span> <input type="text"
+																	class="form-control" id="referenceAmount"
+																	name="referenceAmount"
+																	value="${requestScope.member.refAmt}">
+															</div>
+															<p id="errorReferenceAmount"></p>
+														</div>
+														<!-- End Reference Amount -->
+														<!-- form group -->
+
+
+													</div>
+													<!-- /.col -->
+													<div class="col-md-6">
+
+														<!-- form group -->
+														<!-- Water Connection Charge -->
+														<div class="form-group" id="divWaterConnectionCharge">
+															<label>Water Connection Charge</label>
+															<div class="input-group">
+																<span class="input-group-addon"> <i
+																	class="fa  fa-inr"></i></span> <input type="text"
+																	class="form-control" id="waterConnectionCharge"
+																	name="waterConnectionCharge"
+																	value="${requestScope.member.waterConn}">
+															</div>
+															<p id="errorWaterConnectionCharge"></p>
+														</div>
+														<!-- End Water Connection Charge -->
+														<!-- /.form group -->
+														<!-- form group -->
+														<!-- Water Charge -->
+														<div class="form-group" id="divWaterCharge">
+															<label>Water Charge</label>
+															<div class="input-group">
+																<span class="input-group-addon"> <i
+																	class="fa  fa-inr"></i></span> <input type="text"
+																	class="form-control" id="waterCharge"
+																	name="waterCharge"
+																	value="${requestScope.member.watChg}">
+															</div>
+															<p id="errorWaterCharge"></p>
+														</div>
+														<!-- Diversion -->
+														<!-- /.form group -->
+														<!-- form group -->
+														<!--Water Connection Date-->
+														<div class="form-group" id="divWaterConnectionDate">
+															<label>Water Connection Date</label>
+
+															<div class="input-group date">
+																<div class="input-group-addon">
+																	<i class="fa fa-calendar"></i>
+																</div>
+																<span id="formattedDate6" name="formattedDate6"
+																	style="display: none;"><fmt:formatDate
+																		type="date" pattern="dd/MM/yyyy"
+																		value="${requestScope.member.waterConnDate}" /></span> <input
+																	type="text" class="form-control pull-right datepicker"
+																	id="waterConnDate" name="waterConnDate" />
+															</div>
+															<p id="errorWaterConnectionDate"></p>
+															<!-- /.input group -->
+														</div>
+														<!--End Water Connection Date -->
+														<!-- /.form group -->
 														<!-- Diversion -->
 														<div class="form-group" id="divDiversion">
 															<label>Diversion</label>
@@ -606,37 +1056,138 @@
 														<!-- Diversion -->
 														<!-- /.form group -->
 
-														<!-- form group -->
-														<!-- Extra Amount -->
-														<div class="form-group" id="divExtraAmount">
-															<label>Extra Amount</label>
+														<!-- form-group -->
+														<!-- Mutation No. -->
+														<div class="form-group" id="divMutationNo">
+															<label>Mutation No.</label>
 															<div class="input-group">
-																<span class="input-group-addon"> <i
-																	class="fa  fa-inr"></i></span> <input type="text"
-																	class="form-control" id="extraAmount"
-																	name="extraAmount"
-																	value="${requestScope.member.extraAmount}">
+																<span class="input-group-addon"><i
+																	class="fa fa-info-circle "></i></span> <input type="text"
+																	class="form-control" id="mutationNo" name="mutationNo"
+																	value="${requestScope.member.mutaNo1}" />
 															</div>
-															<p id="errorExtraAmount"></p>
+															<p id="errorMutationNo"></p>
 														</div>
-														<!-- Extra Amount -->
 
+														<!--End Mutation No. -->
 														<!-- /.form group -->
+														<!-- form group -->
+														<!--Mutation Date-->
+														<div class="form-group" id="divMutationDate">
+															<label>Mutation Date</label>
 
-
-														<!--  form group -->
-														<!-- Cost -->
-														<div class="form-group" id="divCost">
-															<label>Cost</label>
-															<div class="input-group">
-																<span class="input-group-addon"> <i
-																	class="fa  fa-inr"></i></span> <input type="text"
-																	class="form-control" id="cost" name="cost"
-																	value="${requestScope.member.cost}">
+															<div class="input-group date">
+																<div class="input-group-addon">
+																	<i class="fa fa-calendar"></i>
+																</div>
+																<span id="formattedDate7" name="formattedDate7"
+																	style="display: none;"><fmt:formatDate
+																		type="date" pattern="dd/MM/yyyy"
+																		value="${requestScope.member.mutaDt1}" /></span> <input
+																	type="text" class="form-control pull-right datepicker"
+																	id="mutaDt" name="mutaDt" />
 															</div>
-															<p id="errorCost"></p>
+															<p id="errorMutationDate"></p>
+															<!-- /.input group -->
 														</div>
-														<!-- Cost -->
+														<!--End Mutation Date -->
+														<!-- /.form group -->
+														<!--  form-group -->
+														<!-- Eligible/Ineligible -->
+														<div class="form-group" id="divEligibleIneligible">
+															<label> Eligible/Ineligible</label>
+															<div class="input-group">
+																<div class="input-group-addon">
+																	<i class="fa  fa-bars"></i>
+																</div>
+																<select class="form-control select2"
+																	id=" eligibleIneligible" name="eligibleIneligible"
+																	style="width: 100%;">
+																	<option
+																		${requestScope.member.eliInl eq 'Eligible' ? 'selected' : ''}>Eligible</option>
+																	<option
+																		${requestScope.member.eliInl eq 'Ineligible' ? 'selected' : ''}>Ineligible</option>
+
+																</select>
+															</div>
+														</div>
+
+														<!-- End  Eligible/Ineligible -->
+														<!-- /.form-group -->
+
+														<!--  form-group -->
+														<!-- Building Flag -->
+														<div class="form-group" id="divBuildingFlag">
+															<label>Building Flag</label>
+															<div class="input-group">
+																<div class="input-group-addon">
+																	<i class="fa  fa-bars"></i>
+																</div>
+																<select class="form-control select2" id="buildingFlag"
+																	name="buildingFlag" style="width: 100%;">
+																	<option
+																		${requestScope.member.buildFlag eq 'C' ? 'selected' : ''}>Completed</option>
+																	<option
+																		${requestScope.member.buildFlag eq 'NC' ? 'selected' : ''}>Not
+																		Completed</option>
+																	<option
+																		${requestScope.member.buildFlag eq 'UC' ? 'selected' : ''}>Under
+																		Construction</option>
+
+																</select>
+															</div>
+														</div>
+
+														<!-- End  Building Flag -->
+														<!-- /.form-group -->
+
+														<!--  form-group -->
+														<!-- Member Nominal -->
+														<div class="form-group" id="divMemberNominal">
+															<label>Member Nominal</label>
+															<div class="input-group">
+																<div class="input-group-addon">
+																	<i class="fa  fa-bars"></i>
+																</div>
+																<select class="form-control select2" id="memberNominal"
+																	name="memberNominal" style="width: 100%;">
+																	<option
+																		${requestScope.member.mNominal eq 'C' ? 'selected' : ''}>C</option>
+																	<option
+																		${requestScope.member.mNominal eq 'None' ? 'selected' : ''}>None</option>
+
+																</select>
+															</div>
+														</div>
+
+														<!-- End  Member Nominal -->
+														<!-- /.form-group -->
+														<!--  form-group -->
+														<!--Defaulter -->
+														<div class="form-group" id="divDefaulter">
+															<label>Defaulter</label>
+															<div class="input-group">
+																<div class="input-group-addon">
+																	<i class="fa  fa-bars"></i>
+																</div>
+																<select class="form-control select2" id="defaulter"
+																	name="defaulter" style="width: 100%;">
+
+																	<option
+																		${requestScope.member.defaulter eq 'Y' ? 'selected' : ''}>Yes</option>
+																	<option
+																		${requestScope.member.defaulter eq 'N' ? 'selected' : ''}>No</option>
+
+																</select>
+															</div>
+														</div>
+
+														<!-- End  Defaulter -->
+														<!-- /.form-group -->
+
+
+
+
 
 
 
@@ -648,6 +1199,8 @@
 													<!-- /.box-body -->
 												</div>
 											</div>
+
+
 
 										</div>
 										<!-- /.tab-content -->
@@ -712,8 +1265,6 @@
 	<script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
 
 	<script>
-		
-
 		function formin() {
 			var form = document.getElementById("membershipEditForm");
 			var elements = form.elements;
@@ -725,8 +1276,19 @@
 			//Set formatted date in input fields
 			document.getElementById("dob").value = document
 					.getElementById("formattedDate1").innerHTML;
-			document.getElementById("datepicker").value = document
+			document.getElementById("receiptdt").value = document
 					.getElementById("formattedDate2").innerHTML;
+			document.getElementById("regDt").value = document
+					.getElementById("formattedDate3").innerHTML;
+			document.getElementById("nocdt").value = document
+					.getElementById("formattedDate4").innerHTML;
+			document.getElementById("refDt").value = document
+					.getElementById("formattedDate5").innerHTML;
+			document.getElementById("waterConnDate").value = document
+					.getElementById("formattedDate6").innerHTML;
+			document.getElementById("mutaDt").value = document
+					.getElementById("formattedDate7").innerHTML;
+			
 		}
 
 		function editfxn() {
@@ -857,7 +1419,7 @@
 
 			}
 
-			if (!(adhaar == null || adhaar === "")) {
+			if (!(pan == null || adhaar === "")) {
 				var adhaarno = /^[0-9]{12}$/;
 				if (!(adhaar.match(adhaarno))) {
 					document.getElementById("errorAdhaar").innerHTML = "Invalid Adhaar Number";
@@ -868,6 +1430,27 @@
 				document.getElementById("divMemberFormAdhaar").className = 'form-group has-success';
 			}
 			//End Adhaar Validation
+
+			//PAN Validation
+			var pan = document.getElementById("memberPAN").value;
+			if (pan == null || pan === "") {
+				document.getElementById("errorPAN").innerHTML = error;
+				document.getElementById("divMemberFormPAN").className = 'alert alert-danger alert-dismissible';
+				return false;
+
+			}
+
+			if (!(pan == null || pan === "")) {
+				var panno = /^[a-zA-Z0-9]{10}$/;
+				if (!(pan.match(panno))) {
+					document.getElementById("errorPAN").innerHTML = "Invalid PAN Number";
+					document.getElementById("divMemberFormPAN").className = 'alert alert-warning alert-dismissible';
+					return false;
+				}
+				document.getElementById("errorPAN").innerHTML = "";
+				document.getElementById("divMemberFormPAN").className = 'form-group has-success';
+			}
+			//End PAN Validation
 
 			//Address 1 Validation
 			var desig = document.getElementById("memberAddress1").value;
@@ -905,6 +1488,27 @@
 			document.getElementById("divMemberFormCity").className = 'form-group has-success';
 			//End City Validation
 
+			//Mother Name Validation
+			var name = document.getElementById("memberMotherName").value;
+			if (name == null || name === "") {
+				document.getElementById("errorMemberMotherName").innerHTML = error;
+				document.getElementById("divMemberFormMotherName").className = 'alert alert-danger alert-dismissible';
+				return false;
+			}
+
+			if (!(name == null || name === "")) {
+				var nameValid = /^[a-zA-Z-. ]+$/;
+				if (!nameValid.test(name)) {
+					document.getElementById("errorMemberMotherName").innerHTML = 'Invalid Name';
+					document.getElementById("divMemberFormMotherName").className = 'alert alert-danger alert-dismissible';
+					return false;
+				}
+				document.getElementById("errorMemberMotherName").innerHTML = "";
+				document.getElementById("divMemberFormMotherName").className = 'form-group has-success';
+			}
+
+			//End Mother Name Validation
+
 			//Nominee Name Validation
 			var name = document.getElementById("memberNomineeName").value;
 			if (name == null || name === "") {
@@ -937,6 +1541,106 @@
 			document.getElementById("errorNomineeRelation").innerHTML = "";
 			document.getElementById("divMemberFormNomineeRelation").className = 'form-group has-success';
 			//End Nominee Relation Validation
+
+			//Plot Size Validation
+			//var plotSize = document.getElementById("plotSize").value;
+
+			//if (plotSize == null || plotSize === "") {
+
+			//	document.getElementById("errorPlotSize").innerHTML = error;
+			//	document.getElementById("divPlotSize").className = 'alert alert-danger alert-dismissible';
+			//	return false;
+			//}
+			//document.getElementById("errorPlotSize").innerHTML = "";
+			//document.getElementById("divPlotSize").className = 'form-group has-success';
+
+			//End Plot Size Validation
+
+			//Net Plot Size Validation
+			var netPlotSize = document.getElementById("netPlotSize").value;
+			if (!(netPlotSize == null || netPlotSize === "")) {
+				var netPlotSizeValid = /^\d+(\.\d+)?$/;
+				if (!(netPlotSize.match(netPlotSizeValid))) {
+					document.getElementById("errorNetPlotSize").innerHTML = "Invalid Net Plot Size";
+					document.getElementById("divNetPlotSize").className = 'alert alert-warning alert-dismissible';
+					return false;
+				}
+				document.getElementById("errorNetPlotSize").innerHTML = "";
+				document.getElementById("divNetPlotSize").className = 'form-group has-success';
+			}
+			//End Net Plot Size Validation
+
+			//Plot No. Validation
+			//		var plotNo = document.getElementById("plotSize").value;
+
+			//		if (!(plotNo == null || plotNo === "")) {
+			//			var plotNoValid = /^[a-zA-Z0-9-\\/ ]+$/; 									
+			//			if (!plotNoValid.test(plotNo)) {
+			//				document.getElementById("errorPlotNo").innerHTML = 'Invalid Plot No.';
+			//				document.getElementById("divPlotNo").className = 'alert alert-danger alert-dismissible';
+			//				return false;
+			//			}
+			//			document.getElementById("errorPlotNo").innerHTML = "";
+			//			document.getElementById("divPlotNo").className = 'form-group has-success';
+			//		}
+
+			//End Plot No. Validation
+
+			// Establishment Charge Validation
+			var diversion = document.getElementById("establishmentCharge").value;
+			if (!(diversion == null || diversion === "")) {
+				var diversionValid = /^\d+(\.\d+)?$/;
+				if (!(diversion.match(diversionValid))) {
+					document.getElementById("errorEstablishmentCharge").innerHTML = "Invalid amount";
+					document.getElementById("divEstablishmentCharge").className = 'alert alert-warning alert-dismissible';
+					return false;
+				}
+				document.getElementById("errorEstablishmentCharge").innerHTML = "";
+				document.getElementById("divEstablishmentCharge").className = 'form-group has-success';
+			}
+			//End Establishment Charge Validation
+
+			// Security Deposite Validation
+			var diversion = document.getElementById("securityDeposit").value;
+			if (!(diversion == null || diversion === "")) {
+				var diversionValid = /^\d+(\.\d+)?$/;
+				if (!(diversion.match(diversionValid))) {
+					document.getElementById("errorSecurityDeposit").innerHTML = "Invalid amount";
+					document.getElementById("divSecurityDeposit").className = 'alert alert-warning alert-dismissible';
+					return false;
+				}
+				document.getElementById("errorSecurityDeposit").innerHTML = "";
+				document.getElementById("divSecurityDeposit").className = 'form-group has-success';
+			}
+			//End Security Deposite Validation
+
+			// Cost Validation
+			var cost = document.getElementById("cost").value;
+			if (!(cost == null || cost === "")) {
+				var costValid = /^\d+(\.\d+)?$/;
+				if (!(cost.match(costValid))) {
+					document.getElementById("errorCost").innerHTML = "Invalid amount";
+					document.getElementById("divCost").className = 'alert alert-warning alert-dismissible';
+					return false;
+				}
+				document.getElementById("errorCost").innerHTML = "";
+				document.getElementById("divCost").className = 'form-group has-success';
+			}
+			//End Cost Validation
+
+			// Opening Balance Validation
+			var extraAmount = document.getElementById("openingBalance").value;
+			if (!(extraAmount == null || extraAmount === "")) {
+				var extraAmountValid = /^\d+(\.\d+)?$/;
+				if (!(extraAmount.match(extraAmountValid))) {
+					document.getElementById("errorOpeningBalance").innerHTML = "Invalid amount";
+					document.getElementById("divOpeningBalance").className = 'alert alert-warning alert-dismissible';
+					return false;
+				}
+				document.getElementById("errorOpeningBalance").innerHTML = "";
+				document.getElementById("divOpeningBalance").className = 'form-group has-success';
+			}
+			//End Opening Balance Validation
 
 			//Membership Fee Validation
 			var bal = document.getElementById("membershipFee").value;
@@ -976,51 +1680,64 @@
 			}
 			//End Entrance Fee Validation
 
-			//Plot Size Validation
-			//	var plotSize = document.getElementById("plotSize").value;
-
-			//	if (!(plotSize == null || plotSize === "")) {
-			//		var plotSizeValid = /^\d+(\.\d+)?[ ]?[Xx][ ]?\d+(\.\d+)?$/; 											
-			//		if (!plotSize.match(plotSizeValid)) {
-			//			document.getElementById("errorPlotSize").innerHTML = 'Invalid PlotSize Format, supply length x width ';
-			//			document.getElementById("divPlotSize").className = 'alert alert-danger alert-dismissible';
-			//			return false;
-			//		}
-			//		document.getElementById("errorPlotSize").innerHTML = "";
-			//		document.getElementById("divPlotSize").className = 'form-group has-success';
-			//	}
-
-			//End Plot Size Validation
-
-			//Net Plot Size Validation
-			var netPlotSize = document.getElementById("netPlotSize").value;
-			if (!(netPlotSize == null || netPlotSize === "")) {
-				var netPlotSizeValid = /^\d+(\.\d+)?$/;
-				if (!(netPlotSize.match(netPlotSizeValid))) {
-					document.getElementById("errorNetPlotSize").innerHTML = "Invalid Net Plot Size";
-					document.getElementById("divNetPlotSize").className = 'alert alert-warning alert-dismissible';
+			// Registration No. Validation
+			var diversion = document.getElementById("registrationNo").value;
+			if (!(diversion == null || diversion === "")) {
+				var diversionValid = /^\d+$/;
+				if (!(diversion.match(diversionValid))) {
+					document.getElementById("errorRegistrationNo").innerHTML = "Invalid amount";
+					document.getElementById("divRegistrationNo").className = 'alert alert-warning alert-dismissible';
 					return false;
 				}
-				document.getElementById("errorNetPlotSize").innerHTML = "";
-				document.getElementById("divNetPlotSize").className = 'form-group has-success';
+				document.getElementById("errorRegistrationNo").innerHTML = "";
+				document.getElementById("divRegistrationNo").className = 'form-group has-success';
 			}
-			//End Net Plot Size Validation
+			//End Registration No. Validation
 
-			//Plot No. Validation
-			//		var plotNo = document.getElementById("plotSize").value;
+			// Reference Amount Validation
+			var diversion = document.getElementById("referenceAmount").value;
+			if (!(diversion == null || diversion === "")) {
+				var diversionValid = /^\d+(\.\d+)?$/;
+				if (!(diversion.match(diversionValid))) {
+					document.getElementById("errorReferenceAmount").innerHTML = "Invalid amount";
+					document.getElementById("divReferenceAmount").className = 'alert alert-warning alert-dismissible';
+					return false;
+				}
+				document.getElementById("errorReferenceAmount").innerHTML = "";
+				document.getElementById("divReferenceAmount").className = 'form-group has-success';
+			}
+			//End Reference Amount Validation
 
-			//		if (!(plotNo == null || plotNo === "")) {
-			//			var plotNoValid = /^[a-zA-Z0-9-\\/ ]+$/; 									
-			//			if (!plotNoValid.test(plotNo)) {
-			//				document.getElementById("errorPlotNo").innerHTML = 'Invalid Plot No.';
-			//				document.getElementById("divPlotNo").className = 'alert alert-danger alert-dismissible';
-			//				return false;
-			//			}
-			//			document.getElementById("errorPlotNo").innerHTML = "";
-			//			document.getElementById("divPlotNo").className = 'form-group has-success';
-			//		}
+			// Water Connection Charge Validation
+			var diversion = document.getElementById("waterConnectionCharge").value;
+			
+			if (!(diversion == null || diversion === "")) {
+				var diversionValid = /^\d+(\.\d+)?$/;
+				if (!(diversion.match(diversionValid))) {
+					document.getElementById("errorWaterConnectionCharge").innerHTML = "Invalid amount";
+					document.getElementById("divWaterConnectionCharge").className = 'alert alert-warning alert-dismissible';
+					return false;
+				}
+				document.getElementById("errorWaterConnectionCharge").innerHTML = "";
+				document.getElementById("divWaterConnectionCharge").className = 'form-group has-success';
+			}
+			//End Water Connection Charge Validation
 
-			//End Plot No. Validation
+			// Water Charge Validation
+			var diversion = document.getElementById("waterCharge").value;
+		
+			if (!(diversion == null || diversion === "")) {
+				
+				var diversionValid = /^\d+(\.\d+)?$/;
+				if (!(diversion.match(diversionValid))) {
+					document.getElementById("errorWaterCharge").innerHTML = "Invalid amount";
+					document.getElementById("divWaterCharge").className = 'alert alert-warning alert-dismissible';
+					return false;
+				}
+				document.getElementById("errorWaterCharge").innerHTML = "";
+				document.getElementById("divWaterCharge").className = 'form-group has-success';
+			}
+			//End Water Charge Validation
 
 			// Diversion Validation
 			var diversion = document.getElementById("diversion").value;
@@ -1036,33 +1753,19 @@
 			}
 			//End Diversion Validation
 
-			// Extra Amount Validation
-			var extraAmount = document.getElementById("extraAmount").value;
-			if (!(extraAmount == null || extraAmount === "")) {
-				var extraAmountValid = /^\d+(\.\d+)?$/;
-				if (!(extraAmount.match(extraAmountValid))) {
-					document.getElementById("errorExtraAmount").innerHTML = "Invalid amount";
-					document.getElementById("divExtraAmount").className = 'alert alert-warning alert-dismissible';
+			// Mutation No. Validation
+			var diversion = document.getElementById("mutationNo").value;
+			if (!(diversion == null || diversion === "")) {
+				var diversionValid = /^\d+$/;
+				if (!(diversion.match(diversionValid))) {
+					document.getElementById("errorMutationNo").innerHTML = "Invalid amount";
+					document.getElementById("divMutationNo").className = 'alert alert-warning alert-dismissible';
 					return false;
 				}
-				document.getElementById("errorExtraAmount").innerHTML = "";
-				document.getElementById("divExtraAmount").className = 'form-group has-success';
+				document.getElementById("errorMutationNo").innerHTML = "";
+				document.getElementById("divMutationNo").className = 'form-group has-success';
 			}
-			//End Extra Amount Validation
-
-			// Cost Validation
-			var cost = document.getElementById("cost").value;
-			if (!(cost == null || cost === "")) {
-				var costValid = /^\d+(\.\d+)?$/;
-				if (!(cost.match(costValid))) {
-					document.getElementById("errorCost").innerHTML = "Invalid amount";
-					document.getElementById("divCost").className = 'alert alert-warning alert-dismissible';
-					return false;
-				}
-				document.getElementById("errorCost").innerHTML = "";
-				document.getElementById("divCost").className = 'form-group has-success';
-			}
-			//End Cost Validation
+			//End  Mutation No. Validation
 
 			return true;
 		}
@@ -1071,25 +1774,10 @@
 			$(".select2").select2();
 
 			//Date picker
-			$('#dob').datepicker({
-				format : 'dd/mm/yyyy',
-				autoclose : true
-			});
-			$('#dor').datepicker({
+			$('.datepicker').datepicker({
 				format : 'dd/mm/yyyy',
 				autoclose : true
 			});
 
-		});
-
-		$(function() {
-			$('#datepicker1').datepicker({
-				format : 'dd/mm/yyyy',
-				autoclose : true
-			});
-			//$('#datepicker2').datepicker({
-			//	format : 'dd/mm/yyyy',
-			//	autoclose : true
-			//});
 		});
 	</script>

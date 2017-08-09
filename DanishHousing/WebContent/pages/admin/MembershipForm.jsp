@@ -120,6 +120,23 @@
 
 									<!--End Dob -->
 									<!-- /.form group -->
+									<!-- Category -->
+									<div class="form-group" id="divMemberFormCategory">
+										<label>Gender</label>
+										<div class="input-group">
+											<div class="input-group-addon">
+												<i class="fa   fa-group"></i>
+											</div>
+											<select class="form-control select2" id="gender"
+												name="gender" style="width: 100%;" required="required">
+												<option>Male</option>
+												<option>Female</option>
+												<option>Others</option>
+											</select>
+										</div>
+									</div>
+									<!-- End Category -->
+									<!-- /. form group -->
 									
 									<!--  form group -->
 									<!-- Category -->
@@ -193,23 +210,7 @@
 									<!-- /.form group -->
 									
 									<!-- form group -->
-									<!-- Phone -->
-									<div class="form-group" id="divMemberFormAdhaar">
-										<label> Adhaar Number:</label>
-										<!-- .input group -->
-										<div class="input-group">
-											<div class="input-group-addon">
-												<i class="fa fa-credit-card"></i>
-											</div>
-											<input type="text" class="form-control"
-												id="memberAdhaar" name="memberAdhaar" placeholder="12 digit adhaar number" />
-										</div>
-										<p id="errorAdhaar"></p>
-										<!-- /.input group -->
-									</div>
-									<!-- End Adhaar -->
-									<!-- /.form group -->
-
+									
 									<!-- form group -->
 									<!-- Upload Photo -->
 									<div class="form-group" id="divMemberFormPhoto">
@@ -305,7 +306,20 @@
 									</div>
 									<!-- End Address Proof -->
 									<!-- /.form group -->
-									
+									<!--  form-group -->
+									<!-- Nominee Name -->
+									<div class="form-group" id="divMemberFormMother">
+										<label>Mother's Name</label>
+										<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-user"></i></span>
+											<input type="text" class="form-control"
+												placeholder="Mother Name" id="memberMotherName"
+												name="memberMotherName" />
+										</div>
+										<p id="errorMotherName"></p>
+									</div>
+									<!-- End Nominee Name -->
+									<!-- /.form-group -->
 									<!--  form-group -->
 									<!-- Nominee Name -->
 									<div class="form-group" id="divMemberFormNominee">
@@ -468,12 +482,7 @@
 			
 			//Relative Name Validation
 			var name = document.getElementById("relativeFullName").value;
-			if (name == null || name === "") {
-				document.getElementById("errorRelativeName").innerHTML = error;
-				document.getElementById("divMemberFormRelativeName").className = 'alert alert-danger alert-dismissible';
-				return false;
-			}
-
+			
 			if (!(name == null || name === "")) {
 				var nameValid = /^[a-zA-Z-. ]+$/;
 				if (!nameValid.test(name)) {
@@ -490,12 +499,6 @@
 			//Email Validation
 			var email = document.getElementById("memberEmail").value;
 
-			if (email == null || email === "") {
-				document.getElementById("errorEmail").innerHTML = error;
-				document.getElementById("divMemberFormEmail").className = 'alert alert-danger alert-dismissible';
-				return false;
-
-			}
 
 			if (!(email == null || email === "")) {
 				var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
@@ -511,26 +514,20 @@
 			//End Email Validation
 
 			//Occupation Validation
-			var desig = document.getElementById("memberOccupation").value;
-			if (desig == null || desig === "") {
-				document.getElementById("errorOccupation").innerHTML = error;
-				document.getElementById("divMemberFormOccupation").className = 'alert alert-danger alert-dismissible';
-				return false;
+			//var desig = document.getElementById("memberOccupation").value;
+			//if (desig == null || desig === "") {
+			//	document.getElementById("errorOccupation").innerHTML = error;
+			//	document.getElementById("divMemberFormOccupation").className = 'alert alert-danger alert-dismissible';
+			//	return false;
 
-			}
-			document.getElementById("errorOccupation").innerHTML = "";
-			document.getElementById("divMemberFormOccupation").className = 'form-group has-success';
+			//}
+			//document.getElementById("errorOccupation").innerHTML = "";
+			//document.getElementById("divMemberFormOccupation").className = 'form-group has-success';
 			//End Occupation Validation
 
 			//Phone Validation
 			var phone = document.getElementById("memberPhone").value;
-			if (phone == null || phone === "") {
-
-				document.getElementById("errorPhone").innerHTML = error;
-				document.getElementById("divMemberFormPhone").className = 'alert alert-danger alert-dismissible';
-				return false;
-
-			}
+			
 
 			if (!(phone == null || phone === "")) {
 				var phoneno = /^\d{10}$/;
@@ -546,12 +543,7 @@
 			
 			//Adhaar Validation
 			var adhaar = document.getElementById("memberAdhaar").value;
-			if (adhaar == null || adhaar === "") {
-				document.getElementById("errorAdhaar").innerHTML = error;
-				document.getElementById("divMemberFormAdhaar").className = 'alert alert-danger alert-dismissible';
-				return false;
-
-			}
+			
 
 			if (!(adhaar == null || adhaar === "")) {
 				var adhaarno = /^[0-9]{12}$/;
@@ -603,11 +595,7 @@
 			
 			//Nominee Name Validation
 			var name = document.getElementById("memberNomineeName").value;
-			if (name == null || name === "") {
-				document.getElementById("errorNomineeName").innerHTML = error;
-				document.getElementById("divMemberFormNominee").className = 'alert alert-danger alert-dismissible';
-				return false;
-			}
+			
 
 			if (!(name == null || name === "")) {
 				var nameValid = /^[a-zA-Z-. ]+$/;
@@ -623,15 +611,15 @@
 			//End Nominee Name Validation
 			
 			//Nominee Relation Validation
-			var desig = document.getElementById("memberNomineeRelation").value;
-			if (desig == null || desig === "") {
-				document.getElementById("errorNomineeRelation").innerHTML = error;
-				document.getElementById("divMemberFormNomineeRelation").className = 'alert alert-danger alert-dismissible';
-				return false;
-
-			}
-			document.getElementById("errorNomineeRelation").innerHTML = "";
-			document.getElementById("divMemberFormNomineeRelation").className = 'form-group has-success';
+			//var desig = document.getElementById("memberNomineeRelation").value;
+			//if (desig == null || desig === "") {
+			//	document.getElementById("errorNomineeRelation").innerHTML = error;
+			//	document.getElementById("divMemberFormNomineeRelation").className = 'alert alert-danger alert-dismissible';
+			//	return false;
+//
+			//}
+			//document.getElementById("errorNomineeRelation").innerHTML = "";
+			//document.getElementById("divMemberFormNomineeRelation").className = 'form-group has-success';
 			//End Nominee Relation Validation
 			
 			//Membership Fee Validation
