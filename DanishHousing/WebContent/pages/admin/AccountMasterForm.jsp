@@ -65,20 +65,7 @@
 									<!-- End Account Code -->
 									<!-- /.form-group -->
 
-									<!--  form-group -->
-									<!-- ANX Code -->
-									<div class="form-group" id="divAnxCode">
-										<label>ANX Code</label>
-										<div class="input-group">
-											<span class="input-group-addon"><i class="fa fa-bars"></i></span>
-											<input type="text" class="form-control"
-												placeholder="ANX Code" id="anxCode" name="anxCode" />
-										</div>
-										<p id="errorAnxCode"></p>
-									</div>
-									<!-- End ANX Code -->
-									<!-- /.form-group -->
-
+									
 
 									<!--  form group -->
 									<div class="form-group" id="divAccountName">
@@ -150,20 +137,6 @@
 									</div>
 
 									<!-- End Project Code -->
-									<!-- /.form-group -->
-
-									<!--  form-group -->
-									<!-- IXPGE -->
-									<div class="form-group" id="divIxpge">
-										<label>IXPGE</label>
-										<div class="input-group">
-											<span class="input-group-addon"><i class="fa fa-bars"></i></span>
-											<input type="text" class="form-control" placeholder="IXPGE"
-												id="ixpge" name="ixpge" />
-										</div>
-										<p id="errorIxpge"></p>
-									</div>
-									<!-- End IXPGE -->
 									<!-- /.form-group -->
 
 
@@ -260,24 +233,7 @@
 			document.getElementById("divAccountCode").className = 'form-group has-success';
 			//End Account Code Validation
 
-			//ANX Code Validation
-			var anxCd = document.getElementById("anxCode").value;
-			if (anxCd == null || anxCd === "") {
-				document.getElementById("errorAnxCode").innerHTML = error;
-				document.getElementById("divAnxCode").className = 'alert alert-danger alert-dismissible';
-				return false;
-			}
-			if (!(anxCd == null || anxCd === "")) {
-				var namValid = /^\d+$/;
-				if (!namValid.test(anxCd)) {
-					document.getElementById("errorAnxCode").innerHTML = 'Invalid Anx Code';
-					document.getElementById("divAnxCode").className = 'alert alert-danger alert-dismissible';
-					return false;
-				}
-				document.getElementById("errorAnxCode").innerHTML = "";
-				document.getElementById("divAnxCode").className = 'form-group has-success';
-			}
-			//End ANX Code Validation
+			
 
 			//Account Name Validation
 			var name = document.getElementById("accountName").value;
@@ -294,7 +250,6 @@
 
 			//End Account Name Validation
 
-		
 			return true;
 		}
 	</script>

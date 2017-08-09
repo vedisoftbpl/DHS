@@ -375,11 +375,7 @@
 
 			//ANX Code Validation
 			var anxCd = document.getElementById("anxCode").value;
-			if (anxCd == null || anxCd === "") {
-				document.getElementById("errorAnxCode").innerHTML = error;
-				document.getElementById("divAnxCode").className = 'alert alert-danger alert-dismissible';
-				return false;
-			}
+		
 			if (!(anxCd == null || anxCd === "")) {
 				var namValid = /^\d+$/;
 				if (!namValid.test(anxCd)) {
@@ -418,7 +414,7 @@
 			document.getElementById("divFlag").className = 'form-group has-success';
 			//End Flag Validation
 
-	
+
 
 			//Opening Balance Validation
 			var bal = document.getElementById("openingBalance").value;
@@ -452,19 +448,7 @@
 			
 			
 			
-			//PEXP Validation
-	//		var pexp = document.getElementById("pexp").value;
-	//		if (!(pexp == null || pexp === "")) {
-	//			var balanceValid = /^[a-zA-Z-.\d&()%]+$/;									//which validation
-	//			if (!(pexp.match(balanceValid))) {
-	//				document.getElementById("errorPexp").innerHTML = "Invalid Amount";
-	//				document.getElementById("divAccountFormPexp").className = 'alert alert-warning alert-dismissible';
-	//				return false;
-	//			}
-	//			document.getElementById("errorPexp").innerHTML = "";
-	//			document.getElementById("divAccountFormPexp").className = 'form-group has-success';
-	//		}
-			//End PEXP Validation
+	
 
 			return true;
 		}

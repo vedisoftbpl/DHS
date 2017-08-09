@@ -57,10 +57,11 @@
 				</span>
 			</a>
 				<ul class="treeview-menu">
-					<li><a href="../forms/general.html"><i
-							class="fa fa-circle-o"></i> Agencies</a></li>
+					<li><a
+						href="${pageContext.request.contextPath}/pages/admin/ReceiptsForm.jsp"><i
+							class="fa fa-circle-o"></i> Receipts</a></li>
 					<li><a href="../forms/advanced.html"><i
-							class="fa fa-circle-o"></i> Individuals</a></li>
+							class="fa fa-circle-o"></i> Payments</a></li>
 					<li><a href="../forms/editors.html"><i
 							class="fa fa-circle-o"></i> Contracts</a></li>
 					<li><a href="${pageContext.request.contextPath}/admin/pages/ContractDocumentsController"><i

@@ -101,21 +101,7 @@
 
 									<!-- /.form-group -->
 
-									<!-- form group -->
-									<!-- Branch -->
-									<div class="form-group" id="divAccountFormBranch">
-										<label>Branch</label>
-										<div class="input-group">
-											<span class="input-group-addon">
-												<i class="fa   fa-building-o"></i></span>
-											<input type="text" class="form-control"
-												placeholder="Name of Branch(e.g. Indrapuri)" id="branch"
-												name="branch" />
-										</div>
-										<p id="errorBranch"></p>
-									</div>
-									<!-- End Branch -->
-									<!-- /.form group -->
+								
 
 									<!-- form group -->
 									<input type="hidden" class="form-control"
@@ -132,21 +118,20 @@
 
 
 									<!-- form group -->
-									<!-- Co_Code -->
-									<div class="form-group" id="divAccountFormCoCode">
-										<label>Co_Code</label>
+									<!-- Branch -->
+									<div class="form-group" id="divAccountFormBranch">
+										<label>Branch</label>
 										<div class="input-group">
 											<span class="input-group-addon">
-												<i class="fa   fa-info-circle"></i></span>
+												<i class="fa   fa-building-o"></i></span>
 											<input type="text" class="form-control"
-												placeholder="Code(e.g. 12)" id="coCode"
-												name="coCode" />
+												placeholder="Name of Branch(e.g. Indrapuri)" id="branch"
+												name="branch" />
 										</div>
-										<p id="errorCoCode"></p>
+										<p id="errorBranch"></p>
 									</div>
-									<!-- End Co_Code -->
+									<!-- End Branch -->
 									<!-- /.form group -->
-									
 									
 
 									<!-- form group -->
@@ -340,25 +325,6 @@
 			}
 			//End Branch Validation
 			
-			
-			//Co_Code Validation
-			var code = document.getElementById("coCode").value;
-			if (code == null || code === "") {
-				document.getElementById("errorCoCode").innerHTML = error;
-				document.getElementById("divAccountFormCoCode").className = 'alert alert-danger alert-dismissible';
-				return false;
-			}
-			if (!(code == null || code === "")) {
-				var codeValid = /^[a-zA-Z-.\d ]+$/;  						 //  which validation
-				if (!codeValid.test(code)) {
-					document.getElementById("errorCoCode").innerHTML = 'Invalid Code';
-					document.getElementById("divAccountFormCoCode").className = 'alert alert-danger alert-dismissible';
-					return false;
-				}
-				document.getElementById("errorCoCode").innerHTML = "";
-				document.getElementById("divAccountFormCoCode").className = 'form-group has-success';
-			}
-			//End Co_Code Validation
 			
 			
 

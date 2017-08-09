@@ -120,20 +120,20 @@
 									<!-- End Branch -->
 									<!-- /.form group -->
 									
-									<!-- form group -->
-									<!-- Co_Code -->
-									<div class="form-group" id="divAccountFormCoCode">
-										<label>Co_Code</label>
+									
+										<!-- form group -->
+									<!-- Opening Balance -->
+									<div class="form-group" id="divAccountFormBalance">
+										<label>Opening Balance</label>
 										<div class="input-group">
 											<span class="input-group-addon">
-												<i class="fa   fa-info-circle"></i></span>
+												<i class="fa  fa-inr"></i></span>
 											<input type="text" class="form-control"
-												placeholder="Code(e.g. 12)" id="coCode"
-												name="coCode" value="${requestScope.account.coCode}" />
+												 id="openingBalance" name="openingBalance" value="${requestScope.account.opBal}" />
 										</div>
-										<p id="errorCoCode"></p>
+										<p id="errorOpeningBalance"></p>
 									</div>
-									<!-- End Co_Code -->
+									<!-- End Opening Balance -->
 									<!-- /.form group -->
 									
 									
@@ -154,21 +154,7 @@
 
 
 
-									<!-- form group -->
-									<!-- Opening Balance -->
-									<div class="form-group" id="divAccountFormBalance">
-										<label>Opening Balance</label>
-										<div class="input-group">
-											<span class="input-group-addon">
-												<i class="fa  fa-inr"></i></span>
-											<input type="text" class="form-control"
-												 id="openingBalance" name="openingBalance" value="${requestScope.account.opBal}" />
-										</div>
-										<p id="errorOpeningBalance"></p>
-									</div>
-									<!-- End Opening Balance -->
-									<!-- /.form group -->
-									
+								
 									
 
 									<!-- form group -->
@@ -422,26 +408,6 @@
 			
 			
 			
-			
-			
-			//Co_Code Validation
-			var code = document.getElementById("coCode").value;
-			if (code == null || code === "") {
-				document.getElementById("errorCoCode").innerHTML = error;
-				document.getElementById("divAccountFormCoCode").className = 'alert alert-danger alert-dismissible';
-				return false;
-			}
-			if (!(code == null || code === "")) {
-				var codeValid = /^[a-zA-Z-.\d ]+$/;  						 //  which validation
-				if (!codeValid.test(code)) {
-					document.getElementById("errorCoCode").innerHTML = 'Invalid Code';
-					document.getElementById("divAccountFormCoCode").className = 'alert alert-danger alert-dismissible';
-					return false;
-				}
-				document.getElementById("errorCoCode").innerHTML = "";
-				document.getElementById("divAccountFormCoCode").className = 'form-group has-success';
-			}
-			//End Co_Code Validation
 			
 			
 			
