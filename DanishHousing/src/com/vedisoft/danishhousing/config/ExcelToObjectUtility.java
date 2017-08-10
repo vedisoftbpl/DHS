@@ -200,10 +200,10 @@ public class ExcelToObjectUtility {
 					member.setOpBal((Double) getCellValue(nextCell));
 					break;
 				case 26:
-					member.setWaterConn((String) getCellValue(nextCell));
+					member.setWaterConn((Double) getCellValue(nextCell));
 					break;
 				case 27:
-					member.setSecDep((String) getCellValue(nextCell));
+					member.setSecDep((Double) getCellValue(nextCell));
 					break;
 				case 28:
 					member.setWaterConnDate((java.util.Date) getCellValue(nextCell));
@@ -218,7 +218,7 @@ public class ExcelToObjectUtility {
 					member.setRegDt((java.util.Date) getCellValue(nextCell));
 					break;
 				case 32:
-					member.setRegNo((String) getCellValue(nextCell));
+					member.setRegNo(((Double) getCellValue(nextCell)).intValue());
 					break;
 				case 33:
 					member.setrC(((String)getCellValue(nextCell)).charAt(0));
@@ -251,13 +251,13 @@ public class ExcelToObjectUtility {
 					member.setFinalAmount((double) getCellValue(nextCell));
 					break;
 				case 43:
-					member.setEstabl((String) getCellValue(nextCell));
+					member.setEstabl((Double) getCellValue(nextCell));
 					break;
 				case 44:
 					member.setWcLrDt((java.util.Date) getCellValue(nextCell));
 					break;
 				case 45:
-					member.setWatChg((String) getCellValue(nextCell));
+					member.setWatChg((Double) getCellValue(nextCell));
 					break;
 				case 46:
 					member.setExtraAmount((double) getCellValue(nextCell));
