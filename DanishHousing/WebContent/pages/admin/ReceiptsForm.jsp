@@ -31,7 +31,8 @@
 					<div class="box-header with-border">
 						<h3 class="box-title">Add Receipts Form</h3>
 						<div class="box-tools pull-right">
-							<span id="today" name="today"><></span>
+							<span id="today"><fmt:formatDate type="date"
+									pattern="dd/MM/yyyy" value="${requestScope.today}" /></span>
 							<button type="button" class="btn btn-box-tool"
 								data-widget="collapse" data-toggle="tooltip" title="Collapse">
 								<i class="fa fa-minus"></i>
@@ -398,6 +399,10 @@
 
 	<script type="text/javascript">
 		$(function() {
+			//Set formatted date in input fields
+			document.getElementById("date").value = document
+					.getElementById("today").innerHTML;
+			//Function to Add More Accounts
 			var button = document.getElementById('addAccount');
 			$(button)
 					.click(
@@ -448,7 +453,7 @@
 	<script>
 		function validateForm(form) {
 			error = "Please fill this field .";
-			
+
 			//Member ID validation
 			var id = document.getElementById("memberID").value;
 			if (id == null || id === "") {
@@ -469,15 +474,16 @@
 				document.getElementById("errorMemberID").innerHTML = "";
 				document.getElementById("divFormMemberID").className = 'form-group has-success';
 			}
-			
+
 			//End Member ID validation
-			
+
 			//Receipt Number validation
 			var rec = document.getElementById("receiptNumber").value;
 			if (rec == null || rec === "") {
 				document.getElementById("errorReceiptNumber").innerHTML = error;
 				document.getElementById("divFormReceiptNumber").className = 'alert alert-danger alert-dismissible';
-				document.getElementById("divFormReceiptNumber").scrollIntoView();
+				document.getElementById("divFormReceiptNumber")
+						.scrollIntoView();
 				return false;
 			}
 
@@ -486,20 +492,22 @@
 				if (!rec.match(recValid)) {
 					document.getElementById("errorReceiptNumber").innerHTML = 'Invalid Receipt Number';
 					document.getElementById("divFormReceiptNumber").className = 'alert alert-warning alert-dismissible';
-					document.getElementById("divFormReceiptNumber").scrollIntoView();
+					document.getElementById("divFormReceiptNumber")
+							.scrollIntoView();
 					return false;
 				}
 				document.getElementById("errorReceiptNumber").innerHTML = "";
 				document.getElementById("divFormReceiptNumber").className = 'form-group has-success';
 			}
-			
+
 			//End Receipt Number validation
-			
+
 			//Bank Code Validation
 			var bankCode = document.getElementById("bankCode").value;
 			if (bankCode == null || bankCode === "") {
 				document.getElementById("errorBankCode").innerHTML = error;
 				document.getElementById("divFormBankCode").className = 'alert alert-danger alert-dismissible';
+				document.getElementById("divFormBankCode").scrollIntoView();
 				return false;
 			}
 
@@ -508,13 +516,14 @@
 				if (!codeValid.test(bankCode)) {
 					document.getElementById("errorBankCode").innerHTML = "Invaild Bank Code ";
 					document.getElementById("divFormBankCode").className = 'alert alert-warning alert-dismissible';
+					document.getElementById("divFormBankCode").scrollIntoView();
 					return false;
 				}
 				document.getElementById("errorBankCode").innerHTML = "";
 				document.getElementById("divFormBankCode").className = 'form-group has-success';
 			}
 			//End Bank Code Validation
-			
+
 			//Total Amount Validation
 			var amt = document.getElementById("totalAmount").value;
 			if (amt == null || amt === "") {
@@ -528,7 +537,8 @@
 				if (!(bal.match(balanceValid))) {
 					document.getElementById("errorTotalAmount").innerHTML = "Invalid Amount";
 					document.getElementById("divFormTotalAmount").className = 'alert alert-warning alert-dismissible';
-					document.getElementById("divFormTotalAmount").scrollIntoView();
+					document.getElementById("divFormTotalAmount")
+							.scrollIntoView();
 					return false;
 				}
 				document.getElementById("errorTotalAmount").innerHTML = "";
@@ -550,7 +560,7 @@
 				document.getElementById("divFormBankName").className = 'form-group has-success';
 			}
 			//End Bank Name Validation
-			
+
 			//Transaction ID Validation
 			var tr = document.getElementById("transactionID").value;
 			if (!(tr == null || tr === "")) {
@@ -558,7 +568,8 @@
 				if (!tr.match(trValid)) {
 					document.getElementById("errorTransactionID").innerHTML = 'Invalid Transaction ID';
 					document.getElementById("divFormTransactionID").className = 'alert alert-warning alert-dismissible';
-					document.getElementById("divFormTransactionID").scrollIntoView();
+					document.getElementById("divFormTransactionID")
+							.scrollIntoView();
 					return false;
 				}
 				document.getElementById("errorTransactionID").innerHTML = "";
@@ -573,14 +584,15 @@
 				if (!pay.match(payValid)) {
 					document.getElementById("errorPaymentBank").innerHTML = 'Invalid Name';
 					document.getElementById("divFormPaymentBank").className = 'alert alert-warning alert-dismissible';
-					document.getElementById("divFormPaymentBank").scrollIntoView();
+					document.getElementById("divFormPaymentBank")
+							.scrollIntoView();
 					return false;
 				}
 				document.getElementById("errorPaymentBank").innerHTML = "";
 				document.getElementById("divFormPaymentBank").className = 'form-group has-success';
 			}
 			//End Bank, Branch Name Validation
-			
+
 			//City Validation
 			var city = document.getElementById("city").value;
 			if (!(city == null || city === "")) {
@@ -595,7 +607,7 @@
 				document.getElementById("divFormCity").className = 'form-group has-success';
 			}
 			//End City Validation
-			
+
 			return true;
 		}
 
