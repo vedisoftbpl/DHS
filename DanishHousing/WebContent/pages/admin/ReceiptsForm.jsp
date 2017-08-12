@@ -273,6 +273,23 @@
 											</div>
 											<!-- End Total Amount -->
 											<!-- /.form-group -->
+											
+											<!-- form group -->
+									<!-- Transaction Date -->
+									<div class="form-group" id="divAccountFormTrDate">
+										<label>Transaction Date(Non-Cash) :</label>
+										<div class="input-group date">
+											<div class="input-group-addon">
+												<i class="fa fa-calendar"></i>
+											</div>
+											<input type="text" class="form-control pull-right datepicker"
+												id="trDate" name="trDate" />
+										</div>
+										<p id="errorTrDate"></p>
+										<!-- /.input group -->
+									</div>
+									<!--End Transaction Date -->
+									<!-- /.form group -->
 
 										</div>
 										<div class="col-md-8">
@@ -608,6 +625,7 @@
 		
 		//Auto fill data
 		$(document).ready(function() {
+			//Member Auto Fill
 			$('#memberID').bind("blur", function(e) {
 				e.preventDefault();
 				var id = $('#memberID').val();
@@ -647,5 +665,7 @@
 
                 });
 			});
+			
+			//Bank Details Auto fill
 		});
 	</script>
