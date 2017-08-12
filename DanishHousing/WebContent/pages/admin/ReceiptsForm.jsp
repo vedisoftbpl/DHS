@@ -231,7 +231,7 @@
 													<span class="input-group-addon"><i
 														class="fa fa-bars"></i></span> <input type="text"
 														class="form-control" placeholder="Bank Code" id="bankCode"
-														name="bank Code" />
+														name="bankCode" />
 												</div>
 												<p id="errorBankCode"></p>
 											</div>
@@ -667,5 +667,35 @@
 			});
 			
 			//Bank Details Auto fill
+			$('#bankCode').bind("blur", function(e) {
+				e.preventDefault();
+				var code = $('#bankCode').val();
+				$.ajax({
+                    url: 'http://localhost:8080/DanishHousing/ReceiptAutoFill',
+                    dataType: 'json',
+                    type: 'post',
+                    data: {
+                    	'code' : code
+                    },
+                    
+                    success: function(data) {
+          				var bool = data["accountId"] === 0;
+          				$('#divFormBankCode').toggleClass('alert alert-danger alert-dismissible', bool);
+          				$('#bankName').val('');
+          				$('#errorBankCode').empty();
+          				if(data["accountId"] === 0) {
+          					$('#errorBankCode').text('Bank Code doesn\'t exist');
+          				} else {
+	                        $('#bankName').val(data["bkName"]);		
+          				}
+                    },
+                    
+                    error: function(req, status, err) {
+                        alert('Error');
+                        console.log(req + ' ' + status + ' ' + err);
+                    }
+
+                });
+			});
 		});
 	</script>

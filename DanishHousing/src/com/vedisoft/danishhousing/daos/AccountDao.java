@@ -146,6 +146,41 @@ public class AccountDao {
 		}
 		return account;
 	}
+	
+	public Account findByBankCode(String bankCode) {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		pool.initialize();
+		Connection conn = pool.getConnection();
+		Account account = new Account();
+		try {
+			String sql = "select * from accounts where bk_code = ?";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, bankCode);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				account.setAccountId(rs.getInt("account_id"));
+				account.setCoCode(rs.getString("co_code"));
+				account.setBkCode(bankCode);
+				account.setBkName(rs.getString("bk_name"));
+				account.setOpBal(rs.getDouble("op_bal"));
+				account.setReceipt(rs.getDouble("receipt"));
+				java.sql.Date opDate = null;
+				if(rs.getDate("op_date") != null)
+				opDate = rs.getDate("op_date");
+				account.setOpDate(new java.util.Date(opDate.getTime()));
+				account.setReceipt(rs.getDouble("receipt"));
+				account.setPayment(rs.getDouble("payment"));
+				account.setClBal(rs.getDouble("cl_bal"));
+				account.setIfsc(rs.getString("ifsc"));
+				account.setBranch(rs.getString("branch"));
+			}
+		} catch (SQLException sq) {
+			System.out.println("Unable to create a new row." + sq);
+		} finally {
+			pool.putConnection(conn);
+		}
+		return account;
+	}
 
 	public ArrayList<Account> findAll() {
 		ConnectionPool pool = ConnectionPool.getInstance();
