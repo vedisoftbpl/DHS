@@ -20,7 +20,7 @@ public class MembersDao {
 		try {
 			String sql = "insert into members" + " ("
 					+ "prefix, membnme,f_h_rel,f_h_name,dob,email,moccu,mobile,aadhar,photo,mad1,mad2,mad3,adressproof,nome_name,nome_rela,membfee,"
-					+ "entrfee,live_dead, userid,lastupdate,membno,projcd,plsiz,nplsize,reg_cor,plno,tplno,mage,recedte,fullpay,inst1,inst2,inst3,"
+					+ "entrfee,live_dead, userid,lastupdate,membno,projcd,plsize,nplsize,reg_cor,plno,tplno,mage,recedte,fullpay,inst1,inst2,inst3,"
 					+ "transf,opbal,water_con,sec_dep,wt_cn_dt,opdte,regi,regdte,regno,r_c,nocdte,refdte,diversion,finalamt,"
 					+ "maint,water,wsupdte,establ,wc_lr_dt,wat_chg,extamt,cost,build_flag, m_nominal, muta_no1, muta_dt1, gender, category, defaulter,"
 					+ " mother_name ,pan_no, eli_ineli,ref_amt) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,"
@@ -375,17 +375,17 @@ public class MembersDao {
 				else
 					member.setRegDt(regDt);
 				member.setRegNo(rs.getInt("regno"));
-				String r_c = rs.getString("r_c");
-				if (r_c != null)
+				String rC = rs.getString("r_c");
+				if (rC != null && rC.length() > 0)
 					member.setrC(rs.getString("r_c").charAt(0));
 				java.sql.Date nocDte = rs.getDate("nocdte");
 				if (nocDte != null)
 					member.setNocDt(new java.util.Date((nocDte).getTime()));
 				else
 					member.setNocDt(nocDte);
-				String live_dead = rs.getString("live_dead");
-				System.out.println(live_dead + "111");
-				if (live_dead != null)
+				String liveDead = rs.getString("live_dead");
+				System.out.println(liveDead + "111");
+				if (liveDead != null && liveDead.length() > 0)
 					member.setLiveDead(rs.getString("live_dead").charAt(0));
 				java.sql.Date refDte = rs.getDate("refdte");
 				if (refDte != null)
@@ -514,17 +514,17 @@ public class MembersDao {
 				else
 					member.setRegDt(regDt);
 				member.setRegNo(rs.getInt("regno"));
-				String r_c = rs.getString("r_c");
-				if (r_c != null)
+				String rC = rs.getString("r_c");
+				if (rC != null && rC.length() > 0)
 					member.setrC(rs.getString("r_c").charAt(0));
 				java.sql.Date nocDte = rs.getDate("nocdte");
 				if (nocDte != null)
 					member.setNocDt(new java.util.Date((nocDte).getTime()));
 				else
 					member.setNocDt(nocDte);
-				String live_dead = rs.getString("live_dead");
-				System.out.println(live_dead + "111");
-				if (live_dead != null)
+				String liveDead = rs.getString("live_dead");
+				System.out.println(liveDead + "111");
+				if (liveDead != null && liveDead.length() > 0)
 					member.setLiveDead(rs.getString("live_dead").charAt(0));
 				java.sql.Date refDte = rs.getDate("refdte");
 				if (refDte != null)
@@ -657,17 +657,17 @@ public class MembersDao {
 				else
 					member.setRegDt(regDt);
 				member.setRegNo(rs.getInt("regno"));
-				String r_c = rs.getString("r_c");
-				if (r_c != null)
+				String rC = rs.getString("r_c");
+				if (rC != null && rC.length() > 0)
 					member.setrC(rs.getString("r_c").charAt(0));
 				java.sql.Date nocDte = rs.getDate("nocdte");
 				if (nocDte != null)
 					member.setNocDt(new java.util.Date((nocDte).getTime()));
 				else
 					member.setNocDt(nocDte);
-				String live_dead = rs.getString("live_dead");
-				System.out.println(live_dead + "111");
-				if (live_dead != null)
+				String liveDead = rs.getString("live_dead");
+				System.out.println(liveDead + "111");
+				if (liveDead != null && liveDead.length() > 0)
 					member.setLiveDead(rs.getString("live_dead").charAt(0));
 				java.sql.Date refDte = rs.getDate("refdte");
 				if (refDte != null)

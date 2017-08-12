@@ -315,11 +315,11 @@ public class MemberFormController extends HttpServlet {
 		String eligibleIneligible = new String();
 		if (request.getParameter("eligibleIneligible") != null
 				&& request.getParameter("eligibleIneligible").trim().length() > 0) {
-			inst3 = request.getParameter("eligibleIneligible");
+			eligibleIneligible = request.getParameter("eligibleIneligible");
 		}
 		String buildingFlag = new String();
 		if (request.getParameter("buildingFlag") != null && request.getParameter("buildingFlag").trim().length() > 0) {
-			inst3 = request.getParameter("buildingFlag");
+			buildingFlag = request.getParameter("buildingFlag");
 		}
 		String memberNominal = new String();
 		if (request.getParameter("memberNominal") != null
@@ -335,11 +335,7 @@ public class MemberFormController extends HttpServlet {
 		if (request.getParameter("extraAmount") != null && request.getParameter("extraAmount").trim().length() > 0) {
 			extraAmount = Double.parseDouble(request.getParameter("extraAmount"));
 		}
-		double transf = 0;
-		if (request.getParameter("transferAmount") != null
-				&& request.getParameter("transferAmount").trim().length() > 0) {
-			transf = Double.parseDouble(request.getParameter("transferAmount"));
-		}
+		
 		double finalamt = 0;
 		if (request.getParameter("finalAmount") != null && request.getParameter("finalAmount").trim().length() > 0) {
 			finalamt = Double.parseDouble(request.getParameter("finalAmount"));

@@ -1,4 +1,5 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <link rel="stylesheet"
 	href="../../plugins/datatables/dataTables.bootstrap.css">
 <%@ include file="../design/Top.jsp"%>
@@ -48,7 +49,9 @@
 									class="btn btn-default"><i class="fa fa-plus-square"></i>
 									New Member</a>
 							</div>
+							
 						</div>
+						<br>
 						<div class="form-group" id="typeError">
 							<label class="control-label" id="errorTop"></label>
 						</div>
@@ -59,26 +62,15 @@
 								<tr>
 
 
-									<th>Plot No.<input type="checkbox" checked name="members"
-										value="plotNo" /></th>
-									<th>Name<input type="checkbox" checked name="members"
-										value="name" /></th>
-									<th>F/H Name<input type="checkbox" checked name="members"
-										value="fhName" /></th>
-									<th>DOB<input type="checkbox" checked name="members"
-										value="dob" /></th>
-									<th>Address<input type="checkbox" checked name="members"
-										value="address" /></th>
-									<th>Email<input type="checkbox" checked name="members"
-										value="email" /></th>
-									<th>Mobile<input type="checkbox" checked name="members"
-										value="mobile" /></th>
-									<th>Receipt Date<input type="checkbox" checked
-										name="members" value="receiptDate" /></th>
-									<th>Status<input type="checkbox" checked name="members"
-										value="status" /></th>
+									<th>Member No.</th>
+									<th>Name</th>
+									<th>F/H Name</th>
+									<th>DOB</th>
+									<th>Address</th>
+									<th>Email</th>
+									<th>Mobile</th>
+									<th>Status</th>
 									<th></th>
-
 								</tr>
 							</thead>
 							<tbody>
@@ -86,19 +78,21 @@
 								<c:forEach items="${requestScope.membersList}" var="member">
 									<tr>
 
-										<td><c:out value="${member.plotNo}" /></td>
+										<td><c:out value="${member.memberId}" /></td>
 										<td><c:out value="${member.memName}" /></td>
 										<td><c:out
 												value="${member.fHRelation} ${member.fHRelName}" /></td>
-										<td><c:out value="${member.dob}" /></td>
+										<td><fmt:formatDate type="date" pattern="dd/MM/yyyy" value="${member.dob}" /></td>
 										<td><c:out
 												value="${member.address1}, ${member.address2}, ${member.address3}" /></td>
 										<td><c:out value="${member.email}" /></td>
 										<td><c:out value="${member.mobile}" /></td>
-										<td><c:out value="${member.receiptdt}" /></td>
+
 
 										<c:choose>
-
+											<c:when test="${member.liveDead eq '0'.charAt(0)}">
+												<td>N/A</td>
+											</c:when>
 											<c:when test="${member.liveDead eq 'L'.charAt(0)}">
 												<td>Live</td>
 											</c:when>
@@ -129,7 +123,6 @@
 									<th>Address</th>
 									<th>Email</th>
 									<th>Mobile</th>
-									<th>Receipt Date</th>
 									<th>Status</th>
 
 									<th></th>
@@ -137,21 +130,12 @@
 								</tr>
 							</tfoot>
 						</table>
-						<div class="col-md-6">
-						<div class="col-xs-4" align="center">
-							<button type="button" id="pdf" value="pdf" name="pdf"
-							 class="btn btn-primary btn-block btn-success">Generate pdf</button>
-						</div>
-						<div class="col-xs-4" align="center">
-							<button type="reset" value="excel" name="excel" id="excel"
-								class="btn btn-block btn-warning">Generate Excel file</button>
-						</div>
-					</div>
+						
 					</div>
 					<!-- /.box-body -->
 					<!-- member Form -->
 					<!-- /.box-body -->
-					
+
 				</div>
 				<!-- /.box -->
 			</section>
@@ -168,13 +152,13 @@
 	<script src="../../plugins/datatables/dataTables.bootstrap.min.js"></script>
 	<script>
 		<c:choose>
-		<c:when test="${param.msg=='1'}">
+		<c:when test="${requestScope.msg=='1'}">
 		$(document).ready(function() {
 			$("#typeError").addClass("form-group has-success");
 			$("#errorTop").html("Record Updated Successfully.");
 		});
 		</c:when>
-		<c:when test="${param.msg=='2'}">
+		<c:when test="${requestScope.msg=='2'}">
 		$(document).ready(function() {
 			$("#typeError").addClass("form-group has-error");
 			$("#errorTop").html("Fail to Update Record.");
