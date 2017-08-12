@@ -108,22 +108,7 @@
 									<h3 class="box-title">Member Details</h3>
 								</div>
 								<div class="box-body">
-									<dl class="dl-horizontal">
-										<dt>Full Name</dt>
-										<dd>Mr Ram S/O Shri MohanDas</dd>
-										<dt>Address</dt>
-										<dd>336 A, Gulmohar</dd>
-										<dd>Bhopal</dd>
-										<dt>Plot Number</dt>
-										<dd>32/1</dd>
-										<dt>Plot Size</dt>
-										<dd>30 X 50</dd>
-										<dt>Net Plot Size</dt>
-										<dd>1500 sq. ft.</dd>
-										<dt>Project</dt>
-										<dd>Gulmohar</dd>
-										<dt>Project Type</dt>
-										<dd>Residential</dd>
+									<dl class="dl-horizontal" id="memberDetails">
 									</dl>
 
 								</div>
@@ -619,5 +604,48 @@
 			});
 			//Initialize Select2 Elements
 			$(".select2").select2();
+		});
+		
+		//Auto fill data
+		$(document).ready(function() {
+			$('#memberID').bind("blur", function(e) {
+				e.preventDefault();
+				var id = $('#memberID').val();
+				$.ajax({
+                    url: 'http://localhost:8080/DanishHousing/ReceiptAutoFill',
+                    dataType: 'json',
+                    type: 'post',
+                    data: {
+                    	'id' : id
+                    },
+                    
+                    success: function(data) {
+                    	var data0 = data["data"][0];
+                    	var data1 = data["data"][1];
+          				var bool = data0["memberId"] === 0;
+          				$('#divFormMemberID').toggleClass('alert alert-danger alert-dismissible', bool);
+          				$('#memberDetails').empty();
+          				$('#errorMemberID').empty();
+          				if(data0["memberId"] === 0) {
+          					$('#errorMemberID').text('MemberID doesn\'t exist');
+          				} else {
+	                        $('#memberDetails').append('<dt>Full Name</dt><dd>'+ data0["prefix"] + ' ' + data0["memName"] + ' ' + data0["fHRelation"] + ' ' + data0["fHRelName"] +'</dd>' +
+									'<dt>Address</dt><dd>' + data0["address1"] + '</dd><dd>' + data0["address2"] + '</dd><dd>' + data0["address3"] + '</dd>' +
+									'<dt>Plot Number</dt><dd>' + data0["plotNo"] + '</dd>' +
+									'<dt>Plot Size</dt><dd>' + data0["plotSize"] + '</dd>' +
+									'<dt>Net Plot Size</dt><dd>' + data0["netPlotSize"] + '</dd>' +
+									'<dt>Project</dt><dd>' + data1["projectName"] + ' - ' + data1["projectId"] + '</dd>' +
+									'<dt>Project Type</dt><dd>' + data1["bungProject"] + '</dd>');
+          					
+          				}
+                    },
+                    
+                    error: function(req, status, err) {
+                        alert('Error');
+                        console.log(req + ' ' + status + ' ' + err);
+                    }
+
+                });
+			});
 		});
 	</script>
