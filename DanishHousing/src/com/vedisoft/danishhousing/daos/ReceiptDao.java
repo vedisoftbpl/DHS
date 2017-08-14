@@ -24,19 +24,76 @@ public class ReceiptDao {
 			conn.setAutoCommit(false);
 
 			String sqlTransaction = "insert into transaction_records" + " ("
-					+ "s_no, docno,slno,docdte,doctype,accode,bkcode,chqno,ch_date,bank_br,"
-					+ "membno,amt,parti,a_p,flag,vr_no,sno,sr,docnoo,projcd,wc_lr_dt,ch_cl_dt,c_flag,party_cd,userid,lastupdate) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+					+ "lastupdate, docno,slno,docdte,doctype,accode,bkcode,chqno,ch_date,bank_br,"
+					+ "membno,amt,parti,a_p,flag,vr_no,sno,sr,docnoo,projcd,wc_lr_dt,ch_cl_dt,c_flag,party_cd,userid) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
-			String sqlReceipt = "insert into receipt_records" + " (" + " city, paytype, slno, recdte, receno,prefix,membnme, membno,"
+			String sqlReceipt = "insert into receipt_records" + " (" + "s_no , paytype, slno, recdte, receno,prefix,membnme, membno,"
 					+ "f_h_nme,mad1,mad2,mad3,cashamt, chqamt,balchq, c_dd, c_ddte,fullpay,inst1,inst2,inst3,chalno,chaldte, plsize, plno, projcd,chqdhr,flag, trcode,"
 					+ " remarks, r_c, p_d,  accode, branch,d_c,wc_lr_dt,"
-					+ "userid,lastupdate) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+					+ "userid,lastupdate,city) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
+			PreparedStatement ps1 = conn.prepareStatement(sqlTransaction, Statement.RETURN_GENERATED_KEYS,
+					ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			
+			java.sql.Date lastUpdate = null;
+			if (transaction.getLastUpdate() != null)
+				lastUpdate = new java.sql.Date(transaction.getLastUpdate().getTime());
+			ps1.setDate(26, lastUpdate);
+			
+			ps1.setInt(2, transaction.getDocNo());
+			ps1.setInt(3, transaction.getSlno());
+			java.sql.Date docDate = null;
+			if (transaction.getDocDte() != null)
+				docDate = new java.sql.Date(transaction.getDocDte().getTime());
+			ps1.setDate(4, docDate);
+			ps1.setString(5, transaction.getDocType());						//D
+			ps1.setString(6, transaction.getAcCode());
+			ps1.setString(7, transaction.getBkCode());
+			ps1.setInt(8, transaction.getChqNo());
+			java.sql.Date chkDate = null;
+			if (transaction.getChDate() != null)
+				chkDate = new java.sql.Date(transaction.getChDate().getTime());
+			ps1.setDate(9, chkDate);
+			ps1.setString(10, transaction.getBankBr());
+			ps1.setInt(11, transaction.getMembNo());
+			ps1.setDouble(12, transaction.getAmt());
+			ps1.setString(13, transaction.getParti());
+			ps1.setString(14,transaction.getaP());
+			ps1.setInt(15, transaction.getFlag());
+			ps1.setString(16, transaction.getVrNo());
+			ps1.setString(17,transaction.getsN());
+			ps1.setString(18,transaction.getsR());
+			ps1.setString(19,transaction.getDocNoo());
+			ps1.setInt(20, transaction.getProjCd());
+			java.sql.Date wcLrDt = null;
+			if (transaction.getWcLrDt() != null)
+				wcLrDt = new java.sql.Date(transaction.getWcLrDt().getTime());
+			ps1.setDate(21,wcLrDt);
+			java.sql.Date chClDt = null;
+			if (transaction.getChClDt() != null)
+				chClDt = new java.sql.Date(transaction.getChClDt().getTime());
+			ps1.setDate(22,chClDt);
+			ps1.setString(23,transaction.getcFlag());
+			ps1.setInt(24,transaction.getPartyCd());
+			ps1.setInt(25, transaction.getUserId());
+			
+			int x = ps1.executeUpdate();
+			if (x == 0) {
+				Exception a = new Exception();
+				throw a;
+				}
+			
+			
+
+			ResultSet generatedKeys = ps1.getGeneratedKeys();
+			if (generatedKeys.next()) {
+				id = generatedKeys.getInt(1);
+			}
 			
 			PreparedStatement ps2 = conn.prepareStatement(sqlReceipt, Statement.RETURN_GENERATED_KEYS,
 					ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-			ps2.setString(1,receipt.getCity());
+			
+			ps2.setInt(1, id);
 			ps2.setString(2, String.valueOf(receipt.getPayType()));
 			ps2.setInt(3, receipt.getSlno());
 			java.sql.Date recDate = null;
@@ -81,6 +138,7 @@ public class ReceiptDao {
 			ps2.setString(34, receipt.getBranch());
 			ps2.setString(35, String.valueOf(receipt.getdC()));
 			
+			
 			java.sql.Date wLrDt = null;
 			if (receipt.getwLrDt() != null)
 				wLrDt = new java.sql.Date(receipt.getwLrDt().getTime());
@@ -91,69 +149,16 @@ public class ReceiptDao {
 				lastUpdate1 = new java.sql.Date(receipt.getLastUpdate().getTime());
 			ps2.setDate(38, lastUpdate1);
 			
+			ps2.setString(39,receipt.getCity());
+			
 			int x1 = ps2.executeUpdate();
 			if (x1 == 0) {
 				Exception a = new Exception();
 				throw a;
 			}
-
-			ResultSet generatedKeys = ps2.getGeneratedKeys();
-			if (generatedKeys.next()) {
-				id = generatedKeys.getInt(1);
-			}
 			
 			
 			
-			
-			PreparedStatement ps1 = conn.prepareStatement(sqlTransaction, Statement.RETURN_GENERATED_KEYS,
-					ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-			
-			ps1.setInt(1, id);
-			ps1.setInt(2, transaction.getDocNo());
-			ps1.setInt(3, transaction.getSlno());
-			java.sql.Date docDate = null;
-			if (transaction.getDocDte() != null)
-				docDate = new java.sql.Date(transaction.getDocDte().getTime());
-			ps1.setDate(4, docDate);
-			ps1.setString(5, transaction.getDocType());
-			ps1.setString(6, transaction.getAcCode());
-			ps1.setString(7, transaction.getBkCode());
-			ps1.setInt(8, transaction.getChqNo());
-			java.sql.Date chkDate = null;
-			if (transaction.getChDate() != null)
-				chkDate = new java.sql.Date(transaction.getChDate().getTime());
-			ps1.setDate(9, chkDate);
-			ps1.setString(10, transaction.getBankBr());
-			ps1.setInt(11, transaction.getMembNo());
-			ps1.setDouble(12, transaction.getAmt());
-			ps1.setString(13, transaction.getParti());
-			ps1.setString(14,transaction.getaP());
-			ps1.setInt(15, transaction.getFlag());
-			ps1.setString(16, transaction.getVrNo());
-			ps1.setString(17,transaction.getsN());
-			ps1.setString(18,transaction.getsR());
-			ps1.setString(19,transaction.getDocNoo());
-			ps1.setInt(20, transaction.getProjCd());
-			java.sql.Date wcLrDt = null;
-			if (transaction.getWcLrDt() != null)
-				wcLrDt = new java.sql.Date(transaction.getWcLrDt().getTime());
-			ps1.setDate(21,wcLrDt);
-			java.sql.Date chClDt = null;
-			if (transaction.getChClDt() != null)
-				chClDt = new java.sql.Date(transaction.getChClDt().getTime());
-			ps1.setDate(22,chClDt);
-			ps1.setString(23,transaction.getcFlag());
-			ps1.setInt(24,transaction.getPartyCd());
-			ps1.setInt(25, transaction.getUserId());
-			java.sql.Date lastUpdate = null;
-			if (transaction.getLastUpdate() != null)
-				lastUpdate = new java.sql.Date(transaction.getLastUpdate().getTime());
-			ps1.setDate(26, lastUpdate);
-			int x = ps1.executeUpdate();
-			if (x == 0) {
-				Exception a = new Exception();
-				throw a;
-				}
 			
 			conn.commit();
 
