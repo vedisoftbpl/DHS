@@ -112,7 +112,7 @@
 												<i class="fa fa-calendar"></i>
 											</div>
 											<input type="text" class="form-control pull-right"
-												id="dob" name="dob" required="required" />
+												id="dob" name="dob"  />
 										</div>
 										<p id="errorDob"></p>
 										<!-- /.input group -->
@@ -128,7 +128,8 @@
 												<i class="fa   fa-group"></i>
 											</div>
 											<select class="form-control select2" id="gender"
-												name="gender" style="width: 100%;" required="required">
+												name="gender" style="width: 100%;" >
+												<option>N/A</option>
 												<option>Male</option>
 												<option>Female</option>
 												<option>Others</option>
@@ -147,7 +148,8 @@
 												<i class="fa   fa-group"></i>
 											</div>
 											<select class="form-control select2" id="category"
-												name="category" style="width: 100%;" required="required">
+												name="category" style="width: 100%;" >
+												<option>N/A</option>
 												<option>General</option>
 												<option>Scheduled Caste(SC)</option>
 												<option>Scheduled Tribe(ST)</option>
@@ -220,7 +222,7 @@
 												<i class="fa fa-photo"></i>
 											</div>
 											<input type="file" id="memberPhoto" name="memberPhoto"
-												class="btn btn-block btn-default btn" required="required"/>
+												class="btn btn-block btn-default btn" />
 										</div>
 										<p id="errorPhoto"></p>
 									</div>
@@ -295,7 +297,8 @@
 												<i class="fa   fa-building-o"></i>
 											</div>
 											<select class="form-control select2" id="addressProof"
-												name="addressProof" style="width: 100%;" required="required">
+												name="addressProof" style="width: 100%;" >
+												<option>N/A</option>
 												<option>Voter Id</option>
 												<option>Driving License</option>
 												<option>Passport</option>
@@ -541,21 +544,7 @@
 			}
 			//End Phone Validation
 			
-			//Adhaar Validation
-			var adhaar = document.getElementById("memberAdhaar").value;
 			
-
-			if (!(adhaar == null || adhaar === "")) {
-				var adhaarno = /^[0-9]{12}$/;
-				if (!(adhaar.match(adhaarno))) {
-					document.getElementById("errorAdhaar").innerHTML = "Invalid Adhaar Number";
-					document.getElementById("divMemberFormAdhaar").className = 'alert alert-warning alert-dismissible';
-					return false;
-				}
-				document.getElementById("errorAdhaar").innerHTML = "";
-				document.getElementById("divMemberFormAdhaar").className = 'form-group has-success';
-			}
-			//End Adhaar Validation
 			
 			//Address 1 Validation
 			var desig = document.getElementById("memberAddress1").value;

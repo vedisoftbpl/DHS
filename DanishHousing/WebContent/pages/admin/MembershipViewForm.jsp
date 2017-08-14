@@ -289,22 +289,21 @@
 													<div class="col-md-6">
 
 														<div class="box box-primary">
-										<div class="box-body box-profile">
+															<div class="box-body box-profile">
 
 
 
 
-											<ul class="list-group list-group-unbordered">
-												<li class="list-group-item"><b>Member No.</b>
-													<a class="pull-right">${requestScope.member.memberId}</a></li>
-												
+																<ul class="list-group list-group-unbordered">
+																	<li class="list-group-item"><b>Member No.</b> <a
+																		class="pull-right">${requestScope.member.memberId}</a></li>
 
-											</ul>
-											<br><br>
-											<br><br>
-										</div>
-										<!-- /.box-body -->
-									</div>
+
+																</ul>
+																<br> <br> <br> <br>
+															</div>
+															<!-- /.box-body -->
+														</div>
 
 														<!--  form-group -->
 														<!-- Address Line 1 -->
@@ -363,8 +362,9 @@
 																	<i class="fa   fa-building-o"></i>
 																</div>
 																<select class="form-control select2" id="addressProof"
-																	name="addressProof" style="width: 100%;"
-																	required="required">
+																	name="addressProof" style="width: 100%;">
+																	<option 
+																		${requestScope.member.addProof eq 'N/A' ? 'selected' : ''}>N/A</option>
 																	<option
 																		${requestScope.member.addProof eq 'Voter Id' ? 'selected' : ''}>Voter
 																		Id</option>
@@ -445,6 +445,8 @@
 																</div>
 																<select class="form-control select2" id="gender"
 																	name="gender" style="width: 100%;" required="required">
+																	<option 
+																		${requestScope.member.gender eq 'N/A' ? 'selected' : ''}>N/A</option>
 																	<option
 																		${requestScope.member.gender eq 'Male' ? 'selected' : ''}>Male</option>
 																	<option
@@ -469,6 +471,8 @@
 																<select class="form-control select2" id="category"
 																	name="category" style="width: 100%;"
 																	required="required">
+																	<option
+																		${requestScope.member.category eq 'N/A' ? 'selected' : ''}>N/A</option>
 																	<option value="GEN."
 																		${requestScope.member.category eq 'GEN.' ? 'selected' : ''}>General</option>
 																	<option value="SC"
@@ -480,8 +484,7 @@
 																	<option value="OBC"
 																		${requestScope.member.category eq 'OBC' ? 'selected' : ''}>Other
 																		Backward Classes(OBC)</option>
-																	<option
-																		${requestScope.member.gender eq 'category' ? 'selected' : ''}>Others</option>
+
 																</select>
 															</div>
 															<p id="errorCategory"></p>
@@ -528,6 +531,9 @@
 																</div>
 																<select class="form-control select2" id="projectName"
 																	name="projectName" style="width: 100%;">
+																	<option value="0"
+																		${requestScope.member.projectCd eq 0 ? 'selected' : ''}>N/A</option>
+
 																	<c:forEach items="${requestScope.projectList}"
 																		var="project">
 																		<option value="${project.getProjectId()}"
@@ -601,6 +607,8 @@
 																<select class="form-control select2"
 																	id=" residentialCommercial"
 																	name="residentialCommercial" style="width: 100%;">
+																	<option value="0"
+																		${requestScope.member.rC eq '0' ? 'selected' : ''}>N/A</option>
 																	<option
 																		${requestScope.member.rC eq 'R'.charAt(0) ? 'selected' : ''}>Residential</option>
 																	<option
@@ -679,8 +687,10 @@
 																<select class="form-control select2" id="fullpay"
 																	name="fullpay" style="width: 100%;">
 																	<option
+																		${requestScope.member.fullPay eq 'N/A' ? 'selected' : ''}>N/A</option>
+																	<option value="Y"
 																		${requestScope.member.fullPay eq 'Y' ? 'selected' : ''}>Yes</option>
-																	<option
+																	<option value="N"
 																		${requestScope.member.fullPay eq 'N' ? 'selected' : ''}>No</option>
 
 																</select>
@@ -701,8 +711,11 @@
 																<select class="form-control select2" id=" inst1"
 																	name="inst1" style="width: 100%;">
 																	<option
+																		${requestScope.member.inst1 eq 'N/A' ? 'selected' : ''}>N/A</option>
+
+																	<option value="Y"
 																		${requestScope.member.inst1 eq 'Y' ? 'selected' : ''}>Yes</option>
-																	<option
+																	<option value="N"
 																		${requestScope.member.inst1 eq 'N' ? 'selected' : ''}>No</option>
 																</select>
 															</div>
@@ -721,8 +734,11 @@
 																<select class="form-control select2" id=" inst2"
 																	name="inst2" style="width: 100%;">
 																	<option
+																		${requestScope.member.inst2 eq 'N/A' ? 'selected' : ''}>N/A</option>
+
+																	<option value="Y"
 																		${requestScope.member.inst2 eq 'Y' ? 'selected' : ''}>Yes</option>
-																	<option
+																	<option value="N"
 																		${requestScope.member.inst2 eq 'N' ? 'selected' : ''}>No</option>
 
 																</select>
@@ -742,8 +758,11 @@
 																<select class="form-control select2" id=" inst3"
 																	name="inst3" style="width: 100%;">
 																	<option
+																		${requestScope.member.inst3 eq 'N/A' ? 'selected' : ''}>N/A</option>
+
+																	<option value="Y"
 																		${requestScope.member.inst3 eq 'Y' ? 'selected' : ''}>Yes</option>
-																	<option
+																	<option value="N"
 																		${requestScope.member.inst3 eq 'N' ? 'selected' : ''}>No</option>
 																</select>
 															</div>
@@ -762,6 +781,9 @@
 																</div>
 																<select class="form-control select2" id="memberStatus"
 																	name="memberStatus" style="width: 100%;">
+																	<option value="0"
+																		${requestScope.member.liveDead eq '0' ? 'selected' : ''}>N/A</option>
+
 																	<option
 																		${requestScope.member.liveDead eq 'L'.charAt(0) ? 'selected' : ''}>Live</option>
 																	<option
@@ -809,7 +831,7 @@
 																<span class="input-group-addon"><i
 																	class="fa fa-info-circle "></i></span> <input type="text"
 																	class="form-control" id="memberNo" name="memberNo"
-																	value="${requestScope.member.memberNo}" readonly/>
+																	value="${requestScope.member.memberNo}" readonly />
 															</div>
 															<p id="errorMemberNo"></p>
 														</div>
@@ -878,11 +900,14 @@
 																</div>
 																<select class="form-control select2" id="registered"
 																	name="registered" style="width: 100%;">
+																	<option
+																		${requestScope.member.regi eq 'N/A' ? 'selected' : ''}>N/A</option>
 
 																	<option value="Y"
 																		${requestScope.member.regi eq 'Y' ? 'selected' : ''}>Yes</option>
 																	<option value="N"
 																		${requestScope.member.regi eq 'N' ? 'selected' : ''}>No</option>
+
 
 																</select>
 															</div>
@@ -1104,6 +1129,9 @@
 																	id=" eligibleIneligible" name="eligibleIneligible"
 																	style="width: 100%;">
 																	<option
+																		${requestScope.member.eliInl eq 'N/A' ? 'selected' : ''}>N/A</option>
+
+																	<option
 																		${requestScope.member.eliInl eq 'Eligible' ? 'selected' : ''}>Eligible</option>
 																	<option
 																		${requestScope.member.eliInl eq 'Ineligible' ? 'selected' : ''}>Ineligible</option>
@@ -1126,11 +1154,14 @@
 																<select class="form-control select2" id="buildingFlag"
 																	name="buildingFlag" style="width: 100%;">
 																	<option
+																		${requestScope.member.buildFlag eq 'N/A' ? 'selected' : ''}>N/A</option>
+
+																	<option value="C"
 																		${requestScope.member.buildFlag eq 'C' ? 'selected' : ''}>Completed</option>
-																	<option
+																	<option value="NC"
 																		${requestScope.member.buildFlag eq 'NC' ? 'selected' : ''}>Not
 																		Completed</option>
-																	<option
+																	<option value="UC"
 																		${requestScope.member.buildFlag eq 'UC' ? 'selected' : ''}>Under
 																		Construction</option>
 
@@ -1152,6 +1183,9 @@
 																<select class="form-control select2" id="memberNominal"
 																	name="memberNominal" style="width: 100%;">
 																	<option
+																		${requestScope.member.mNominal eq 'N/A' ? 'selected' : ''}>N/A</option>
+
+																	<option
 																		${requestScope.member.mNominal eq 'C' ? 'selected' : ''}>C</option>
 																	<option
 																		${requestScope.member.mNominal eq 'None' ? 'selected' : ''}>None</option>
@@ -1172,10 +1206,12 @@
 																</div>
 																<select class="form-control select2" id="defaulter"
 																	name="defaulter" style="width: 100%;">
+																	<option
+																		${requestScope.member.defaulter eq 'N/A' ? 'selected' : ''}>N/A</option>
 
-																	<option
+																	<option value="Y"
 																		${requestScope.member.defaulter eq 'Y' ? 'selected' : ''}>Yes</option>
-																	<option
+																	<option value="N"
 																		${requestScope.member.defaulter eq 'N' ? 'selected' : ''}>No</option>
 
 																</select>
@@ -1288,7 +1324,7 @@
 					.getElementById("formattedDate6").innerHTML;
 			document.getElementById("mutaDt").value = document
 					.getElementById("formattedDate7").innerHTML;
-			
+
 		}
 
 		function editfxn() {
@@ -1313,11 +1349,11 @@
 
 			//Full Name Validation
 			var name = document.getElementById("memberFullName").value;
-			if (name == null || name === "") {
-				document.getElementById("errorFullName").innerHTML = error;
-				document.getElementById("divMemberFormName").className = 'alert alert-danger alert-dismissible';
-				return false;
-			}
+			//if (name == null || name === "") {
+			//	document.getElementById("errorFullName").innerHTML = error;
+			//	document.getElementById("divMemberFormName").className = 'alert alert-danger alert-dismissible';
+			//	return false;
+			//}
 
 			if (!(name == null || name === "")) {
 				var nameValid = /^[a-zA-Z-. ]+$/;
@@ -1334,11 +1370,11 @@
 
 			//Relative Name Validation
 			var name = document.getElementById("relativeFullName").value;
-			if (name == null || name === "") {
-				document.getElementById("errorRelativeName").innerHTML = error;
-				document.getElementById("divMemberFormRelativeName").className = 'alert alert-danger alert-dismissible';
-				return false;
-			}
+			//if (name == null || name === "") {
+			//	document.getElementById("errorRelativeName").innerHTML = error;
+			//	document.getElementById("divMemberFormRelativeName").className = 'alert alert-danger alert-dismissible';
+			//	return false;
+			//}
 
 			if (!(name == null || name === "")) {
 				var nameValid = /^[a-zA-Z-. ]+$/;
@@ -1356,12 +1392,12 @@
 			//Email Validation
 			var email = document.getElementById("memberEmail").value;
 
-			if (email == null || email === "") {
-				document.getElementById("errorEmail").innerHTML = error;
-				document.getElementById("divMemberFormEmail").className = 'alert alert-danger alert-dismissible';
-				return false;
-
-			}
+			//if (email == null || email === "") {
+			//	document.getElementById("errorEmail").innerHTML = error;
+			//	document.getElementById("divMemberFormEmail").className = 'alert alert-danger alert-dismissible';
+			//	return false;
+			//
+			//}
 
 			if (!(email == null || email === "")) {
 				var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
@@ -1378,25 +1414,25 @@
 
 			//Occupation Validation
 			var desig = document.getElementById("memberOccupation").value;
-			if (desig == null || desig === "") {
-				document.getElementById("errorOccupation").innerHTML = error;
-				document.getElementById("divMemberFormOccupation").className = 'alert alert-danger alert-dismissible';
-				return false;
+			//if (desig == null || desig === "") {
+			//	document.getElementById("errorOccupation").innerHTML = error;
+			//	document.getElementById("divMemberFormOccupation").className = 'alert alert-danger alert-dismissible';
+			//	return false;
 
-			}
+			//}
 			document.getElementById("errorOccupation").innerHTML = "";
 			document.getElementById("divMemberFormOccupation").className = 'form-group has-success';
 			//End Occupation Validation
 
 			//Phone Validation
 			var phone = document.getElementById("memberPhone").value;
-			if (phone == null || phone === "") {
+			//if (phone == null || phone === "") {
 
-				document.getElementById("errorPhone").innerHTML = error;
-				document.getElementById("divMemberFormPhone").className = 'alert alert-danger alert-dismissible';
-				return false;
+			//	document.getElementById("errorPhone").innerHTML = error;
+			//	document.getElementById("divMemberFormPhone").className = 'alert alert-danger alert-dismissible';
+			//	return false;
 
-			}
+			//}
 
 			if (!(phone == null || phone === "")) {
 				var phoneno = /^\d{10}$/;
@@ -1412,12 +1448,12 @@
 
 			//Adhaar Validation
 			var adhaar = document.getElementById("memberAdhaar").value;
-			if (adhaar == null || adhaar === "") {
-				document.getElementById("errorAdhaar").innerHTML = error;
-				document.getElementById("divMemberFormAdhaar").className = 'alert alert-danger alert-dismissible';
-				return false;
+			//if (adhaar == null || adhaar === "") {
+			//	document.getElementById("errorAdhaar").innerHTML = error;
+			//	document.getElementById("divMemberFormAdhaar").className = 'alert alert-danger alert-dismissible';
+			//	return false;
 
-			}
+			//}
 
 			if (!(pan == null || adhaar === "")) {
 				var adhaarno = /^[0-9]{12}$/;
@@ -1433,12 +1469,12 @@
 
 			//PAN Validation
 			var pan = document.getElementById("memberPAN").value;
-			if (pan == null || pan === "") {
-				document.getElementById("errorPAN").innerHTML = error;
-				document.getElementById("divMemberFormPAN").className = 'alert alert-danger alert-dismissible';
-				return false;
-
-			}
+			//if (pan == null || pan === "") {
+			//	document.getElementById("errorPAN").innerHTML = error;
+			//	document.getElementById("divMemberFormPAN").className = 'alert alert-danger alert-dismissible';
+			//	return false;
+			//
+			//}
 
 			if (!(pan == null || pan === "")) {
 				var panno = /^[a-zA-Z0-9]{10}$/;
@@ -1454,47 +1490,47 @@
 
 			//Address 1 Validation
 			var desig = document.getElementById("memberAddress1").value;
-			if (desig == null || desig == "") {
-				document.getElementById("errorAddress1").innerHTML = error;
-				document.getElementById("divMemberFormAddress1").className = 'alert alert-danger alert-dismissible';
-				return false;
+			//if (desig == null || desig == "") {
+			//	document.getElementById("errorAddress1").innerHTML = error;
+			//	document.getElementById("divMemberFormAddress1").className = 'alert alert-danger alert-dismissible';
+			//	return false;
 
-			}
+			//}
 			document.getElementById("errorAddress1").innerHTML = "";
 			document.getElementById("divMemberFormAddress1").className = 'form-group has-success';
 			//End Address 1 Validation
 
 			//Address 2 Validation
 			var desig = document.getElementById("memberAddress2").value;
-			if (desig == null || desig == "") {
-				document.getElementById("errorAddress2").innerHTML = error;
-				document.getElementById("divMemberFormAddress2").className = 'alert alert-danger alert-dismissible';
-				return false;
+			//if (desig == null || desig == "") {
+			//	document.getElementById("errorAddress2").innerHTML = error;
+			//	document.getElementById("divMemberFormAddress2").className = 'alert alert-danger alert-dismissible';
+			//	return false;
 
-			}
+			//}
 			document.getElementById("errorAddress2").innerHTML = "";
 			document.getElementById("divMemberFormAddress2").className = 'form-group has-success';
 			//End Address 2 Validation
 
 			//City Validation
 			var desig = document.getElementById("memberCity").value;
-			if (desig == null || desig == "") {
-				document.getElementById("errorCity").innerHTML = error;
-				document.getElementById("divMemberFormCity").className = 'alert alert-danger alert-dismissible';
-				return false;
-
-			}
+			//if (desig == null || desig == "") {
+			//	document.getElementById("errorCity").innerHTML = error;
+			//	document.getElementById("divMemberFormCity").className = 'alert alert-danger alert-dismissible';
+			//	return false;
+			//
+			//}
 			document.getElementById("errorCity").innerHTML = "";
 			document.getElementById("divMemberFormCity").className = 'form-group has-success';
 			//End City Validation
 
 			//Mother Name Validation
 			var name = document.getElementById("memberMotherName").value;
-			if (name == null || name === "") {
-				document.getElementById("errorMemberMotherName").innerHTML = error;
-				document.getElementById("divMemberFormMotherName").className = 'alert alert-danger alert-dismissible';
-				return false;
-			}
+			//		if (name == null || name === "") {
+			//		document.getElementById("errorMemberMotherName").innerHTML = error;
+			//	document.getElementById("divMemberFormMotherName").className = 'alert alert-danger alert-dismissible';
+			//	return false;
+			//}
 
 			if (!(name == null || name === "")) {
 				var nameValid = /^[a-zA-Z-. ]+$/;
@@ -1510,12 +1546,12 @@
 			//End Mother Name Validation
 
 			//Nominee Name Validation
-			var name = document.getElementById("memberNomineeName").value;
-			if (name == null || name === "") {
-				document.getElementById("errorNomineeName").innerHTML = error;
-				document.getElementById("divMemberFormNominee").className = 'alert alert-danger alert-dismissible';
-				return false;
-			}
+			//var name = document.getElementById("memberNomineeName").value;
+			//if (name == null || name === "") {
+			//	document.getElementById("errorNomineeName").innerHTML = error;
+			//	document.getElementById("divMemberFormNominee").className = 'alert alert-danger alert-dismissible';
+			//	return false;
+			//}
 
 			if (!(name == null || name === "")) {
 				var nameValid = /^[a-zA-Z-. ]+$/;
@@ -1532,12 +1568,12 @@
 
 			//Nominee Relation Validation
 			var desig = document.getElementById("memberNomineeRelation").value;
-			if (desig == null || desig === "") {
-				document.getElementById("errorNomineeRelation").innerHTML = error;
-				document.getElementById("divMemberFormNomineeRelation").className = 'alert alert-danger alert-dismissible';
-				return false;
-
-			}
+			//if (desig == null || desig === "") {
+			//	document.getElementById("errorNomineeRelation").innerHTML = error;
+			//	document.getElementById("divMemberFormNomineeRelation").className = 'alert alert-danger alert-dismissible';
+			//	return false;
+			//
+			//}
 			document.getElementById("errorNomineeRelation").innerHTML = "";
 			document.getElementById("divMemberFormNomineeRelation").className = 'form-group has-success';
 			//End Nominee Relation Validation
@@ -1644,11 +1680,11 @@
 
 			//Membership Fee Validation
 			var bal = document.getElementById("membershipFee").value;
-			if (bal == null || bal === "") {
-				document.getElementById("errorMembershipFee").innerHTML = error;
-				document.getElementById("divMemberFormMembershipFee").className = 'alert alert-danger alert-dismissible';
-				return false;
-			}
+			//		if (bal == null || bal === "") {
+			//			document.getElementById("errorMembershipFee").innerHTML = error;
+			//			document.getElementById("divMemberFormMembershipFee").className = 'alert alert-danger alert-dismissible';
+			//			return false;
+			//		}
 			if (!(bal == null || bal === "")) {
 				var balanceValid = /^\d+(\.\d+)?$/;
 				if (!(bal.match(balanceValid))) {
@@ -1710,7 +1746,7 @@
 
 			// Water Connection Charge Validation
 			var diversion = document.getElementById("waterConnectionCharge").value;
-			
+
 			if (!(diversion == null || diversion === "")) {
 				var diversionValid = /^\d+(\.\d+)?$/;
 				if (!(diversion.match(diversionValid))) {
@@ -1725,9 +1761,9 @@
 
 			// Water Charge Validation
 			var diversion = document.getElementById("waterCharge").value;
-		
+
 			if (!(diversion == null || diversion === "")) {
-				
+
 				var diversionValid = /^\d+(\.\d+)?$/;
 				if (!(diversion.match(diversionValid))) {
 					document.getElementById("errorWaterCharge").innerHTML = "Invalid amount";
@@ -1769,6 +1805,7 @@
 
 			return true;
 		}
+
 		$(function() {
 			//Initialize Select2 Elements
 			$(".select2").select2();
