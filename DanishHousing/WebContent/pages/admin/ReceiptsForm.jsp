@@ -149,7 +149,7 @@
 														<div class="input-group">
 															<span class="input-group-addon"><i
 																class="fa fa-info-circle"></i></span> <input type="text"
-																class="form-control" placeholder="Account Code"
+																class="form-control accCode" placeholder="Account Code"
 																id="accountCode1" name="accountCode1" />
 														</div>
 														<p id="errorAccountCode1"></p>
@@ -427,7 +427,7 @@
 														+ '<div class="form-group" id="divFormAccountCode' + n +'">'
 														+ '<label>Account Code</label>'
 														+ '<div class="input-group">'
-														+ '<span class="input-group-addon"><i class="fa fa-info-circle"></i></span> <input type="text" class="form-control" placeholder="Account Code" id="accountCode' + n +'" name="accountCode' + n +'" />'
+														+ '<span class="input-group-addon"><i class="fa fa-info-circle"></i></span> <input type="text" class="form-control accCode" placeholder="Account Code" id="accountCode' + n +'" name="accountCode' + n +'" />'
 														+ '</div><p id="errorAccountCode' + n +'"></p></div>'
 														+
 
@@ -665,6 +665,41 @@
 
                 });
 			});
+			
+			//Account Details Auto fill
+			$('#accounts').on('blur', '.accCode', function(e) {
+				e.preventDefault();
+				var code = $(this).val();
+				var id = $(this).attr('id');
+				var lastChar = id[id.length -1];
+				$.ajax({
+                    url: 'http://localhost:8080/DanishHousing/ReceiptAutoFill',
+                    dataType: 'json',
+                    type: 'post',
+                    data: {
+                    	'accode' : code
+                    },
+                    
+                    success: function(data) {
+          				var bool = data["masterAccountId"] === 0;
+          				$('#divFormAccountCode' + lastChar).toggleClass('alert alert-danger alert-dismissible', bool);
+          				$('#accountName' + lastChar).val('');
+          				$('#errorAccountCode' + lastChar).empty();
+          				if(data["masterAccountId"] === 0) {
+          					$('#errorAccountCode' + lastChar).text('Bank Code doesn\'t exist');
+          				} else {
+	                        $('#accountName' + lastChar).val(data["acName"]);		
+          				}
+                    },
+                    
+                    error: function(req, status, err) {
+                        alert('Error');
+                        console.log(req + ' ' + status + ' ' + err);
+                    }
+
+                });
+			});
+			
 			
 			//Bank Details Auto fill
 			$('#bankCode').bind("blur", function(e) {

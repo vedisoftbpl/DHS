@@ -8,9 +8,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.vedisoft.danishhousing.daos.AccountDao;
+import com.vedisoft.danishhousing.daos.AccountMasterDao;
 import com.vedisoft.danishhousing.daos.MembersDao;
 import com.vedisoft.danishhousing.daos.ProjectsDao;
 import com.vedisoft.danishhousing.pojos.Account;
+import com.vedisoft.danishhousing.pojos.AccountMaster;
 import com.vedisoft.danishhousing.pojos.Members;
 import com.vedisoft.danishhousing.pojos.Projects;
 
@@ -45,6 +47,7 @@ public class ReceiptAutoFill extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		int memberId = 0;
+		String accCode = new String();
 		String bankCode = new String();
 		Gson gson = new Gson();
 		if (request.getParameter("id") != null && request.getParameter("id").trim().length() > 0) {
@@ -60,6 +63,17 @@ public class ReceiptAutoFill extends HttpServlet {
 			}
 			response.setContentType("application/json");
 			response.getWriter().write("{\"data\": [" + json1 + "," + json2 + "]}");
+		}
+		System.out.println("skjhfajke");
+		if(request.getParameter("accode") != null && request.getParameter("accode").trim().length() > 0) {
+			accCode = request.getParameter("accode");
+			System.out.println(accCode);
+			AccountMaster acc = new AccountMasterDao().findByCode(accCode);
+			String json = gson.toJson(acc);
+			System.out.println(json);
+			response.setContentType("application/json");
+			response.getWriter().write(json);
+			
 		}
 		if (request.getParameter("code") != null && request.getParameter("code").trim().length() > 0) {
 			bankCode = request.getParameter("code");

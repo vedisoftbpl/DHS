@@ -151,6 +151,42 @@ public class AccountMasterDao {
 		}
 		return accountmaster;
 	}
+	
+	public AccountMaster findByCode(String accCode) {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		pool.initialize();
+		Connection conn = pool.getConnection();
+		AccountMaster accountmaster = new AccountMaster();
+		try {
+			String sql = "select * from account_master where accode = ?";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, accCode);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				accountmaster.setMasterAccountId(rs.getInt("account_master_id"));
+				accountmaster.setAnxCd(rs.getInt("anx_cd"));
+				accountmaster.setAcCode(rs.getString("accode"));
+				accountmaster.setAcName(rs.getString("acname"));
+				accountmaster.setAddress(rs.getString("address"));
+				accountmaster.setAcClass(rs.getString("acclass"));
+				java.sql.Date opdte = rs.getDate("opdte");
+				if (opdte != null)
+					accountmaster.setOpdte(new java.util.Date(opdte.getTime()));
+				accountmaster.setOpBal(rs.getDouble("opbal"));
+				accountmaster.setmBal(rs.getDouble("mbal"));
+				accountmaster.setPexp(rs.getString("pexp"));
+				accountmaster.setIxpge(rs.getString("ixpge"));
+				accountmaster.setFlag(rs.getString("flag"));
+				accountmaster.setProjCd(rs.getInt("projcd"));
+			}
+		} catch (SQLException sq) {
+			System.out.println("Unable to create a new row." + sq);
+		} finally {
+			pool.putConnection(conn);
+		}
+		return accountmaster;
+	}
+
 
 	public ArrayList<AccountMaster> findAll() {
 		ConnectionPool pool = ConnectionPool.getInstance();
