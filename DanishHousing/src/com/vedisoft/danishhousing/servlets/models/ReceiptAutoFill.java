@@ -64,13 +64,10 @@ public class ReceiptAutoFill extends HttpServlet {
 			response.setContentType("application/json");
 			response.getWriter().write("{\"data\": [" + json1 + "," + json2 + "]}");
 		}
-		System.out.println("skjhfajke");
 		if(request.getParameter("accode") != null && request.getParameter("accode").trim().length() > 0) {
 			accCode = request.getParameter("accode");
-			System.out.println(accCode);
 			AccountMaster acc = new AccountMasterDao().findByCode(accCode);
 			String json = gson.toJson(acc);
-			System.out.println(json);
 			response.setContentType("application/json");
 			response.getWriter().write(json);
 			
