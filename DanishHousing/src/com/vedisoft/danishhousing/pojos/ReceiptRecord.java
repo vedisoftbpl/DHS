@@ -16,12 +16,12 @@ public class ReceiptRecord {
 	private String mad1;
 	private String mad2;
 	private String mad3;
-	private Double cashAmt;
-	private Double chqAmt;
+	private Double amount;
+	
 	private Double balChq;
 	private int cDd;
 	private Date cDdte;
-	private Double fullPay;
+	private String fullPay;
 	private Double inst1;
 	private Double inst2;
 	private Double inst3;
@@ -38,7 +38,7 @@ public class ReceiptRecord {
 	private String pD;
 	private String accode;
 	private String branch;
-	private char dC;
+	private String dC;
 	private Date wLrDt;
 	private int userId;
 	private Date lastUpdate;
@@ -47,13 +47,16 @@ public class ReceiptRecord {
 	public ReceiptRecord() {
 		super();
 	}
-	public ReceiptRecord( char payType, int slno, Date recDte, int receno, String prefix, String membNme,
-			int membNo, String fHNme, String mad1, String mad2, String mad3, Double cashAmt, Double chqAmt,
-			Double balChq, int cDd, Date cDdte, Double fullPay, Double inst1, Double inst2, Double inst3, int chalNo,
+	public ReceiptRecord(int sNo, char payType, int slno, Date recDte, int receno, String prefix, String membNme,
+			int membNo, String fHNme, String mad1, String mad2, String mad3, Double amount,
+			Double balChq, int cDd, Date cDdte, String fullPay, Double inst1, Double inst2, Double inst3, int chalNo,
 			Date chalDte, String plSize, String plNo, int projCd, String chqDhr, String flag, char trCode,
-			String remarks, char rC, String pD, String accode, String branch, char dC, Date wLrDt,int userId, Date lastUpdate , String city) {
-		super();
+			String remarks, char rC, String pD, String accode, String branch, String dC, Date wLrDt,int userId, Date lastUpdate , String city) {
 		
+	
+	
+		super();
+		this.sNo = sNo;
 		this.payType = payType;
 		this.slno = slno;
 		this.recDte = recDte;
@@ -65,8 +68,8 @@ public class ReceiptRecord {
 		this.mad1 = mad1;
 		this.mad2 = mad2;
 		this.mad3 = mad3;
-		this.cashAmt = cashAmt;
-		this.chqAmt = chqAmt;
+	
+		this.amount = amount;
 		this.balChq = balChq;
 		this.cDd = cDd;
 		this.cDdte = cDdte;
@@ -93,9 +96,10 @@ public class ReceiptRecord {
 		this.lastUpdate = lastUpdate;
 		this.city = city;
 	}
+	
 	public ReceiptRecord( char payType, int slno, Date recDte, int receno, int membNo,
-			Double cashAmt, Double chqAmt, int cDd, Date cDdte, String plSize, String plNo, int projCd, char trCode,
-			String remarks, char rC, String pD, String accode, String branch, char dC,int userId, Date lastUpdate, String city) {
+			Double amount, int cDd, Date cDdte, String plSize, String plNo, int projCd, char trCode,
+			String remarks, char rC, String pD, String accode, String branch, String dC,int userId, Date lastUpdate, String city) {
 		super();
 		
 		this.payType = payType;
@@ -109,12 +113,11 @@ public class ReceiptRecord {
 		this.mad1 = " ";
 		this.mad2 = " ";
 		this.mad3 = " ";
-		this.cashAmt = cashAmt;
-		this.chqAmt = chqAmt;
+		this.amount =amount;
 		this.balChq = 0.0;
 		this.cDd = cDd;
 		this.cDdte = cDdte;
-		this.fullPay = 0.0;
+		this.fullPay = "N";
 		this.inst1 = 0.0;
 		this.inst2 = 0.0;
 		this.inst3 = 0.0;
@@ -222,17 +225,13 @@ public class ReceiptRecord {
 	public void setMad3(String mad3) {
 		this.mad3 = mad3;
 	}
-	public Double getCashAmt() {
-		return cashAmt;
+
+	public void setAmount(Double amount) {
+		this.amount = amount;
 	}
-	public void setCashAmt(Double cashAmt) {
-		this.cashAmt = cashAmt;
-	}
-	public Double getChqAmt() {
-		return chqAmt;
-	}
-	public void setChqAmt(Double chqAmt) {
-		this.chqAmt = chqAmt;
+	
+	public double getAmount() {
+		return amount;
 	}
 	public Double getBalChq() {
 		return balChq;
@@ -252,10 +251,10 @@ public class ReceiptRecord {
 	public void setcDdte(Date cDdte) {
 		this.cDdte = cDdte;
 	}
-	public Double getFullPay() {
+	public String getFullPay() {
 		return fullPay;
 	}
-	public void setFullPay(Double fullPay) {
+	public void setFullPay(String fullPay) {
 		this.fullPay = fullPay;
 	}
 	public Double getInst1() {
@@ -354,10 +353,10 @@ public class ReceiptRecord {
 	public void setBranch(String branch) {
 		this.branch = branch;
 	}
-	public char getdC() {
+	public String getdC() {
 		return dC;
 	}
-	public void setdC(char dC) {
+	public void setdC(String dC) {
 		this.dC = dC;
 	}
 	public Date getwLrDt() {
@@ -380,11 +379,11 @@ public class ReceiptRecord {
 		return "ReceiptRecord [ sNo=" + sNo + ", payType=" + payType + ", slno=" + slno
 				+ ", recDte=" + recDte + ", receno=" + receno + ", prefix=" + prefix + ", membNme=" + membNme
 				+ ", membNo=" + membNo + ", fHNme=" + fHNme + ", mad1=" + mad1 + ", mad2=" + mad2 + ", mad3=" + mad3
-				+ ", cashAmt=" + cashAmt + ", chqAmt=" + chqAmt + ", balChq=" + balChq + ", cDd=" + cDd + ", cDdte="
+				+ ", Amount=" + amount  + ", balChq=" + balChq + ", cDd=" + cDd + ", cDdte="
 				+ cDdte + ", fullPay=" + fullPay + ", inst1=" + inst1 + ", inst2=" + inst2 + ", inst3=" + inst3
 				+ ", chalNo=" + chalNo + ", chalDte=" + chalDte + ", plSize=" + plSize + ", plNo=" + plNo + ", projCd="
 				+ projCd + ", chqDhr=" + chqDhr + ", flag=" + flag + ", trCode=" + trCode + ", remarks=" + remarks
-				+ ", rC=" + rC + ", pD=" + pD + ", accode=" + accode + ", branch=" + branch + ", dC=" + dC + ", wLrDt="
+				+ ", rC=" + rC + ", pD=" + pD + ", accode=" + accode + ", branch=" + branch + ", dC(Transaction Type)=" + dC + ", wLrDt="
 				+ wLrDt + "]";
 	}
 
