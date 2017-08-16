@@ -9,7 +9,7 @@ import java.util.Date;
 
 import com.vedisoft.danishhousing.config.ConnectionPool;
 import com.vedisoft.danishhousing.config.DateUtils;
-
+import com.vedisoft.danishhousing.pojos.AccountMasterFlagsEnum;
 import com.vedisoft.danishhousing.pojos.ReceiptRecord;
 import com.vedisoft.danishhousing.pojos.TransactionRecords;
 
@@ -28,7 +28,7 @@ public class ReceiptDao {
 					+ "membno,amt,parti,a_p,flag,vr_no,sno,sr,docnoo,projcd,wc_lr_dt,ch_cl_dt,c_flag,party_cd,userid) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
 			String sqlReceipt = "insert into receipt_records" + " (" + "s_no , paytype, slno, recdte, receno,prefix,membnme, membno,"
-					+ "f_h_nme,mad1,mad2,mad3,cashamt, chqamt,balchq, c_dd, c_ddte,fullpay,inst1,inst2,inst3,chalno,chaldte, plsize, plno, projcd,chqdhr,flag, trcode,"
+					+ "f_h_nme,mad1,mad2,mad3,amount,balchq, c_dd, c_ddte,fullpay,inst1,inst2,inst3,chalno,chaldte, plsize, plno, projcd,chqdhr,flag, trcode,"
 					+ " remarks, r_c, p_d,  accode, branch,d_c,wc_lr_dt,"
 					+ "userid,lastupdate,city) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
@@ -38,7 +38,7 @@ public class ReceiptDao {
 			java.sql.Date lastUpdate = null;
 			if (transaction.getLastUpdate() != null)
 				lastUpdate = new java.sql.Date(transaction.getLastUpdate().getTime());
-			ps1.setDate(26, lastUpdate);
+			ps1.setDate(1, lastUpdate);
 			
 			ps1.setInt(2, transaction.getDocNo());
 			ps1.setInt(3, transaction.getSlno());
@@ -108,48 +108,49 @@ public class ReceiptDao {
 			ps2.setString(10, receipt.getMad1());
 			ps2.setString(11, receipt.getMad2());
 			ps2.setString(12, receipt.getMad3());
-			ps2.setDouble(13, receipt.getCashAmt());
-			ps2.setDouble(14, receipt.getChqAmt());
-			ps2.setDouble(15, receipt.getBalChq());
-			ps2.setDouble(16, receipt.getcDd());
+			
+			ps2.setDouble(13, receipt.getAmount());
+			System.out.println(receipt.getAmount());
+			ps2.setDouble(14, receipt.getBalChq());
+			ps2.setDouble(15, receipt.getcDd());
 			java.sql.Date cdDate = null;
 			if (receipt.getcDdte() != null)
 				cdDate = new java.sql.Date(receipt.getcDdte().getTime());
-			ps2.setDate(17, cdDate);
-			ps2.setDouble(18, receipt.getFullPay());
-			ps2.setDouble(19, receipt.getInst1());
-			ps2.setDouble(20, receipt.getInst2());
-			ps2.setDouble(21, receipt.getInst3());
-			ps2.setInt(22, receipt.getChalNo());
+			ps2.setDate(16, cdDate);
+			ps2.setString(17, receipt.getFullPay());
+			ps2.setDouble(18, receipt.getInst1());
+			ps2.setDouble(19, receipt.getInst2());
+			ps2.setDouble(20, receipt.getInst3());
+			ps2.setInt(21, receipt.getChalNo());
 			java.sql.Date chalDate = null;
 			if (receipt.getChalDte() != null)
 				chalDate = new java.sql.Date(receipt.getChalDte().getTime());
-			ps2.setDate(23, chalDate);
-			ps2.setString(24, receipt.getPlSize());
-			ps2.setString(25, receipt.getPlNo());
-			ps2.setDouble(26, receipt.getProjCd());
-			ps2.setString(27, receipt.getChqDhr());
-			ps2.setString(28, receipt.getFlag());
-			ps2.setString(29, String.valueOf(receipt.getTrCode()));
-			ps2.setString(30, receipt.getRemarks());
-			ps2.setString(31, String.valueOf(receipt.getrC()));
-			ps2.setString(32, receipt.getpD());
-			ps2.setString(33, receipt.getAccode());
-			ps2.setString(34, receipt.getBranch());
-			ps2.setString(35, String.valueOf(receipt.getdC()));
-			
+			ps2.setDate(22, chalDate);
+			ps2.setString(23, receipt.getPlSize());
+			ps2.setString(24, receipt.getPlNo());
+			ps2.setDouble(25, receipt.getProjCd());
+			ps2.setString(26, receipt.getChqDhr());
+			ps2.setString(27, receipt.getFlag());
+			ps2.setString(28, String.valueOf(receipt.getTrCode()));
+			ps2.setString(29, receipt.getRemarks());
+			ps2.setString(30, String.valueOf(receipt.getrC()));
+			ps2.setString(31, receipt.getpD());
+			ps2.setString(32, receipt.getAccode());
+			ps2.setString(33, receipt.getBranch());
+			ps2.setString(34, String.valueOf(receipt.getdC()));
+		
 			
 			java.sql.Date wLrDt = null;
 			if (receipt.getwLrDt() != null)
 				wLrDt = new java.sql.Date(receipt.getwLrDt().getTime());
-			ps2.setDate(36, wLrDt);
-			ps2.setInt(37, receipt.getUserId());
+			ps2.setDate(35, wLrDt);
+			ps2.setInt(36, receipt.getUserId());
 			java.sql.Date lastUpdate1 = null;
 			if (receipt.getLastUpdate() != null)
 				lastUpdate1 = new java.sql.Date(receipt.getLastUpdate().getTime());
-			ps2.setDate(38, lastUpdate1);
+			ps2.setDate(37, lastUpdate1);
 			
-			ps2.setString(39,receipt.getCity());
+			ps2.setString(38,receipt.getCity());
 			
 			int x1 = ps2.executeUpdate();
 			if (x1 == 0) {
@@ -178,164 +179,164 @@ public class ReceiptDao {
 		return id;
 
 	}
-
-	public TransactionRecords findTransactionRecord(int transactionId) {
-		ConnectionPool pool = ConnectionPool.getInstance();
-		pool.initialize();
-		Connection conn = pool.getConnection();
-		TransactionRecords transaction = new TransactionRecords();
-		try {
-			String sql = "select * from transaction_records where tr_id = ?";
-			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, transactionId);
-			ResultSet rs = ps.executeQuery();
-			if (rs.next()) {
-				transaction.setTrId(transactionId);
-				transaction.setsNo(rs.getInt("s_no"));
-				transaction.setSlno(rs.getInt("slno"));
-				transaction.setDocNo(rs.getInt("docno"));
-				java.sql.Date docDate = rs.getDate("docdte");
-				if (docDate != null)
-					transaction.setDocDte(new java.util.Date((docDate).getTime()));
-				else
-					transaction.setDocDte(docDate);
-				transaction.setDocType(rs.getString("doctype"));
-				transaction.setAcCode(rs.getString("accode"));
-				transaction.setBkCode(rs.getString("bkcode"));
-				transaction.setChqNo(rs.getInt("chqno"));
-				java.sql.Date chDate = rs.getDate("ch_date");
-				if (chDate != null)
-					transaction.setChDate(new java.util.Date((chDate).getTime()));
-				else
-					transaction.setChDate(chDate);
-				transaction.setBankBr(rs.getString("bank_br"));
-				transaction.setMembNo(rs.getInt("membno"));
-				transaction.setAmt(rs.getDouble("amt"));
-				transaction.setParti(rs.getString("parti"));
-				transaction.setaP(rs.getString("a_p"));
-				transaction.setFlag(rs.getInt("flag"));
-				transaction.setVrNo(rs.getString("vr_no"));
-				transaction.setsN(rs.getString("sno"));
-				transaction.setsR(rs.getString("sr"));
-				transaction.setDocNoo(rs.getString("docnoo"));
-				transaction.setProjCd(rs.getInt("projcd"));
-				java.sql.Date wcLrDt = rs.getDate("wc_lr_dt");
-				if (wcLrDt != null)
-					transaction.setWcLrDt(new java.util.Date((wcLrDt).getTime()));
-				else
-					transaction.setWcLrDt(wcLrDt);
-				java.sql.Date chClDt = rs.getDate("ch_cl_dt");
-				if (chClDt != null)
-					transaction.setChClDt(new java.util.Date((chClDt).getTime()));
-				else
-					transaction.setChClDt(chClDt);
-				transaction.setcFlag(rs.getString("c_flag"));
-				transaction.setPartyCd(rs.getInt("party_cd"));
-				transaction.setUserId(rs.getInt("userid"));
-				java.sql.Date lastupdate = rs.getDate("lastupdate");
-				if (lastupdate != null)
-					transaction.setLastUpdate(new java.util.Date((lastupdate).getTime()));
-				else
-					transaction.setLastUpdate(lastupdate);
-			}
-		} catch (SQLException sq) {
-			System.out.println("Unable to find a row." + sq);
-		} finally {
-			pool.putConnection(conn);
-		}
-		return transaction;
-	}
-
-	public ReceiptRecord findReceiptRecord(int recordId) {
-		ConnectionPool pool = ConnectionPool.getInstance();
-		pool.initialize();
-		Connection conn = pool.getConnection();
-		ReceiptRecord receipt = new ReceiptRecord();
-		try {
-			String sql = "select * from receipt_records where record_id = ?";
-			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, recordId);
-			ResultSet rs = ps.executeQuery();
-			if (rs.next()) {
-			
-				receipt.setsNo(rs.getInt("s_no"));
-				if (rs.getString("paytype").length() > 0)
-					receipt.setPayType(rs.getString("paytype").charAt(0));
-				receipt.setSlno(rs.getInt("slno"));
-				java.sql.Date recdte = rs.getDate("recdte");
-				if (recdte != null)
-					receipt.setRecDte(new java.util.Date((recdte).getTime()));
-				else
-					receipt.setRecDte(recdte);
-				receipt.setReceno(rs.getInt("receno"));
-				receipt.setPrefix(rs.getString("prefix"));
-				receipt.setMembNme(rs.getString("membnme"));
-				receipt.setMembNo(rs.getInt("membno"));
-				receipt.setfHNme(rs.getString("f_h_nme"));
-				receipt.setMad1(rs.getString("mad1"));
-				receipt.setMad2(rs.getString("mad2"));
-				receipt.setMad3(rs.getString("mad3"));
-				receipt.setCashAmt(rs.getDouble("cashamt"));
-				receipt.setChqAmt(rs.getDouble("chqamt"));
-				receipt.setBalChq(rs.getDouble("balchq"));
-				receipt.setcDd(rs.getInt("c_dd"));
-				java.sql.Date cddate = rs.getDate("c_ddte");
-				if (cddate != null)
-					receipt.setcDdte(new java.util.Date((cddate).getTime()));
-				else
-					receipt.setcDdte(cddate);
-			
-				
-				receipt.setFullPay(rs.getDouble("fullpay"));
-				receipt.setInst1(rs.getDouble("inst1"));
-				receipt.setInst2(rs.getDouble("inst2"));
-				receipt.setInst3(rs.getDouble("inst3"));
-				receipt.setChalNo(rs.getInt("chalno"));
-				
-				java.sql.Date chaldte = rs.getDate("chaldte");
-				if (chaldte != null)
-					receipt.setChalDte(new java.util.Date((chaldte).getTime()));
-				else
-					receipt.setChalDte(chaldte);
-				receipt.setPlSize(rs.getString("plsize"));
-				receipt.setPlNo(rs.getString("plno"));
-				receipt.setProjCd(rs.getInt("projcd"));
-				receipt.setChqDhr(rs.getString("chqdhr"));
-				receipt.setFlag(rs.getString("flag"));
-				if (rs.getString("trcode").length() > 0)
-					receipt.setTrCode(rs.getString("trcode").charAt(0));
-				receipt.setRemarks(rs.getString("remarks"));
-				if (rs.getString("r_c").length() > 0) {
-					receipt.setrC(rs.getString("r_c").charAt(0));
-				}
-				receipt.setpD(rs.getString("p_d"));
-				receipt.setAccode(rs.getString("accode"));
-				receipt.setBranch(rs.getString("branch"));
-
-				if (rs.getString("d_c").length() > 0) {
-					receipt.setdC(rs.getString("d_c").charAt(0));
-				}
-				java.sql.Date wc_lr_dt = rs.getDate("wc_lr_dt");
-				if (wc_lr_dt != null)
-					receipt.setwLrDt(new java.util.Date((wc_lr_dt).getTime()));
-				else
-					receipt.setwLrDt(wc_lr_dt);
-				
-				
-				receipt.setUserId(rs.getInt("userid"));
-				java.sql.Date lastupdate = rs.getDate("lastupdate");
-				if (lastupdate != null)
-					receipt.setLastUpdate(new java.util.Date((lastupdate).getTime()));
-				else
-					receipt.setLastUpdate(lastupdate);
-			}
-		} catch (SQLException sq) {
-			System.out.println("Unable to find a row." + sq);
-		} finally {
-			pool.putConnection(conn);
-		}
-		return receipt;
-	}
+//
+//	public TransactionRecords findTransactionRecord(int transactionId) {
+//		ConnectionPool pool = ConnectionPool.getInstance();
+//		pool.initialize();
+//		Connection conn = pool.getConnection();
+//		TransactionRecords transaction = new TransactionRecords();
+//		try {
+//			String sql = "select * from transaction_records where tr_id = ?";
+//			PreparedStatement ps = conn.prepareStatement(sql);
+//			ps.setInt(1, transactionId);
+//			ResultSet rs = ps.executeQuery();
+//			if (rs.next()) {
+//				transaction.setTrId(transactionId);
+//				transaction.setsNo(rs.getInt("s_no"));
+//				transaction.setSlno(rs.getInt("slno"));
+//				transaction.setDocNo(rs.getInt("docno"));
+//				java.sql.Date docDate = rs.getDate("docdte");
+//				if (docDate != null)
+//					transaction.setDocDte(new java.util.Date((docDate).getTime()));
+//				else
+//					transaction.setDocDte(docDate);
+//				transaction.setDocType(rs.getString("doctype"));
+//				transaction.setAcCode(rs.getString("accode"));
+//				transaction.setBkCode(rs.getString("bkcode"));
+//				transaction.setChqNo(rs.getInt("chqno"));
+//				java.sql.Date chDate = rs.getDate("ch_date");
+//				if (chDate != null)
+//					transaction.setChDate(new java.util.Date((chDate).getTime()));
+//				else
+//					transaction.setChDate(chDate);
+//				transaction.setBankBr(rs.getString("bank_br"));
+//				transaction.setMembNo(rs.getInt("membno"));
+//				transaction.setAmt(rs.getDouble("amt"));
+//				transaction.setParti(rs.getString("parti"));
+//				transaction.setaP(rs.getString("a_p"));
+//				transaction.setFlag(rs.getInt("flag"));
+//				transaction.setVrNo(rs.getString("vr_no"));
+//				transaction.setsN(rs.getString("sno"));
+//				transaction.setsR(rs.getString("sr"));
+//				transaction.setDocNoo(rs.getString("docnoo"));
+//				transaction.setProjCd(rs.getInt("projcd"));
+//				java.sql.Date wcLrDt = rs.getDate("wc_lr_dt");
+//				if (wcLrDt != null)
+//					transaction.setWcLrDt(new java.util.Date((wcLrDt).getTime()));
+//				else
+//					transaction.setWcLrDt(wcLrDt);
+//				java.sql.Date chClDt = rs.getDate("ch_cl_dt");
+//				if (chClDt != null)
+//					transaction.setChClDt(new java.util.Date((chClDt).getTime()));
+//				else
+//					transaction.setChClDt(chClDt);
+//				transaction.setcFlag(rs.getString("c_flag"));
+//				transaction.setPartyCd(rs.getInt("party_cd"));
+//				transaction.setUserId(rs.getInt("userid"));
+//				java.sql.Date lastupdate = rs.getDate("lastupdate");
+//				if (lastupdate != null)
+//					transaction.setLastUpdate(new java.util.Date((lastupdate).getTime()));
+//				else
+//					transaction.setLastUpdate(lastupdate);
+//			}
+//		} catch (SQLException sq) {
+//			System.out.println("Unable to find a row." + sq);
+//		} finally {
+//			pool.putConnection(conn);
+//		}
+//		return transaction;
+//	}
+//
+//	public ReceiptRecord findReceiptRecord(int recordId) {
+//		ConnectionPool pool = ConnectionPool.getInstance();
+//		pool.initialize();
+//		Connection conn = pool.getConnection();
+//		ReceiptRecord receipt = new ReceiptRecord();
+//		try {
+//			String sql = "select * from receipt_records where record_id = ?";
+//			PreparedStatement ps = conn.prepareStatement(sql);
+//			ps.setInt(1, recordId);
+//			ResultSet rs = ps.executeQuery();
+//			if (rs.next()) {
+//			
+//				receipt.setsNo(rs.getInt("s_no"));
+//				if (rs.getString("paytype").length() > 0)
+//					receipt.setPayType(rs.getString("paytype").charAt(0));
+//				receipt.setSlno(rs.getInt("slno"));
+//				java.sql.Date recdte = rs.getDate("recdte");
+//				if (recdte != null)
+//					receipt.setRecDte(new java.util.Date((recdte).getTime()));
+//				else
+//					receipt.setRecDte(recdte);
+//				receipt.setReceno(rs.getInt("receno"));
+//				receipt.setPrefix(rs.getString("prefix"));
+//				receipt.setMembNme(rs.getString("membnme"));
+//				receipt.setMembNo(rs.getInt("membno"));
+//				receipt.setfHNme(rs.getString("f_h_nme"));
+//				receipt.setMad1(rs.getString("mad1"));
+//				receipt.setMad2(rs.getString("mad2"));
+//				receipt.setMad3(rs.getString("mad3"));
+//				receipt.setAmount(rs.getDouble("amount"));
+//				
+//				receipt.setBalChq(rs.getDouble("balchq"));
+//				receipt.setcDd(rs.getInt("c_dd"));
+//				java.sql.Date cddate = rs.getDate("c_ddte");
+//				if (cddate != null)
+//					receipt.setcDdte(new java.util.Date((cddate).getTime()));
+//				else
+//					receipt.setcDdte(cddate);
+//			
+//				
+//				receipt.setFullPay(rs.getString("fullpay"));
+//				receipt.setInst1(rs.getDouble("inst1"));
+//				receipt.setInst2(rs.getDouble("inst2"));
+//				receipt.setInst3(rs.getDouble("inst3"));
+//				receipt.setChalNo(rs.getInt("chalno"));
+//				
+//				java.sql.Date chaldte = rs.getDate("chaldte");
+//				if (chaldte != null)
+//					receipt.setChalDte(new java.util.Date((chaldte).getTime()));
+//				else
+//					receipt.setChalDte(chaldte);
+//				receipt.setPlSize(rs.getString("plsize"));
+//				receipt.setPlNo(rs.getString("plno"));
+//				receipt.setProjCd(rs.getInt("projcd"));
+//				receipt.setChqDhr(rs.getString("chqdhr"));
+//				receipt.setFlag(rs.getString("flag"));
+//				if (rs.getString("trcode").length() > 0)
+//					receipt.setTrCode(rs.getString("trcode").charAt(0));
+//				receipt.setRemarks(rs.getString("remarks"));
+//				if (rs.getString("r_c").length() > 0) {
+//					receipt.setrC(rs.getString("r_c").charAt(0));
+//				}
+//				receipt.setpD(rs.getString("p_d"));
+//				receipt.setAccode(rs.getString("accode"));
+//				receipt.setBranch(rs.getString("branch"));
+//
+//				if (rs.getString("d_c").length() > 0) {
+//					receipt.setdC(rs.getString("d_c"));
+//				}
+//				java.sql.Date wc_lr_dt = rs.getDate("wc_lr_dt");
+//				if (wc_lr_dt != null)
+//					receipt.setwLrDt(new java.util.Date((wc_lr_dt).getTime()));
+//				else
+//					receipt.setwLrDt(wc_lr_dt);
+//				
+//				
+//				receipt.setUserId(rs.getInt("userid"));
+//				java.sql.Date lastupdate = rs.getDate("lastupdate");
+//				if (lastupdate != null)
+//					receipt.setLastUpdate(new java.util.Date((lastupdate).getTime()));
+//				else
+//					receipt.setLastUpdate(lastupdate);
+//			}
+//		} catch (SQLException sq) {
+//			System.out.println("Unable to find a row." + sq);
+//		} finally {
+//			pool.putConnection(conn);
+//		}
+//		return receipt;
+//	}
 
 	public static void main(String a[]) {
 		ReceiptDao dao = new ReceiptDao();
@@ -343,10 +344,13 @@ public class ReceiptDao {
 		 Date d2 = new Date();
 		 Date d3 = new Date();
 		 d3 = DateUtils.convertDate("02/04/2016");
+		 String fl = AccountMasterFlagsEnum.Developement.getValue();
+		 System.out.println(fl);
 		 TransactionRecords t = new TransactionRecords(
 		 44901,1,d1,"D","E0010","01",0,d1," ",7299,8400.00,"ESTABLISHMENT FEES UPTO 31/03/2016",1," ",8,1,d2);
-		 ReceiptRecord r = new
-		 ReceiptRecord('R',1,d3,44901,7299,8400.00,0.00,0,d1,"35x60 RC","DK-1/326",8,'R',"ESTABLISHMENT FEES UPTO 31/03/2016",' ',"O","E0010","A",' ',1,d2,"chhatarpur");
+		 ReceiptRecord r = new ReceiptRecord(25,'R',1,d3,44901,"Mr.","Name",25,"FName","a1","a2","a3",84100.00,6541.00,256,d1,"No",15.0,15.0,15.0,45,d2,
+				 "35x60","DK-1/326",8,"chqdhr","flag",'R',
+				 "ESTABLISHMENT FEES UPTO 31/03/2016",'r',fl,"E0010","Branch","Checque",d2,4,d2,"chhatarpur");
 		 int id = dao.create(t, r);
 		 System.out.println(id);
 //		TransactionRecords t1 = dao.findTransactionRecord(3);
