@@ -53,11 +53,7 @@ CREATE TABLE `account_master` (
 
 LOCK TABLES `account_master` WRITE;
 /*!40000 ALTER TABLE `account_master` DISABLE KEYS */;
-INSERT INTO `account_master` VALUES (1,1,'A0001','AUDIT FEES PAYABLE',NULL,'L',NULL,NULL,NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL);
-INSERT INTO `account_master` VALUES (2,1,'D0006','DEVELOPMENT COST DANISH NAGAR COLONY',NULL,'L',NULL,NULL,NULL,NULL,'0 - 2','D',7,NULL,NULL,NULL,NULL,NULL);
-INSERT INTO `account_master` VALUES (5,1,'P0014','*PAYABLE-M/S RAKESH AGARWAL','83-A,RAJSHREE APTT. LAL GHATI,BHOPAL.','L','2017-06-30',0,0,'','','S',0,NULL,NULL,NULL,NULL,NULL);
-INSERT INTO `account_master` VALUES (6,1,'P0015','*PAYABLE - M/S BALWANT SINGH','181, Ashoka Garden, Bhopal','L','2017-07-03',0,0,'','','S',0,NULL,NULL,NULL,NULL,NULL);
-INSERT INTO `account_master` VALUES (10,1,'A0001','AUDIT PAYABLE','','L',NULL,0,0,NULL,'0-2','D',0,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `account_master` VALUES (1,1,'A0001','AUDIT FEES PAYABLE','','A','2017-07-28',425,0,'','','S',0,NULL,NULL,NULL,NULL,NULL),(2,1,'D0006','DEVELOPMENT COST DANISH NAGAR COLONY','','E','2017-07-28',0,0,'','0 - 2','D',0,NULL,NULL,NULL,NULL,NULL),(5,1,'P0014','*PAYABLE-M/S RAKESH AGARWAL','83-A,RAJSHREE APTT. LAL GHATI,BHOPAL.','L','2017-06-30',0,0,'','','S',0,NULL,NULL,NULL,NULL,NULL),(6,1,'P0015','*PAYABLE - M/S BALWANT SINGH','181, Ashoka Garden, Bhopal','I','2017-07-03',0,0,'','','S',0,NULL,NULL,NULL,NULL,NULL),(10,1,'A0001','AUDIT PAYABLE','','L','2017-07-28',0,9498,'','0-2','D',0,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `account_master` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -86,7 +82,7 @@ CREATE TABLE `accounts` (
   `col4` varchar(45) DEFAULT NULL,
   `col5` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`account_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -95,10 +91,7 @@ CREATE TABLE `accounts` (
 
 LOCK TABLES `accounts` WRITE;
 /*!40000 ALTER TABLE `accounts` DISABLE KEYS */;
-INSERT INTO `accounts` VALUES (1,'Christopher','SBI0089','SBI','2017-04-01',45,50,55,60,'SBI1234','Neemuch',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO `accounts` VALUES (2,'punjab','PNB23','PNB','2017-06-30',5000,0,0,0,'PNB005','INDRAPURI',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO `accounts` VALUES (3,'axis','46464','Axis','2017-07-08',50000,0,0,1000,'Axis52','Arera',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO `accounts` VALUES (4,'dena','654','Dena Bank','2017-07-06',1200000,0,0,0,'dena4563','piplani',NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `accounts` VALUES (1,'cash','001','Cash','2017-01-01',0,0,0,0,' ',' ',NULL,NULL,NULL,NULL,NULL),(2,'punjab','PNB23','PNB','2017-06-30',5000,0,0,0,'PNB005','INDRAPURI',NULL,NULL,NULL,NULL,NULL),(3,'axis','axis458','Axis','2017-07-08',20000,0,0,1000,'Axis52','Arera',NULL,NULL,NULL,NULL,NULL),(4,'dena','654','Dena Bank','2017-07-06',1200000,0,0,0,'dena4563','piplani',NULL,NULL,NULL,NULL,NULL),(5,'Christopher','SBI0089','SBI','2017-04-01',45,50,55,60,'SBI1234','Neemuch',NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `accounts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -132,19 +125,19 @@ CREATE TABLE `members` (
   `membfee` int(11) DEFAULT NULL,
   `entrfee` int(11) DEFAULT NULL,
   `recedte` date DEFAULT NULL,
-  `fullpay` varchar(45) DEFAULT NULL,
-  `inst1` varchar(5) DEFAULT NULL,
-  `inst2` varchar(5) DEFAULT NULL,
-  `inst3` varchar(5) DEFAULT NULL,
-  `transf` varchar(45) DEFAULT NULL,
+  `fullpay` varchar(15) DEFAULT NULL,
+  `inst1` varchar(15) DEFAULT NULL,
+  `inst2` varchar(15) DEFAULT NULL,
+  `inst3` varchar(15) DEFAULT NULL,
+  `transf` varchar(55) DEFAULT NULL,
   `opbal` double DEFAULT NULL,
-  `water_con` varchar(45) DEFAULT NULL,
-  `sec_dep` varchar(45) DEFAULT NULL,
+  `water_con` double DEFAULT NULL,
+  `sec_dep` double DEFAULT NULL,
   `wt_cn_dt` date DEFAULT NULL,
   `opdte` date DEFAULT NULL,
-  `regi` varchar(45) DEFAULT NULL,
+  `regi` varchar(15) DEFAULT NULL,
   `regdte` date DEFAULT NULL,
-  `regno` varchar(45) DEFAULT NULL,
+  `regno` int(11) DEFAULT NULL,
   `r_c` char(1) DEFAULT NULL,
   `nocdte` date DEFAULT NULL,
   `live_dead` char(1) DEFAULT NULL,
@@ -154,9 +147,9 @@ CREATE TABLE `members` (
   `maint` varchar(45) DEFAULT NULL,
   `water` varchar(45) DEFAULT NULL,
   `wsupdte` date DEFAULT NULL,
-  `establ` varchar(45) DEFAULT NULL,
+  `establ` double DEFAULT NULL,
   `wc_lr_dt` date DEFAULT NULL,
-  `wat_chg` varchar(45) DEFAULT NULL,
+  `wat_chg` double DEFAULT NULL,
   `extamt` double DEFAULT NULL,
   `cost` double DEFAULT NULL,
   `mobile` varchar(45) DEFAULT NULL,
@@ -180,9 +173,10 @@ CREATE TABLE `members` (
   `defaulter` varchar(5) DEFAULT NULL,
   `mother_name` varchar(100) DEFAULT NULL,
   `pan_no` varchar(15) DEFAULT NULL,
-  `eli_inli` varchar(10) DEFAULT NULL,
+  `eli_ineli` varchar(10) DEFAULT NULL,
+  `ref_amt` double DEFAULT NULL,
   PRIMARY KEY (`member_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5002 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -191,8 +185,7 @@ CREATE TABLE `members` (
 
 LOCK TABLES `members` WRITE;
 /*!40000 ALTER TABLE `members` DISABLE KEYS */;
-INSERT INTO `members` VALUES (1,0,1,'2000 sqft',2000,NULL,'PL - 589',NULL,'Mr.','Christopher Michael Rozario','70','Rajaswa Colony','Neemuch','Student',0,'Robin Rozario','S/O','Friend','Ronak Mittal',500,100,'2017-07-28',NULL,'0','0','0',NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'R',NULL,'L',NULL,12,0,NULL,NULL,NULL,NULL,NULL,NULL,10,1000000,'9479710111','1996-07-25','christopherrozario7@gmail.com','bradley-cooper-547062-1-4021501224574740.jpg','Voter Id','869124203977',NULL,NULL,NULL,NULL,1,'2017-07-28 00:00:00',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
-INSERT INTO `members` VALUES (3,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Mr.','Bittu','Neemuch',' ',' ','student',NULL,'Chintu singh','S/O','Friend','Abhishek',500,50,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'L',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'9853247898','2017-07-04','bittu@gmail.com','avtar5.jpg','Aadhar card','545454451234',NULL,NULL,NULL,NULL,4,'1996-07-25 00:00:00',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `members` VALUES (1,0,0,'2000 sqft',2000,'','PL - 589','','Mr.','Christopher Michael Rozario','70','Rajaswa Colony','Neemuch','Student',0,'Robin Rozario','S/O','Friend','Ronak Mittal',500,100,'2017-07-28','N/A','N/A','N/A','Y','',0,0,0,'2017-08-08',NULL,'Y','2017-08-08',0,'R','2017-08-08','L','2017-08-08',12,0,'','',NULL,0,NULL,0,0,1000000,'9479710111','1996-07-25','christopherrozario7@gmail.com','User1502190551710.png','Voter Id','869124203977',NULL,NULL,NULL,NULL,4,'2017-08-16 00:00:00','N/A','C',0,NULL,'Male','GEN.','N/A','sdfgfhkhh','1234567890','N/A',0),(3,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Mr.','Bittu','Neemuch',' ',' ','student',NULL,'Chintu singh','S/O','Friend','Abhishek',500,50,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'L',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'9853247898','2017-07-04','bittu@gmail.com','avtar5.jpg','Aadhar card','545454451234',NULL,NULL,NULL,NULL,4,'1996-07-25 00:00:00',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(5000,0,0,'',0,'','','','Mr.','Ramesh Sharma','Mandideep','','Bhopal','Doctor',24,'Mukesh Sharma','S/O','Brother','Rajat Sharma',500,100,'2017-08-10','Y','N/A','N/A','N/A','',0,0,0,'2017-08-16',NULL,'Y','2017-08-16',0,'R','2017-08-16','L','2017-08-16',0,0,'0','',NULL,0,NULL,0,0,0,'9853247898','1993-06-08','ramesh@gmail.com','User1502344785661.png','Passport','',NULL,NULL,NULL,NULL,4,'2017-08-16 00:00:00','NC','N/A',0,NULL,'Male','GEN.','N/A','','','N/A',0),(5001,5001,0,'',0,'','','','Mr.','Dhawal kr','piplani','piplani','bhopL','',0,'','S/O','','',500,100,'2017-08-16','N/A','N/A','N/A','N/A','',0,0,0,'2017-08-16',NULL,'N/A','2017-08-16',0,'0','2017-08-16','L','2017-08-16',0,0,'0','',NULL,0,NULL,0,0,0,'','2017-08-16','','','N/A','',NULL,NULL,NULL,NULL,4,'2017-08-16 00:00:00','N/A','N/A',0,NULL,'N/A','N/A','N/A','','','N/A',0);
 /*!40000 ALTER TABLE `members` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -220,16 +213,35 @@ CREATE TABLE `members_documents` (
 
 LOCK TABLES `members_documents` WRITE;
 /*!40000 ALTER TABLE `members_documents` DISABLE KEYS */;
-INSERT INTO `members_documents` VALUES (1,'Document Title','Document Details','Documents File','2017-07-04 00:00:00',6);
-INSERT INTO `members_documents` VALUES (2,'Document Title 2','Document Details 2','Documents File 2','2017-07-04 00:00:00',3);
-INSERT INTO `members_documents` VALUES (5,'Document Title','Document Details','Documents File','2017-07-04 00:00:00',6);
-INSERT INTO `members_documents` VALUES (6,'Document Title','Document Details','Documents File','2017-07-04 00:00:00',6);
-INSERT INTO `members_documents` VALUES (7,'Document Title','Document Details','Documents File','2017-07-04 00:00:00',6);
-INSERT INTO `members_documents` VALUES (8,'New Document Title','New Document Details','sum1499425222065.c','2017-07-07 00:00:00',1);
-INSERT INTO `members_documents` VALUES (9,'New Document Title 2','New Document Details 2','simple1499425791068.c','2017-07-07 00:00:00',1);
-INSERT INTO `members_documents` VALUES (10,'New Document Title 3','New Contract Details 3','sum1499425978758.c','2017-07-07 00:00:00',1);
-INSERT INTO `members_documents` VALUES (11,'New Document Title 4','New Document details 4','STR11499426146882.C','2017-07-07 00:00:00',1);
+INSERT INTO `members_documents` VALUES (1,'Document Title','Document Details','Documents File','2017-07-04 00:00:00',6),(2,'Document Title 2','Document Details 2','Documents File 2','2017-07-04 00:00:00',3),(5,'Document Title','Document Details','Documents File','2017-07-04 00:00:00',6),(6,'Document Title','Document Details','Documents File','2017-07-04 00:00:00',6),(7,'Document Title','Document Details','Documents File','2017-07-04 00:00:00',6),(8,'New Document Title','New Document Details','sum1499425222065.c','2017-07-07 00:00:00',1),(9,'New Document Title 2','New Document Details 2','simple1499425791068.c','2017-07-07 00:00:00',1),(10,'New Document Title 3','New Contract Details 3','sum1499425978758.c','2017-07-07 00:00:00',1),(11,'New Document Title 4','New Document details 4','STR11499426146882.C','2017-07-07 00:00:00',1);
 /*!40000 ALTER TABLE `members_documents` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `payment`
+--
+
+DROP TABLE IF EXISTS `payment`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `payment` (
+  `docno` int(11) NOT NULL,
+  `doc_date` date NOT NULL,
+  `bank_code` varchar(5) NOT NULL,
+  `payment_mode` varchar(45) NOT NULL,
+  `transaction_no` varchar(45) NOT NULL,
+  `payment_amt` double NOT NULL,
+  `cl_date` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `payment`
+--
+
+LOCK TABLES `payment` WRITE;
+/*!40000 ALTER TABLE `payment` DISABLE KEYS */;
+/*!40000 ALTER TABLE `payment` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -243,13 +255,13 @@ CREATE TABLE `projects` (
   `project_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `project_name` varchar(100) NOT NULL,
   `bung_plot` varchar(10) NOT NULL,
+  `opdt` date DEFAULT NULL,
   `col1` varchar(45) DEFAULT NULL,
   `col2` varchar(45) DEFAULT NULL,
   `col3` varchar(45) DEFAULT NULL,
   `col4` varchar(45) DEFAULT NULL,
-  `col5` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`project_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -258,16 +270,7 @@ CREATE TABLE `projects` (
 
 LOCK TABLES `projects` WRITE;
 /*!40000 ALTER TABLE `projects` DISABLE KEYS */;
-INSERT INTO `projects` VALUES (1,'Project 1','B','',NULL,NULL,NULL,NULL);
-INSERT INTO `projects` VALUES (3,'Project 2','P',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO `projects` VALUES (4,'Christo Enclave','B',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO `projects` VALUES (5,'Ashoka ','B',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO `projects` VALUES (6,'Esteem Tower','P',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO `projects` VALUES (7,'Indrapuri residency','B',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO `projects` VALUES (11,'Sonagiri Complex','B',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO `projects` VALUES (12,'piplani','B',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO `projects` VALUES (13,'shela','SC',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO `projects` VALUES (14,'shela','SC',NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `projects` VALUES (1,'Project 1','B',NULL,'',NULL,NULL,NULL),(3,'Project 2','P',NULL,NULL,NULL,NULL,NULL),(4,'Christo Enclave','B','2017-09-27',NULL,NULL,NULL,NULL),(5,'Ashoka Complex','P-C','2009-02-03',NULL,NULL,NULL,NULL),(6,'Esteem Tower','P',NULL,NULL,NULL,NULL,NULL),(7,'Indrapuri residency','B',NULL,NULL,NULL,NULL,NULL),(11,'Sonagiri Complex','B',NULL,NULL,NULL,NULL,NULL),(12,'piplani','B',NULL,NULL,NULL,NULL,NULL),(13,'shela','SC',NULL,NULL,NULL,NULL,NULL),(14,'shela','SC',NULL,NULL,NULL,NULL,NULL),(15,'Piplani Tower','P-C','2000-07-13',NULL,NULL,NULL,NULL),(18,'Christo New','CH','1989-02-24',NULL,NULL,NULL,NULL),(20,'Raiku tower','P-C','2017-08-02',NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `projects` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -279,8 +282,7 @@ DROP TABLE IF EXISTS `receipt_records`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `receipt_records` (
-  `record_id` int(11) NOT NULL AUTO_INCREMENT,
-  `s_no` int(11) DEFAULT NULL,
+  `s_no` int(11) NOT NULL,
   `paytype` char(1) DEFAULT NULL,
   `slno` int(11) DEFAULT NULL,
   `recdte` date DEFAULT NULL,
@@ -292,12 +294,11 @@ CREATE TABLE `receipt_records` (
   `mad1` varchar(100) DEFAULT NULL,
   `mad2` varchar(100) DEFAULT NULL,
   `mad3` varchar(100) DEFAULT NULL,
-  `cashamt` double DEFAULT NULL,
-  `chqamt` double DEFAULT NULL,
+  `amount` double DEFAULT NULL,
   `balchq` double DEFAULT NULL,
   `c_dd` int(11) DEFAULT NULL,
   `c_ddte` date DEFAULT NULL,
-  `fullpay` double DEFAULT NULL,
+  `fullpay` varchar(5) DEFAULT NULL,
   `inst1` double DEFAULT NULL,
   `inst2` double DEFAULT NULL,
   `inst3` double DEFAULT NULL,
@@ -314,12 +315,13 @@ CREATE TABLE `receipt_records` (
   `p_d` varchar(5) DEFAULT NULL,
   `accode` varchar(15) DEFAULT NULL,
   `branch` varchar(100) DEFAULT NULL,
-  `d_c` char(1) DEFAULT NULL,
+  `d_c` varchar(25) DEFAULT NULL,
   `wc_lr_dt` date DEFAULT NULL,
   `userid` int(11) DEFAULT NULL,
   `lastupdate` date DEFAULT NULL,
-  PRIMARY KEY (`record_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+  `city` varchar(25) DEFAULT NULL,
+  PRIMARY KEY (`s_no`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -328,9 +330,37 @@ CREATE TABLE `receipt_records` (
 
 LOCK TABLES `receipt_records` WRITE;
 /*!40000 ALTER TABLE `receipt_records` DISABLE KEYS */;
-INSERT INTO `receipt_records` VALUES (1,109061,'R',1,'2016-04-02',44901,' ',' ',7299,' ',' ',' ',' ',8400,0,0,0,NULL,0,0,0,0,0,NULL,'35x60 RC','DK-1/326',8,' ',' ','R','ESTABLISHMENT FEES UPTO 31/03/2016','','O','E0010','A','',NULL,1,'2017-07-27');
-INSERT INTO `receipt_records` VALUES (2,109061,'R',1,'2016-04-02',44901,' ',' ',7299,' ',' ',' ',' ',8400,0,0,0,NULL,0,0,0,0,0,NULL,'35x60 RC','DK-1/326',8,' ',' ','R','ESTABLISHMENT FEES UPTO 31/03/2016','','O','E0010','A','',NULL,1,'2017-07-28');
+INSERT INTO `receipt_records` VALUES (109061,'R',1,'2016-04-02',44901,' ',' ',7299,' ',' ',' ',' ',0,0,0,NULL,'0',0,0,0,0,NULL,'35x60 RC','DK-1/326',8,' ',' ','R','ESTABLISHMENT FEES UPTO 31/03/2016','','O','E0010','A','',NULL,1,'2017-07-27',NULL),(109067,'R',1,'2016-04-02',44901,'Mr.','Name',25,'FName','a1','a2','a3',84100,6541,256,NULL,'No',15,15,15,45,'2017-08-16','35x60','DK-1/326',8,'chqdhr','flag','R','ESTABLISHMENT FEES UPTO 31/03/2016','r','D','E0010','Branch','Checque','2017-08-16',4,'2017-08-16','chhatarpur');
 /*!40000 ALTER TABLE `receipt_records` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `refund`
+--
+
+DROP TABLE IF EXISTS `refund`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `refund` (
+  `paytype` varchar(5) DEFAULT NULL,
+  `memb_no` int(11) DEFAULT NULL,
+  `chqamt` double DEFAULT NULL,
+  `c_dd` varchar(45) DEFAULT NULL,
+  `c_ddte` date DEFAULT NULL,
+  `remarks` varchar(45) DEFAULT NULL,
+  `p_d` varchar(10) DEFAULT NULL,
+  `vr_no` int(11) DEFAULT NULL,
+  `sl_no` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `refund`
+--
+
+LOCK TABLES `refund` WRITE;
+/*!40000 ALTER TABLE `refund` DISABLE KEYS */;
+/*!40000 ALTER TABLE `refund` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -341,8 +371,7 @@ DROP TABLE IF EXISTS `transaction_records`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `transaction_records` (
-  `tr_id` int(11) NOT NULL AUTO_INCREMENT,
-  `s_no` int(11) DEFAULT NULL,
+  `s_no` int(11) NOT NULL AUTO_INCREMENT,
   `docno` int(11) DEFAULT NULL,
   `slno` int(11) DEFAULT NULL,
   `docdte` date DEFAULT NULL,
@@ -368,8 +397,8 @@ CREATE TABLE `transaction_records` (
   `party_cd` int(11) DEFAULT NULL,
   `userid` int(11) DEFAULT NULL,
   `lastupdate` date DEFAULT NULL,
-  PRIMARY KEY (`tr_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`s_no`)
+) ENGINE=InnoDB AUTO_INCREMENT=109068 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -378,8 +407,7 @@ CREATE TABLE `transaction_records` (
 
 LOCK TABLES `transaction_records` WRITE;
 /*!40000 ALTER TABLE `transaction_records` DISABLE KEYS */;
-INSERT INTO `transaction_records` VALUES (1,109061,44901,1,NULL,'D','E0010','01',0,NULL,' ',7299,8400,'ESTABLISHMENT FEES UPTO 31/03/2016',' ',1,' ',' ',' ',' ',8,NULL,NULL,' ',0,1,'2017-07-27');
-INSERT INTO `transaction_records` VALUES (2,109061,44901,1,NULL,'D','E0010','01',0,NULL,' ',7299,8400,'ESTABLISHMENT FEES UPTO 31/03/2016',' ',1,' ',' ',' ',' ',8,NULL,NULL,' ',0,1,'2017-07-28');
+INSERT INTO `transaction_records` VALUES (3,44901,1,NULL,'D','E0010','01',0,NULL,' ',7299,8400,'ESTABLISHMENT FEES UPTO 31/03/2016',' ',1,' ',' ',' ',' ',8,NULL,NULL,' ',0,1,'2017-08-08'),(109061,44901,1,NULL,'D','E0010','01',0,NULL,' ',7299,8400,'ESTABLISHMENT FEES UPTO 31/03/2016',' ',1,' ',' ',' ',' ',8,NULL,NULL,' ',0,1,'2017-07-27'),(109067,44901,1,NULL,'D','E0010','01',0,NULL,' ',7299,8400,'ESTABLISHMENT FEES UPTO 31/03/2016',' ',1,' ',' ',' ',' ',8,NULL,NULL,' ',0,1,'2017-08-16');
 /*!40000 ALTER TABLE `transaction_records` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -410,7 +438,7 @@ CREATE TABLE `users` (
   `col4` varchar(45) DEFAULT NULL,
   `col5` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -419,14 +447,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Christopher','christopherrozario7@gmail.com','root','Engineer','9131449948','Active','1996-07-25','2017-06-27','bradley-cooper-547062-1-4021499675106106.jpg','Christopher','Administrator','Govind garden',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO `users` VALUES (2,'Abhishek ','abhishek001.cs@gmail.com','rootrootroot','Tester','8962338809','Active','2017-06-27','1996-04-03','avatar5.png','Christopher','Administrator','J.K.Road',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO `users` VALUES (3,'Avi','avi.1199863@gmail.com','root','Engineer','8827970053','Active','2017-06-27','1996-11-26','avatar5.png','Christopher','Administrator','Govind garden',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO `users` VALUES (4,'Aman','kumaraman334@gmail.com','root','Engineer','8359946369','Active','2017-06-27','1991-01-01','avatar5.png','Christopher','Administrator','J.K.Road',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO `users` VALUES (5,'Rohit Ahuja','rohitahuja@vedisoft.com','root','Engineer','9893075987','Active','2017-06-27','1991-01-01','avatar5.png','Christopher','Administrator','Govind garden',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO `users` VALUES (14,'Kriti Sanon','kritisanon@gmail.com','789456123','Tester','9131449948','Active','2017-07-05','1992-07-22','Beautiful-Face-of-Kriti-Sanon-HD-Wallpaper-386x5801501222207946.jpg','Christopher','Administrator','BOMBAY',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO `users` VALUES (15,'bradley','christo7@gmail.com','123456789','Engineer','9131449948','Active','2017-07-11','2017-07-11','bradley-cooper-547062-1-4021499079725734.jpg','Christopher','Administrator','piplani',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO `users` VALUES (17,'Aman Modi','amanmodi.cs@gmail.com','root','Engineer','9158965742','Active','2017-07-07','2017-07-07','avatar5.png','Christopher','Administrator','Bhopal',NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `users` VALUES (1,'Christopher','christopherrozario7@gmail.com','root','Engineer','9131449948','Active','1996-07-25','2017-06-27','bradley-cooper-547062-1-4021499675147173.jpg','Christopher','Administrator','Govind garden',NULL,NULL,NULL,NULL,NULL),(2,'Abhishek ','abhishek001.cs@gmail.com','root','Engineer','8962338809','Active','2017-06-27','1996-04-03','avatar5.png','Christopher','Administrator','J.K.Road',NULL,NULL,NULL,NULL,NULL),(3,'Avi','avi.1199863@gmail.com','root','Engineer','8827970053','Active','2017-06-27','1996-11-26','avatar5.png','Christopher','Administrator','Govind garden',NULL,NULL,NULL,NULL,NULL),(4,'Aman','kumaraman334@gmail.com','root','Engineer','8359946369','Active','2017-06-27','1991-01-01','avatar5.png','Christopher','Administrator','J.K.Road',NULL,NULL,NULL,NULL,NULL),(5,'Rohit Ahuja','rohitahuja@vedisoft.com','root','Engineer','9893075987','Active','2017-06-27','1991-01-01','avatar5.png','Christopher','Administrator','Govind garden',NULL,NULL,NULL,NULL,NULL),(14,'Kriti Sanon','kritisanon@gmail.com','789456123','Tester','9131449948','Active','2017-07-05','1992-07-22','Beautiful-Face-of-Kriti-Sanon-HD-Wallpaper-386x5801501222207946.jpg','Christopher','Administrator','BOMBAY',NULL,NULL,NULL,NULL,NULL),(15,'bradley','christo7@gmail.com','123456789','Engineer','9131449948','Active','2017-07-11','2017-07-11','bradley-cooper-547062-1-4021499079725734.jpg','Christopher','Administrator','piplani',NULL,NULL,NULL,NULL,NULL),(17,'Aman Modi','amanmodi.cs@gmail.com','root','Engineer','9158965742','Active','2017-07-07','2017-07-07','avatar5.png','Christopher','Administrator','Bhopal',NULL,NULL,NULL,NULL,NULL),(18,'Dakota Johnson','dakota7@gmail.com','rootrootroot','Tester','9131449948','Active','2017-08-02','2017-08-01','Dakota-Johnson-Fifty-Shades-Darker-Set-Pictures1502183482176.png','Christopher','Administrator','New York',NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -439,4 +460,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-07-28 13:37:35
+-- Dump completed on 2017-08-17 11:50:27
