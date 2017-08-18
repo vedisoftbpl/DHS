@@ -53,7 +53,7 @@ CREATE TABLE `account_master` (
 
 LOCK TABLES `account_master` WRITE;
 /*!40000 ALTER TABLE `account_master` DISABLE KEYS */;
-INSERT INTO `account_master` VALUES (1,1,'A0001','AUDIT FEES PAYABLE','','A','2017-07-28',425,0,'','','S',0,NULL,NULL,NULL,NULL,NULL),(2,1,'D0006','DEVELOPMENT COST DANISH NAGAR COLONY','','E','2017-07-28',0,0,'','0 - 2','D',0,NULL,NULL,NULL,NULL,NULL),(5,1,'P0014','*PAYABLE-M/S RAKESH AGARWAL','83-A,RAJSHREE APTT. LAL GHATI,BHOPAL.','L','2017-06-30',0,0,'','','S',0,NULL,NULL,NULL,NULL,NULL),(6,1,'P0015','*PAYABLE - M/S BALWANT SINGH','181, Ashoka Garden, Bhopal','I','2017-07-03',0,0,'','','S',0,NULL,NULL,NULL,NULL,NULL),(10,1,'A0001','AUDIT PAYABLE','','L','2017-07-28',0,9498,'','0-2','D',0,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `account_master` VALUES (1,1,'A0001','AUDIT FEES PAYABLE','','A','2017-07-28',425,0,'','','S',0,NULL,NULL,NULL,NULL,NULL),(2,1,'D0006','DEVELOPMENT COST DANISH NAGAR COLONY','','E','2017-07-28',0,0,'','0 - 2','D',0,NULL,NULL,NULL,NULL,NULL),(5,1,'P0014','*PAYABLE-M/S RAKESH AGARWAL','83-A,RAJSHREE APTT. LAL GHATI,BHOPAL.','L','2017-06-30',0,0,'','','S',0,NULL,NULL,NULL,NULL,NULL),(6,1,'P0015','*PAYABLE - M/S BALWANT SINGH','181, Ashoka Garden, Bhopal','I','2017-07-03',0,0,'','','S',0,NULL,NULL,NULL,NULL,NULL),(10,1,'A0002','AUDIT PAYABLE','','L','2017-07-28',0,9498,'','0-2','D',0,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `account_master` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -185,7 +185,7 @@ CREATE TABLE `members` (
 
 LOCK TABLES `members` WRITE;
 /*!40000 ALTER TABLE `members` DISABLE KEYS */;
-INSERT INTO `members` VALUES (1,0,0,'2000 sqft',2000,'','PL - 589','','Mr.','Christopher Michael Rozario','70','Rajaswa Colony','Neemuch','Student',0,'Robin Rozario','S/O','Friend','Ronak Mittal',500,100,'2017-07-28','N/A','N/A','N/A','Y','',0,0,0,'2017-08-08',NULL,'Y','2017-08-08',0,'R','2017-08-08','L','2017-08-08',12,0,'','',NULL,0,NULL,0,0,1000000,'9479710111','1996-07-25','christopherrozario7@gmail.com','User1502190551710.png','Voter Id','869124203977',NULL,NULL,NULL,NULL,4,'2017-08-16 00:00:00','N/A','C',0,NULL,'Male','GEN.','N/A','sdfgfhkhh','1234567890','N/A',0),(3,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Mr.','Bittu','Neemuch',' ',' ','student',NULL,'Chintu singh','S/O','Friend','Abhishek',500,50,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'L',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'9853247898','2017-07-04','bittu@gmail.com','avtar5.jpg','Aadhar card','545454451234',NULL,NULL,NULL,NULL,4,'1996-07-25 00:00:00',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(5000,0,0,'',0,'','','','Mr.','Ramesh Sharma','Mandideep','','Bhopal','Doctor',24,'Mukesh Sharma','S/O','Brother','Rajat Sharma',500,100,'2017-08-10','Y','N/A','N/A','N/A','',0,0,0,'2017-08-16',NULL,'Y','2017-08-16',0,'R','2017-08-16','L','2017-08-16',0,0,'0','',NULL,0,NULL,0,0,0,'9853247898','1993-06-08','ramesh@gmail.com','User1502344785661.png','Passport','',NULL,NULL,NULL,NULL,4,'2017-08-16 00:00:00','NC','N/A',0,NULL,'Male','GEN.','N/A','','','N/A',0),(5001,5001,0,'',0,'','','','Mr.','Dhawal kr','piplani','piplani','bhopL','',0,'','S/O','','',500,100,'2017-08-16','N/A','N/A','N/A','N/A','',0,0,0,'2017-08-16',NULL,'N/A','2017-08-16',0,'0','2017-08-16','L','2017-08-16',0,0,'0','',NULL,0,NULL,0,0,0,'','2017-08-16','','','N/A','',NULL,NULL,NULL,NULL,4,'2017-08-16 00:00:00','N/A','N/A',0,NULL,'N/A','N/A','N/A','','','N/A',0);
+INSERT INTO `members` VALUES (1,1,4,'2000 sqft',2000,'reg','PL - 589','s4','Mr.','Christopher Michael Rozario','70','Rajaswa Colony','Neemuch','Student',21,'Robin Rozario','S/O','Friend','Ronak Mittal',500,100,'2017-07-28','N/A','N/A','N/A','N/A','',500,1523,500,'2017-08-08','2017-02-15','Y','2017-08-08',2562,'R','2017-08-08','L','2017-08-08',12,12256,'524','2545','2017-05-20',1562,NULL,0,455,1000000,'9479710111','1996-07-25','christopherrozario7@gmail.com','User1502190551710.png','Voter Id','869124203977',NULL,NULL,NULL,NULL,4,'2017-08-16 00:00:00','N/A','C',0,NULL,'Male','GEN.','N/A','mother name','1234567890','N/A',0),(3,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Mr.','Bittu','Neemuch',' ',' ','student',NULL,'Chintu singh','S/O','Friend','Abhishek',500,50,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'L',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'9853247898','2017-07-04','bittu@gmail.com','avtar5.jpg','Aadhar card','545454451234',NULL,NULL,NULL,NULL,4,'1996-07-25 00:00:00',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(5000,0,0,'',0,'','','','Mr.','Ramesh Sharma','Mandideep','','Bhopal','Doctor',24,'Mukesh Sharma','S/O','Brother','Rajat Sharma',500,100,'2017-08-10','Y','N/A','N/A','N/A','',0,0,0,'2017-08-16',NULL,'Y','2017-08-16',0,'R','2017-08-16','L','2017-08-16',0,0,'0','',NULL,0,NULL,0,0,0,'9853247898','1993-06-08','ramesh@gmail.com','User1502344785661.png','Passport','',NULL,NULL,NULL,NULL,4,'2017-08-16 00:00:00','NC','N/A',0,NULL,'Male','GEN.','N/A','','','N/A',0),(5001,5001,0,'',0,'','','','Mr.','Dhawal kr','piplani','piplani','bhopL','',0,'','S/O','','',500,100,'2017-08-16','N/A','N/A','N/A','N/A','',0,0,0,'2017-08-16',NULL,'N/A','2017-08-16',0,'0','2017-08-16','L','2017-08-16',0,0,'0','',NULL,0,NULL,0,0,0,'','2017-08-16','','','N/A','',NULL,NULL,NULL,NULL,4,'2017-08-16 00:00:00','N/A','N/A',0,NULL,'N/A','N/A','N/A','','','N/A',0);
 /*!40000 ALTER TABLE `members` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -296,12 +296,12 @@ CREATE TABLE `receipt_records` (
   `mad3` varchar(100) DEFAULT NULL,
   `amount` double DEFAULT NULL,
   `balchq` double DEFAULT NULL,
-  `c_dd` int(11) DEFAULT NULL,
+  `c_dd` varchar(30) DEFAULT NULL,
   `c_ddte` date DEFAULT NULL,
-  `fullpay` varchar(5) DEFAULT NULL,
-  `inst1` double DEFAULT NULL,
-  `inst2` double DEFAULT NULL,
-  `inst3` double DEFAULT NULL,
+  `fullpay` varchar(10) DEFAULT NULL,
+  `inst1` varchar(10) DEFAULT NULL,
+  `inst2` varchar(10) DEFAULT NULL,
+  `inst3` varchar(10) DEFAULT NULL,
   `chalno` int(11) DEFAULT NULL,
   `chaldte` date DEFAULT NULL,
   `plsize` varchar(45) DEFAULT NULL,
@@ -330,7 +330,7 @@ CREATE TABLE `receipt_records` (
 
 LOCK TABLES `receipt_records` WRITE;
 /*!40000 ALTER TABLE `receipt_records` DISABLE KEYS */;
-INSERT INTO `receipt_records` VALUES (109061,'R',1,'2016-04-02',44901,' ',' ',7299,' ',' ',' ',' ',0,0,0,NULL,'0',0,0,0,0,NULL,'35x60 RC','DK-1/326',8,' ',' ','R','ESTABLISHMENT FEES UPTO 31/03/2016','','O','E0010','A','',NULL,1,'2017-07-27',NULL),(109067,'R',1,'2016-04-02',44901,'Mr.','Name',25,'FName','a1','a2','a3',84100,6541,256,NULL,'No',15,15,15,45,'2017-08-16','35x60','DK-1/326',8,'chqdhr','flag','R','ESTABLISHMENT FEES UPTO 31/03/2016','r','D','E0010','Branch','Checque','2017-08-16',4,'2017-08-16','chhatarpur');
+INSERT INTO `receipt_records` VALUES (109061,'R',1,'2016-04-02',44901,' ',' ',7299,' ',' ',' ',' ',0,0,'0',NULL,'0','0','0','0',0,NULL,'35x60 RC','DK-1/326',8,' ',' ','R','ESTABLISHMENT FEES UPTO 31/03/2016','','O','E0010','A','',NULL,1,'2017-07-27',NULL),(109067,'R',1,'2016-04-02',44901,'Mr.','Name',25,'FName','a1','a2','a3',84100,6541,'256',NULL,'No','15','15','15',45,'2017-08-16','35x60','DK-1/326',8,'chqdhr','flag','R','ESTABLISHMENT FEES UPTO 31/03/2016','r','D','E0010','Branch','Checque','2017-08-16',4,'2017-08-16','chhatarpur'),(109072,'R',1,'2017-08-18',44902,'Mr.','Christopher Michael Rozario',1,'Robin Rozario','70','Rajaswa Colony','Neemuch',100,0,'',NULL,'N/A','N/A','N/A','Y',0,NULL,'2000 sqft','PL - 589',4,' ',' ','R','Test1','R','S','A0001','Cash','Cash',NULL,1,'2017-08-18',''),(109073,'R',2,'2017-08-18',44902,'Mr.','Christopher Michael Rozario',1,'Robin Rozario','70','Rajaswa Colony','Neemuch',100,0,'',NULL,'N/A','N/A','N/A','Y',0,NULL,'2000 sqft','PL - 589',4,' ',' ','R','Test 2','R','D','D0006','Cash','Cash',NULL,1,'2017-08-18',''),(109074,'R',1,'2017-08-18',44903,'Mr.','Christopher Michael Rozario',1,'S/O Robin Rozario','70','Rajaswa Colony','Neemuch',50,0,'',NULL,'N/A','N/A','N/A','Y',0,NULL,'2000 sqft','PL - 589',4,' ',' ','R','Test2','R','S','A0001','Cash','Cash',NULL,1,'2017-08-18',''),(109075,'R',2,'2017-08-18',44903,'Mr.','Christopher Michael Rozario',1,'S/O Robin Rozario','70','Rajaswa Colony','Neemuch',100,0,'',NULL,'N/A','N/A','N/A','Y',0,NULL,'2000 sqft','PL - 589',4,' ',' ','R','Test2','R','D','D0006','Cash','Cash',NULL,1,'2017-08-18',''),(109076,'R',1,'2017-08-18',44904,'Mr.','Christopher Michael Rozario',1,'S/O Robin Rozario','70','Rajaswa Colony','Neemuch',500,0,'451164','2017-08-03','N/A','N/A','N/A','Y',0,NULL,'2000 sqft','PL - 589',4,' ',' ','R','Test3','R','S','A0001','Dena Bank','Cheque',NULL,1,'2017-08-18','Bhopal');
 /*!40000 ALTER TABLE `receipt_records` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -378,7 +378,7 @@ CREATE TABLE `transaction_records` (
   `doctype` varchar(45) DEFAULT NULL,
   `accode` varchar(45) DEFAULT NULL,
   `bkcode` varchar(45) DEFAULT NULL,
-  `chqno` int(11) DEFAULT NULL,
+  `chqno` varchar(30) DEFAULT NULL,
   `ch_date` date DEFAULT NULL,
   `bank_br` varchar(45) DEFAULT NULL,
   `membno` int(11) DEFAULT NULL,
@@ -398,7 +398,7 @@ CREATE TABLE `transaction_records` (
   `userid` int(11) DEFAULT NULL,
   `lastupdate` date DEFAULT NULL,
   PRIMARY KEY (`s_no`)
-) ENGINE=InnoDB AUTO_INCREMENT=109068 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=109079 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -407,7 +407,7 @@ CREATE TABLE `transaction_records` (
 
 LOCK TABLES `transaction_records` WRITE;
 /*!40000 ALTER TABLE `transaction_records` DISABLE KEYS */;
-INSERT INTO `transaction_records` VALUES (3,44901,1,NULL,'D','E0010','01',0,NULL,' ',7299,8400,'ESTABLISHMENT FEES UPTO 31/03/2016',' ',1,' ',' ',' ',' ',8,NULL,NULL,' ',0,1,'2017-08-08'),(109061,44901,1,NULL,'D','E0010','01',0,NULL,' ',7299,8400,'ESTABLISHMENT FEES UPTO 31/03/2016',' ',1,' ',' ',' ',' ',8,NULL,NULL,' ',0,1,'2017-07-27'),(109067,44901,1,NULL,'D','E0010','01',0,NULL,' ',7299,8400,'ESTABLISHMENT FEES UPTO 31/03/2016',' ',1,' ',' ',' ',' ',8,NULL,NULL,' ',0,1,'2017-08-16');
+INSERT INTO `transaction_records` VALUES (109061,44901,1,NULL,'D','E0010','01','0',NULL,' ',7299,8400,'ESTABLISHMENT FEES UPTO 31/03/2016',' ',1,' ',' ',' ',' ',8,NULL,NULL,' ',0,1,'2017-07-27'),(109067,44901,1,NULL,'D','E0010','01','0',NULL,' ',7299,8400,'ESTABLISHMENT FEES UPTO 31/03/2016',' ',1,' ',' ',' ',' ',8,NULL,NULL,' ',0,1,'2017-08-16'),(109072,44902,1,'2017-08-18','D','A0001','001','',NULL,'Cash',1,100,'Test1',' ',1,' ',' ',' ',' ',4,NULL,NULL,' ',0,1,'2017-08-18'),(109073,44902,2,'2017-08-18','D','D0006','001','',NULL,'Cash',1,100,'Test 2',' ',1,' ',' ',' ',' ',4,NULL,NULL,' ',0,1,'2017-08-18'),(109074,44903,1,'2017-08-18','D','A0001','001','',NULL,'Cash',1,50,'Test2',' ',1,' ',' ',' ',' ',4,NULL,NULL,' ',0,1,'2017-08-18'),(109075,44903,2,'2017-08-18','D','D0006','001','',NULL,'Cash',1,100,'Test2',' ',1,' ',' ',' ',' ',4,NULL,NULL,' ',0,1,'2017-08-18'),(109076,44904,1,'2017-08-18','D','A0001','654','451164','2017-08-03','Dena Bank',1,500,'Test3',' ',2,' ',' ',' ',' ',4,NULL,NULL,' ',0,1,'2017-08-18');
 /*!40000 ALTER TABLE `transaction_records` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -460,4 +460,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-08-17 11:50:27
+-- Dump completed on 2017-08-18 14:05:38
