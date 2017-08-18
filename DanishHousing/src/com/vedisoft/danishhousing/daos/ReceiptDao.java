@@ -5,10 +5,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.vedisoft.danishhousing.config.ConnectionPool;
 import com.vedisoft.danishhousing.config.DateUtils;
+import com.vedisoft.danishhousing.pojos.Account;
 import com.vedisoft.danishhousing.pojos.AccountMasterFlagsEnum;
 import com.vedisoft.danishhousing.pojos.ReceiptRecord;
 import com.vedisoft.danishhousing.pojos.TransactionRecords;
@@ -246,97 +249,102 @@ public class ReceiptDao {
 //		}
 //		return transaction;
 //	}
-//
-//	public ReceiptRecord findReceiptRecord(int recordId) {
-//		ConnectionPool pool = ConnectionPool.getInstance();
-//		pool.initialize();
-//		Connection conn = pool.getConnection();
-//		ReceiptRecord receipt = new ReceiptRecord();
-//		try {
-//			String sql = "select * from receipt_records where record_id = ?";
-//			PreparedStatement ps = conn.prepareStatement(sql);
-//			ps.setInt(1, recordId);
-//			ResultSet rs = ps.executeQuery();
-//			if (rs.next()) {
-//			
-//				receipt.setsNo(rs.getInt("s_no"));
-//				if (rs.getString("paytype").length() > 0)
-//					receipt.setPayType(rs.getString("paytype").charAt(0));
-//				receipt.setSlno(rs.getInt("slno"));
-//				java.sql.Date recdte = rs.getDate("recdte");
-//				if (recdte != null)
-//					receipt.setRecDte(new java.util.Date((recdte).getTime()));
-//				else
-//					receipt.setRecDte(recdte);
-//				receipt.setReceno(rs.getInt("receno"));
-//				receipt.setPrefix(rs.getString("prefix"));
-//				receipt.setMembNme(rs.getString("membnme"));
-//				receipt.setMembNo(rs.getInt("membno"));
-//				receipt.setfHNme(rs.getString("f_h_nme"));
-//				receipt.setMad1(rs.getString("mad1"));
-//				receipt.setMad2(rs.getString("mad2"));
-//				receipt.setMad3(rs.getString("mad3"));
-//				receipt.setAmount(rs.getDouble("amount"));
-//				
-//				receipt.setBalChq(rs.getDouble("balchq"));
-//				receipt.setcDd(rs.getInt("c_dd"));
-//				java.sql.Date cddate = rs.getDate("c_ddte");
-//				if (cddate != null)
-//					receipt.setcDdte(new java.util.Date((cddate).getTime()));
-//				else
-//					receipt.setcDdte(cddate);
-//			
-//				
-//				receipt.setFullPay(rs.getString("fullpay"));
-//				receipt.setInst1(rs.getDouble("inst1"));
-//				receipt.setInst2(rs.getDouble("inst2"));
-//				receipt.setInst3(rs.getDouble("inst3"));
-//				receipt.setChalNo(rs.getInt("chalno"));
-//				
-//				java.sql.Date chaldte = rs.getDate("chaldte");
-//				if (chaldte != null)
-//					receipt.setChalDte(new java.util.Date((chaldte).getTime()));
-//				else
-//					receipt.setChalDte(chaldte);
-//				receipt.setPlSize(rs.getString("plsize"));
-//				receipt.setPlNo(rs.getString("plno"));
-//				receipt.setProjCd(rs.getInt("projcd"));
-//				receipt.setChqDhr(rs.getString("chqdhr"));
-//				receipt.setFlag(rs.getString("flag"));
-//				if (rs.getString("trcode").length() > 0)
-//					receipt.setTrCode(rs.getString("trcode").charAt(0));
-//				receipt.setRemarks(rs.getString("remarks"));
-//				if (rs.getString("r_c").length() > 0) {
-//					receipt.setrC(rs.getString("r_c").charAt(0));
-//				}
-//				receipt.setpD(rs.getString("p_d"));
-//				receipt.setAccode(rs.getString("accode"));
-//				receipt.setBranch(rs.getString("branch"));
-//
-//				if (rs.getString("d_c").length() > 0) {
-//					receipt.setdC(rs.getString("d_c"));
-//				}
-//				java.sql.Date wc_lr_dt = rs.getDate("wc_lr_dt");
-//				if (wc_lr_dt != null)
-//					receipt.setwLrDt(new java.util.Date((wc_lr_dt).getTime()));
-//				else
-//					receipt.setwLrDt(wc_lr_dt);
-//				
-//				
-//				receipt.setUserId(rs.getInt("userid"));
-//				java.sql.Date lastupdate = rs.getDate("lastupdate");
-//				if (lastupdate != null)
-//					receipt.setLastUpdate(new java.util.Date((lastupdate).getTime()));
-//				else
-//					receipt.setLastUpdate(lastupdate);
-//			}
-//		} catch (SQLException sq) {
-//			System.out.println("Unable to find a row." + sq);
-//		} finally {
-//			pool.putConnection(conn);
-//		}
-//		return receipt;
-//	}
+
+	
+	
+	public ArrayList<ReceiptRecord> findReceiptRecords(String receiptNo) {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		pool.initialize();
+		Connection conn = pool.getConnection();
+		ArrayList<ReceiptRecord> listReceipt = new ArrayList<ReceiptRecord>();
+		
+		try {
+			String sql = "select * from receipt_records where receno = ?";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, receiptNo);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) { {
+				ReceiptRecord receipt = new ReceiptRecord();
+				receipt.setsNo(rs.getInt("s_no"));
+				if (rs.getString("paytype").length() > 0)
+					receipt.setPayType(rs.getString("paytype").charAt(0));
+				receipt.setSlno(rs.getInt("slno"));
+				java.sql.Date recdte = rs.getDate("recdte");
+				if (recdte != null)
+					receipt.setRecDte(new java.util.Date((recdte).getTime()));
+				else
+					receipt.setRecDte(recdte);
+				receipt.setReceno(rs.getInt("receno"));
+				receipt.setPrefix(rs.getString("prefix"));
+				receipt.setMembNme(rs.getString("membnme"));
+				receipt.setMembNo(rs.getInt("membno"));
+				receipt.setfHNme(rs.getString("f_h_nme"));
+				receipt.setMad1(rs.getString("mad1"));
+				receipt.setMad2(rs.getString("mad2"));
+				receipt.setMad3(rs.getString("mad3"));
+				receipt.setAmount(rs.getDouble("amount"));
+				
+				receipt.setBalChq(rs.getDouble("balchq"));
+				receipt.setcDd(rs.getString("c_dd"));
+				java.sql.Date cddate = rs.getDate("c_ddte");
+				if (cddate != null)
+					receipt.setcDdte(new java.util.Date((cddate).getTime()));
+				else
+					receipt.setcDdte(cddate);
+			
+				
+				receipt.setFullPay(rs.getString("fullpay"));
+				receipt.setInst1(rs.getString("inst1"));
+				receipt.setInst2(rs.getString("inst2"));
+				receipt.setInst3(rs.getString("inst3"));
+				receipt.setChalNo(rs.getInt("chalno"));
+				
+				java.sql.Date chaldte = rs.getDate("chaldte");
+				if (chaldte != null)
+					receipt.setChalDte(new java.util.Date((chaldte).getTime()));
+				else
+					receipt.setChalDte(chaldte);
+				receipt.setPlSize(rs.getString("plsize"));
+				receipt.setPlNo(rs.getString("plno"));
+				receipt.setProjCd(rs.getInt("projcd"));
+				receipt.setChqDhr(rs.getString("chqdhr"));
+				receipt.setFlag(rs.getString("flag"));
+				if (rs.getString("trcode").length() > 0)
+					receipt.setTrCode(rs.getString("trcode").charAt(0));
+				receipt.setRemarks(rs.getString("remarks"));
+				if (rs.getString("r_c").length() > 0) {
+					receipt.setrC(rs.getString("r_c").charAt(0));
+				}
+				receipt.setpD(rs.getString("p_d"));
+				receipt.setAccode(rs.getString("accode"));
+				receipt.setBranch(rs.getString("branch"));
+
+				if (rs.getString("d_c").length() > 0) {
+					receipt.setdC(rs.getString("d_c"));
+				}
+				java.sql.Date wc_lr_dt = rs.getDate("wc_lr_dt");
+				if (wc_lr_dt != null)
+					receipt.setwLrDt(new java.util.Date((wc_lr_dt).getTime()));
+				else
+					receipt.setwLrDt(wc_lr_dt);
+				
+				
+				receipt.setUserId(rs.getInt("userid"));
+				java.sql.Date lastupdate = rs.getDate("lastupdate");
+				if (lastupdate != null)
+					receipt.setLastUpdate(new java.util.Date((lastupdate).getTime()));
+				else
+					receipt.setLastUpdate(lastupdate);
+				listReceipt.add(receipt);
+			}
+			}
+		} catch (SQLException sq) {
+			System.out.println("Unable to find a receipts." + sq);
+		} finally {
+			pool.putConnection(conn);
+		}
+		return listReceipt;
+	}
 
 	public static void main(String a[]) {
 		ReceiptDao dao = new ReceiptDao();
@@ -344,19 +352,21 @@ public class ReceiptDao {
 		 Date d2 = new Date();
 		 Date d3 = new Date();
 		 d3 = DateUtils.convertDate("02/04/2016");
-		 String fl = AccountMasterFlagsEnum.Developement.getValue();
-		 System.out.println(fl);
-		 TransactionRecords t = new TransactionRecords(
-		 44901,1,d1,"D","E0010","01","hv",d1," ",7299,8400.00,"ESTABLISHMENT FEES UPTO 31/03/2016",1," ",8,1,d2);
-		 ReceiptRecord r = new ReceiptRecord('R',1,d3,44901,"Mr.","Name",25,"FName","a1","a2","a3",84100.00,6541.00,"51361",d1,"No","","","",45,d2,
-				 "35x60","DK-1/326",8,"chqdhr","flag",'R',
-				 "ESTABLISHMENT FEES UPTO 31/03/2016",'r',fl,"E0010","Branch","Checque",d2,4,d2,"chhatarpur");
-		 int id = dao.create(t, r);
-		 System.out.println(id);
+//		 String fl = AccountMasterFlagsEnum.Developement.getValue();
+//		 System.out.println(fl);
+//		 TransactionRecords t = new TransactionRecords(
+//		 44901,1,d1,"D","E0010","01","hv",d1," ",7299,8400.00,"ESTABLISHMENT FEES UPTO 31/03/2016",1," ",8,1,d2);
+//		 ReceiptRecord r = new ReceiptRecord('R',1,d3,44901,"Mr.","Name",25,"FName","a1","a2","a3",84100.00,6541.00,"51361",d1,"No","","","",45,d2,
+//				 "35x60","DK-1/326",8,"chqdhr","flag",'R',
+//				 "ESTABLISHMENT FEES UPTO 31/03/2016",'r',fl,"E0010","Branch","Checque",d2,4,d2,"chhatarpur");
+//		 int id = dao.create(t, r);
+//		 System.out.println(id);
 //		TransactionRecords t1 = dao.findTransactionRecord(3);
 //		System.out.println(t1);
-//		ReceiptRecord r1 = dao.findReceiptRecord(3);
-//		System.out.println(r1);
+		 
+		 List<ReceiptRecord> list =dao.findReceiptRecords("44902");
+		 for(ReceiptRecord r : list)
+			 System.out.println(r);
 
 	}
 
