@@ -19,12 +19,12 @@ public class ReceiptRecord {
 	private Double amount;
 	
 	private Double balChq;
-	private int cDd;
+	private String cDd;
 	private Date cDdte;
 	private String fullPay;
-	private Double inst1;
-	private Double inst2;
-	private Double inst3;
+	private String inst1;
+	private String inst2;
+	private String inst3;
 	private int chalNo;
 	private Date chalDte;
 	private String plSize;
@@ -47,9 +47,9 @@ public class ReceiptRecord {
 	public ReceiptRecord() {
 		super();
 	}
-	public ReceiptRecord(int sNo, char payType, int slno, Date recDte, int receno, String prefix, String membNme,
+	public ReceiptRecord( char payType, int slno, Date recDte, int receno, String prefix, String membNme,
 			int membNo, String fHNme, String mad1, String mad2, String mad3, Double amount,
-			Double balChq, int cDd, Date cDdte, String fullPay, Double inst1, Double inst2, Double inst3, int chalNo,
+			Double balChq, String cDd, Date cDdte, String fullPay, String inst1, String inst2, String inst3, int chalNo,
 			Date chalDte, String plSize, String plNo, int projCd, String chqDhr, String flag, char trCode,
 			String remarks, char rC, String pD, String accode, String branch, String dC, Date wLrDt,int userId, Date lastUpdate , String city) {
 		
@@ -98,7 +98,7 @@ public class ReceiptRecord {
 	}
 	
 	public ReceiptRecord( char payType, int slno, Date recDte, int receno, int membNo,
-			Double amount, int cDd, Date cDdte, String plSize, String plNo, int projCd, char trCode,
+			Double amount, String cDd, Date cDdte, String plSize, String plNo, int projCd, char trCode,
 			String remarks, char rC, String pD, String accode, String branch, String dC,int userId, Date lastUpdate, String city) {
 		super();
 		
@@ -118,9 +118,9 @@ public class ReceiptRecord {
 		this.cDd = cDd;
 		this.cDdte = cDdte;
 		this.fullPay = "N";
-		this.inst1 = 0.0;
-		this.inst2 = 0.0;
-		this.inst3 = 0.0;
+		this.inst1 = "";
+		this.inst2 = "";
+		this.inst3 = "";
 		this.chalNo = 0;
 		this.chalDte = null;
 		this.plSize = plSize;
@@ -239,10 +239,10 @@ public class ReceiptRecord {
 	public void setBalChq(Double balChq) {
 		this.balChq = balChq;
 	}
-	public int getcDd() {
+	public String getcDd() {
 		return cDd;
 	}
-	public void setcDd(int cDd) {
+	public void setcDd(String cDd) {
 		this.cDd = cDd;
 	}
 	public Date getcDdte() {
@@ -257,22 +257,22 @@ public class ReceiptRecord {
 	public void setFullPay(String fullPay) {
 		this.fullPay = fullPay;
 	}
-	public Double getInst1() {
+	public String getInst1() {
 		return inst1;
 	}
-	public void setInst1(Double inst1) {
+	public void setInst1(String inst1) {
 		this.inst1 = inst1;
 	}
-	public Double getInst2() {
+	public String getInst2() {
 		return inst2;
 	}
-	public void setInst2(Double inst2) {
+	public void setInst2(String inst2) {
 		this.inst2 = inst2;
 	}
-	public Double getInst3() {
+	public String getInst3() {
 		return inst3;
 	}
-	public void setInst3(Double inst3) {
+	public void setInst3(String inst3) {
 		this.inst3 = inst3;
 	}
 	public int getChalNo() {

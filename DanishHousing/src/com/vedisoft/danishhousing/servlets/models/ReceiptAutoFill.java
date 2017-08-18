@@ -74,7 +74,9 @@ public class ReceiptAutoFill extends HttpServlet {
 		}
 		if (request.getParameter("code") != null && request.getParameter("code").trim().length() > 0) {
 			bankCode = request.getParameter("code");
+			
 			Account a = new AccountDao().findByBankCode(bankCode);
+			
 			String json = new String();
 			if(a.getAccountId() == 0)
 				json = "{\"accountId\":0,\"coCode\":\"NA\",\"bkCode\":\"NA\",\"bkName\":\"NA\",\"opDate\":\"NA\",\"opBal\":0.0,\"receipt\":0.0,\"payment\":0.0,\"clBal\":0.0,\"ifsc\":\"NA\",\"branch\":\"NA\"}";

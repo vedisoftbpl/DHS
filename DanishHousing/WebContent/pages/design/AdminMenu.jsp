@@ -58,12 +58,12 @@
 			</a>
 				<ul class="treeview-menu">
 					<li><a
-						href="${pageContext.request.contextPath}/pages/admin/ReceiptsForm.jsp"><i
+						href="${pageContext.request.contextPath}/admin/pages/ReceiptFormController"><i
 							class="fa fa-circle-o"></i> Receipts</a></li>
 					<li><a href="../forms/advanced.html"><i
 							class="fa fa-circle-o"></i> Payments</a></li>
 					<li><a href="../forms/editors.html"><i
-							class="fa fa-circle-o"></i> Contracts</a></li>
+							class="fa fa-circle-o"></i> Documents</a></li>
 					<li><a href="${pageContext.request.contextPath}/admin/pages/ContractDocumentsController"><i
 							class="fa fa-circle-o"></i> Contract Documents</a></li>
 					<li><a href="../forms/editors.html"><i

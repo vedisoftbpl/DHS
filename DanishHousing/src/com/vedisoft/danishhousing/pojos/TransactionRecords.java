@@ -3,7 +3,7 @@ package com.vedisoft.danishhousing.pojos;
 import java.util.Date;
 
 public class TransactionRecords {
-	private int trId;
+
 	private int sNo;
 	private int docNo;
 	private int slno;
@@ -11,7 +11,7 @@ public class TransactionRecords {
 	private String docType;
 	private String acCode;
 	private String bkCode;
-	private int chqNo;
+	private String chqNo;
 	private Date chDate;
 	private String bankBr;
 	private int  membNo;
@@ -32,7 +32,7 @@ public class TransactionRecords {
 	private Date lastUpdate;
 	
 	public TransactionRecords( int slno, Date docDte, String docType, String acCode, String bkCode,
-			int chqNo, Date chDate, String bankBr, int membNo, double amt, String parti, String aP, int flag,
+			String chqNo, Date chDate, String bankBr, int membNo, double amt, String parti, String aP, int flag,
 			String vrNo, String sN, String sR, String docNoo, int projCd, Date wcLrDt, Date chClDt, String cFlag,
 			int partyCd,int userId, Date lastUpdate) {
 		super();
@@ -63,7 +63,7 @@ public class TransactionRecords {
 		this.lastUpdate = lastUpdate;
 	}
 	public TransactionRecords( int docNo, int slno, Date docDte, String docType, String acCode, String bkCode,
-			int chqNo, Date chDate, String bankBr, int membNo, double amt, String parti, int flag, String vrNo,
+			String chqNo, Date chDate, String bankBr, int membNo, double amt, String parti, int flag, String vrNo,
 			int projCd, int userId, Date lastUpdate) {
 		super();
 		
@@ -93,12 +93,7 @@ public class TransactionRecords {
 		this.userId = userId;
 		this.lastUpdate = lastUpdate;
 	}
-	public int getTrId() {
-		return trId;
-	}
-	public void setTrId(int trId) {
-		this.trId = trId;
-	}
+	
 	public int getsNo() {
 		return sNo;
 	}
@@ -141,10 +136,10 @@ public class TransactionRecords {
 	public void setBkCode(String bkCode) {
 		this.bkCode = bkCode;
 	}
-	public int getChqNo() {
+	public String getChqNo() {
 		return chqNo;
 	}
-	public void setChqNo(int chqNo) {
+	public void setChqNo(String chqNo) {
 		this.chqNo = chqNo;
 	}
 	public Date getChDate() {
@@ -260,7 +255,7 @@ public class TransactionRecords {
 	}
 	@Override
 	public String toString() {
-		return "TransactionRecords [trId=" + trId + ", sNo=" + sNo + ", docNo=" + docNo + ", slno=" + slno + ", docDte="
+		return "TransactionRecords [  sNo=" + sNo + ", docNo=" + docNo + ", slno=" + slno + ", docDte="
 				+ docDte + ", docType=" + docType + ", acCode=" + acCode + ", bkCode=" + bkCode + ", chqNo=" + chqNo
 				+ ", chDate=" + chDate + ", bankBr=" + bankBr + ", membNo=" + membNo + ", amt=" + amt + ", parti="
 				+ parti + ", aP=" + aP + ", flag=" + flag + ", vrNo=" + vrNo + ", sN=" + sN + ", sR=" + sR + ", docNoo="

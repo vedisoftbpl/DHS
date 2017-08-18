@@ -49,7 +49,7 @@ public class ReceiptDao {
 			ps1.setString(5, transaction.getDocType());						//D
 			ps1.setString(6, transaction.getAcCode());
 			ps1.setString(7, transaction.getBkCode());
-			ps1.setInt(8, transaction.getChqNo());
+			ps1.setString(8, transaction.getChqNo());
 			java.sql.Date chkDate = null;
 			if (transaction.getChDate() != null)
 				chkDate = new java.sql.Date(transaction.getChDate().getTime());
@@ -112,15 +112,15 @@ public class ReceiptDao {
 			ps2.setDouble(13, receipt.getAmount());
 			System.out.println(receipt.getAmount());
 			ps2.setDouble(14, receipt.getBalChq());
-			ps2.setDouble(15, receipt.getcDd());
+			ps2.setString(15, receipt.getcDd());
 			java.sql.Date cdDate = null;
 			if (receipt.getcDdte() != null)
 				cdDate = new java.sql.Date(receipt.getcDdte().getTime());
 			ps2.setDate(16, cdDate);
 			ps2.setString(17, receipt.getFullPay());
-			ps2.setDouble(18, receipt.getInst1());
-			ps2.setDouble(19, receipt.getInst2());
-			ps2.setDouble(20, receipt.getInst3());
+			ps2.setString(18, receipt.getInst1());
+			ps2.setString(19, receipt.getInst2());
+			ps2.setString(20, receipt.getInst3());
 			ps2.setInt(21, receipt.getChalNo());
 			java.sql.Date chalDate = null;
 			if (receipt.getChalDte() != null)
@@ -347,8 +347,8 @@ public class ReceiptDao {
 		 String fl = AccountMasterFlagsEnum.Developement.getValue();
 		 System.out.println(fl);
 		 TransactionRecords t = new TransactionRecords(
-		 44901,1,d1,"D","E0010","01",0,d1," ",7299,8400.00,"ESTABLISHMENT FEES UPTO 31/03/2016",1," ",8,1,d2);
-		 ReceiptRecord r = new ReceiptRecord(25,'R',1,d3,44901,"Mr.","Name",25,"FName","a1","a2","a3",84100.00,6541.00,256,d1,"No",15.0,15.0,15.0,45,d2,
+		 44901,1,d1,"D","E0010","01","hv",d1," ",7299,8400.00,"ESTABLISHMENT FEES UPTO 31/03/2016",1," ",8,1,d2);
+		 ReceiptRecord r = new ReceiptRecord('R',1,d3,44901,"Mr.","Name",25,"FName","a1","a2","a3",84100.00,6541.00,"51361",d1,"No","","","",45,d2,
 				 "35x60","DK-1/326",8,"chqdhr","flag",'R',
 				 "ESTABLISHMENT FEES UPTO 31/03/2016",'r',fl,"E0010","Branch","Checque",d2,4,d2,"chhatarpur");
 		 int id = dao.create(t, r);
