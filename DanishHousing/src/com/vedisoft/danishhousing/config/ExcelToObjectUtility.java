@@ -239,7 +239,7 @@ public class ExcelToObjectUtility {
 					member.setDiversion((double) getCellValue(nextCell));
 					break;
 				case 39:
-					member.setMaint((String) getCellValue(nextCell));
+					member.setMaint((Double) getCellValue(nextCell));
 					break;
 				case 40:
 					member.setWater((String) getCellValue(nextCell));
