@@ -24,6 +24,7 @@
 					<li class="active">Receipts</li>
 				</ol>
 			</section>
+			
 			<!-- Main content -->
 			<section class="content">
 				<!-- Default box -->
@@ -39,9 +40,12 @@
 							</button>
 						</div>
 					</div>
-
+<div class="form-group" id="typeError">
+				<label class="control-label" id="errorTop"></label>
+			</div>
+			
 					<!-- User Form -->
-					<form action="#" method="post" onsubmit="return validateForm(this)">
+					<form action="${pageContext.request.contextPath}/admin/pages/ReceiptFormController" method="post" onsubmit="return validateForm(this)">
 						<div class="box-body">
 							<div class="row">
 								<!-- col -->
@@ -71,7 +75,7 @@
 										<div class="input-group">
 											<span class="input-group-addon"><i
 												class="fa  fa-info-circle "></i></span> <input type="text"
-												class="form-control" placeholder="Receipt Number"
+												class="form-control" value="${requestScope.recNo}"
 												id="receiptNumber" name="receiptNumber" />
 										</div>
 										<p id="errorReceiptNumber"></p>
@@ -91,7 +95,7 @@
 												<i class="fa fa-calendar"></i>
 											</div>
 											<input type="text" class="form-control pull-right datepicker"
-												id="date" name="date" required="required" />
+												id="date" name="date" required="required" value="${requestScope.today}"/>
 										</div>
 										<p id="errorReceiptDate"></p>
 										<!-- /.input group -->
@@ -130,13 +134,17 @@
 								<div id="accounts" class="box-body">
 									<div class="panel box box-primary">
 										<div class="box-header with-border">
-											<h4 class="box-title">Account #1</h4>
+											<h4 class="box-title">Account Details</h4>
 											<div class="box-tools pull-right">
 												<button type="button" class="btn btn-box-tool"
 													data-widget="collapse" data-toggle="tooltip"
 													title="Collapse">
 													<i class="fa fa-minus"></i>
 												</button>
+												<button type="button" class="btn btn-box-tool"
+								data-widget="remove" data-toggle="tooltip" title="Remove">
+								<i class="fa fa-times"></i>
+							</button>
 											</div>
 										</div>
 										<div class="box-body">
@@ -164,7 +172,7 @@
 														<div class="input-group">
 															<span class="input-group-addon"><i
 																class="fa fa-inr"></i></span> <input type="text"
-																class="form-control" placeholder="0.00" id="amount1"
+																class="form-control accAmount" placeholder="0.00" value = "0" id="amount1"
 																name="amount1" />
 														</div>
 														<p id="errorAmount1"></p>
@@ -218,7 +226,7 @@
 							<!-- Row Default box -->
 							<div class="row">
 								<div class="box-header with-border">
-									<h3 class="box-title">Payment Details</h3>
+									<h3 class="box-title">Transaction Details</h3>
 								</div>
 								<div class="box-body">
 									<div class="row">
@@ -246,6 +254,7 @@
 													<div class="input-group-addon">
 														<i class="fa fa-check-circle"></i>
 													</div>
+													<div class="mode">
 													<select class="form-control select2" id="paymentMode"
 														name="paymentMode" style="width: 100%;"
 														required="required">
@@ -255,6 +264,7 @@
 														<option>RTGS</option>
 														<option>NEFT</option>
 													</select>
+													</div>
 												</div>
 											</div>
 											<!-- End Payment Mode -->
@@ -267,7 +277,7 @@
 												<div class="input-group">
 													<span class="input-group-addon"><i class="fa fa-inr"></i></span>
 													<input type="text" class="form-control" placeholder="0.00"
-														id="totalAmount" name="totalAmount" />
+														id="totalAmount" name="totalAmount" value="0"/>
 												</div>
 												<p id="errorTotalAmount"></p>
 											</div>
@@ -317,7 +327,7 @@
 													<span class="input-group-addon"><i
 														class="fa fa-credit-card"></i></span> <input type="text"
 														class="form-control" placeholder="Cheque/DD number"
-														id="transctionID" name="transctionID" />
+														id="transactionID" name="transactionID" />
 												</div>
 												<p id="errorTransctionID"></p>
 											</div>
@@ -364,14 +374,18 @@
 						</div>
 						<!-- /.box-body -->
 
-
+						<input id="operation" name="operation" type="hidden"
+									value="create">
+									
 						<div class="row">
+						
+						<div class="col-xs-4" align="center">
+							<button type="reset" class="btn btn-block btn-danger">Cancel</button>
+							</div>
 							<div class="col-xs-4" align="center">
 								<button type="submit" class="btn btn-primary btn-block btn-flat">Submit</button>
 							</div>
-							<div class="col-xs-4" align="center">
-								<button type="reset" class="btn btn-block btn-danger">Cancel</button>
-							</div>
+							
 						</div>
 
 					</form>
@@ -415,12 +429,15 @@
 								n++;
 								$('#accounts')
 										.append(
-												'<div class="panel box box-primary"><div class="box-header with-border"><h4 class="box-title">Account #'
-														+ n
+												'<div class="panel box box-primary"><div class="box-header with-border"><h4 class="box-title">Account Details'
 														+ '</h4>'
 														+ '<div class="box-tools pull-right"> '
 														+ '<button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">'
 														+ '<i class="fa fa-minus"></i></button>'
+														+ '<button type="button" class="btn btn-box-tool"'
+														+ 'data-widget="remove" data-toggle="tooltip" title="Remove">'
+														+ '<i class="fa fa-times"></i>'
+														+ '</button>'
 														+ '</div></div>'
 														+ '<div class="box-body"><div class="row">'
 														+ '<div class="col-md-4">'
@@ -435,7 +452,7 @@
 														+ '<label>Amount</label>'
 														+ '<div class="input-group">'
 														+ '<span class="input-group-addon"><i class="fa fa-inr"></i></span>'
-														+ '<input type="text" class="form-control" placeholder="0.00" id="amount' + n +'" name="amount' + n +'" />'
+														+ '<input type="text" class="form-control accAmount" value = "0" placeholder="0.00" id="amount' + n +'" name="amount' + n +'" />'
 														+ '</div><p id="errorAmount' + n +'"></p></div></div>'
 														+ '<div class="col-md-8">'
 														+ '<div class="form-group" id="divFormAccountName' + n +'">'
@@ -451,6 +468,26 @@
 								document.getElementById('totalAccounts').value = n;
 							});
 		});
+	</script>
+	<script>
+	<c:choose>
+	<c:when test="${requestScope.msg == '1'}">
+	$(document).ready(function() {
+		$("#typeError").addClass("form-group has-success");
+		$("#errorTop")
+		.html(
+				"Receipt Record Added Successfully.");
+	});
+	</c:when>
+	<c:when test="${requestScope.msg=='2'}">
+	$(document).ready(function() {
+		$("#typeError").addClass("form-group has-error");
+		$("#errorTop")
+		.html(
+				"Fail to Add Receipt Record.");
+	});
+	</c:when>
+	</c:choose>
 	</script>
 	<script>
 		function validateForm(form) {
@@ -525,7 +562,7 @@
 				document.getElementById("divFormBankCode").className = 'form-group has-success';
 			}
 			//End Bank Code Validation
-
+			
 			//Total Amount Validation
 			var amt = document.getElementById("totalAmount").value;
 			if (amt == null || amt === "") {
@@ -629,75 +666,104 @@
 			$('#memberID').bind("blur", function(e) {
 				e.preventDefault();
 				var id = $('#memberID').val();
-				$.ajax({
-                    url: 'http://localhost:8080/DanishHousing/ReceiptAutoFill',
-                    dataType: 'json',
-                    type: 'post',
-                    data: {
-                    	'id' : id
-                    },
-                    
-                    success: function(data) {
-                    	var data0 = data["data"][0];
-                    	var data1 = data["data"][1];
-          				var bool = data0["memberId"] === 0;
-          				$('#divFormMemberID').toggleClass('alert alert-danger alert-dismissible', bool);
-          				$('#memberDetails').empty();
-          				$('#errorMemberID').empty();
-          				if(data0["memberId"] === 0) {
-          					$('#errorMemberID').text('MemberID doesn\'t exist');
-          				} else {
-	                        $('#memberDetails').append('<dt>Full Name</dt><dd>'+ data0["prefix"] + ' ' + data0["memName"] + ' ' + data0["fHRelation"] + ' ' + data0["fHRelName"] +'</dd>' +
-									'<dt>Address</dt><dd>' + data0["address1"] + '</dd><dd>' + data0["address2"] + '</dd><dd>' + data0["address3"] + '</dd>' +
-									'<dt>Plot Number</dt><dd>' + data0["plotNo"] + '</dd>' +
-									'<dt>Plot Size</dt><dd>' + data0["plotSize"] + '</dd>' +
-									'<dt>Net Plot Size</dt><dd>' + data0["netPlotSize"] + '</dd>' +
-									'<dt>Project</dt><dd>' + data1["projectName"] + ' - ' + data1["projectId"] + '</dd>' +
-									'<dt>Project Type</dt><dd>' + data1["bungProject"] + '</dd>');
-          					
-          				}
-                    },
-                    
-                    error: function(req, status, err) {
-                        alert('Error');
-                        console.log(req + ' ' + status + ' ' + err);
-                    }
+				if(id.length > 0){
+					$.ajax({
+	                    url: 'http://localhost:8080/DanishHousing/ReceiptAutoFill',
+	                    dataType: 'json',
+	                    type: 'post',
+	                    data: {
+	                    	'id' : id
+	                    },
+	                    
+	                    success: function(data) {
+	                    	var data0 = data["data"][0];
+	                    	var data1 = data["data"][1];
+	          				var bool = data0["memberId"] === 0;
+	          				$('#divFormMemberID').toggleClass('alert alert-danger alert-dismissible', bool);
+	          				$('#memberDetails').empty();
+	          				$('#errorMemberID').empty();
+	          				if(data0["memberId"] === 0) {
+	          					$('#errorMemberID').text('MemberID doesn\'t exist');
+	          				} else {
+		                        $('#memberDetails').append('<dt>Full Name</dt><dd>'+ data0["prefix"] + ' ' + data0["memName"] + ' ' + data0["fHRelation"] + ' ' + data0["fHRelName"] +'</dd>' +
+										'<dt>Address</dt><dd>' + data0["address1"] + '</dd><dd>' + data0["address2"] + '</dd><dd>' + data0["address3"] + '</dd>' +
+										'<dt>Plot Number</dt><dd>' + data0["plotNo"] + '</dd>' +
+										'<dt>Plot Size</dt><dd>' + data0["plotSize"] + '</dd>' +
+										'<dt>Net Plot Size</dt><dd>' + data0["netPlotSize"] + '</dd>' +
+										'<dt>Project</dt><dd>' + data1["projectName"] + ' - ' + data1["projectId"] + '</dd>' +
+										'<dt>Project Type</dt><dd>' + data1["bungProject"] + '</dd>');
+	          					
+	          				}
+	                    },
+	                    
+	                    error: function(req, status, err) {
+	                        alert('Error');
+	                        console.log(req + ' ' + status + ' ' + err);
+	                    }
 
-                });
+	                });
+				}
+		
 			});
 			
 			//Account Details Auto fill
 			$('#accounts').on('blur', '.accCode', function(e) {
 				e.preventDefault();
 				var code = $(this).val();
-				var id = $(this).attr('id');
-				var lastChar = id[id.length -1];
-				$.ajax({
-                    url: 'http://localhost:8080/DanishHousing/ReceiptAutoFill',
-                    dataType: 'json',
-                    type: 'post',
-                    data: {
-                    	'accode' : code
-                    },
-                    
-                    success: function(data) {
-          				var bool = data["masterAccountId"] === 0;
-          				$('#divFormAccountCode' + lastChar).toggleClass('alert alert-danger alert-dismissible', bool);
-          				$('#accountName' + lastChar).val('');
-          				$('#errorAccountCode' + lastChar).empty();
-          				if(data["masterAccountId"] === 0) {
-          					$('#errorAccountCode' + lastChar).text('Bank Code doesn\'t exist');
-          				} else {
-	                        $('#accountName' + lastChar).val(data["acName"]);		
-          				}
-                    },
-                    
-                    error: function(req, status, err) {
-                        alert('Error');
-                        console.log(req + ' ' + status + ' ' + err);
-                    }
+				if(code.length > 0){
+					var id = $(this).attr('id');
+					var lastChar = id[id.length -1];
+					$.ajax({
+	                    url: 'http://localhost:8080/DanishHousing/ReceiptAutoFill',
+	                    dataType: 'json',
+	                    type: 'post',
+	                    data: {
+	                    	'accode' : code
+	                    },
+	                    
+	                    success: function(data) {
+	          				var bool = data["masterAccountId"] === 0;
+	          				$('#divFormAccountCode' + lastChar).toggleClass('alert alert-danger alert-dismissible', bool);
+	          				$('#accountName' + lastChar).val('');
+	          				$('#errorAccountCode' + lastChar).empty();
+	          				if(data["masterAccountId"] === 0) {
+	          					$('#errorAccountCode' + lastChar).text('Account Code doesn\'t exist');
+	          				} else {
+	          					
+		                        $('#accountName' + lastChar).val(data["acName"]);	
+		                        $('#accountName' + lastChar).prop('disabled', true);
+	          				}
+	                    },
+	                    
+	                    error: function(req, status, err) {
+	                        alert('Error');
+	                        console.log(req + ' ' + status + ' ' + err);
+	                    }
 
-                });
+	                });
+				}
+		
+			});
+			
+			$('#accounts').on('blur', '.accAmount', function(e) {
+				e.preventDefault();
+				var totalAccount = $('#totalAccounts').val();
+				var total = 0;
+				for(i = 1; i <= totalAccount; i++){
+					var amt = $('#amount' + i).val();
+					if($.isNumeric(amt)){
+						total = total + parseInt(amt);
+					}
+					else
+						{
+						document.getElementById("errorAmount" + i).innerHTML = "Invalid Amount";
+						document.getElementById("divFormAmount" + i).className = 'alert alert-warning alert-dismissible';
+						document.getElementById("divFormAmount" + i)
+								.scrollIntoView();
+						}
+				}
+				$('#totalAmount').val(total);
+		
 			});
 			
 			
@@ -705,7 +771,7 @@
 			$('#bankCode').bind("blur", function(e) {
 				e.preventDefault();
 				var code = $('#bankCode').val();
-				$.ajax({
+				if(code.length > 0){	$.ajax({
                     url: 'http://localhost:8080/DanishHousing/ReceiptAutoFill',
                     dataType: 'json',
                     type: 'post',
@@ -721,8 +787,25 @@
           				if(data["accountId"] === 0) {
           					$('#errorBankCode').text('Bank Code doesn\'t exist');
           				} else {
-	                        $('#bankName').val(data["bkName"]);		
-          				}
+          					if(data["bkCode"] == '001') {
+          						$('#paymentMode').val('Cash');
+              					$('#transactionID').prop('disabled', true);
+              					$('#paymentBank').prop('disabled', true);
+              					$('#city').prop('disabled', true);
+              					$('#trDate').prop('disabled', true);
+              					$('#bankName').val(data["bkName"]);
+              				}
+          					else
+          						{
+          						$('#transactionID').prop('disabled', false);
+              					$('#paymentBank').prop('disabled', false);
+              					$('#city').prop('disabled', false);
+              					$('#trDate').prop('disabled', false);
+              					$('#bankName').val(data["bkName"]);
+              					$("#paymentMode").val($("#paymentMode option:eq(1)").val()).change();
+          						}
+          				} 
+          				
                     },
                     
                     error: function(req, status, err) {
@@ -731,6 +814,8 @@
                     }
 
                 });
+				}
+			
 			});
 		});
 	</script>
