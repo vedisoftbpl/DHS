@@ -45,7 +45,7 @@ public class Members {
 	private double refAmt;
 	private Date refDt;
 	private double diversion;
-	private String maint;
+	private double maint;
 	private String water;
 	private Date watSupplyDt;
 	private double finalAmount;
@@ -83,7 +83,7 @@ public class Members {
 			String nomineeName, int memFee, int memEntryFee, Date receiptdt, String fullPay, String inst1, String inst2,
 			String inst3, String transf, double opBal, double waterConn, double secDep, Date waterConnDate, Date opDt,
 			String regi, Date regDt, int regNo, char rC, Date nocDt, char liveDead, double refAmt, Date refDt,
-			double diversion, String maint, String water, Date watSupplyDt, double finalAmount, double establ,
+			double diversion, double maint, String water, Date watSupplyDt, double finalAmount, double establ,
 			Date wcLrDt, double watChg, double extraAmount, double cost, String mobile, String email, Date dob,
 			String photo, String addProof, String aadhar, Date lastUpdate, int userId, String col1, String col2,
 			String col3, String col4, String buildFlag, String mNominal, int mutaNo1, Date mutaDt1, String gender,
@@ -169,7 +169,7 @@ public class Members {
 			String nomineeName, int memFee, int memEntryFee, Date receiptdt, String fullPay, String inst1, String inst2,
 			String inst3, String transf, double opBal, double waterConn, double secDep, Date waterConnDate, Date opDt,
 			String regi, Date regDt, int regNo, char rC, Date nocDt, char liveDead, double refAmt, Date refDt,
-			double diversion, String maint, String water, Date watSupplyDt, double finalAmount, double establ,
+			double diversion, double maint, String water, Date watSupplyDt, double finalAmount, double establ,
 			Date wcLrDt, double watChg, double extraAmount, double cost, String mobile, String email, Date dob,
 			String photo, String addProof, String aadhar, Date lastUpdate, int userId, String col1, String col2,
 			String col3, String col4, String buildFlag, String mNominal, int mutaNo1, Date mutaDt1, String gender,
@@ -293,7 +293,7 @@ public class Members {
 	public Members(String prefix, String memName, String address1, String address2, String address3,
 			String memOccupation, String fHRelation, String fHRelName, String nomineeRelation, String nomineeName,
 			int memFee, int memEntryFee, Date receiptdt, char liveDead, String mobile, String email, Date dob,
-			String photo, String addProof, String aadhar, Date lastUpdate, int userId) {
+			String photo, String addProof, String aadhar, int age, Date lastUpdate, int userId) {
 		super();
 		this.projectCd = 0;
 		this.memberNo = 0;
@@ -308,7 +308,7 @@ public class Members {
 		this.address2 = address2;
 		this.address3 = address3;
 		this.memOccupation = memOccupation;
-		this.age = 0;
+		this.age = age;
 		this.fHRelation = fHRelation;
 		this.fHRelName = fHRelName;
 		this.nomineeRelation = nomineeRelation;
@@ -335,7 +335,7 @@ public class Members {
 		this.refAmt = 0.0;
 		this.refDt = null;
 		this.diversion = 0.0;
-		this.maint = "";
+		this.maint = 0.0;
 		this.water = "";
 		this.watSupplyDt = null;
 		this.finalAmount = 0.0;
@@ -375,14 +375,15 @@ public class Members {
 
 	// Consructor For Edit Operation
 	public Members(int memberId, int projectCd, String plotSize, float netPlotSize, String plotNo, String prefix,
-			String memName, String address1, String address2, String address3, String memOccupation, String fHRelation,
+			String memName, int memberNo,String address1, String address2, String address3, String memOccupation, String fHRelation,
 			String fHRelName, String nomineeRelation, String nomineeName, int memFee, int memEntryFee, Date receiptdt,
 			String fullPay, String inst1, String inst2, String inst3, double opBal, double secDep, double waterConn,
 			String regi, Date regDt, int regNo, char rC, Date nocDt, char liveDead, double refAmt, Date refDt,
 			double diversion, Date waterConnDate, double finalAmount, double establ, double watChg, double extraAmount,
 			double cost, String mobile, String email, Date dob, String photo, String addProof, String aadhar,
 			String buildFlag, String mNominal, int mutaNo1, Date mutaDt1, String gender, String category,
-			String defaulter, String motherName, String panNo, String eliInl, int userId, Date lastUpdate) {
+			String defaulter, String motherName, String panNo, String eliInl,  double maint,int age, int userId,
+			Date lastUpdate) {
 
 		super();
 		this.memberId = memberId;
@@ -394,10 +395,12 @@ public class Members {
 		this.tempPlotNo = "";
 		this.prefix = prefix;
 		this.memName = memName;
+		this.memberNo = memberNo;
 		this.address1 = address1;
 		this.address2 = address2;
 		this.address3 = address3;
 		this.memOccupation = memOccupation;
+		this.age = age;
 		this.fHRelation = fHRelation;
 		this.fHRelName = fHRelName;
 		this.nomineeRelation = nomineeRelation;
@@ -424,7 +427,7 @@ public class Members {
 		this.refAmt = refAmt;
 		this.refDt = refDt;
 		this.diversion = diversion;
-		this.maint = "";
+		this.maint = 0.0;
 		this.water = "";
 		this.watSupplyDt = null;
 		this.finalAmount = finalAmount;
@@ -451,6 +454,7 @@ public class Members {
 		this.motherName = motherName;
 		this.panNo = panNo;
 		this.eliInl = eliInl;
+		this.maint = maint;
 
 	}
 
@@ -782,11 +786,11 @@ public class Members {
 		this.diversion = diversion;
 	}
 
-	public String getMaint() {
+	public double getMaint() {
 		return maint;
 	}
 
-	public void setMaint(String maint) {
+	public void setMaint(double maint) {
 		this.maint = maint;
 	}
 

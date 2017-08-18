@@ -340,6 +340,16 @@ public class MemberFormController extends HttpServlet {
 		if (request.getParameter("finalAmount") != null && request.getParameter("finalAmount").trim().length() > 0) {
 			finalamt = Double.parseDouble(request.getParameter("finalAmount"));
 		}
+		double maint = 0;
+		if (request.getParameter("maintenance") != null && request.getParameter("maintenance").trim().length() > 0) {
+			maint = Double.parseDouble(request.getParameter("maintenance"));
+		}
+		
+		int memAge = 0;
+		if (request.getParameter("dob") != null && request.getParameter("dob").trim().length() > 0) {
+			dob = DateUtils.convertDate(request.getParameter("dob"));
+			memAge=DateUtils.calculateAge(dob);
+		}
 
 		ProjectsDao pdao = new ProjectsDao();
 		request.setAttribute("projectList", pdao.findAll());
@@ -407,8 +417,8 @@ public class MemberFormController extends HttpServlet {
 			MembersDao dao = new MembersDao();
 			Members m = new Members(prefix, memberFullName, memberAddress1, memberAddress2, memberCity,
 					memberOccupation, relation, relativeFullName, memberNomineeRelation, memberNomineeName,
-					membershipFee, entranceFee, new Date(), 'L', memberPhone, memberEmail, dob, memberPhoto,
-					addressProof, memberAdhaar, new Date(), user.getUserId());
+					membershipFee, entranceFee, new Date(), 'L', memberPhone, memberEmail, dob,memberPhoto,
+					addressProof, memberAdhaar,memAge, new Date(), user.getUserId());
 			System.out.println(m);
 			int a = 0;
 			a = dao.create(m);
@@ -481,14 +491,14 @@ public class MemberFormController extends HttpServlet {
 			System.out.println(memberPhoto);
 
 			MembersDao dao = new MembersDao();
-			Members m = new Members(id, projectCd, plotSize, netPlotSize, plotNo, prefix, memberFullName,
+			Members m = new Members(id, projectCd, plotSize, netPlotSize, plotNo, prefix, memberFullName,id,
 					memberAddress1, memberAddress2, memberCity, memberOccupation, relation, relativeFullName,
 					memberNomineeRelation, memberNomineeName, membershipFee, entranceFee, receiptDt, fullPay, inst1,
 					inst2, inst3, openingBalance, securityDeposit, waterConnectionCharge, registered, regDt,
 					registrationNo, rC, nocDt, liveDead, referenceAmount, refDt, diversion, wtCnDt, finalamt,
 					establishmentCharge, waterCharge, extraAmount, cost, memberPhone, memberEmail, dob, memberPhoto,
 					addressProof, memberAdhaar, buildingFlag, memberNominal, mutationNo, mutaDt, gender, category,
-					defaulter, memberMotherName, memberPAN, eligibleIneligible, user.getUserId(), new Date());
+					defaulter, memberMotherName, memberPAN, eligibleIneligible,maint,memAge, user.getUserId(), new Date());
 			// Members m = new Members(id, projectCd, plotSize, netPlotSize,
 			// plotNo, prefix, memberFullName,
 			// memberAddress1, memberAddress2, memberCity, memberOccupation,

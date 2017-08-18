@@ -634,9 +634,21 @@
 															</div>
 															<p id="errorEstablishmentCharge"></p>
 														</div>
-														<!-- End Establishment Charge -->
+														<!-- End Maintenance Charge -->
 														<!-- /.form group -->
-
+														<div class="form-group" id="divMaintenanceCharge">
+															<label>Maintenance Charge</label>
+															<div class="input-group">
+																<span class="input-group-addon"> <i
+																	class="fa  fa-inr"></i></span> <input type="text"
+																	class="form-control" id="maintenanceCharge"
+																	name="maintenanceCharge"
+																	value="${requestScope.member.maint}">
+															</div>
+															<p id="errorMaintenanceCharge"></p>
+														</div>
+														<!-- End Maintenance Charge -->
+														<!-- /.form group -->
 														<!-- form group -->
 														<!-- Security Deposit -->
 														<div class="form-group" id="divSecurityDeposit">
@@ -813,7 +825,19 @@
 														<!-- Opening Balance -->
 														<!-- /.form group -->
 
+														<!-- Member  No. -->
+														<div class="form-group" id="divRegistrationNo">
+															<label>Member No.</label>
+															<div class="input-group">
+																<span class="input-group-addon"><i
+																	class="fa fa-info-circle "></i></span> <input type="text"
+																	class="form-control" id="memberNo" name="memberNo"
+																	value="${requestScope.member.memberNo}" readonly />
+															</div>
+															<p id="errorMemberNo"></p>
+														</div>
 
+														<!--End Member No. -->
 
 														<!-- / .form group -->
 													</div>
@@ -826,14 +850,14 @@
 													<div class="col-md-6">
 														<!-- Member  No. -->
 														<div class="form-group" id="divRegistrationNo">
-															<label>Member No.</label>
+															<label>Member Age</label>
 															<div class="input-group">
 																<span class="input-group-addon"><i
 																	class="fa fa-info-circle "></i></span> <input type="text"
-																	class="form-control" id="memberNo" name="memberNo"
-																	value="${requestScope.member.memberNo}" readonly />
+																	class="form-control" id="memberAge" name="memberAge"
+																	value="${requestScope.member.age}" readonly />
 															</div>
-															<p id="errorMemberNo"></p>
+															<p id="errorMemberAge"></p>
 														</div>
 
 														<!--End Member No. -->

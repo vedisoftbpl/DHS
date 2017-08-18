@@ -18,6 +18,7 @@ public class MembersDao {
 		pool.initialize();
 		Connection conn = pool.getConnection();
 		try {
+			conn.setAutoCommit(false);
 			String sql = "insert into members" + " ("
 					+ "prefix, membnme,f_h_rel,f_h_name,dob,email,moccu,mobile,aadhar,photo,mad1,mad2,mad3,adressproof,nome_name,nome_rela,membfee,"
 					+ "entrfee,live_dead, userid,lastupdate,membno,projcd,plsize,nplsize,reg_cor,plno,tplno,mage,recedte,fullpay,inst1,inst2,inst3,"
@@ -25,7 +26,7 @@ public class MembersDao {
 					+ "maint,water,wsupdte,establ,wc_lr_dt,wat_chg,extamt,cost,build_flag, m_nominal, muta_no1, muta_dt1, gender, category, defaulter,"
 					+ " mother_name ,pan_no, eli_ineli,ref_amt) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,"
 					+ "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-			PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS,ResultSet.CONCUR_UPDATABLE);
 			ps.setString(1, member.getPrefix());
 			ps.setString(2, member.getMemName());
 			ps.setString(3, member.getfHRelation());
@@ -99,7 +100,7 @@ public class MembersDao {
 			ps.setDate(46, refDte);
 			ps.setDouble(47, member.getDiversion());
 			ps.setDouble(48, member.getFinalAmount());
-			ps.setString(49, member.getMaint());
+			ps.setDouble(49, member.getMaint());
 			ps.setString(50, member.getWater());
 			java.sql.Date wSupDate = null;
 			if (member.getWatSupplyDt() != null)
@@ -129,13 +130,30 @@ public class MembersDao {
 			ps.setDouble(67, member.getRefAmt());
 			int x = ps.executeUpdate();
 			if (x == 0) {
-				return 0;
-			}
+				Exception a = new Exception();
+				throw a;
+				}
 			ResultSet generatedKeys = ps.getGeneratedKeys();
 			if (generatedKeys.next()) {
 				id = generatedKeys.getInt(1);
 			}
-		} catch (SQLException sq) {
+			String sql1="update members set membno=? where member_id = ?";
+			PreparedStatement ps1 = conn.prepareStatement(sql1,ResultSet.CONCUR_UPDATABLE);
+			ps1.setInt(1, id);
+			ps1.setInt(2, id);
+			int x1 = ps1.executeUpdate();
+			if (x1 == 0) {
+				Exception a = new Exception();
+				throw a;
+			}
+			conn.commit();
+		} catch (Exception sq) {
+			try {
+				System.out.println("Rolling Back");
+				conn.rollback();
+			} catch (SQLException se2) {
+				se2.printStackTrace();
+			}
 			sq.printStackTrace();
 			return 0;
 		} finally {
@@ -231,7 +249,7 @@ public class MembersDao {
 			ps.setDate(46, refDte);
 			ps.setDouble(47, member.getDiversion());
 			ps.setDouble(48, member.getFinalAmount());
-			ps.setString(49, member.getMaint());
+			ps.setDouble(49, member.getMaint());
 			ps.setString(50, member.getWater());
 			java.sql.Date wSupDate = null;
 			if (member.getWatSupplyDt() != null)
@@ -266,6 +284,8 @@ public class MembersDao {
 				System.out.println("Record not Saved");
 				return false;
 			}
+			
+			
 		} catch (SQLException sq) {
 			sq.printStackTrace();
 			return false;
@@ -394,7 +414,7 @@ public class MembersDao {
 					member.setRefDt(refDte);
 				member.setDiversion(rs.getDouble("diversion"));
 				member.setFinalAmount(rs.getDouble("finalamt"));
-				member.setMaint(rs.getString("maint"));
+				member.setMaint(rs.getDouble("maint"));
 				member.setWater(rs.getString("water"));
 				java.sql.Date wSupDate = rs.getDate("wsupdte");
 				if (wSupDate != null)
@@ -533,7 +553,7 @@ public class MembersDao {
 					member.setRefDt(refDte);
 				member.setDiversion(rs.getDouble("diversion"));
 				member.setFinalAmount(rs.getDouble("finalamt"));
-				member.setMaint(rs.getString("maint"));
+				member.setMaint(rs.getDouble("maint"));
 				member.setWater(rs.getString("water"));
 				java.sql.Date wSupDate = rs.getDate("wsupdte");
 				if (wSupDate != null)
@@ -676,7 +696,7 @@ public class MembersDao {
 					member.setRefDt(refDte);
 				member.setDiversion(rs.getDouble("diversion"));
 				member.setFinalAmount(rs.getDouble("finalamt"));
-				member.setMaint(rs.getString("maint"));
+				member.setMaint(rs.getDouble("maint"));
 				member.setWater(rs.getString("water"));
 				java.sql.Date wSupDate = rs.getDate("wsupdte");
 				if (wSupDate != null)
