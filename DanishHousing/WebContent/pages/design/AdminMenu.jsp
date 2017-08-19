@@ -17,7 +17,7 @@
 		<!-- /.search form -->
 		<!-- sidebar menu: : style can be found in sidebar.less -->
 		<ul class="sidebar-menu">
-			<li class="header">MAIN NAVIGATION</li>
+			<li class="header">MAIN NAVIGATION</li><!-- 
 			<li class="treeview"><a href="#"> <i class="fa fa-dashboard"></i>
 					<span>Dashboard</span> <span class="pull-right-container"> <i
 						class="fa fa-angle-left pull-right"></i>
@@ -28,7 +28,7 @@
 							Dashboard v1</a></li>
 					<li><a href="../../index2.html"><i class="fa fa-circle-o"></i>
 							Dashboard v2</a></li>
-				</ul></li>
+				</ul></li> -->
 			<li class="treeview"><a href="#"> <i class="fa fa-database"></i>
 					<span>Master Data</span> <span class="pull-right-container">
 						<i class="fa fa-angle-left pull-right"></i>
@@ -51,7 +51,7 @@
 						href="${pageContext.request.contextPath}/admin/pages/MasterAccountTableController"><i
 							class="fa fa-circle-o"></i> Voucher Types </a></li>
 				</ul></li>
-			<li class="treeview"><a href="#"> <i class="fa fa-edit"></i>
+			<li class="treeview"><a href="#"> <i class="fa fa-inr"></i>
 					<span>Forms</span> <span class="pull-right-container"> <i
 						class="fa fa-angle-left pull-right"></i>
 				</span>
@@ -60,15 +60,27 @@
 					<li><a
 						href="${pageContext.request.contextPath}/admin/pages/ReceiptFormController"><i
 							class="fa fa-circle-o"></i> Receipts</a></li>
-					<li><a href="../forms/advanced.html"><i
-							class="fa fa-circle-o"></i> Payments</a></li>
-					<li><a href="../forms/editors.html"><i
-							class="fa fa-circle-o"></i> Documents</a></li>
 					<li><a href="${pageContext.request.contextPath}/admin/pages/ContractDocumentsController"><i
-							class="fa fa-circle-o"></i> Contract Documents</a></li>
-					<li><a href="../forms/editors.html"><i
-							class="fa fa-circle-o"></i> Installments Receipts</a></li>
+							class="fa fa-circle-o"></i> *Member Documents Upload</a></li>
+					<li><a href="${pageContext.request.contextPath}/admin/pages/UserVerification"><i
+							class="fa fa-circle-o"></i> Receipts Print</a></li>
 				</ul></li>
+				
+				<li class="treeview"><a href="#"> <i class="fa fa-credit-card"></i>
+					<span>Payment</span> <span class="pull-right-container"> <i
+						class="fa fa-angle-left pull-right"></i>
+				</span>
+			</a>
+				<ul class="treeview-menu">
+					<li><a
+						href="${pageContext.request.contextPath}/admin/pages/UserVerification"><i
+							class="fa fa-circle-o"></i> Member Refund</a></li>
+					<li><a href="${pageContext.request.contextPath}/admin/pages/UserVerification"><i
+							class="fa fa-circle-o"></i> Payment</a></li>
+					<li><a href="${pageContext.request.contextPath}/admin/pages/UserVerification"><i
+							class="fa fa-circle-o"></i> Transfer </a></li>
+				</ul></li>
+				
 			<li class="treeview"><a href="#"> <i class="fa fa-table"></i>
 					<span>Reports</span> <span class="pull-right-container"> <i
 						class="fa fa-angle-left pull-right"></i>

@@ -176,13 +176,13 @@ public class ReceiptFormController extends HttpServlet {
 				
 				
 				TransactionRecords t = new TransactionRecords(
-						 receiptNo,d,receiptDate,"D",accountCode,bankCode,transctionID,trDate,bankName,memberNo,Amount,remarks,flag," ",mem.getProjectCd(),u.getUserId(),new Date());
+						 receiptNo,d,receiptDate,"D",accountCode,bankCode,transctionID,trDate,branch,memberNo,Amount,remarks,flag," ",mem.getProjectCd(),u.getUserId(),new Date());
 				ReceiptRecord r = new
 						 ReceiptRecord('R',d,receiptDate,receiptNo, mem.getPrefix(), mem.getMemName(),
 								 mem.getMemberNo(),mem.getfHRelation() + " " + mem.getfHRelName(), mem.getAddress1(),mem.getAddress2(), mem.getAddress3(), Amount,
 									0.0, transctionID,trDate,mem.getFullPay(), mem.getInst1(), mem.getInst2(), mem.getInst3(),0,
 									d1, mem.getPlotSize(), mem.getPlotNo(), mem.getProjectCd()," ", " ", 'R',
-									remarks, mem.getrC(), acc.getFlag(), accountCode, bankName, paymentMode, d1,u.getUserId(), new Date(), city);
+									remarks, mem.getrC(), acc.getFlag(), accountCode, branch, paymentMode, d1,u.getUserId(), new Date(), city);
 				
 				if(r.getAccode() != null && r.getAccode().trim().length() > 0){
 					System.out.println(r.getSlno());
@@ -198,6 +198,8 @@ public class ReceiptFormController extends HttpServlet {
 			}
 			if(k > 0)
 				request.setAttribute("msg", 1);
+			else
+				request.setAttribute("msg", 2);
 			System.out.println("k :" + k);
 			request.setAttribute("recNo", UtilityDao.maxReceiptNo());
 			request.setAttribute("today", new java.util.Date());

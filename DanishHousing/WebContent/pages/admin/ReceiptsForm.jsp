@@ -540,6 +540,8 @@
 			}
 
 			//End Receipt Number validation
+			
+			
 
 			//Bank Code Validation
 			var bankCode = document.getElementById("bankCode").value;
@@ -566,14 +568,16 @@
 			//Total Amount Validation
 			var amt = document.getElementById("totalAmount").value;
 			if (amt == null || amt === "") {
+			
 				document.getElementById("errorTotalAmount").innerHTML = error;
 				document.getElementById("divFormTotalAmount").className = 'alert alert-danger alert-dismissible';
 				document.getElementById("divFormTotalAmount").scrollIntoView();
 				return false;
 			}
 			if (!(amt == null || amt === "")) {
-				var balanceValid = /^\d+(\.\d+)?$/;
-				if (!(bal.match(balanceValid))) {
+				
+				var balanceValid = /^(0|[1-9]\d*)(\.\d+)?$/;
+				if (!(amt.match(balanceValid))) {
 					document.getElementById("errorTotalAmount").innerHTML = "Invalid Amount";
 					document.getElementById("divFormTotalAmount").className = 'alert alert-warning alert-dismissible';
 					document.getElementById("divFormTotalAmount")
@@ -590,43 +594,65 @@
 			if (!(name == null || name === "")) {
 				var nameValid = /^[a-zA-Z ]+$/;
 				if (!name.match(nameValid)) {
-					document.getElementById("errorFullName").innerHTML = 'Invalid Name';
+					
+					document.getElementById("errorbankName").innerHTML = 'Invalid Name';
 					document.getElementById("divFormBankName").className = 'alert alert-warning alert-dismissible';
 					document.getElementById("divFormBankName").scrollIntoView();
 					return false;
 				}
-				document.getElementById("errorBankName").innerHTML = "";
+				
+				document.getElementById("errorbankName").innerHTML = "";
 				document.getElementById("divFormBankName").className = 'form-group has-success';
 			}
 			//End Bank Name Validation
-
+			
 			//Transaction ID Validation
 			var tr = document.getElementById("transactionID").value;
+			if (tr == null || tr === "") {
+				
+				document.getElementById("errorTransctionID").innerHTML = error;
+				document.getElementById("divFormTransctionID").className = 'alert alert-danger alert-dismissible';
+				document.getElementById("divFormTransctionID")
+						.scrollIntoView();
+				return false;
+			}
+			
 			if (!(tr == null || tr === "")) {
+				
 				var trValid = /^[a-zA-Z0-9- ]+$/;
 				if (!tr.match(trValid)) {
-					document.getElementById("errorTransactionID").innerHTML = 'Invalid Transaction ID';
-					document.getElementById("divFormTransactionID").className = 'alert alert-warning alert-dismissible';
-					document.getElementById("divFormTransactionID")
+					document.getElementById("errorTransctionID").innerHTML = 'Invalid Transaction ID';
+					document.getElementById("divFormTransctionID").className = 'alert alert-warning alert-dismissible';
+					document.getElementById("divFormTransctionID")
 							.scrollIntoView();
 					return false;
 				}
-				document.getElementById("errorTransactionID").innerHTML = "";
-				document.getElementById("divFormTransactionID").className = 'form-group has-success';
+				document.getElementById("errorTransctionID").innerHTML = "";
+				document.getElementById("divFormTransctionID").className = 'form-group has-success';
 			}
 			//End Transaction ID Validation
 
 			//Bank, Branch Name Validation
 			var pay = document.getElementById("paymentBank").value;
+			if (pay == null || pay === "") {
+				document.getElementById("errorPaymentBank").innerHTML = error;
+				document.getElementById("divFormPaymentBank").className = 'alert alert-danger alert-dismissible';
+				document.getElementById("divFormPaymentBank")
+						.scrollIntoView();
+				return false;
+			}
 			if (!(pay == null || pay === "")) {
-				var payValid = /^[a-zA-Z,- ]+$/;
+				
+				var payValid = /^[a-zA-Z ]+$/;
 				if (!pay.match(payValid)) {
+				
 					document.getElementById("errorPaymentBank").innerHTML = 'Invalid Name';
 					document.getElementById("divFormPaymentBank").className = 'alert alert-warning alert-dismissible';
 					document.getElementById("divFormPaymentBank")
 							.scrollIntoView();
 					return false;
 				}
+				
 				document.getElementById("errorPaymentBank").innerHTML = "";
 				document.getElementById("divFormPaymentBank").className = 'form-group has-success';
 			}
