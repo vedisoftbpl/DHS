@@ -252,7 +252,7 @@ public class ReceiptDao {
 
 	
 	
-	public ArrayList<ReceiptRecord> findReceiptRecords(String receiptNo) {
+	public ArrayList<ReceiptRecord> findReceiptRecords(int receiptNo) {
 		ConnectionPool pool = ConnectionPool.getInstance();
 		pool.initialize();
 		Connection conn = pool.getConnection();
@@ -261,7 +261,7 @@ public class ReceiptDao {
 		try {
 			String sql = "select * from receipt_records where receno = ?";
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setString(1, receiptNo);
+			ps.setInt(1, receiptNo);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) { {
 				ReceiptRecord receipt = new ReceiptRecord();

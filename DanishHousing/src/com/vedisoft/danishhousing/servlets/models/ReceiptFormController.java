@@ -176,7 +176,7 @@ public class ReceiptFormController extends HttpServlet {
 				
 				
 				TransactionRecords t = new TransactionRecords(
-						 receiptNo,d,receiptDate,"D",accountCode,bankCode,transctionID,trDate,branch,memberNo,Amount,remarks,flag," ",mem.getProjectCd(),u.getUserId(),new Date());
+						 receiptNo,d,receiptDate,"D",accountCode,bankCode,transctionID,trDate,branch,memberNo,Amount,remarks,flag,0,mem.getProjectCd(),u.getUserId(),new Date());
 				ReceiptRecord r = new
 						 ReceiptRecord('R',d,receiptDate,receiptNo, mem.getPrefix(), mem.getMemName(),
 								 mem.getMemberNo(),mem.getfHRelation() + " " + mem.getfHRelName(), mem.getAddress1(),mem.getAddress2(), mem.getAddress3(), Amount,
@@ -196,8 +196,11 @@ public class ReceiptFormController extends HttpServlet {
 					
 				
 			}
-			if(k > 0)
+			if(k > 0){
 				request.setAttribute("msg", 1);
+				request.setAttribute("docNo", receiptNo);
+			}
+				
 			else
 				request.setAttribute("msg", 2);
 			System.out.println("k :" + k);

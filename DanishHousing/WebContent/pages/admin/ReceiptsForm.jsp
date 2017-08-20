@@ -477,6 +477,7 @@
 		$("#errorTop")
 		.html(
 				"Receipt Record Added Successfully.");
+		window.open("ReceiptPrintController?docNo=${requestScope.docNo}","Receipt : ${requestScope.docNo}", "_blank");
 	});
 	</c:when>
 	<c:when test="${requestScope.msg=='2'}">
@@ -608,14 +609,7 @@
 			
 			//Transaction ID Validation
 			var tr = document.getElementById("transactionID").value;
-			if (tr == null || tr === "") {
-				
-				document.getElementById("errorTransctionID").innerHTML = error;
-				document.getElementById("divFormTransctionID").className = 'alert alert-danger alert-dismissible';
-				document.getElementById("divFormTransctionID")
-						.scrollIntoView();
-				return false;
-			}
+			
 			
 			if (!(tr == null || tr === "")) {
 				
@@ -634,16 +628,10 @@
 
 			//Bank, Branch Name Validation
 			var pay = document.getElementById("paymentBank").value;
-			if (pay == null || pay === "") {
-				document.getElementById("errorPaymentBank").innerHTML = error;
-				document.getElementById("divFormPaymentBank").className = 'alert alert-danger alert-dismissible';
-				document.getElementById("divFormPaymentBank")
-						.scrollIntoView();
-				return false;
-			}
+			
 			if (!(pay == null || pay === "")) {
 				
-				var payValid = /^[a-zA-Z ]+$/;
+				var payValid = /^[a-zA-Z,_ ]+$/;
 				if (!pay.match(payValid)) {
 				
 					document.getElementById("errorPaymentBank").innerHTML = 'Invalid Name';
