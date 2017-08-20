@@ -49,18 +49,19 @@ public class ReceiptPrintController extends HttpServlet {
 		
 		
 		
-		String receiptNo = new String("44902");
-		 System.out.println(receiptNo);
+		int docNo = 0;
+		
+		 
 		ReceiptDao 	receiptDao = new ReceiptDao();
 		ArrayList<ReceiptRecord> list = new ArrayList<ReceiptRecord>();
 		 for(ReceiptRecord r : list)
 			 System.out.println(r);
-		if( request.getAttribute("receiptNo")!= null &&  ((String)request.getAttribute("receiptNo")).trim().length() > 0) {
-		receiptNo =(String) request.getAttribute("receiptNo");
-		
-		 
+		if( request.getParameter("docNo")!= null &&  ((String)request.getParameter("docNo")).trim().length() > 0) {
+		System.out.println(request.getParameter("docNo"));
+			docNo = Integer.parseInt((String)request.getParameter("docNo"));
 		}
-		list =receiptDao.findReceiptRecords( receiptNo); 
+		System.out.println("Receipt printed of receipt no : " + docNo);
+		list =receiptDao.findReceiptRecords(docNo); 
 		 ReceiptRecord r =list.get(0);
 		 	int recno=r.getReceno();
 			Date recDt = r.getRecDte();
@@ -71,7 +72,7 @@ public class ReceiptPrintController extends HttpServlet {
 			rDetails[3]=r.getMad1();
 			rDetails[4]=r.getMad2();
 			rDetails[5]=r.getMad3();
-			rDetails[6]=r.getdC();
+			rDetails[6]=r.getdC() + " " + r.getcDd();
 			
 		double totalAmt= 0.0;
 		 for(ReceiptRecord rc : list)

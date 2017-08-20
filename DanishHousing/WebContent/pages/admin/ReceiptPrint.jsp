@@ -13,7 +13,7 @@
 .invoice-box {
 	max-width: 800px;
 	margin: auto;
-	padding: 20px;
+	padding: 20px; 
 	border: 2px solid #eee;
 	box-shadow: 0 0 10px rgba(0, 0, 0, .15);
 	font-size: 15px;
@@ -99,22 +99,23 @@
 </head>
 
 <body>
-	<div class="invoice-box">
-		<table cellpadding="0" cellspacing="0">
-			<tr class="top">
 
-				<td class="title">
+	<div class="invoice-box">
+	<div id="printDiv">
+		<table cellpadding="0" cellspacing="0" >
+			<tr >
+				<td>
 					<div align="center">
 						<h1>DANISH GRIH NIRMAN SAHAKARI SANSTHA</h1>
-						<h1>MYDT. BHOPAL</h1>
+						<h1>MYDT. BHOPAL</h1>	
 						<img src="../../pages/photos/danish.png" alt="" />
 						<h6>216- A, ZONE-I, M.P NAGAR, BHOPAL-462011</h6>
 						<h1>
 							<b>RECEIPT</b>
 						</h1>
 					</div>
+			
 				</td>
-
 			</tr>
 
 			<tr class="information">
@@ -157,10 +158,6 @@
 					</table>
 				</td>
 			</tr>
-			<br>
-			<br>
-			<br>
-			<br>
 			<tr class="information">
 				<td><div align="center">
 						<table style="width: 80%" border="1" cellpadding="0"
@@ -201,15 +198,14 @@
 										SAHAKARI SANSTHA MARYADIT</b>
 							</label> <br>
 							<br>
-							<br>
-							<br>
+							
+							<br>&nbsp;<img src="../../pages/photos/chris signature.jpg" style="width:125px;height:90px;" alt="Sign" />
 							<br> <label><b>AUTHORISED SIGNATORY</b> </label></td>
 						</tr>
 						<tr>
-							<td><p>
+							<td colspan="2"><p>
 									<b>Note :</b> Please intimate any change in address in writing
-									otherwise,the Society will not be responsible for the
-									consequences.
+									otherwise,the Society will not be responsible for the consequences.
 								</p></td>
 
 						</tr>
@@ -217,18 +213,19 @@
 				</td>
 			</tr>
 		</table>
-		<div align="center">
-			<button onclick="myFunction()">Print</button>
 		</div>
+		
 	</div>
-
+	<div align="center">
+			<button onclick="window.print();">Print</button>
+		</div>
 </body>
 </html>
 <script>
+
+
 	//$(function() {
 	//$('#receiptHeading').circleType({fluid:true});
 	//});
-	function myFunction() {
-		window.print();
-	}
+	
 </script>
