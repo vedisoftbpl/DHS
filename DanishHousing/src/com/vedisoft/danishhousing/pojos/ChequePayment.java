@@ -9,19 +9,21 @@ public class ChequePayment {
 	private String bankCode;
 	private String paymentMode;
 	private String transactionNo;
+	private Date chequeDate;
 	private Double amount;
 	private Date cheqClDate;
 	public ChequePayment() {
 		super();
 	}
 	public ChequePayment(int docno, Date docDate, String bankCode, String paymentMode, String transactionNo,
-			Double amount, Date cheqClDate) {
+			Date chequeDate, Double amount, Date cheqClDate) {
 		super();
 		this.docno = docno;
 		this.docDate = docDate;
 		this.bankCode = bankCode;
 		this.paymentMode = paymentMode;
 		this.transactionNo = transactionNo;
+		this.chequeDate = chequeDate;
 		this.amount = amount;
 		this.cheqClDate = cheqClDate;
 	}
@@ -55,6 +57,12 @@ public class ChequePayment {
 	public void setTransactionNo(String transactionNo) {
 		this.transactionNo = transactionNo;
 	}
+	public Date getChequeDate() {
+		return chequeDate;
+	}
+	public void setChequeDate(Date chequeDate) {
+		this.chequeDate = chequeDate;
+	}
 	public Double getAmount() {
 		return amount;
 	}
@@ -70,12 +78,9 @@ public class ChequePayment {
 	@Override
 	public String toString() {
 		return "ChequePayment [docno=" + docno + ", docDate=" + docDate + ", bankCode=" + bankCode + ", paymentMode="
-				+ paymentMode + ", transactionNo=" + transactionNo + ", amount=" + amount + ", cheqClDate=" + cheqClDate
-				+ "]";
+				+ paymentMode + ", transactionNo=" + transactionNo + ", chequeDate=" + chequeDate + ", amount=" + amount
+				+ ", cheqClDate=" + cheqClDate + "]";
 	}
-	
-	
-	
 	
 	
 }
