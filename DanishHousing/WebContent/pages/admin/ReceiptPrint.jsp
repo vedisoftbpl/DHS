@@ -1,20 +1,23 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8" name="viewport"
+	content="width=device-width, initial-scale=1">
 <title>PrintReceipt</title>
 
 <style>
 .invoice-box {
-	max-width: 900px;
+	max-width: 800px;
 	margin: auto;
 	padding: 20px;
 	border: 2px solid #eee;
 	box-shadow: 0 0 10px rgba(0, 0, 0, .15);
-	font-size: 14px;
-	line-height: 14px;
+	font-size: 15px;
+	line-height: 15px;
 	font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
 	color: #555;
 }
@@ -77,7 +80,6 @@
 		width: 100%;
 		display: block;
 		text-align: center;
-		
 	}
 	.invoice-box table tr.information table td {
 		width: 100%;
@@ -91,7 +93,6 @@
 		display: block;
 		text-align: center;
 		padding-bottom: 20px;
-		
 	}
 }
 </style>
@@ -104,9 +105,9 @@
 
 				<td class="title">
 					<div align="center">
-						<h1 >DANISH GRIH NIRMAN SAHAKARI SANSTHA </h1>
-						<h1 >MYDT. BHOPAL</h1>
-						<img src="../photos/danish.png" alt="" />
+						<h1>DANISH GRIH NIRMAN SAHAKARI SANSTHA</h1>
+						<h1>MYDT. BHOPAL</h1>
+						<img src="../../pages/photos/danish.png" alt="" />
 						<h6>216- A, ZONE-I, M.P NAGAR, BHOPAL-462011</h6>
 						<h1>
 							<b>RECEIPT</b>
@@ -130,33 +131,36 @@
 						</tr>
 						<tr>
 							<td>Receipt No. :</td>
-							<td>16051</td>
+							<td>${requestScope.receiptNo}</td>
 							<td></td>
 						</tr>
 						<tr>
 							<td>Date :</td>
-							<td>18/08/2017</td>
+							<td><fmt:formatDate type="date" pattern="dd/MM/yyyy"
+									value="${requestScope.receiptDt}" /></td>
 							<td></td>
 						</tr>
 						<tr>
 							<td>Received From :</td>
-							<td colspan="2"><span>Regd. Under Section 9 of Co-op. Societies act <br>regn.
-									No. D.R.B 295 Dt. 06-08-82 <br>Colonizers Licence No.
-									4/Reader/S4 Distt. Bhopal</span></td>
-
+							<td colspan="2">${requestScope.rdetails[0]}&nbsp;${requestScope.rdetails[1]}&nbsp;${requestScope.rdetails[2]}<br>
+								${requestScope.rdetails[3]} ${requestScope.rdetails[4]}<br>
+								${requestScope.rdetails[5]}
 						</tr>
 						<tr>
 							<td>Payment Method</td>
-							<td>CASH</td>
+							<td>${requestScope.rdetails[6]}</td>
 						</tr>
 						<tr>
 							<td>In Account Of</td>
-							<td>DHS Hills View-3</td>
+							<td>${requestScope.projectName}</td>
 						</tr>
 					</table>
 				</td>
 			</tr>
-		<br><br>
+			<br>
+			<br>
+			<br>
+			<br>
 			<tr class="information">
 				<td><div align="center">
 						<table style="width: 80%" border="1" cellpadding="0"
@@ -165,17 +169,15 @@
 								<th>PARTICULARS</th>
 								<th>AMOUNT</th>
 							</tr>
-							<tr class="item">
-								<td>Water Charge</td>
-								<td>5000</td>
-							</tr>
-							<tr class="item">
-								<td>Diversion</td>
-								<td>3000</td>
-							</tr>
+							<c:forEach items="${requestScope.receiptList}" var="receipt">
+								<tr class="item">
+									<td>${receipt.remarks}</td>
+									<td>${receipt.amount}</td>
+								</tr>
+							</c:forEach>
 							<tr class="total">
 								<th>TOTAL</th>
-								<th>8000</th>
+								<th>${requestScope.totalAmt}</th>
 							</tr>
 						</table>
 					</div></td>
@@ -186,7 +188,7 @@
 					<table>
 						<tr>
 							<td><h6>
-									AMOUNT IN WORDS : <span>Eight Thousand Rupees Only</span>
+									AMOUNT IN WORDS : <span></span>
 								</h6></td>
 						</tr>
 						<tr>
@@ -195,11 +197,13 @@
 									realisation</p>
 							</td>
 
-							<td>
-								<label>For&nbsp;<b>DANISH GRIH NIRMAN SAHAKARI SANSTHA MARYADIT</b> </label>
-								<br><br><br><br><br>
-								<label><b>AUTHORISED SIGNATORY</b> </label>
-							</td>
+							<td><label>For&nbsp;<b>DANISH GRIH NIRMAN
+										SAHAKARI SANSTHA MARYADIT</b>
+							</label> <br>
+							<br>
+							<br>
+							<br>
+							<br> <label><b>AUTHORISED SIGNATORY</b> </label></td>
 						</tr>
 						<tr>
 							<td><p>
@@ -213,7 +217,9 @@
 				</td>
 			</tr>
 		</table>
-		<div align="center"><button onclick="myFunction()">Print</button></div>
+		<div align="center">
+			<button onclick="myFunction()">Print</button>
+		</div>
 	</div>
 
 </body>
@@ -223,6 +229,6 @@
 	//$('#receiptHeading').circleType({fluid:true});
 	//});
 	function myFunction() {
-    window.print();
-}
+		window.print();
+	}
 </script>
