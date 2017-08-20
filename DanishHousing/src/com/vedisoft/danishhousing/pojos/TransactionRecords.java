@@ -19,7 +19,7 @@ public class TransactionRecords {
 	private String parti;
 	private String aP;
 	private int flag;
-	private String vrNo;
+	private int vrNo;
 	private String sN;
 	private String sR;
 	private String docNoo;
@@ -33,7 +33,7 @@ public class TransactionRecords {
 	
 	public TransactionRecords( int slno, Date docDte, String docType, String acCode, String bkCode,
 			String chqNo, Date chDate, String bankBr, int membNo, double amt, String parti, String aP, int flag,
-			String vrNo, String sN, String sR, String docNoo, int projCd, Date wcLrDt, Date chClDt, String cFlag,
+			int vrNo, String sN, String sR, String docNoo, int projCd, Date wcLrDt, Date chClDt, String cFlag,
 			int partyCd,int userId, Date lastUpdate) {
 		super();
 	
@@ -63,7 +63,7 @@ public class TransactionRecords {
 		this.lastUpdate = lastUpdate;
 	}
 	public TransactionRecords( int docNo, int slno, Date docDte, String docType, String acCode, String bkCode,
-			String chqNo, Date chDate, String bankBr, int membNo, double amt, String parti, int flag, String vrNo,
+			String chqNo, Date chDate, String bankBr, int membNo, double amt, String parti, int flag, int vrNo,
 			int projCd, int userId, Date lastUpdate) {
 		super();
 		
@@ -184,10 +184,10 @@ public class TransactionRecords {
 	public void setFlag(int flag) {
 		this.flag = flag;
 	}
-	public String getVrNo() {
+	public int getVrNo() {
 		return vrNo;
 	}
-	public void setVrNo(String vrNo) {
+	public void setVrNo(int vrNo) {
 		this.vrNo = vrNo;
 	}
 	public String getsN() {

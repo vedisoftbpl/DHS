@@ -63,7 +63,7 @@ public class ReceiptDao {
 			ps1.setString(13, transaction.getParti());
 			ps1.setString(14,transaction.getaP());
 			ps1.setInt(15, transaction.getFlag());
-			ps1.setString(16, transaction.getVrNo());
+			ps1.setInt(16, transaction.getVrNo());
 			ps1.setString(17,transaction.getsN());
 			ps1.setString(18,transaction.getsR());
 			ps1.setString(19,transaction.getDocNoo());
@@ -81,7 +81,7 @@ public class ReceiptDao {
 			ps1.setInt(25, transaction.getUserId());
 			
 			int x = ps1.executeUpdate();
-			if (x == 0) {
+			if (x <= 0) {
 				Exception a = new Exception();
 				throw a;
 				}
@@ -156,7 +156,7 @@ public class ReceiptDao {
 			ps2.setString(38,receipt.getCity());
 			
 			int x1 = ps2.executeUpdate();
-			if (x1 == 0) {
+			if (x1 <= 0) {
 				Exception a = new Exception();
 				throw a;
 			}
@@ -352,21 +352,21 @@ public class ReceiptDao {
 		 Date d2 = new Date();
 		 Date d3 = new Date();
 		 d3 = DateUtils.convertDate("02/04/2016");
-//		 String fl = AccountMasterFlagsEnum.Developement.getValue();
-//		 System.out.println(fl);
-//		 TransactionRecords t = new TransactionRecords(
-//		 44901,1,d1,"D","E0010","01","hv",d1," ",7299,8400.00,"ESTABLISHMENT FEES UPTO 31/03/2016",1," ",8,1,d2);
-//		 ReceiptRecord r = new ReceiptRecord('R',1,d3,44901,"Mr.","Name",25,"FName","a1","a2","a3",84100.00,6541.00,"51361",d1,"No","","","",45,d2,
-//				 "35x60","DK-1/326",8,"chqdhr","flag",'R',
-//				 "ESTABLISHMENT FEES UPTO 31/03/2016",'r',fl,"E0010","Branch","Checque",d2,4,d2,"chhatarpur");
-//		 int id = dao.create(t, r);
-//		 System.out.println(id);
+		 String fl = AccountMasterFlagsEnum.Developement.getValue();
+		 System.out.println(fl);
+		 TransactionRecords t = new TransactionRecords(
+		 44901,1,d1,"D","E0010","01","hv",d1," ",7299,8400.00,"ESTABLISHMENT FEES UPTO 31/03/2016",1,25,8,1,d2);
+		 ReceiptRecord r = new ReceiptRecord('R',1,d3,44901,"Mr.","Name",25,"FName","a1","a2","a3",84100.00,6541.00,"51361",d1,"No","","","",45,d2,
+				 "35x60","DK-1/326",8,"chqdhr","flag",'R',
+				 "ESTABLISHMENT FEES UPTO 31/03/2016",'r',fl,"E0010","Branch","Checque",d2,4,d2,"chhatarpur");
+		 int id = dao.create(t, r);
+		 System.out.println(id);
 //		TransactionRecords t1 = dao.findTransactionRecord(3);
 //		System.out.println(t1);
 		 
-		 List<ReceiptRecord> list =dao.findReceiptRecords("44902");
-		 for(ReceiptRecord r : list)
-			 System.out.println(r);
+//		 List<ReceiptRecord> list =dao.findReceiptRecords("44902");
+//		 for(ReceiptRecord r : list)
+//			 System.out.println(r);
 
 	}
 
