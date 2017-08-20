@@ -62,7 +62,7 @@
 							class="fa fa-circle-o"></i> Receipts</a></li>
 					<li><a href="${pageContext.request.contextPath}/admin/pages/ContractDocumentsController"><i
 							class="fa fa-circle-o"></i> *Member Documents Upload</a></li>
-					<li><a href="${pageContext.request.contextPath}/admin/pages/UserVerification"><i
+					<li><a href="${pageContext.request.contextPath}/admin/pages/ReceiptPrintController"><i
 							class="fa fa-circle-o"></i> Receipts Print</a></li>
 				</ul></li>
 				
@@ -73,9 +73,9 @@
 			</a>
 				<ul class="treeview-menu">
 					<li><a
-						href="${pageContext.request.contextPath}/admin/pages/UserVerification"><i
+						href="${pageContext.request.contextPath}/admin/pages/MemberRefundController"><i
 							class="fa fa-circle-o"></i> Member Refund</a></li>
-					<li><a href="${pageContext.request.contextPath}/admin/pages/UserVerification"><i
+					<li><a href="${pageContext.request.contextPath}/admin/pages/PaymentController"><i
 							class="fa fa-circle-o"></i> Payment</a></li>
 					<li><a href="${pageContext.request.contextPath}/admin/pages/UserVerification"><i
 							class="fa fa-circle-o"></i> Transfer </a></li>
