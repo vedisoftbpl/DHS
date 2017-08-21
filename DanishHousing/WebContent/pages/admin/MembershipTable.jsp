@@ -51,12 +51,12 @@
 							</div>
 							
 						</div>
-						<br>
+						
 						<div class="form-group" id="typeError">
 							<label class="control-label" id="errorTop"></label>
 						</div>
 
-						<br>
+						
 						<table id="example1" class="table table-bordered table-striped">
 							<thead>
 								<tr>
