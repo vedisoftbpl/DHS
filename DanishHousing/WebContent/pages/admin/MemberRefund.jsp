@@ -592,13 +592,7 @@
 
 			//Transaction ID Validation
 			var tr = document.getElementById("transactionID").value;
-			if (tr == null || tr === "") {
-
-				document.getElementById("errorTransctionID").innerHTML = error;
-				document.getElementById("divFormTransctionID").className = 'alert alert-danger alert-dismissible';
-				document.getElementById("divFormTransctionID").scrollIntoView();
-				return false;
-			}
+			
 
 			if (!(tr == null || tr === "")) {
 
@@ -880,20 +874,31 @@
 																	} else {
 																		if (data["bkCode"] == '001') {
 																			$(
-																					'#paymentMode')
-																					.val(
-																							'Cash');
+																			"#paymentMode")
+																			.val(
+																					$(
+																							"#paymentMode option:eq(0)")
+																							.val())
+																			.change();
 																			$(
 																					'#transactionID')
 																					.prop(
 																							'disabled',
 																							true);
+																			$(
+																			'#transactionID')
+																			.val("");
 
 																			$(
 																					'#trDate')
 																					.prop(
 																							'disabled',
 																							true);
+																			
+																			$(
+																					'#trDate')
+																					.val(
+																							"");
 																			$(
 																					'#bankName')
 																					.val(

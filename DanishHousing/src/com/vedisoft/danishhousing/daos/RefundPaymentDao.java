@@ -244,9 +244,10 @@ public class RefundPaymentDao {
 				
 				java.sql.Date doDate = null;
 				if(chequePay.getDocDate() != null)
-					
 					ps3.setDate(2,  new java.sql.Date(chequePay.getDocDate().getTime()));
-					
+				else
+					ps3.setDate(2, null);	
+				
 				ps3.setString(3, chequePay.getBankCode());
 				ps3.setString(4, chequePay.getPaymentMode());
 				ps3.setString(5, chequePay.getTransactionNo());
@@ -254,12 +255,16 @@ public class RefundPaymentDao {
 				java.sql.Date chequeDate = null;
 				if(chequePay.getChequeDate() != null)
 					ps3.setDate(6,  new java.sql.Date(chequePay.getChequeDate().getTime()));
+				else
+					ps3.setDate(6, null);
 				
 				ps3.setDouble(7, chequePay.getAmount());
 				
 				java.sql.Date chequeClearDate = null;
 				if(chequePay.getCheqClDate() != null)
 					ps3.setDate(8,  new java.sql.Date(chequePay.getCheqClDate().getTime()));
+				else
+					ps3.setDate(8, null);
 				
 				int x2 = ps3.executeUpdate();
 				if (x2 <= 0) {

@@ -11,12 +11,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.vedisoft.danishhousing.config.DateUtils;
 import com.vedisoft.danishhousing.daos.AccountDao;
 import com.vedisoft.danishhousing.daos.AccountMasterDao;
+import com.vedisoft.danishhousing.daos.MembersDao;
 import com.vedisoft.danishhousing.daos.ReceiptDao;
+import com.vedisoft.danishhousing.daos.RefundPaymentDao;
 import com.vedisoft.danishhousing.daos.UtilityDao;
 import com.vedisoft.danishhousing.pojos.AccountMaster;
+import com.vedisoft.danishhousing.pojos.ChequePayment;
+import com.vedisoft.danishhousing.pojos.Members;
 import com.vedisoft.danishhousing.pojos.ReceiptRecord;
+import com.vedisoft.danishhousing.pojos.RefundPayment;
 import com.vedisoft.danishhousing.pojos.TransactionRecords;
 import com.vedisoft.danishhousing.pojos.Users;
 
@@ -51,6 +57,69 @@ public class MemberRefundController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		int id = 0;
+
+		int memberNo = 0;
+		if (request.getParameter("memberID") != null && request.getParameter("memberID").trim().length() > 0) {
+			memberNo = Integer.parseInt(request.getParameter("memberID"));
+		}
+
+		Members mem = new MembersDao().find(memberNo);
+
+		int voucherNo = 0;
+		if (request.getParameter("voucherNumber") != null
+				&& request.getParameter("voucherNumber").trim().length() > 0) {
+			voucherNo = Integer.parseInt(request.getParameter("voucherNumber"));
+		}
+
+		Date voucherDate = new Date();
+		if (request.getParameter("date") != null && request.getParameter("date").trim().length() > 0) {
+			voucherDate = DateUtils.convertDate(request.getParameter("date"));
+		}
+
+		int totalAccounts = 0;
+		if (request.getParameter("totalAccounts") != null
+				&& request.getParameter("totalAccounts").trim().length() > 0) {
+			totalAccounts = Integer.parseInt(request.getParameter("totalAccounts"));
+		}
+
+		String bankCode = new String(); // transaction
+		if (request.getParameter("bankCode") != null && request.getParameter("bankCode").trim().length() > 0) {
+			bankCode = request.getParameter("bankCode");
+		}
+
+		String bankName = new String();
+		;
+		if (request.getParameter("bankName") != null && request.getParameter("bankName").trim().length() > 0) {
+			bankName = request.getParameter("bankName");
+		}
+
+		String paymentMode = new String(); // d_c
+		if (request.getParameter("paymentMode") != null && request.getParameter("paymentMode").trim().length() > 0) {
+			paymentMode = request.getParameter("paymentMode");
+		}
+
+		int flag = 2;
+		if (paymentMode.trim().equals("Cash")) {
+			flag = 1;
+		}
+
+		String transctionID = new String(); // cheque id cdd
+		if (request.getParameter("transactionID") != null
+				&& request.getParameter("transactionID").trim().length() > 0) {
+			transctionID = request.getParameter("transactionID");
+		}
+
+		double totalAmount = 0.0;
+		if (request.getParameter("totalAmount") != null && request.getParameter("totalAmount").trim().length() > 0) {
+			totalAmount = Double.parseDouble(request.getParameter("totalAmount"));
+		}
+
+		Date trDate = null;
+		if (request.getParameter("trDate") != null && request.getParameter("trDate").trim().length() > 0) {
+			trDate = DateUtils.convertDate(request.getParameter("trDate"));
+		}
+
 		String op = new String();
 		if (request.getParameter("operation") != null && request.getParameter("operation").trim().length() > 0) {
 			op = request.getParameter("operation");
@@ -61,87 +130,84 @@ public class MemberRefundController extends HttpServlet {
 
 		if (op.equals("create")) {
 
-			// ReceiptRecord[] rec = new ReceiptRecord[totalAccounts];
-			// TransactionRecords[] tra = new TransactionRecords[totalAccounts];
-			//
-			// int d = 1;
-			// for(int i = 0; i < totalAccounts; i++)
-			// {
-			// int j = i+1;
-			// String accountCode = new String();
-			// if(request.getParameter("accountCode" + j)!= null &&
-			// request.getParameter("accountCode"+ j).trim().length() > 0) {
-			// accountCode= request.getParameter("accountCode"+ j);
-			// }
-			//
-			// AccountMaster acc = new
-			// AccountMasterDao().findByCode(accountCode);
-			//
-			// String accountName = new String();
-			// if(request.getParameter("accountName"+ j)!= null &&
-			// request.getParameter("accountName"+ j).trim().length() > 0) {
-			// accountName= request.getParameter("accountName"+ j);
-			// }
-			//
-			// Double Amount = 0.0,cashA = 0.0, chqA = 0.0;
-			// if (request.getParameter("amount"+ j) != null &&
-			// request.getParameter("amount"+ j).trim().length() > 0) {
-			// Amount = Double.parseDouble(request.getParameter("amount"+ j));
-			// }
-			// if(paymentMode.trim().equals("Cash")){
-			// cashA = Amount;
-			// }
-			// else
-			// chqA = Amount;
-			//
-			//
-			// String remarks = new String();
-			// if(request.getParameter("remarks"+ j)!= null &&
-			// request.getParameter("remarks"+ j).trim().length() > 0) {
-			// remarks= request.getParameter("remarks"+ j);
-			// }
-			// HttpSession se = request.getSession();
-			// Users u = (Users) se.getAttribute("userLogin");
-			// Date d1 = null;
-			//
-			//
-			// TransactionRecords t = new TransactionRecords(
-			// receiptNo,d,receiptDate,"D",accountCode,bankCode,transctionID,trDate,branch,memberNo,Amount,remarks,flag,"
-			// ",mem.getProjectCd(),u.getUserId(),new Date());
-			// ReceiptRecord r = new
-			// ReceiptRecord('R',d,receiptDate,receiptNo, mem.getPrefix(),
-			// mem.getMemName(),
-			// mem.getMemberNo(),mem.getfHRelation() + " " + mem.getfHRelName(),
-			// mem.getAddress1(),mem.getAddress2(), mem.getAddress3(), Amount,
-			// 0.0, transctionID,trDate,mem.getFullPay(), mem.getInst1(),
-			// mem.getInst2(), mem.getInst3(),0,
-			// d1, mem.getPlotSize(), mem.getPlotNo(), mem.getProjectCd()," ", "
-			// ", 'R',
-			// remarks, mem.getrC(), acc.getFlag(), accountCode, branch,
-			// paymentMode, d1,u.getUserId(), new Date(), city);
-			//
-			// if(r.getAccode() != null && r.getAccode().trim().length() > 0){
-			// System.out.println(r.getSlno());
-			// k = new ReceiptDao().create(t,r);
-			// d++;
-			// if(k <= 0){
-			// request.setAttribute("msg", 2);
-			// break;
-			// }
-			// }
-			//
-			//
-			// }
-			 if(k > 0)
-			 request.setAttribute("msg", 1);
-			 else
-			 request.setAttribute("msg", 2);
-			
-			 request.setAttribute("accList", new AccountDao().findAll());
-			 request.setAttribute("voucherNo", UtilityDao.maxReceiptNo());
-			 request.setAttribute("today", new java.util.Date());
-			 RequestDispatcher rd = request.getRequestDispatcher(page);
-			 rd.forward(request, response);
+			int d = 1;
+			for (int i = 0; i < totalAccounts; i++) {
+				int j = i + 1;
+				String accountCode = new String();
+				if (request.getParameter("accountCode" + j) != null
+						&& request.getParameter("accountCode" + j).trim().length() > 0) {
+					accountCode = request.getParameter("accountCode" + j);
+				}
+
+				AccountMaster acc = new AccountMasterDao().findByCode(accountCode);
+
+				String accountName = new String();
+				if (request.getParameter("accountName" + j) != null
+						&& request.getParameter("accountName" + j).trim().length() > 0) {
+					accountName = request.getParameter("accountName" + j);
+				}
+
+				Double Amount = 0.0;
+				if (request.getParameter("amount" + j) != null
+						&& request.getParameter("amount" + j).trim().length() > 0) {
+					Amount = Double.parseDouble(request.getParameter("amount" + j));
+				}
+
+				String remarks = new String();
+				if (request.getParameter("remarks" + j) != null
+						&& request.getParameter("remarks" + j).trim().length() > 0) {
+					remarks = request.getParameter("remarks" + j);
+				}
+
+				HttpSession se = request.getSession();
+				Users u = (Users) se.getAttribute("userLogin");
+				Date d1 = null;
+
+				if (accountCode != null && accountCode.trim().length() > 0) {
+					System.out.println("Payment For Master Account : " + accountCode + " : " + d);
+
+					if (paymentMode.equals("Cash")) {
+						TransactionRecords t = new TransactionRecords(voucherNo, d, voucherDate, "W", accountCode,
+								bankCode, transctionID, trDate, " ", memberNo, Amount, remarks, flag, voucherNo,
+								mem.getProjectCd(), u.getUserId(), new Date());
+						RefundPayment ref = new RefundPayment("R", memberNo, Amount, transctionID, trDate, remarks,
+								acc.getFlag(), voucherNo, d, paymentMode);
+						k = new RefundPaymentDao().create(t, ref);
+						if (k <= 0) {
+							request.setAttribute("msg", 2);
+							break;
+						} else
+							d++;
+					} else {
+						TransactionRecords t = new TransactionRecords(voucherNo, d, voucherDate, "W", accountCode,
+								bankCode, transctionID, trDate, " ", memberNo, Amount, remarks, flag, voucherNo,
+								mem.getProjectCd(), u.getUserId(), new Date());
+						RefundPayment ref = new RefundPayment("R", memberNo, Amount, transctionID, trDate, remarks,
+								acc.getFlag(), voucherNo, d, paymentMode);
+						ChequePayment ch = new ChequePayment(voucherNo, voucherDate, bankCode, paymentMode,
+								transctionID, trDate, Amount, d1);
+						k = new RefundPaymentDao().create(t, ref, ch);
+						if (k <= 0) {
+							request.setAttribute("msg", 2);
+							break;
+						} else
+							d++;
+
+					}
+
+				}
+
+			}
+			if (k > 0)
+				request.setAttribute("msg", 1);
+			else
+				request.setAttribute("msg", 2);
+
+			request.setAttribute("accList", new AccountDao().findAll());
+			request.setAttribute("voucherNo", UtilityDao.maxVoucherNo());
+			request.setAttribute("today", new java.util.Date());
+			RequestDispatcher rd = request.getRequestDispatcher(page);
+			rd.forward(request, response);
 		} else {
 			request.setAttribute("accList", new AccountDao().findAll());
 			request.setAttribute("voucherNo", UtilityDao.maxVoucherNo());
