@@ -97,6 +97,8 @@ public class ChequePaymentDao {
 			java.sql.Date doDate = null;
 			if(chequePay.getDocDate() != null)
 				ps2.setDate(2,  new java.sql.Date(chequePay.getDocDate().getTime()));
+			else
+				ps2.setDate(2,  null);
 				
 			ps2.setString(3, chequePay.getBankCode());
 			ps2.setString(4, chequePay.getPaymentMode());
@@ -105,12 +107,16 @@ public class ChequePaymentDao {
 			java.sql.Date chequeDate = null;
 			if(chequePay.getChequeDate() != null)
 				ps2.setDate(6,  new java.sql.Date(chequePay.getChequeDate().getTime()));
+			else
+				ps2.setDate(6, null);
 			
 			ps2.setDouble(7, chequePay.getAmount());
 			
 			java.sql.Date chequeClearDate = null;
 			if(chequePay.getCheqClDate() != null)
 				ps2.setDate(8,  new java.sql.Date(chequePay.getCheqClDate().getTime()));
+			else
+				ps2.setDate(8,  null);
 			
 			int x1 = ps2.executeUpdate();
 			if (x1 <= 0) {
@@ -133,6 +139,98 @@ public class ChequePaymentDao {
 			pool.putConnection(conn);
 		}
 		System.out.println("Records SuccessFully Added");
+		return id;
+			
+	}
+	
+public int create(TransactionRecords transaction) {
+		
+		int id = 0;
+		ConnectionPool pool = ConnectionPool.getInstance();
+		pool.initialize();
+		Connection conn = pool.getConnection();
+		try {
+			conn.setAutoCommit(false);
+
+			String sqlTransaction = "insert into transaction_records" + " ("
+					+ "lastupdate, docno,slno,docdte,doctype,accode,bkcode,chqno,ch_date,bank_br,"
+					+ "membno,amt,parti,a_p,flag,vr_no,sno,sr,docnoo,projcd,wc_lr_dt,ch_cl_dt,c_flag,party_cd,userid) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		
+			PreparedStatement ps1 = conn.prepareStatement(sqlTransaction, Statement.RETURN_GENERATED_KEYS,
+					ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			
+			java.sql.Date lastUpdate = null;
+			if (transaction.getLastUpdate() != null)
+				lastUpdate = new java.sql.Date(transaction.getLastUpdate().getTime());
+			ps1.setDate(1, lastUpdate);
+			
+			ps1.setInt(2, transaction.getDocNo());
+			ps1.setInt(3, transaction.getSlno());
+			java.sql.Date docDate = null;
+			if (transaction.getDocDte() != null)
+				docDate = new java.sql.Date(transaction.getDocDte().getTime());
+			ps1.setDate(4, docDate);
+			ps1.setString(5, transaction.getDocType());						
+			ps1.setString(6, transaction.getAcCode());
+			ps1.setString(7, transaction.getBkCode());
+			ps1.setString(8, transaction.getChqNo());
+			java.sql.Date chkDate = null;
+			if (transaction.getChDate() != null)
+				chkDate = new java.sql.Date(transaction.getChDate().getTime());
+			ps1.setDate(9, chkDate);
+			ps1.setString(10, transaction.getBankBr());
+			ps1.setInt(11, transaction.getMembNo());
+			ps1.setDouble(12, transaction.getAmt());
+			ps1.setString(13, transaction.getParti());
+			ps1.setString(14,transaction.getaP());
+			ps1.setInt(15, transaction.getFlag());
+			ps1.setInt(16, transaction.getVrNo());
+			ps1.setString(17,transaction.getsN());
+			ps1.setString(18,transaction.getsR());
+			ps1.setString(19,transaction.getDocNoo());
+			ps1.setInt(20, transaction.getProjCd());
+			java.sql.Date wcLrDt = null;
+			if (transaction.getWcLrDt() != null)
+				wcLrDt = new java.sql.Date(transaction.getWcLrDt().getTime());
+			ps1.setDate(21,wcLrDt);
+			java.sql.Date chClDt = null;
+			if (transaction.getChClDt() != null)
+				chClDt = new java.sql.Date(transaction.getChClDt().getTime());
+			ps1.setDate(22,chClDt);
+			ps1.setString(23,transaction.getcFlag());
+			ps1.setInt(24,transaction.getPartyCd());
+			ps1.setInt(25, transaction.getUserId());
+			
+			int x = ps1.executeUpdate();
+			if (x <= 0) {
+				Exception a = new Exception();
+				throw a;
+				}
+			
+			ResultSet generatedKeys = ps1.getGeneratedKeys();
+			if (generatedKeys.next()) {
+				id = generatedKeys.getInt(1);
+			}
+			
+			conn.commit();
+		}
+			catch (Exception sq) {
+				try {
+					System.out.println("Rolling Back");
+					conn.rollback();
+				} catch (SQLException se2) {
+					se2.printStackTrace();
+				}
+				sq.printStackTrace();
+				return 0;
+			} finally {
+				pool.putConnection(conn);
+			}
+			
+			
+
+		System.out.println("Records SuccessFully Added");
+		
 		return id;
 			
 	}

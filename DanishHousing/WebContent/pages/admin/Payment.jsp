@@ -17,11 +17,11 @@
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
-				<h1>Member Refund</h1>
+				<h1>Payment</h1>
 				<ol class="breadcrumb">
 					<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
 					<li><a href="#">Examples</a></li>
-					<li class="active">Member Refund</li>
+					<li class="active">Payment</li>
 				</ol>
 			</section>
 
@@ -30,7 +30,7 @@
 				<!-- Default box -->
 				<div class="box box-primary">
 					<div class="box-header with-border">
-						<h3 class="box-title">Member Refund Form</h3>
+						<h3 class="box-title">Payment Form</h3>
 						<div class="box-tools pull-right">
 							<span id="today"><fmt:formatDate type="date"
 									pattern="dd/MM/yyyy" value="${requestScope.today}" /></span>
@@ -46,7 +46,7 @@
 
 					<!-- User Form -->
 					<form
-						action="${pageContext.request.contextPath}/admin/pages/MemberRefundController"
+						action="${pageContext.request.contextPath}/admin/pages/PaymentController"
 						method="post" onsubmit="return validateForm(this)">
 						<div class="box-body">
 
@@ -65,23 +65,7 @@
 							<br>
 							<div class="row">
 								<!-- col -->
-								<div class="col-md-4">
-									<!--  form-group -->
-									<!-- Member ID -->
-									<div class="form-group" id="divFormMemberID">
-										<label>Member ID</label>
-										<div class="input-group">
-											<span class="input-group-addon"><i
-												class="fa fa-info-circle"></i></span> <input type="text"
-												class="form-control" placeholder="Member ID" id="memberID"
-												name="memberID" />
-										</div>
-										<p id="errorMemberID"></p>
-									</div>
-									<!-- End Member ID -->
-									<!-- /.form-group -->
-								</div>
-								<!-- /.col -->
+						
 								<!-- col -->
 								<div class="col-md-4">
 									<!--  form group -->
@@ -124,17 +108,7 @@
 							</div>
 							<!-- /.row -->
 							<!-- Row Default box -->
-							<div class="row">
-								<div class="box-header with-border">
-									<h3 class="box-title">Member Details</h3>
-								</div>
-								<div class="box-body">
-									<dl class="dl-horizontal" id="memberDetails">
-									</dl>
-
-								</div>
-								<!-- /.box-body -->
-							</div>
+						
 							<!-- /.Row Default box -->
 							<!-- Row Default box -->
 							<div class="row">
@@ -151,7 +125,7 @@
 								<div id="accounts" class="box-body">
 									<div class="panel box box-primary">
 										<div class="box-header with-border">
-											<h4 class="box-title">Refund Account Details</h4>
+											<h4 class="box-title">Payment Account Details</h4>
 											<div class="box-tools pull-right">
 												<button type="button" class="btn btn-box-tool"
 													data-widget="collapse" data-toggle="tooltip"
@@ -383,8 +357,7 @@
 					<!-- User Form -->
 
 					<!-- /.box-body -->
-					<div class="box-footer">Provide the Details For adding Member
-						Refund Record</div>
+					<div class="box-footer">Provide the Details For adding Payment Record</div>
 					<!-- /.box-footer-->
 				</div>
 				<!-- /.box -->
@@ -419,7 +392,7 @@
 								n++;
 								$('#accounts')
 										.append(
-												'<div class="panel box box-primary"><div class="box-header with-border"><h4 class="box-title">Refund Account Details'
+												'<div class="panel box box-primary"><div class="box-header with-border"><h4 class="box-title">Payment Account Details'
 														+ '</h4>'
 														+ '<div class="box-tools pull-right"> '
 														+ '<button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">'
@@ -479,30 +452,8 @@
 		function validateForm(form) {
 			error = "Please fill this field .";
 
-			//Member ID validation
-			var id = document.getElementById("memberID").value;
-			if (id == null || id === "") {
-				document.getElementById("errorMemberID").innerHTML = error;
-				document.getElementById("divFormMemberID").className = 'alert alert-danger alert-dismissible';
-				document.getElementById("divFormMemberID").scrollIntoView();
-				return false;
-			}
-
-			if (!(id == null || id === "")) {
-				var idValid = /^\d+$/;
-				if (!id.match(idValid)) {
-					document.getElementById("errorMemberID").innerHTML = 'Invalid ID';
-					document.getElementById("divFormMemberID").className = 'alert alert-warning alert-dismissible';
-					document.getElementById("divFormMemberID").scrollIntoView();
-					return false;
-				}
-				document.getElementById("errorMemberID").innerHTML = "";
-				document.getElementById("divFormMemberID").className = 'form-group has-success';
-			}
-
-			//End Member ID validation
-
-			//Receipt Number validation
+			
+			//Voucher Number validation
 			var rec = document.getElementById("voucherNumber").value;
 			if (rec == null || rec === "") {
 				document.getElementById("errorVoucherNumber").innerHTML = error;
@@ -626,102 +577,6 @@
 		$(document)
 				.ready(
 						function() {
-							//Member Auto Fill
-							$('#memberID')
-									.bind(
-											"blur",
-											function(e) {
-												e.preventDefault();
-												var id = $('#memberID').val();
-												if (id.length > 0) {
-													$
-															.ajax({
-																url : 'http://localhost:8080/DanishHousing/ReceiptAutoFill',
-																dataType : 'json',
-																type : 'post',
-																data : {
-																	'id' : id
-																},
-
-																success : function(
-																		data) {
-																	var data0 = data["data"][0];
-																	var data1 = data["data"][1];
-																	var bool = data0["memberId"] === 0;
-																	$(
-																			'#divFormMemberID')
-																			.toggleClass(
-																					'alert alert-danger alert-dismissible',
-																					bool);
-																	$(
-																			'#memberDetails')
-																			.empty();
-																	$(
-																			'#errorMemberID')
-																			.empty();
-																	if (data0["memberId"] === 0) {
-																		$(
-																				'#errorMemberID')
-																				.text(
-																						'MemberID doesn\'t exist');
-																	} else {
-																		$(
-																				'#memberDetails')
-																				.append(
-																						'<dt>Full Name</dt><dd>'
-																								+ data0["prefix"]
-																								+ ' '
-																								+ data0["memName"]
-																								+ ' '
-																								+ data0["fHRelation"]
-																								+ ' '
-																								+ data0["fHRelName"]
-																								+ '</dd>'
-																								+ '<dt>Address</dt><dd>'
-																								+ data0["address1"]
-																								+ '</dd><dd>'
-																								+ data0["address2"]
-																								+ '</dd><dd>'
-																								+ data0["address3"]
-																								+ '</dd>'
-																								+ '<dt>Plot Number</dt><dd>'
-																								+ data0["plotNo"]
-																								+ '</dd>'
-																								+ '<dt>Plot Size</dt><dd>'
-																								+ data0["plotSize"]
-																								+ '</dd>'
-																								+ '<dt>Net Plot Size</dt><dd>'
-																								+ data0["netPlotSize"]
-																								+ '</dd>'
-																								+ '<dt>Project</dt><dd>'
-																								+ data1["projectName"]
-																								+ ' - '
-																								+ data1["projectId"]
-																								+ '</dd>'
-																								+ '<dt>Project Type</dt><dd>'
-																								+ data1["bungProject"]
-																								+ '</dd>');
-
-																	}
-																},
-
-																error : function(
-																		req,
-																		status,
-																		err) {
-																	alert('Error');
-																	console
-																			.log(req
-																					+ ' '
-																					+ status
-																					+ ' '
-																					+ err);
-																}
-
-															});
-												}
-
-											});
 
 							//Account Details Auto fill
 							$('#accounts')
