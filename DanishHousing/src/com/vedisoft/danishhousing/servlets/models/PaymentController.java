@@ -49,6 +49,9 @@ public class PaymentController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int msg = 2;
+		StringBuilder qu = new StringBuilder("?");
+		
 		int voucherNo = 0;
 		if (request.getParameter("voucherNumber") != null
 				&& request.getParameter("voucherNumber").trim().length() > 0) {
@@ -110,7 +113,8 @@ public class PaymentController extends HttpServlet {
 
 		String page = "/pages/admin/Payment.jsp";
 		int k = 0;
-		
+		HttpSession se = request.getSession();
+		se.setAttribute("accList", new AccountDao().findAll());
 		if (op.equals("create")) {
 
 			int d = 1;
@@ -142,7 +146,7 @@ public class PaymentController extends HttpServlet {
 					remarks = request.getParameter("remarks" + j);
 				}
 
-				HttpSession se = request.getSession();
+				
 				Users u = (Users) se.getAttribute("userLogin");
 				Date d1 = null;
 
@@ -156,7 +160,6 @@ public class PaymentController extends HttpServlet {
 						
 						k = new ChequePaymentDao().create(t);
 						if (k <= 0) {
-							request.setAttribute("msg", 2);
 							break;
 						} else
 							d++;
@@ -168,7 +171,6 @@ public class PaymentController extends HttpServlet {
 								transctionID, trDate, Amount, d1);
 						k = new ChequePaymentDao().create(t, ch);
 						if (k <= 0) {
-							request.setAttribute("msg", 2);
 							break;
 						} else
 							d++;
@@ -178,22 +180,20 @@ public class PaymentController extends HttpServlet {
 				}
 
 			}
-			if (k > 0)
-				request.setAttribute("msg", 1);
-			else
-				request.setAttribute("msg", 2);
-
-			request.setAttribute("accList", new AccountDao().findAll());
-			request.setAttribute("voucherNo", UtilityDao.maxVoucherNo());
-			request.setAttribute("today", new java.util.Date());
-			RequestDispatcher rd = request.getRequestDispatcher(page);
-			rd.forward(request, response);
+			if (k > 0){
+				msg = 1;
+				qu.append("docNo="+voucherNo+"&");
+			}
+			qu.append("voucherNo="+UtilityDao.maxVoucherNo()+"&");
+		
+			qu.append("today="+DateUtils.dateFormat(new java.util.Date())+"&");
+			qu.append("msg="+msg);
+			response.sendRedirect("/DanishHousing"+page+qu);	
 		} else {
-			request.setAttribute("accList", new AccountDao().findAll());
-			request.setAttribute("voucherNo", UtilityDao.maxVoucherNo());
-			request.setAttribute("today", new java.util.Date());
-			RequestDispatcher rd = request.getRequestDispatcher(page);
-			rd.forward(request, response);
+			qu.append("voucherNo="+UtilityDao.maxVoucherNo()+"&");
+		
+			qu.append("today="+DateUtils.dateFormat(new java.util.Date()));
+			response.sendRedirect("/DanishHousing"+page+qu);
 		}
 	}
 

@@ -32,8 +32,7 @@
 					<div class="box-header with-border">
 						<h3 class="box-title">Member Refund Form</h3>
 						<div class="box-tools pull-right">
-							<span id="today"><fmt:formatDate type="date"
-									pattern="dd/MM/yyyy" value="${requestScope.today}" /></span>
+							<span id="today">${param.today}</span>
 							<button type="button" class="btn btn-box-tool"
 								data-widget="collapse" data-toggle="tooltip" title="Collapse">
 								<i class="fa fa-minus"></i>
@@ -53,7 +52,7 @@
 							<div class="row">
 								<div class="col-md-4">
 									<table align="left" width="50%">
-										<c:forEach var="ac" items="${requestScope.accList}">
+										<c:forEach var="ac" items="${sessionScope.accList}">
 											<tr>
 												<th>${ac.bkName}:</th>
 												<th>${ac.opBal}</th>
@@ -91,7 +90,7 @@
 										<div class="input-group">
 											<span class="input-group-addon"><i
 												class="fa  fa-info-circle "></i></span> <input type="text"
-												class="form-control" value="${requestScope.voucherNo}"
+												class="form-control" value="${param.voucherNo}"
 												id="voucherNumber" name="voucherNumber" />
 										</div>
 										<p id="errorVoucherNumber"></p>
@@ -112,7 +111,7 @@
 											</div>
 											<input type="text" class="form-control pull-right datepicker"
 												id="date" name="date" required="required"
-												value="${requestScope.today}" />
+												value="${param.today}" />
 										</div>
 										<p id="errorReceiptDate"></p>
 										<!-- /.input group -->
@@ -491,13 +490,13 @@
 	}
 	
 		<c:choose>
-		<c:when test="${requestScope.msg == '1'}">
+		<c:when test="${param.msg == '1'}">
 		$(document).ready(function() {
 			$("#typeError").addClass("form-group has-success");
-			$("#errorTop").html("Payment Record Added Successfully.");
+			$("#errorTop").html("Payment Record Added Successfully of Voucher No. : ${param.docNo}");
 		});
 		</c:when>
-		<c:when test="${requestScope.msg=='2'}">
+		<c:when test="${param.msg=='2'}">
 		$(document).ready(function() {
 			$("#typeError").addClass("form-group has-error");
 			$("#errorTop").html("Fail to Add Payment Record.");
