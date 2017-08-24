@@ -11,6 +11,7 @@ import com.vedisoft.danishhousing.daos.AccountDao;
 import com.vedisoft.danishhousing.daos.AccountMasterDao;
 import com.vedisoft.danishhousing.daos.MembersDao;
 import com.vedisoft.danishhousing.daos.ProjectsDao;
+import com.vedisoft.danishhousing.daos.UtilityDao;
 import com.vedisoft.danishhousing.pojos.Account;
 import com.vedisoft.danishhousing.pojos.AccountMaster;
 import com.vedisoft.danishhousing.pojos.Members;
@@ -46,7 +47,7 @@ public class ReceiptAutoFill extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		int memberId = 0;
+		int memberId = 0,recNo,vrNo;
 		String accCode = new String();
 		String bankCode = new String();
 		Gson gson = new Gson();
@@ -84,6 +85,20 @@ public class ReceiptAutoFill extends HttpServlet {
 				json = gson.toJson(a);
 			response.setContentType("application/json");
 			response.getWriter().write(json);
+		}
+		if (request.getParameter("recNo") != null && request.getParameter("recNo").trim().length() > 0) {
+			recNo = Integer.parseInt(request.getParameter("recNo"));
+			boolean bool = UtilityDao.checkReceiptNo(recNo);
+			String json = "{\"avail\":"+bool+",\"next\":\""+UtilityDao.maxReceiptNo()+"\"}";
+			response.setContentType("application/json");
+			response.getWriter().write("{\"data\": [" + json + "]}");
+		}
+		if (request.getParameter("vrNo") != null && request.getParameter("vrNo").trim().length() > 0) {
+			vrNo = Integer.parseInt(request.getParameter("vrNo"));
+			boolean bool = UtilityDao.checkVoucherNo(vrNo);
+			String json = "{\"avail\":"+bool+",\"next\":\""+UtilityDao.maxVoucherNo()+"\"}";
+			response.setContentType("application/json");
+			response.getWriter().write("{\"data\": [" + json + "]}");
 		}
 	}
 
