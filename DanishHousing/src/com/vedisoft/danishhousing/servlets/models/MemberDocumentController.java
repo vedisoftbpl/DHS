@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import com.vedisoft.danishhousing.daos.MemberDocumentDao;
+import com.vedisoft.danishhousing.pojos.DocumentCategoriesEnum;
 import com.vedisoft.danishhousing.pojos.MemberDocument;
 import com.vedisoft.danishhousing.pojos.Users;
 
@@ -23,7 +24,7 @@ import com.vedisoft.danishhousing.pojos.Users;
  * Servlet implementation class ContractDocument
  */
 @SuppressWarnings("serial")
-@WebServlet("/admin/pages/ContractDocumentsController")
+@WebServlet("/admin/pages/MemberDocumentsController")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 10, maxFileSize = 1024 * 1024 * 25, maxRequestSize = 1024 * 1024
 		* 50) // 10mb
 public class MemberDocumentController extends HttpServlet {
@@ -57,8 +58,9 @@ public class MemberDocumentController extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		Users user = (Users)session.getAttribute("userLogin");
-		String page = "/pages/admin/MemberDocuments.jsp";
+		String page = "/pages/admin/MembersDocuments.jsp";
 		
+		request.setAttribute("documentsList", DocumentCategoriesEnum.values());
 		String renamedFileName = new String();
 		String operation = new String();
 		operation = request.getParameter("operation");
@@ -118,10 +120,16 @@ public class MemberDocumentController extends HttpServlet {
 			
 			int a= 0;
 			a = dao.create(memberDoc);
-			if(a > 0)
-				response.sendRedirect("/DanishHousing" + page + "?msg=1" );
-			else
-				response.sendRedirect("/DanishHousing" + page + "?msg=2");
+			if(a > 0){
+				request.setAttribute("msg", 1);
+				RequestDispatcher rd = request.getRequestDispatcher(page);
+				rd.forward(request, response);
+			}
+			else{
+				request.setAttribute("msg", 2);
+				RequestDispatcher rd = request.getRequestDispatcher(page);
+				rd.forward(request, response);
+			}
 		}
 
 		else {

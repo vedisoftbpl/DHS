@@ -1,4 +1,4 @@
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="../design/Top.jsp"%>
 <body class="hold-transition skin-blue sidebar-mini">
 	<!-- Site wrapper -->
@@ -12,11 +12,11 @@
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
-				<h1>Contracts Type</h1>
+				<h1>Member Documents</h1>
 				<ol class="breadcrumb">
 					<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
 					<li><a href="#">Master Data</a></li>
-					<li class="active">Contracts Type</li>
+					<li class="active">Member Documents</li>
 				</ol>
 			</section>
 			<!-- Main content -->
@@ -24,7 +24,7 @@
 				<!-- Default box -->
 				<div class="box">
 					<div class="box-header with-border">
-						<h3 class="box-title">New Contract Type Creation Form</h3>
+						<h3 class="box-title">Member Documents Uploading Form</h3>
 						<div class="box-tools pull-right">
 							<button type="button" class="btn btn-box-tool"
 								data-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -36,45 +36,86 @@
 							</button>
 						</div>
 					</div>
-<div class="form-group" id="typeError">
-				<label class="control-label" id="errorTop"></label>
-			</div>
-			
+					<div class="form-group" id="typeError">
+						<label class="control-label" id="errorTop"></label>
+					</div>
+
 					<!-- User Form -->
 					<form enctype="multipart/form-data"
-						action="${pageContext.request.contextPath}/admin/pages/ContractDocumentsController"
+						action="${pageContext.request.contextPath}/admin/pages/MemberDocumentsController"
 						method="post" onsubmit="return validateForm(this)">
 						<div class="box-body">
 							<div class="row">
+<div class="col-md-4"></div>
+								<!-- col -->
+								<div class="col-md-4">
+									<!--  form-group -->
+									<!-- Member ID -->
+									<div class="form-group" id="divFormMemberID"  >
+										<label>Member ID</label>
+										<div class="input-group">
+											<span class="input-group-addon"><i
+												class="fa fa-info-circle"></i></span> <input type="text"
+												class="form-control" placeholder="Member ID" id="memberID"
+												name="memberID" />
+										</div>
+										<p id="errorMemberID"></p>
+									</div>
+									<!-- End Member ID -->
+									<!-- /.form-group -->
+								</div>
+
+							</div>
+							<div class="row" align="center">
+								<div class="box-header with-border">
+									<h3 class="box-title">Member Details</h3>
+								</div>
+								<div class="box-body">
+									<dl class="dl-horizontal" id="memberDetails">
+									</dl>
+
+								</div>
+								<!-- /.box-body -->
+							</div>
+							<div class="row" id="memberDocuments" style="display:none;">
+							<div class="box-header with-border" align="center">
+									<h3 class="box-title">Member Documents Details</h3>
+								</div>
+								<div class="box-body">
 								<div class="col-md-6">
 									<!--  form-group -->
 
 									<!-- Zone Id -->
-									<div class="form-group" id="divFormContractDocTitle" >
-										<label>Contract Document Title</label>
+									<div class="form-group" id="divFormMemberDocTitle">
+										<label>Member Document Title</label>
 										<div class="input-group">
 											<span class="input-group-addon"><i
-												class="fa  fa-file-text-o"></i></span> <input type="text"
-												class="form-control" placeholder="Contract Document Title"
-												id="contractDocTitle" name="contractDocTitle">
+												class="fa  fa-file-text-o"></i></span> <select
+												class="form-control"
+												id="memberDocTitle" name="memberDocTitle">
+												<option value="0">N/A</option>
+												<c:forEach items="${requestScope.documentsList}" var="doc">
+												<option value="${doc.getValue()}">${doc.getValue()}</option>
+												</c:forEach>
+												</select>
 										</div>
-										<p id="errorContractDocTitle"></p>
+										<p id="errorMemberDocTitle"></p>
 									</div>
 									<!--End Zone Id-->
 									<!-- /.form-group -->
 
 									<!-- form-group -->
 									<!-- Upload Photo -->
-									<div class="form-group" id="divContractDocFile">
+									<div class="form-group" id="divMemberDocFile">
 										<label for="exampleInputFile">Upload File</label>
 										<div class="input-group">
 											<div class="input-group-addon">
 												<i class="fa fa-photo"></i>
 											</div>
-											<input type="file" id="contractDocFile"
-												name="contractDocFile" class="btn btn-block btn-default btn" />
+											<input type="file" id="memberDocFile" name="memberDocFile"
+												class="btn btn-block btn-default btn" />
 										</div>
-										<p id="errorContractDocFile"></p>
+										<p id="errorMemberDocFile"></p>
 									</div>
 									<!-- End Upload Photo -->
 
@@ -90,17 +131,17 @@
 									<!-- Zone Name -->
 
 									<!-- Address -->
-									<div class="form-group" id="divContractDocDetails">
+									<div class="form-group" id="divMemberDocDetails">
 										<label>Details</label>
 										<div class="input-group">
 											<div class="input-group-addon">
 												<i class="fa  fa-align-left"></i>
 											</div>
 											<textarea class="form-control" rows="5"
-												placeholder="Enter Contract Document Details here"
-												id="contractDocDetails" name="contractDocDetails"></textarea>
+												placeholder="Enter Member Document Details here"
+												id="memberDocDetails" name="memberDocDetails"></textarea>
 										</div>
-										<p id="errorcontractDocDetails"></p>
+										<p id="errorMemberDocDetails"></p>
 									</div>
 									<input type="hidden" id="operation" name="operation"
 										value="create" />
@@ -116,12 +157,16 @@
 
 									<!-- / .form group -->
 								</div>
+								</div>
 								<!-- /.box-body -->
 							</div>
 							<!-- /.box -->
-							<div class="col-xs-4" align="right"></div>
-							<div class="col-xs-4" align="right">
-								<button type="submit" class="btn btn-primary btn-block btn-flat">Register</button>
+							<div class="row" id="uploadButton" style="display:none;">
+								<div class="col-xs-4" align="right"></div>
+								<div class="col-xs-4" align="right">
+									<button type="submit"
+										class="btn btn-primary btn-block btn-flat">Upload</button>
+								</div>
 							</div>
 						</div>
 					</form>
@@ -129,7 +174,7 @@
 					<!-- User Form -->
 
 					<!-- /.box-body -->
-					<div class="box-footer">Provide New Contract Type Details</div>
+					<div class="box-footer">Provide Member Documents Details</div>
 					<!-- /.box-footer-->
 				</div>
 				<!-- /.box -->
@@ -145,58 +190,162 @@
 	<%@ include file="../design/Bottom.jsp"%>
 
 	<script>
-	<c:choose>
-	<c:when test="${param.msg=='1'}">
-	$(document).ready(function() {
-		$("#typeError").addClass("form-group has-error");
-		$("#errorTop")
-		.html(
-				"Record Added Successfully.");
-	});
-	</c:when>
-	<c:when test="${param.msg=='2'}">
-	$(document).ready(function() {
-		$("#typeError").addClass("form-group has-error");
-		$("#errorTop")
-		.html(
-				"Fail to Add Record.");
-	});
-	</c:when>
-	</c:choose>
+		<c:choose>
+		<c:when test="${requestScope.msg=='1'}">
+		$(document).ready(function() {
+			$("#typeError").addClass("form-group has-error");
+			$("#errorTop").html("Document Uploaded Successfully.");
+		});
+		</c:when>
+		<c:when test="${requestScope.msg=='2'}">
+		$(document).ready(function() {
+			$("#typeError").addClass("form-group has-error");
+			$("#errorTop").html("Fail to Add Receipt Record.");
+		});
+		</c:when>
+		</c:choose>
 		function validateForm(form) {
 			error = "Please enter this field";
 
 			//Contract Document Title Validation
-			var contractTypeName = document.getElementById("contractDocTitle").value;
+			var contractTypeName = document.getElementById("memberDocTitle").value;
 			if (contractTypeName == null || contractTypeName === "") {
-				document.getElementById("divFormContractDocTitle").className = 'alert alert-danger alert-dismissible';
-				document.getElementById("errorContractDocTitle").innerHTML = error;
+				document.getElementById("divFormMemberDocTitle").className = 'alert alert-danger alert-dismissible';
+				document.getElementById("errorMemberDocTitle").innerHTML = error;
 				return false;
 			}
-			document.getElementById("divFormContractDocTitle").className = 'form-group has-success';
-			document.getElementById("errorContractDocTitle").innerHTML = "";
+			document.getElementById("divFormMemberDocTitle").className = 'form-group has-success';
+			document.getElementById("errorMemberDocTitle").innerHTML = "";
 
 			//Contract Document Details ValiDation
 			var contractTypeDetails = document
-					.getElementById("contractDocDetails").value;
+					.getElementById("memberDocDetails").value;
 			if (contractTypeDetails == null || contractTypeDetails === "") {
 
-				document.getElementById("divContractDocDetails").className = 'alert alert-danger alert-dismissible';
-				document.getElementById("errorcontractDocDetails").innerHTML = error;
+				document.getElementById("divMemberDocDetails").className = 'alert alert-danger alert-dismissible';
+				document.getElementById("errorMemberDocDetails").innerHTML = error;
 				return false;
 			}
-			document.getElementById("divContractDocDetails").className = 'form-group has-success';
-			document.getElementById("errorcontractDocDetails").innerHTML = "";
+			document.getElementById("divMemberDocDetails").className = 'form-group has-success';
+			document.getElementById("errorMemberDocDetails").innerHTML = "";
 
-			var desig = document.getElementById("contractDocFile").value;
+			var desig = document.getElementById("memberDocFile").value;
 			if (desig == null || desig === "") {
-				document.getElementById("errorContractDocFile").innerHTML = 'Please Upload Contract Document file';
-				document.getElementById("divContractDocFile").className = 'alert alert-danger alert-dismissible';
+				document.getElementById("errorMemberDocFile").innerHTML = 'Please Upload Member Document file';
+				document.getElementById("divMemberDocFile").className = 'alert alert-danger alert-dismissible';
 				return false;
 
 			}
-			document.getElementById("errorContractDocFile").innerHTML = "";
-			document.getElementById("divContractDocFile").className = 'form-group has-success';
+			document.getElementById("errorMemberDocFile").innerHTML = "";
+			document.getElementById("divMemberDocFile").className = 'form-group has-success';
 
 		}
+
+		//Auto fill data
+		$(document)
+				.ready(
+						function() {
+							//Member Auto Fill
+							$('#memberID')
+									.bind(
+											"blur",
+											function(e) {
+												e.preventDefault();
+												var id = $('#memberID').val();
+												if (id.length > 0) {
+													$
+															.ajax({
+																url : 'http://localhost:8080/DanishHousing/ReceiptAutoFill',
+																dataType : 'json',
+																type : 'post',
+																data : {
+																	'id' : id
+																},
+
+																success : function(
+																		data) {
+																	var data0 = data["data"][0];
+																	var data1 = data["data"][1];
+																	var bool = data0["memberId"] === 0;
+																	$(
+																			'#divFormMemberID')
+																			.toggleClass(
+																					'alert alert-danger alert-dismissible',
+																					bool);
+																	$(
+																			'#memberDetails')
+																			.empty();
+																	$(
+																			'#errorMemberID')
+																			.empty();
+																	if (data0["memberId"] === 0) {
+																		$(
+																				'#errorMemberID')
+																				.text(
+																						'MemberID doesn\'t exist');
+																	} else {
+																		$(
+																				'#memberDetails')
+																				.append(
+																						'<dt>Full Name</dt><dd>'
+																								+ data0["prefix"]
+																								+ ' '
+																								+ data0["memName"]
+																								+ ' '
+																								+ data0["fHRelation"]
+																								+ ' '
+																								+ data0["fHRelName"]
+																								+ '</dd>'
+																								+ '<dt>Address</dt><dd>'
+																								+ data0["address1"]
+																								+ '</dd><dd>'
+																								+ data0["address2"]
+																								+ '</dd><dd>'
+																								+ data0["address3"]
+																								+ '</dd>'
+																								+ '<dt>Plot Number</dt><dd>'
+																								+ data0["plotNo"]
+																								+ '</dd>'
+																								+ '<dt>Plot Size</dt><dd>'
+																								+ data0["plotSize"]
+																								+ '</dd>'
+																								+ '<dt>Net Plot Size</dt><dd>'
+																								+ data0["netPlotSize"]
+																								+ '</dd>'
+																								+ '<dt>Project</dt><dd>'
+																								+ data1["projectName"]
+																								+ ' - '
+																								+ data1["projectId"]
+																								+ '</dd>'
+																								+ '<dt>Project Type</dt><dd>'
+																								+ data1["bungProject"]
+																								+ '</dd>');
+																		$(
+																				'#memberDocuments')
+																				.show();
+																		$(
+																		'#uploadButton')
+																		.show();
+																	}
+																},
+
+																error : function(
+																		req,
+																		status,
+																		err) {
+																	alert('Error');
+																	console
+																			.log(req
+																					+ ' '
+																					+ status
+																					+ ' '
+																					+ err);
+																}
+
+															});
+												}
+
+											});
+
+						});
 	</script>

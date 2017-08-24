@@ -2,7 +2,7 @@ package com.vedisoft.danishhousing.pojos;
 
 public enum DocumentCategoriesEnum {
 	ID_Proof("ID Proof"),
-	Membership_Form("Membership_Form"),
+	Membership_Form("Membership Form"),
 	Registration("Registration"),
 	Legal("Legal"),
 	Others("Others");
