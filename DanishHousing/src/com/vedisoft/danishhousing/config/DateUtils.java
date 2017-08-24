@@ -61,7 +61,7 @@ public class DateUtils {
 		}
 		String day = d.substring(8, 10);
 		String year = d.substring(24, 28);
-		return (day + "-" + m + "-" + year);
+		return (day + "/" + m + "/" + year);
 	}
 
 	public static int calculateAge(Date dob) {
