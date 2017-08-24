@@ -89,7 +89,7 @@
 									<!-- form group -->
 									<!-- Receipt Date -->
 									<div class="form-group" id="divAccountFormDate">
-										<label>Refund Date :</label>
+										<label>Payment Date :</label>
 										<div class="input-group date">
 											<div class="input-group-addon">
 												<i class="fa fa-calendar"></i>
@@ -133,7 +133,7 @@
 													<i class="fa fa-minus"></i>
 												</button>
 												<button type="button" class="btn btn-box-tool"
-													data-widget="remove" data-toggle="tooltip" title="Remove">
+													data-widget="remove" onclick="remove('accountCode1','amount1')" data-toggle="tooltip" title="Remove">
 													<i class="fa fa-times"></i>
 												</button>
 											</div>
@@ -398,7 +398,8 @@
 														+ '<button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">'
 														+ '<i class="fa fa-minus"></i></button>'
 														+ '<button type="button" class="btn btn-box-tool"'
-														+ 'data-widget="remove" data-toggle="tooltip" title="Remove">'
+														+ 'data-widget="remove" onclick="remove(\'accountCode' + n +'\',\'amount' + n 
+														+ '\')" data-toggle="tooltip" title="Remove">'
 														+ '<i class="fa fa-times"></i>'
 														+ '</button>'
 														+ '</div></div>'
@@ -433,6 +434,35 @@
 		});
 	</script>
 	<script>
+	function remove(a,b){
+		document.getElementById(a).value = "";
+		document.getElementById(b).value = 0;
+		var totalAccount = $(
+				'#totalAccounts').val();
+		var total = 0;
+		for (i = 1; i <= totalAccount; i++) {
+			var amt = $('#amount' + i)
+					.val();
+			if ($.isNumeric(amt)) {
+				total = total
+						+ parseInt(amt);
+			} else {
+				document
+						.getElementById("errorAmount"
+								+ i).innerHTML = "Invalid Amount";
+				document
+						.getElementById("divFormAmount"
+								+ i).className = 'alert alert-warning alert-dismissible';
+				document
+						.getElementById(
+								"divFormAmount"
+										+ i)
+						.scrollIntoView();
+			}
+		}
+		$('#totalAmount').val(total);
+	}
+	
 		<c:choose>
 		<c:when test="${requestScope.msg == '1'}">
 		$(document).ready(function() {
