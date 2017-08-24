@@ -132,28 +132,29 @@
 						</tr>
 						<tr>
 							<td>Receipt No. :</td>
-							<td>${requestScope.receiptNo}</td>
+							<td><div align="left">${requestScope.receiptNo}</div></td>
 							<td></td>
 						</tr>
 						<tr>
 							<td>Date :</td>
-							<td><fmt:formatDate type="date" pattern="dd/MM/yyyy"
-									value="${requestScope.receiptDt}" /></td>
+							<td><div align="left"><fmt:formatDate type="date" pattern="dd/MM/yyyy"
+									value="${requestScope.receiptDt}" /></div></td>
 							<td></td>
 						</tr>
 						<tr>
 							<td>Received From :</td>
-							<td colspan="2">${requestScope.rdetails[0]}&nbsp;${requestScope.rdetails[1]}&nbsp;${requestScope.rdetails[2]}<br>
+							<td colspan="2"><div align="left">${requestScope.rdetails[0]}&nbsp;${requestScope.rdetails[1]}&nbsp;${requestScope.rdetails[2]}<br>
 								${requestScope.rdetails[3]} ${requestScope.rdetails[4]}<br>
 								${requestScope.rdetails[5]}
+							</div></td>	
 						</tr>
 						<tr>
 							<td>Payment Method</td>
-							<td>${requestScope.rdetails[6]}</td>
+							<td><div align="left">${requestScope.rdetails[6]}</div></td>
 						</tr>
 						<tr>
 							<td>In Account Of</td>
-							<td>${requestScope.projectName}</td>
+							<td><div align="left">${requestScope.projectName}</div></td>
 						</tr>
 					</table>
 				</td>
