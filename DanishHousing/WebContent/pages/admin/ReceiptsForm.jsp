@@ -32,8 +32,7 @@
 					<div class="box-header with-border">
 						<h3 class="box-title">Add Receipts Form</h3>
 						<div class="box-tools pull-right">
-							<span id="today"><fmt:formatDate type="date"
-									pattern="dd/MM/yyyy" value="${requestScope.today}" /></span>
+							<span id="today">${param.today}</span>
 							<button type="button" class="btn btn-box-tool"
 								data-widget="collapse" data-toggle="tooltip" title="Collapse">
 								<i class="fa fa-minus"></i>
@@ -77,7 +76,7 @@
 										<div class="input-group">
 											<span class="input-group-addon"><i
 												class="fa  fa-info-circle "></i></span> <input type="text"
-												class="form-control" value="${requestScope.recNo}"
+												class="form-control" value="${param.recNo}"
 												id="receiptNumber" name="receiptNumber" />
 										</div>
 										<p id="errorReceiptNumber"></p>
@@ -98,7 +97,7 @@
 											</div>
 											<input type="text" class="form-control pull-right datepicker"
 												id="date" name="date" required="required"
-												value="${requestScope.today}" />
+												value="${param.today}" />
 										</div>
 										<p id="errorReceiptDate"></p>
 										<!-- /.input group -->
@@ -505,21 +504,21 @@
 	}
 	
 		<c:choose>
-		<c:when test="${requestScope.msg == '1'}">
+		<c:when test="${param.msg == '1'}">
 		$(document)
 				.ready(
 						function() {
 							$("#typeError").addClass("form-group has-success");
 							$("#errorTop").html(
-									"Receipt Record Added Successfully.");
+									"Receipt Record Added Successfully for Receipt No. :  ${param.docNo}");
 							window
 									.open(
-											"ReceiptPrintController?docNo=${requestScope.docNo}",
-											"Receipt : ${requestScope.docNo}",
+											"../../admin/pages/ReceiptPrintController?docNo=${param.docNo}",
+											"Receipt : ${param.docNo}",
 											"_blank");
 						});
 		</c:when>
-		<c:when test="${requestScope.msg=='2'}">
+		<c:when test="${param.msg=='2'}">
 		$(document).ready(function() {
 			$("#typeError").addClass("form-group has-error");
 			$("#errorTop").html("Fail to Add Receipt Record.");

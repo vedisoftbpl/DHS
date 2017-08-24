@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.vedisoft.danishhousing.config.DateUtils;
 import com.vedisoft.danishhousing.daos.ProjectsDao;
 import com.vedisoft.danishhousing.daos.ReceiptDao;
 
@@ -72,7 +73,7 @@ public class ReceiptPrintController extends HttpServlet {
 			rDetails[3]=r.getMad1();
 			rDetails[4]=r.getMad2();
 			rDetails[5]=r.getMad3();
-			rDetails[6]=r.getdC() + " " + r.getcDd();
+			rDetails[6]=r.getdC() + " " + r.getcDd() + " " + r.getBranch() + " " + r.getCity() + " Dated : " + DateUtils.dateFormat(r.getcDdte());
 			
 		double totalAmt= 0.0;
 		 for(ReceiptRecord rc : list)
