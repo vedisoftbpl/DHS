@@ -67,18 +67,18 @@ public class MemberDocumentController extends HttpServlet {
 		if (operation != null) {
 
 			String docTitle = new String();
-			if (request.getParameter("contractDocTitle") != null
-					&& request.getParameter("contractDocTitle").trim().length() > 0)
-				docTitle = request.getParameter("contractDocTitle");
+			if (request.getParameter("memberDocTitle") != null
+					&& request.getParameter("memberDocTitle").trim().length() > 0)
+				docTitle = request.getParameter("memberDocTitle");
 
 			String docDetail = new String();
-			if (request.getParameter("contractDocDetails") != null
-					&& request.getParameter("contractDocDetails").trim().length() > 0)
-				docDetail = request.getParameter("contractDocDetails");
+			if (request.getParameter("memberDocDetails") != null
+					&& request.getParameter("memberDocDetails").trim().length() > 0)
+				docDetail = request.getParameter("memberDocDetails");
 
 			String docFile = new String();
-			if (request.getParameter("contractDocFile") != null) {
-				docFile = request.getParameter("contractDocFile");
+			if (request.getParameter("memberDocFile") != null) {
+				docFile = request.getParameter("memberDocFile");
 			}
 			String appPath = request.getServletContext().getRealPath("") + "pages/";
 			String savePath = appPath + SAVE_DIR;

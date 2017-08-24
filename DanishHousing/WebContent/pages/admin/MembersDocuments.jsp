@@ -193,7 +193,7 @@
 		<c:choose>
 		<c:when test="${requestScope.msg=='1'}">
 		$(document).ready(function() {
-			$("#typeError").addClass("form-group has-error");
+			$("#typeError").addClass("form-group has-success");
 			$("#errorTop").html("Document Uploaded Successfully.");
 		});
 		</c:when>
