@@ -283,6 +283,12 @@
 																				'#errorMemberID')
 																				.text(
 																						'MemberID doesn\'t exist');
+																		$(
+																		'#memberDocuments')
+																		.hide();
+																$(
+																'#uploadButton')
+																.hide();
 																	} else {
 																		$(
 																				'#memberDetails')
