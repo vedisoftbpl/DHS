@@ -76,10 +76,37 @@ public class UtilityDao {
 			return true;
 	}
 	
+	public static boolean checkVoucherNo(int vrno) {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		pool.initialize();
+		int sno = 0;
+		Connection conn = pool.getConnection();
+		try {
+			String sql = "select s_no from transaction_records where vr_no = ?";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, vrno);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				sno = rs.getInt("s_no");
+			}
+			
+		} catch (SQLException sq) {
+			System.out.println("Unable to create a new row." + sq);
+		} finally {
+			pool.putConnection(conn);
+		}
+		if(sno > 0){
+			return false;
+		}
+		else
+			return true;
+	}
+	
 	
 public static void main(String args[]){
 	System.out.println("Max Receipt Number :" + maxReceiptNo());
-//	System.out.println(checkReceiptNo(44902));
+	System.out.println(checkReceiptNo(44926));
+	System.out.println(checkVoucherNo(20));
 	System.out.println("Max Voucher Number :" + maxVoucherNo());
 }
 }
