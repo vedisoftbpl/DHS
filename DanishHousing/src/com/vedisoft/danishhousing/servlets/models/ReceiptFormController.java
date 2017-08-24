@@ -53,8 +53,8 @@ public class ReceiptFormController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		int id =0;
-		
+		int id =0,msg = 2;
+		StringBuilder qu = new StringBuilder("?");
 		
 		int memberNo = 0;
 		if (request.getParameter("memberID") != null && request.getParameter("memberID").trim().length() > 0) {
@@ -189,7 +189,6 @@ public class ReceiptFormController extends HttpServlet {
 					k = new ReceiptDao().create(t,r);
 					d++;
 					if(k <= 0){
-						request.setAttribute("msg", 2);
 						break;
 					}
 				}
@@ -197,23 +196,18 @@ public class ReceiptFormController extends HttpServlet {
 				
 			}
 			if(k > 0){
-				request.setAttribute("msg", 1);
-				request.setAttribute("docNo", receiptNo);
+				msg = 1;
+				qu.append("docNo="+receiptNo+"&");
 			}
-				
-			else
-				request.setAttribute("msg", 2);
 			System.out.println("k :" + k);
-			request.setAttribute("recNo", UtilityDao.maxReceiptNo());
-			request.setAttribute("today", new java.util.Date());
-			
-			RequestDispatcher rd = request.getRequestDispatcher(page);
-			rd.forward(request, response);
+			qu.append("recNo="+UtilityDao.maxReceiptNo()+"&");
+			qu.append("today="+DateUtils.dateFormat(new java.util.Date())+"&");
+			qu.append("msg="+msg);
+			response.sendRedirect("/DanishHousing"+page+qu);
 		} else {
-			request.setAttribute("recNo", UtilityDao.maxReceiptNo());
-			request.setAttribute("today", new java.util.Date());
-			RequestDispatcher rd = request.getRequestDispatcher(page);
-			rd.forward(request, response);
+			qu.append("recNo="+UtilityDao.maxReceiptNo()+"&");
+			qu.append("today="+DateUtils.dateFormat(new java.util.Date()));
+			response.sendRedirect("/DanishHousing"+page+qu);
 		}
 		
 		

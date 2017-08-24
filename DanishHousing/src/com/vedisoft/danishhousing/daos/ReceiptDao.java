@@ -328,7 +328,7 @@ public class ReceiptDao {
 				else
 					receipt.setwLrDt(wc_lr_dt);
 				
-				
+				receipt.setCity(rs.getString("city"));
 				receipt.setUserId(rs.getInt("userid"));
 				java.sql.Date lastupdate = rs.getDate("lastupdate");
 				if (lastupdate != null)
