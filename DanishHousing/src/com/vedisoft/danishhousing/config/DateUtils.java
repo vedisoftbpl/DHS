@@ -31,6 +31,8 @@ public class DateUtils {
 	}
 
 	public static String dateFormat(java.util.Date date) {
+		if(date == null)
+			return "";
 		String d = date.toString();
 		String mon = d.substring(4, 7);
 		String m = new String();
