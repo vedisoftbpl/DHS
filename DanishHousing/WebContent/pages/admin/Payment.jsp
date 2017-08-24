@@ -46,7 +46,7 @@
 					<!-- User Form -->
 					<form
 						action="${pageContext.request.contextPath}/admin/pages/PaymentController"
-						method="post" onsubmit="return validateForm(this)">
+						method="post" onsubmit="return validateForm(this)" id="form">
 						<div class="box-body">
 
 							<div class="row">
@@ -346,7 +346,7 @@
 								<button type="reset" class="btn btn-block btn-danger">Cancel</button>
 							</div>
 							<div class="col-xs-4" align="center">
-								<button type="submit" class="btn btn-primary btn-block btn-flat">Submit</button>
+								<button type="button" onclick="sub();" class="btn btn-primary btn-block btn-flat">Submit</button>
 							</div>
 
 						</div>
@@ -591,6 +591,62 @@
 
 			return true;
 		}
+		
+		function sub(){
+			//Unique Id Vaildation
+			var id = $('#voucherNumber').val();
+			var y = '1';
+			if (id.length > 0) {
+				$
+						.ajax({
+							url : 'http://localhost:8080/DanishHousing/ReceiptAutoFill',
+							dataType : 'json',
+							type : 'post',
+							data : {
+								'vrNo' : id
+							},
+
+							success : function(
+									data) {
+								var data0 = data["data"][0];
+								bool = data0["avail"];
+								if (bool === false) {
+									alert("Voucher Number is not available. Use Voucher No. : " + data0["next"]);
+									document.getElementById("errorVoucherNumber").innerHTML = 'Receipt Number Already exist';
+									document.getElementById("divFormVoucherNumber").className = 'alert alert-warning alert-dismissible';
+									document.getElementById("divFormVoucherNumber")
+											.scrollIntoView();
+									
+								}
+								else
+									{
+									document.getElementById("errorVoucherNumber").innerHTML = '';
+									document.getElementById("divFormVoucherNumber").className = 'form-group has-success';
+									$('#form').submit();
+									
+									}
+							},
+
+							error : function(
+									req,
+									status,
+									err) {
+								alert('Error');
+								console
+										.log(req
+												+ ' '
+												+ status
+												+ ' '
+												+ err);
+							}
+
+						});
+			}
+			//End Id Validation
+			
+			
+		}
+		
 
 		$(function() {
 			//Date picker

@@ -46,7 +46,7 @@
 					<!-- User Form -->
 					<form
 						action="${pageContext.request.contextPath}/admin/pages/ReceiptFormController"
-						method="post" onsubmit="return validateForm(this)">
+						method="post" onsubmit="return validateForm(this)" id="form">
 						<div class="box-body">
 							<div class="row">
 								<!-- col -->
@@ -386,7 +386,7 @@
 								<button type="reset" class="btn btn-block btn-danger">Cancel</button>
 							</div>
 							<div class="col-xs-4" align="center">
-								<button type="submit" class="btn btn-primary btn-block btn-flat">Submit</button>
+								<button type="button" onclick="sub();" class="btn btn-primary btn-block btn-flat">Submit</button>
 							</div>
 
 						</div>
@@ -574,7 +574,7 @@
 				}
 				document.getElementById("errorReceiptNumber").innerHTML = "";
 				document.getElementById("divFormReceiptNumber").className = 'form-group has-success';
-			}
+				}
 
 			//End Receipt Number validation
 
@@ -693,8 +693,62 @@
 				document.getElementById("divFormCity").className = 'form-group has-success';
 			}
 			//End City Validation
-
+		
 			return true;
+		}
+		function sub(){
+			//Unique Id Vaildation
+			var id = $('#receiptNumber').val();
+			var y = '1';
+			if (id.length > 0) {
+				$
+						.ajax({
+							url : 'http://localhost:8080/DanishHousing/ReceiptAutoFill',
+							dataType : 'json',
+							type : 'post',
+							data : {
+								'recNo' : id
+							},
+
+							success : function(
+									data) {
+								var data0 = data["data"][0];
+								bool = data0["avail"];
+								if (bool === false) {
+									alert("Receipt Number is not available. Use Receipt No. : " + data0["next"]);
+									document.getElementById("errorReceiptNumber").innerHTML = 'Receipt Number Already exist';
+									document.getElementById("divFormReceiptNumber").className = 'alert alert-warning alert-dismissible';
+									document.getElementById("divFormReceiptNumber")
+											.scrollIntoView();
+									
+								}
+								else
+									{
+									document.getElementById("errorReceiptNumber").innerHTML = '';
+									document.getElementById("divFormReceiptNumber").className = 'form-group has-success';
+									$('#form').submit();
+									
+									}
+							},
+
+							error : function(
+									req,
+									status,
+									err) {
+								alert('Error');
+								console
+										.log(req
+												+ ' '
+												+ status
+												+ ' '
+												+ err);
+							}
+
+						});
+			}
+			//End Id Validation
+			
+			
 		}
 
 		$(function() {
