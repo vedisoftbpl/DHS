@@ -77,8 +77,10 @@
 							class="fa fa-circle-o"></i> Member Refund</a></li>
 					<li><a href="${pageContext.request.contextPath}/admin/pages/PaymentController"><i
 							class="fa fa-circle-o"></i> Payment</a></li>
-					<li><a href="${pageContext.request.contextPath}/admin/pages/UserVerification"><i
-							class="fa fa-circle-o"></i> Transfer </a></li>
+					<li><a href="${pageContext.request.contextPath}/admin/pages/MemberTransferController"><i
+							class="fa fa-circle-o"></i>Member Transfer </a></li>
+					<li><a href="${pageContext.request.contextPath}/admin/pages/JournalTransferController"><i
+							class="fa fa-circle-o"></i>Journal Transfer </a></li>
 				</ul></li>
 				
 			<li class="treeview"><a href="#"> <i class="fa fa-table"></i>
@@ -87,8 +89,8 @@
 				</span>
 			</a>
 				<ul class="treeview-menu">
-					<li><a href="../tables/simple.html"><i
-							class="fa fa-circle-o"></i> Report One</a></li>
+					<li><a href="${pageContext.request.contextPath}/admin/pages/MemberReportController"><i
+							class="fa fa-circle-o"></i> Member Report Controller</a></li>
 					<li><a href="../tables/data.html"><i
 							class="fa fa-circle-o"></i> Report Two </a></li>
 					<li><a href="../tables/data.html"><i

@@ -170,7 +170,14 @@
 							<c:forEach items="${requestScope.receiptList}" var="receipt">
 								<tr class="item">
 									<td>${receipt.remarks}</td>
+									<c:choose>
+									<c:when test="${receipt.dC == 'Transfer'}">
+									<td>${receipt.balChq}</td>
+									</c:when>
+									<c:when test="${receipt.dC != 'Transfer'}">
 									<td>${receipt.amount}</td>
+									</c:when>
+									</c:choose>
 								</tr>
 							</c:forEach>
 							<tr class="total">
@@ -191,8 +198,8 @@
 						</tr>
 						<tr>
 							<td>
-								<p>Cheques/Demand Drafts/Pay Orders are subject to
-									realisation</p>
+								<p>Cheque's/Demand Drafts/Pay Orders are subject to
+									realization</p>
 							</td>
 
 							<td><label>For&nbsp;<b>DANISH GRIH NIRMAN

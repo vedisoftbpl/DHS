@@ -73,14 +73,25 @@ public class ReceiptPrintController extends HttpServlet {
 			rDetails[3]=r.getMad1();
 			rDetails[4]=r.getMad2();
 			rDetails[5]=r.getMad3();
-			rDetails[6]=r.getdC() + " " + r.getcDd() + " " + r.getBranch() + " " + r.getCity() + " Dated : " + DateUtils.dateFormat(r.getcDdte());
+			
 			
 		double totalAmt= 0.0;
-		 for(ReceiptRecord rc : list)
-			 totalAmt = totalAmt + rc.getAmount();
+		if(r.getdC().equals("Transfer")){
+			for(ReceiptRecord rc : list)
+				 totalAmt = totalAmt + rc.getBalChq();	
+		}
+		else
+		{
+			for(ReceiptRecord rc : list)
+				 totalAmt = totalAmt + rc.getAmount();
+		}
+		 
 
 		System.out.println("totalAmt "+totalAmt);
-		
+		if(r.getdC().equals("Transfer"))
+			rDetails[6]=r.getdC() + " of amount : " + totalAmt;
+		else		
+			rDetails[6]=r.getdC() + " " + r.getcDd() + " " + r.getBranch() + " " + r.getCity() + " Dated : " + DateUtils.dateFormat(r.getcDdte());
  
 		
 		String projectName = new String();

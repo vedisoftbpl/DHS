@@ -17,11 +17,11 @@
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
-				<h1>Receipts</h1>
+				<h1>Member Transfer</h1>
 				<ol class="breadcrumb">
 					<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
 					<li><a href="#">Examples</a></li>
-					<li class="active">Receipts</li>
+					<li class="active">Member Transfer Form</li>
 				</ol>
 			</section>
 
@@ -30,7 +30,7 @@
 				<!-- Default box -->
 				<div class="box box-primary">
 					<div class="box-header with-border">
-						<h3 class="box-title">Add Receipts Form</h3>
+						<h3 class="box-title">Member Refund Form</h3>
 						<div class="box-tools pull-right">
 							<span id="today">${param.today}</span>
 							<button type="button" class="btn btn-box-tool"
@@ -45,9 +45,23 @@
 
 					<!-- User Form -->
 					<form
-						action="${pageContext.request.contextPath}/admin/pages/ReceiptFormController"
+						action="${pageContext.request.contextPath}/admin/pages/MemberTransferController"
 						method="post" onsubmit="return validateForm(this)" id="form">
 						<div class="box-body">
+
+							<div class="row">
+								<div class="col-md-4">
+									<table align="left" width="50%">
+										<c:forEach var="ac" items="${sessionScope.accList}">
+											<tr>
+												<th>${ac.bkName}:</th>
+												<th>${ac.opBal}</th>
+											</tr>
+										</c:forEach>
+									</table>
+								</div>
+							</div>
+							<br>
 							<div class="row">
 								<!-- col -->
 								<div class="col-md-4">
@@ -71,15 +85,15 @@
 								<div class="col-md-4">
 									<!--  form group -->
 									<!--  Receipt Number -->
-									<div class="form-group" id="divFormReceiptNumber">
-										<label>Receipt Number</label>
+									<div class="form-group" id="divFormVoucherNumber">
+										<label>Voucher Number</label>
 										<div class="input-group">
 											<span class="input-group-addon"><i
 												class="fa  fa-info-circle "></i></span> <input type="text"
-												class="form-control" value="${param.recNo}"
-												id="receiptNumber" name="receiptNumber" />
+												class="form-control" value="${param.voucherNo}"
+												id="voucherNumber" name="voucherNumber" />
 										</div>
-										<p id="errorReceiptNumber"></p>
+										<p id="errorVoucherNumber"></p>
 									</div>
 									<!--  End Receipt Number -->
 									<!-- /. form-group -->
@@ -90,7 +104,7 @@
 									<!-- form group -->
 									<!-- Receipt Date -->
 									<div class="form-group" id="divAccountFormDate">
-										<label>Receipt Date :</label>
+										<label>Transfer Date :</label>
 										<div class="input-group date">
 											<div class="input-group-addon">
 												<i class="fa fa-calendar"></i>
@@ -136,7 +150,7 @@
 								<div id="accounts" class="box-body">
 									<div class="panel box box-primary">
 										<div class="box-header with-border">
-											<h4 class="box-title">Account Details</h4>
+											<h4 class="box-title">Refund Account Details</h4>
 											<div class="box-tools pull-right">
 												<button type="button" class="btn btn-box-tool"
 													data-widget="collapse" data-toggle="tooltip"
@@ -226,156 +240,7 @@
 							</div>
 							<!-- /.Row Default box -->
 							<!-- Row Default box -->
-							<div class="row">
-								<div class="box-header with-border">
-									<h3 class="box-title">Transaction Details</h3>
-								</div>
-								<div class="box-body">
-									<div class="row">
-										<div class="col-md-4">
-											<!--  form-group -->
-											<!-- Bank Code -->
-											<div class="form-group" id="divFormBankCode">
-												<label>Bank Code</label>
-												<div class="input-group">
-													<span class="input-group-addon"><i
-														class="fa fa-bars"></i></span> <input type="text"
-														class="form-control" placeholder="Bank Code" id="bankCode"
-														name="bankCode" />
-												</div>
-												<p id="errorBankCode"></p>
-											</div>
-											<!-- End Bank Code -->
-											<!-- /.form-group -->
-
-											<!-- form group -->
-											<!-- Payment Mode -->
-											<div class="form-group" id="divFormPaymentMode">
-												<label>Payment Mode</label>
-												<div class="input-group">
-													<div class="input-group-addon">
-														<i class="fa fa-check-circle"></i>
-													</div>
-													<div class="mode">
-														<select class="form-control select2" id="paymentMode"
-															name="paymentMode" style="width: 100%;"
-															required="required">
-															<option>Cash</option>
-															<option>Cheque</option>
-															<option>Transfer</option>
-															<option>Demand Draft</option>
-															<option>RTGS</option>
-															<option>NEFT</option>
-														</select>
-													</div>
-												</div>
-											</div>
-											<!-- End Payment Mode -->
-											<!-- /.form group -->
-
-											<!--  form-group -->
-											<!-- Payment Mode -->
-											<div class="form-group" id="divFormTotalAmount">
-												<label>Total Amount</label>
-												<div class="input-group">
-													<span class="input-group-addon"><i class="fa fa-inr"></i></span>
-													<input type="text" class="form-control" placeholder="0.00"
-														id="totalAmount" name="totalAmount" value="0" />
-												</div>
-												<p id="errorTotalAmount"></p>
-											</div>
-											<!-- End Total Amount -->
-											<!-- /.form-group -->
-
-											<!-- form group -->
-											<!-- Transaction Date -->
-											<div class="form-group" id="divAccountFormTrDate">
-												<label>Transaction Date(Non-Cash) :</label>
-												<div class="input-group date">
-													<div class="input-group-addon">
-														<i class="fa fa-calendar"></i>
-													</div>
-													<input type="text"
-														class="form-control pull-right datepicker" id="trDate"
-														name="trDate" />
-												</div>
-												<p id="errorTrDate"></p>
-												<!-- /.input group -->
-											</div>
-											<!--End Transaction Date -->
-											<!-- /.form group -->
-
-										</div>
-										<div class="col-md-8">
-
-											<!--  form-group -->
-											<!-- Bank Name -->
-											<div class="form-group" id="divFormBankName">
-												<label>Bank Name</label>
-												<div class="input-group">
-													<span class="input-group-addon"><i
-														class="fa fa-info-circle"></i></span> <input type="text"
-														class="form-control" placeholder="Bank Name" id="bankName"
-														name="bankName" />
-												</div>
-												<p id="errorbankName"></p>
-											</div>
-											<!-- End Bank Name -->
-											<!-- /.form-group -->
-
-											<!--  form-group -->
-											<!-- Transction ID -->
-											<div class="form-group" id="divFormTransctionID">
-												<label>Payment Transaction ID</label>
-												<div class="input-group">
-													<span class="input-group-addon"><i
-														class="fa fa-credit-card"></i></span> <input type="text"
-														class="form-control" placeholder="Cheque/DD number"
-														id="transactionID" name="transactionID" />
-												</div>
-												<p id="errorTransctionID"></p>
-											</div>
-											<!-- End Transction ID -->
-											<!-- /.form-group -->
-
-											<!--  form-group -->
-											<!-- Payment Bank -->
-											<div class="form-group" id="divFormPaymentBank">
-												<label>Bank, Branch</label>
-												<div class="input-group">
-													<span class="input-group-addon"><i
-														class="fa fa-building-o"></i></span> <input type="text"
-														class="form-control" placeholder="Payment Bank, Branch"
-														id="paymentBank" name="paymentBank" />
-												</div>
-												<p id="errorPaymentBank"></p>
-											</div>
-											<!-- End Payment Bank -->
-											<!-- /.form-group -->
-
-											<!--  form-group -->
-											<!-- Payment Bank City -->
-											<div class="form-group" id="divFormCity">
-												<label>City</label>
-												<div class="input-group">
-													<span class="input-group-addon"><i
-														class="fa fa-map-marker"></i></span> <input type="text"
-														class="form-control" placeholder="City" id="city"
-														name="city" />
-												</div>
-												<p id="errorCity"></p>
-											</div>
-											<!-- End Payment Bank City -->
-											<!-- /.form-group -->
-
-										</div>
-										<!-- /.box-body -->
-									</div>
-								</div>
-								<!-- /.box-body -->
-							</div>
-							<!-- /.Row Default box -->
-						</div>
+						
 						<!-- /.box-body -->
 
 						<input id="operation" name="operation" type="hidden"
@@ -397,8 +262,8 @@
 					<!-- User Form -->
 
 					<!-- /.box-body -->
-					<div class="box-footer">Provide the Details For adding
-						receipts</div>
+					<div class="box-footer">Provide the Details For adding Member
+						Transfer Record</div>
 					<!-- /.box-footer-->
 				</div>
 				<!-- /.box -->
@@ -433,7 +298,7 @@
 								n++;
 								$('#accounts')
 										.append(
-												'<div class="panel box box-primary"><div class="box-header with-border"><h4 class="box-title">Account Details'
+												'<div class="panel box box-primary"><div class="box-header with-border"><h4 class="box-title">Refund Account Details'
 														+ '</h4>'
 														+ '<div class="box-tools pull-right"> '
 														+ '<button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">'
@@ -506,23 +371,15 @@
 	
 		<c:choose>
 		<c:when test="${param.msg == '1'}">
-		$(document)
-				.ready(
-						function() {
-							$("#typeError").addClass("form-group has-success");
-							$("#errorTop").html(
-									"Receipt Record Added Successfully for Receipt No. :  ${param.docNo}");
-							window
-									.open(
-											"../../admin/pages/ReceiptPrintController?docNo=${param.docNo}",
-											"Receipt : ${param.docNo}",
-											"_blank");
-						});
+		$(document).ready(function() {
+			$("#typeError").addClass("form-group has-success");
+			$("#errorTop").html("Member Transfer Record Added Successfully of Voucher No. : ${param.docNo}");
+		});
 		</c:when>
 		<c:when test="${param.msg=='2'}">
 		$(document).ready(function() {
 			$("#typeError").addClass("form-group has-error");
-			$("#errorTop").html("Fail to Add Receipt Record.");
+			$("#errorTop").html("Fail to Add Payment Record.");
 		});
 		</c:when>
 		</c:choose>
@@ -554,12 +411,12 @@
 
 			//End Member ID validation
 
-			//Receipt Number validation
-			var rec = document.getElementById("receiptNumber").value;
+			//Voucher Number validation
+			var rec = document.getElementById("voucherNumber").value;
 			if (rec == null || rec === "") {
-				document.getElementById("errorReceiptNumber").innerHTML = error;
-				document.getElementById("divFormReceiptNumber").className = 'alert alert-danger alert-dismissible';
-				document.getElementById("divFormReceiptNumber")
+				document.getElementById("errorVoucherNumber").innerHTML = error;
+				document.getElementById("divFormVoucherNumber").className = 'alert alert-danger alert-dismissible';
+				document.getElementById("divFormVoucherNumber")
 						.scrollIntoView();
 				return false;
 			}
@@ -567,139 +424,25 @@
 			if (!(rec == null || rec === "")) {
 				var recValid = /^\d+$/;
 				if (!rec.match(recValid)) {
-					document.getElementById("errorReceiptNumber").innerHTML = 'Invalid Receipt Number';
-					document.getElementById("divFormReceiptNumber").className = 'alert alert-warning alert-dismissible';
-					document.getElementById("divFormReceiptNumber")
+					document.getElementById("errorVoucherNumber").innerHTML = 'Invalid Receipt Number';
+					document.getElementById("divFormVoucherNumber").className = 'alert alert-warning alert-dismissible';
+					document.getElementById("divFormVoucherNumber")
 							.scrollIntoView();
 					return false;
 				}
-				document.getElementById("errorReceiptNumber").innerHTML = "";
-				document.getElementById("divFormReceiptNumber").className = 'form-group has-success';
-				}
-
-			//End Receipt Number validation
-
-			//Bank Code Validation
-			var bankCode = document.getElementById("bankCode").value;
-			if (bankCode == null || bankCode === "") {
-				document.getElementById("errorBankCode").innerHTML = error;
-				document.getElementById("divFormBankCode").className = 'alert alert-danger alert-dismissible';
-				document.getElementById("divFormBankCode").scrollIntoView();
-				return false;
+				document.getElementById("errorVoucherNumber").innerHTML = "";
+				document.getElementById("divFormVoucherNumber").className = 'form-group has-success';
 			}
 
-			if (!(bankCode == null || bankCode === "")) {
-				var codeValid = /^[ a-zA-Z0-9-]+$/;
-				if (!codeValid.test(bankCode)) {
-					document.getElementById("errorBankCode").innerHTML = "Invaild Bank Code ";
-					document.getElementById("divFormBankCode").className = 'alert alert-warning alert-dismissible';
-					document.getElementById("divFormBankCode").scrollIntoView();
-					return false;
-				}
-				document.getElementById("errorBankCode").innerHTML = "";
-				document.getElementById("divFormBankCode").className = 'form-group has-success';
-			}
-			//End Bank Code Validation
+			//End Voucher Number validation
 
-			//Total Amount Validation
-			var amt = document.getElementById("totalAmount").value;
-			if (amt == null || amt === "") {
+			
 
-				document.getElementById("errorTotalAmount").innerHTML = error;
-				document.getElementById("divFormTotalAmount").className = 'alert alert-danger alert-dismissible';
-				document.getElementById("divFormTotalAmount").scrollIntoView();
-				return false;
-			}
-			if (!(amt == null || amt === "")) {
-
-				var balanceValid = /^(0|[1-9]\d*)(\.\d+)?$/;
-				if (!(amt.match(balanceValid))) {
-					document.getElementById("errorTotalAmount").innerHTML = "Invalid Amount";
-					document.getElementById("divFormTotalAmount").className = 'alert alert-warning alert-dismissible';
-					document.getElementById("divFormTotalAmount")
-							.scrollIntoView();
-					return false;
-				}
-				document.getElementById("errorTotalAmount").innerHTML = "";
-				document.getElementById("divFormTotalAmount").className = 'form-group has-success';
-			}
-			//End Total Amount Validation
-
-			//Bank Name Validation
-			var name = document.getElementById("bankName").value;
-			if (!(name == null || name === "")) {
-				var nameValid = /^[a-zA-Z ]+$/;
-				if (!name.match(nameValid)) {
-
-					document.getElementById("errorbankName").innerHTML = 'Invalid Name';
-					document.getElementById("divFormBankName").className = 'alert alert-warning alert-dismissible';
-					document.getElementById("divFormBankName").scrollIntoView();
-					return false;
-				}
-
-				document.getElementById("errorbankName").innerHTML = "";
-				document.getElementById("divFormBankName").className = 'form-group has-success';
-			}
-			//End Bank Name Validation
-
-			//Transaction ID Validation
-			var tr = document.getElementById("transactionID").value;
-
-			if (!(tr == null || tr === "")) {
-
-				var trValid = /^[a-zA-Z0-9- ]+$/;
-				if (!tr.match(trValid)) {
-					document.getElementById("errorTransctionID").innerHTML = 'Invalid Transaction ID';
-					document.getElementById("divFormTransctionID").className = 'alert alert-warning alert-dismissible';
-					document.getElementById("divFormTransctionID")
-							.scrollIntoView();
-					return false;
-				}
-				document.getElementById("errorTransctionID").innerHTML = "";
-				document.getElementById("divFormTransctionID").className = 'form-group has-success';
-			}
-			//End Transaction ID Validation
-
-			//Bank, Branch Name Validation
-			var pay = document.getElementById("paymentBank").value;
-
-			if (!(pay == null || pay === "")) {
-
-				var payValid = /^[a-zA-Z,_ ]+$/;
-				if (!pay.match(payValid)) {
-
-					document.getElementById("errorPaymentBank").innerHTML = 'Invalid Name';
-					document.getElementById("divFormPaymentBank").className = 'alert alert-warning alert-dismissible';
-					document.getElementById("divFormPaymentBank")
-							.scrollIntoView();
-					return false;
-				}
-
-				document.getElementById("errorPaymentBank").innerHTML = "";
-				document.getElementById("divFormPaymentBank").className = 'form-group has-success';
-			}
-			//End Bank, Branch Name Validation
-
-			//City Validation
-			var city = document.getElementById("city").value;
-			if (!(city == null || city === "")) {
-				var cityValid = /^[a-zA-Z ]+$/;
-				if (!city.match(cityValid)) {
-					document.getElementById("errorCity").innerHTML = 'Invalid City Name';
-					document.getElementById("divFormCity").className = 'alert alert-warning alert-dismissible';
-					document.getElementById("divFormCity").scrollIntoView();
-					return false;
-				}
-				document.getElementById("errorCity").innerHTML = "";
-				document.getElementById("divFormCity").className = 'form-group has-success';
-			}
-			//End City Validation
-		
 			return true;
 		}
 		function sub(){
 			//Unique Id Vaildation
-			var id = $('#receiptNumber').val();
+			var id = $('#voucherNumber').val();
 			var y = '1';
 			if (id.length > 0) {
 				$
@@ -708,7 +451,7 @@
 							dataType : 'json',
 							type : 'post',
 							data : {
-								'recNo' : id
+								'vrNo' : id
 							},
 
 							success : function(
@@ -716,17 +459,17 @@
 								var data0 = data["data"][0];
 								bool = data0["avail"];
 								if (bool === false) {
-									alert("Receipt Number is not available. Use Receipt No. : " + data0["next"]);
-									document.getElementById("errorReceiptNumber").innerHTML = 'Receipt Number Already exist';
-									document.getElementById("divFormReceiptNumber").className = 'alert alert-warning alert-dismissible';
-									document.getElementById("divFormReceiptNumber")
+									alert("Voucher Number is not available. Use Voucher No. : " + data0["next"]);
+									document.getElementById("errorVoucherNumber").innerHTML = 'Receipt Number Already exist';
+									document.getElementById("divFormVoucherNumber").className = 'alert alert-warning alert-dismissible';
+									document.getElementById("divFormVoucherNumber")
 											.scrollIntoView();
 									
 								}
 								else
 									{
-									document.getElementById("errorReceiptNumber").innerHTML = '';
-									document.getElementById("divFormReceiptNumber").className = 'form-group has-success';
+									document.getElementById("errorVoucherNumber").innerHTML = '';
+									document.getElementById("divFormVoucherNumber").className = 'form-group has-success';
 									$('#form').submit();
 									
 									}
@@ -751,6 +494,7 @@
 			
 			
 		}
+		
 
 		$(function() {
 			//Date picker
@@ -947,15 +691,13 @@
 											'.accAmount',
 											function(e) {
 												e.preventDefault();
-												var totalAccount = $(
-														'#totalAccounts').val();
+												
 												var total = 0;
 												for (i = 1; i <= totalAccount; i++) {
 													var amt = $('#amount' + i)
 															.val();
 													if ($.isNumeric(amt)) {
-														total = total
-																+ parseInt(amt);
+														
 													} else {
 														document
 																.getElementById("errorAmount"
@@ -973,239 +715,7 @@
 												$('#totalAmount').val(total);
 
 											});
-							
-							$(
-							"#paymentMode").on("change",function(e){
-								e.preventDefault();
-								var code = $('#paymentMode').val();
-								if(code === 'Transfer'){
-									$(
-									'#bankCode')
-									.prop(
-											'disabled',
-											true);
-							$(
-									'#bankCode')
-									.val(
-											" ");
-									$(
-									'#transactionID')
-									.prop(
-											'disabled',
-											true);
-							$(
-									'#transactionID')
-									.val(
-											"");
-							$(
-									'#paymentBank')
-									.prop(
-											'disabled',
-											true);
-							$(
-									'#paymentBank')
-									.val(
-											"");
-							$(
-									'#city')
-									.prop(
-											'disabled',
-											true);
-							$(
-									'#city')
-									.val(
-											"");
-							$(
-									'#trDate')
-									.prop(
-											'disabled',
-											true);
-							$(
-									'#trDate')
-									.val(
-											"");
-							$(
-							'#bankName')
-							.prop('disabled',
-									true);
-							$(
-									'#bankName')
-									.val(
-											"");
-								}
-								else{
-									$(
-									'#bankCode')
-									.prop(
-											'disabled',
-											false);
-									$(
-									'#transactionID')
-									.prop(
-											'disabled',
-											false);
-							$(
-									'#paymentBank')
-									.prop(
-											'disabled',
-											false);
-							$(
-									'#city')
-									.prop(
-											'disabled',
-											false);
-							$(
-									'#trDate')
-									.prop(
-											'disabled',
-											false);
-							$(
-									'#bankName')
-									.prop(
-											'disabled',
-											false);
-								}
-							});
 
-							//Bank Details Auto fill
-							$('#bankCode')
-									.bind(
-											"blur",
-											function(e) {
-												e.preventDefault();
-												var code = $('#bankCode').val();
-												if (code.length > 0) {
-													$
-															.ajax({
-																url : 'http://localhost:8080/DanishHousing/ReceiptAutoFill',
-																dataType : 'json',
-																type : 'post',
-																data : {
-																	'code' : code
-																},
-
-																success : function(
-																		data) {
-																	var bool = data["accountId"] === 0;
-																	$(
-																			'#divFormBankCode')
-																			.toggleClass(
-																					'alert alert-danger alert-dismissible',
-																					bool);
-																	$(
-																			'#bankName')
-																			.val(
-																					'');
-																	$(
-																			'#errorBankCode')
-																			.empty();
-																	if (data["accountId"] === 0) {
-																		$(
-																				'#errorBankCode')
-																				.text(
-																						'Bank Code doesn\'t exist');
-																	} else {
-																		if (data["bkCode"] == '001') {
-																			$(
-																					"#paymentMode")
-																					.val(
-																							$(
-																									"#paymentMode option:eq(0)")
-																									.val())
-																					.change();
-																			$(
-																					'#transactionID')
-																					.prop(
-																							'disabled',
-																							true);
-																			$(
-																					'#transactionID')
-																					.val(
-																							"");
-																			$(
-																					'#paymentBank')
-																					.prop(
-																							'disabled',
-																							true);
-																			$(
-																					'#paymentBank')
-																					.val(
-																							"");
-																			$(
-																					'#city')
-																					.prop(
-																							'disabled',
-																							true);
-																			$(
-																					'#city')
-																					.val(
-																							"");
-																			$(
-																					'#trDate')
-																					.prop(
-																							'disabled',
-																							true);
-																			$(
-																					'#trDate')
-																					.val(
-																							"");
-																			$(
-																					'#bankName')
-																					.val(
-																							data["bkName"]);
-																		} else {
-																			$(
-																					'#transactionID')
-																					.prop(
-																							'disabled',
-																							false);
-																			$(
-																					'#paymentBank')
-																					.prop(
-																							'disabled',
-																							false);
-																			$(
-																					'#city')
-																					.prop(
-																							'disabled',
-																							false);
-																			$(
-																					'#trDate')
-																					.prop(
-																							'disabled',
-																							false);
-																			$(
-																					'#bankName')
-																					.val(
-																							data["bkName"]);
-																			$(
-																					"#paymentMode")
-																					.val(
-																							$(
-																									"#paymentMode option:eq(1)")
-																									.val())
-																					.change();
-																		}
-																	}
-
-																},
-
-																error : function(
-																		req,
-																		status,
-																		err) {
-																	alert('Error');
-																	console
-																			.log(req
-																					+ ' '
-																					+ status
-																					+ ' '
-																					+ err);
-																}
-
-															});
-												}
-
-											});
+				
 						});
 	</script>
