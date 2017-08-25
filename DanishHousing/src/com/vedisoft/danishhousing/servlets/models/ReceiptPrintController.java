@@ -52,7 +52,7 @@ public class ReceiptPrintController extends HttpServlet {
 		
 		int docNo = 0;
 		
-		 
+		
 		ReceiptDao 	receiptDao = new ReceiptDao();
 		ArrayList<ReceiptRecord> list = new ArrayList<ReceiptRecord>();
 		 for(ReceiptRecord r : list)
@@ -61,6 +61,8 @@ public class ReceiptPrintController extends HttpServlet {
 		System.out.println(request.getParameter("docNo"));
 			docNo = Integer.parseInt((String)request.getParameter("docNo"));
 		}
+		
+		if(docNo>0){
 		System.out.println("Receipt printed of receipt no : " + docNo);
 		list =receiptDao.findReceiptRecords(docNo); 
 		 ReceiptRecord r =list.get(0);
@@ -90,7 +92,9 @@ public class ReceiptPrintController extends HttpServlet {
 		System.out.println("totalAmt "+totalAmt);
 		if(r.getdC().equals("Transfer"))
 			rDetails[6]=r.getdC() + " of amount : " + totalAmt;
-		else		
+		else if(r.getdC().equals("Cash"))
+			rDetails[6]=r.getdC() + " of amount : " + totalAmt;
+		else
 			rDetails[6]=r.getdC() + " " + r.getcDd() + " " + r.getBranch() + " " + r.getCity() + " Dated : " + DateUtils.dateFormat(r.getcDdte());
  
 		
@@ -107,11 +111,18 @@ public class ReceiptPrintController extends HttpServlet {
 		request.setAttribute("receiptDt", recDt);
 		request.setAttribute("rdetails", rDetails);
 		request.setAttribute("receiptList", list);
+		}
 		
 		String page ="/pages/admin/ReceiptPrint.jsp";
-		
+		String page1 ="/pages/admin/DuplicateReceiptForm.jsp";
+		if(docNo>0){
 		RequestDispatcher rd = request.getRequestDispatcher(page);
 		rd.forward(request, response);
+		}
+		else{
+			RequestDispatcher rd = request.getRequestDispatcher(page1);
+			rd.forward(request, response);
+		}
 		
 		
 	}

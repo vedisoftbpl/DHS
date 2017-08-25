@@ -136,6 +136,7 @@ public class ReceiptFormController extends HttpServlet {
 		}
 		
 		String page = "/pages/admin/ReceiptsForm.jsp";
+		String page1 = "/pages/admin/DuplicateReceiptForm.jsp";
 		int k = 0;
 		System.out.println(totalAccounts);
 		if (op.equals("create")) {
@@ -275,44 +276,27 @@ public class ReceiptFormController extends HttpServlet {
 			qu.append("msg="+msg);
 			response.sendRedirect("/DanishHousing"+page+qu);
 		}
-		} else {
+		} else if(op.equals("duplicate")){
+			
+			Boolean check = new UtilityDao().checkReceiptNo(receiptNo);
+		
+			if(check == false){
+				
+				msg = 1;
+				qu.append("docNo="+receiptNo+"&");
+			} else {
+				System.out.println("Receipt not found");
+			}
+			qu.append("msg="+msg);
+			response.sendRedirect("/DanishHousing"+page1+qu);
+		} 
+		else {
 			qu.append("recNo="+UtilityDao.maxReceiptNo()+"&");
 			qu.append("today="+DateUtils.dateFormat(new java.util.Date()));
 			response.sendRedirect("/DanishHousing"+page+qu);
 		}
 		
-		
-		
-	
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		//Paytype												//cDdte   cheque date
-		//balchq												//plSize
-		//fullpay												//plNo
-		//inst1													//projCd
-		//inst2													//rC
-		//inst3													//userId
-		//chalNo												//lastUpdate
-		//chalDte
-		//chqDhr
-		//flag
-		//trCode
-		//pD
-		//dC
-		//wLrDt
-		
-		//branch
-		
+
 		
 	}
 
