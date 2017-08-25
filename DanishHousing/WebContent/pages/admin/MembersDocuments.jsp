@@ -46,12 +46,12 @@
 						method="post" onsubmit="return validateForm(this)">
 						<div class="box-body">
 							<div class="row">
-<div class="col-md-4"></div>
+								<div class="col-md-3"></div>
 								<!-- col -->
 								<div class="col-md-4">
 									<!--  form-group -->
 									<!-- Member ID -->
-									<div class="form-group" id="divFormMemberID"  >
+									<div class="form-group" id="divFormMemberID">
 										<label>Member ID</label>
 										<div class="input-group">
 											<span class="input-group-addon"><i
@@ -63,8 +63,13 @@
 									</div>
 									<!-- End Member ID -->
 									<!-- /.form-group -->
+									
 								</div>
-
+								<div class="col-md-2">
+								<label>&nbsp;</label>
+									<button type="button"
+											class="btn btn-primary btn-block btn-flat" id="checkMember" >Check</button>	
+								</div>
 							</div>
 							<div class="row" align="center">
 								<div class="box-header with-border">
@@ -77,91 +82,91 @@
 								</div>
 								<!-- /.box-body -->
 							</div>
-							<div class="row" id="memberDocuments" style="display:none;">
-							<div class="box-header with-border" align="center">
+							<div class="row" id="memberDocuments" style="display: none;">
+								<div class="box-header with-border" align="center">
 									<h3 class="box-title">Member Documents Details</h3>
 								</div>
 								<div class="box-body">
-								<div class="col-md-6">
-									<!--  form-group -->
+									<div class="col-md-6">
+										<!--  form-group -->
 
-									<!-- Zone Id -->
-									<div class="form-group" id="divFormMemberDocTitle">
-										<label>Member Document Title</label>
-										<div class="input-group">
-											<span class="input-group-addon"><i
-												class="fa  fa-file-text-o"></i></span> <select
-												class="form-control"
-												id="memberDocTitle" name="memberDocTitle">
-												<option value="0">N/A</option>
-												<c:forEach items="${requestScope.documentsList}" var="doc">
-												<option value="${doc.getValue()}">${doc.getValue()}</option>
-												</c:forEach>
+										<!-- Zone Id -->
+										<div class="form-group" id="divFormMemberDocTitle">
+											<label>Member Document Title</label>
+											<div class="input-group">
+												<span class="input-group-addon"><i
+													class="fa  fa-file-text-o"></i></span> <select
+													class="form-control" id="memberDocTitle"
+													name="memberDocTitle">
+													<option value="0">N/A</option>
+													<c:forEach items="${requestScope.documentsList}" var="doc">
+														<option value="${doc.getValue()}">${doc.getValue()}</option>
+													</c:forEach>
 												</select>
-										</div>
-										<p id="errorMemberDocTitle"></p>
-									</div>
-									<!--End Zone Id-->
-									<!-- /.form-group -->
-
-									<!-- form-group -->
-									<!-- Upload Photo -->
-									<div class="form-group" id="divMemberDocFile">
-										<label for="exampleInputFile">Upload File</label>
-										<div class="input-group">
-											<div class="input-group-addon">
-												<i class="fa fa-photo"></i>
 											</div>
-											<input type="file" id="memberDocFile" name="memberDocFile"
-												class="btn btn-block btn-default btn" />
+											<p id="errorMemberDocTitle"></p>
 										</div>
-										<p id="errorMemberDocFile"></p>
-									</div>
-									<!-- End Upload Photo -->
+										<!--End Zone Id-->
+										<!-- /.form-group -->
 
-									<!-- /.form-group -->
-
-
-								</div>
-								<!-- /.col -->
-								<div class="col-md-6">
-
-									<!-- form group -->
-
-									<!-- Zone Name -->
-
-									<!-- Address -->
-									<div class="form-group" id="divMemberDocDetails">
-										<label>Details</label>
-										<div class="input-group">
-											<div class="input-group-addon">
-												<i class="fa  fa-align-left"></i>
+										<!-- form-group -->
+										<!-- Upload Photo -->
+										<div class="form-group" id="divMemberDocFile">
+											<label for="exampleInputFile">Upload File</label>
+											<div class="input-group">
+												<div class="input-group-addon">
+													<i class="fa fa-photo"></i>
+												</div>
+												<input type="file" id="memberDocFile" name="memberDocFile"
+													class="btn btn-block btn-default btn" />
 											</div>
-											<textarea class="form-control" rows="5"
-												placeholder="Enter Member Document Details here"
-												id="memberDocDetails" name="memberDocDetails"></textarea>
+											<p id="errorMemberDocFile"></p>
 										</div>
-										<p id="errorMemberDocDetails"></p>
+										<!-- End Upload Photo -->
+
+										<!-- /.form-group -->
+
+
 									</div>
-									<input type="hidden" id="operation" name="operation"
-										value="create" />
-									<!-- End Address -->
-									<!-- End Project Name -->
+									<!-- /.col -->
+									<div class="col-md-6">
+
+										<!-- form group -->
+
+										<!-- Zone Name -->
+
+										<!-- Address -->
+										<div class="form-group" id="divMemberDocDetails">
+											<label>Details</label>
+											<div class="input-group">
+												<div class="input-group-addon">
+													<i class="fa  fa-align-left"></i>
+												</div>
+												<textarea class="form-control" rows="5"
+													placeholder="Enter Member Document Details here"
+													id="memberDocDetails" name="memberDocDetails"></textarea>
+											</div>
+											<p id="errorMemberDocDetails"></p>
+										</div>
+										<input type="hidden" id="operation" name="operation"
+											value="create" />
+										<!-- End Address -->
+										<!-- End Project Name -->
 
 
-									<!-- /.form group -->
+										<!-- /.form group -->
 
 
-									<!-- form group -->
+										<!-- form group -->
 
 
-									<!-- / .form group -->
-								</div>
+										<!-- / .form group -->
+									</div>
 								</div>
 								<!-- /.box-body -->
 							</div>
 							<!-- /.box -->
-							<div class="row" id="uploadButton" style="display:none;">
+							<div class="row" id="uploadButton" style="display: none;">
 								<div class="col-xs-4" align="right"></div>
 								<div class="col-xs-4" align="right">
 									<button type="submit"
@@ -246,9 +251,9 @@
 				.ready(
 						function() {
 							//Member Auto Fill
-							$('#memberID')
+							$('#checkMember')
 									.bind(
-											"blur",
+											"click",
 											function(e) {
 												e.preventDefault();
 												var id = $('#memberID').val();
@@ -284,11 +289,11 @@
 																				.text(
 																						'MemberID doesn\'t exist');
 																		$(
-																		'#memberDocuments')
-																		.hide();
-																$(
-																'#uploadButton')
-																.hide();
+																				'#memberDocuments')
+																				.hide();
+																		$(
+																				'#uploadButton')
+																				.hide();
 																	} else {
 																		$(
 																				'#memberDetails')
@@ -330,8 +335,8 @@
 																				'#memberDocuments')
 																				.show();
 																		$(
-																		'#uploadButton')
-																		.show();
+																				'#uploadButton')
+																				.show();
 																	}
 																},
 
