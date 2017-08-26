@@ -263,6 +263,101 @@ public class ReceiptDao {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, receiptNo);
 			ResultSet rs = ps.executeQuery();
+			while (rs.next())  {
+				ReceiptRecord receipt = new ReceiptRecord();
+				receipt.setsNo(rs.getInt("s_no"));
+				if (rs.getString("paytype").length() > 0)
+					receipt.setPayType(rs.getString("paytype").charAt(0));
+				receipt.setSlno(rs.getInt("slno"));
+				java.sql.Date recdte = rs.getDate("recdte");
+				if (recdte != null)
+					receipt.setRecDte(new java.util.Date((recdte).getTime()));
+				else
+					receipt.setRecDte(recdte);
+				receipt.setReceno(rs.getInt("receno"));
+				receipt.setPrefix(rs.getString("prefix"));
+				receipt.setMembNme(rs.getString("membnme"));
+				receipt.setMembNo(rs.getInt("membno"));
+				receipt.setfHNme(rs.getString("f_h_nme"));
+				receipt.setMad1(rs.getString("mad1"));
+				receipt.setMad2(rs.getString("mad2"));
+				receipt.setMad3(rs.getString("mad3"));
+				receipt.setAmount(rs.getDouble("amount"));
+				
+				receipt.setBalChq(rs.getDouble("balchq"));
+				receipt.setcDd(rs.getString("c_dd"));
+				java.sql.Date cddate = rs.getDate("c_ddte");
+				if (cddate != null)
+					receipt.setcDdte(new java.util.Date((cddate).getTime()));
+				else
+					receipt.setcDdte(cddate);
+			
+				
+				receipt.setFullPay(rs.getString("fullpay"));
+				receipt.setInst1(rs.getString("inst1"));
+				receipt.setInst2(rs.getString("inst2"));
+				receipt.setInst3(rs.getString("inst3"));
+				receipt.setChalNo(rs.getInt("chalno"));
+				
+				java.sql.Date chaldte = rs.getDate("chaldte");
+				if (chaldte != null)
+					receipt.setChalDte(new java.util.Date((chaldte).getTime()));
+				else
+					receipt.setChalDte(chaldte);
+				receipt.setPlSize(rs.getString("plsize"));
+				receipt.setPlNo(rs.getString("plno"));
+				receipt.setProjCd(rs.getInt("projcd"));
+				receipt.setChqDhr(rs.getString("chqdhr"));
+				receipt.setFlag(rs.getString("flag"));
+				if (rs.getString("trcode").length() > 0)
+					receipt.setTrCode(rs.getString("trcode").charAt(0));
+				receipt.setRemarks(rs.getString("remarks"));
+				if (rs.getString("r_c").length() > 0) {
+					receipt.setrC(rs.getString("r_c").charAt(0));
+				}
+				receipt.setpD(rs.getString("p_d"));
+				receipt.setAccode(rs.getString("accode"));
+				receipt.setBranch(rs.getString("branch"));
+
+				if (rs.getString("d_c").length() > 0) {
+					receipt.setdC(rs.getString("d_c"));
+				}
+				java.sql.Date wc_lr_dt = rs.getDate("wc_lr_dt");
+				if (wc_lr_dt != null)
+					receipt.setwLrDt(new java.util.Date((wc_lr_dt).getTime()));
+				else
+					receipt.setwLrDt(wc_lr_dt);
+				
+				receipt.setCity(rs.getString("city"));
+				receipt.setUserId(rs.getInt("userid"));
+				java.sql.Date lastupdate = rs.getDate("lastupdate");
+				if (lastupdate != null)
+					receipt.setLastUpdate(new java.util.Date((lastupdate).getTime()));
+				else
+					receipt.setLastUpdate(lastupdate);
+				listReceipt.add(receipt);
+			
+			}
+		} catch (SQLException sq) {
+			System.out.println("Unable to find a receipts." + sq);
+		} finally {
+			pool.putConnection(conn);
+		}
+		return listReceipt;
+	}
+
+	
+	public ArrayList<ReceiptRecord> findMemReceiptRecords(int memberNo) {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		pool.initialize();
+		Connection conn = pool.getConnection();
+		ArrayList<ReceiptRecord> listReceipt = new ArrayList<ReceiptRecord>();
+		
+		try {
+			String sql = "select * from receipt_records where membno = ?";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, memberNo);
+			ResultSet rs = ps.executeQuery();
 			while (rs.next()) { {
 				ReceiptRecord receipt = new ReceiptRecord();
 				receipt.setsNo(rs.getInt("s_no"));
@@ -345,7 +440,8 @@ public class ReceiptDao {
 		}
 		return listReceipt;
 	}
-
+	
+	
 	public static void main(String a[]) {
 		ReceiptDao dao = new ReceiptDao();
 //		 Date d1 = null;
@@ -364,7 +460,11 @@ public class ReceiptDao {
 //		TransactionRecords t1 = dao.findTransactionRecord(3);
 //		System.out.println(t1);
 		 
-		 List<ReceiptRecord> list =dao.findReceiptRecords(44925);
+//		 List<ReceiptRecord> list =dao.findReceiptRecords(44925);
+//		 for(ReceiptRecord r : list)
+//			 System.out.println(r);
+		 
+		 List<ReceiptRecord> list =dao.findMemReceiptRecords(25);
 		 for(ReceiptRecord r : list)
 			 System.out.println(r);
 

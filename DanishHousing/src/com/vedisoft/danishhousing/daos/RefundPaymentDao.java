@@ -5,11 +5,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.vedisoft.danishhousing.config.ConnectionPool;
 import com.vedisoft.danishhousing.config.DateUtils;
 import com.vedisoft.danishhousing.pojos.ChequePayment;
+import com.vedisoft.danishhousing.pojos.ReceiptRecord;
 import com.vedisoft.danishhousing.pojos.RefundPayment;
 import com.vedisoft.danishhousing.pojos.TransactionRecords;
 
@@ -291,31 +294,75 @@ public class RefundPaymentDao {
 			return id;
 		}
 		
-		public static void main(String a[]) {
-			RefundPaymentDao dao = new RefundPaymentDao();
-			 Date d1 = null;
-			 Date d2 = new Date();
-			 Date d3 = new Date();
-			 d3 = DateUtils.convertDate("02/04/2016");
-		
-
-			 TransactionRecords t = new TransactionRecords(
-			 44999,1,d1,"D","E0010","01","hv",d1," ",7299,8400.00,"ESTABLISHMENT FEES UPTO 31/03/2016",1,26,8,1,d2);
-			 
-			 RefundPayment r = new RefundPayment("r", 90, 452.00,"transactionNo",d3,"remarks",
-						"pD",5, 8,"paymentmode");
-			 
-			 ChequePayment c = new ChequePayment(500, d2,"bCode","paymentMode","transactionNo",
-						d3,5431.00,d2);
-			 
-			 
-//			 int id = dao.create(t, r);
+		public ArrayList<RefundPayment> findMemRefundPay(int memberNo) {
 			
-			 int id = dao.create(t, r,c);
-			 
-			 System.out.println(id);
-			 
-			 
+			ConnectionPool pool = ConnectionPool.getInstance();
+			pool.initialize();
+			Connection conn = pool.getConnection();
+			ArrayList<RefundPayment> listRefund = new ArrayList<RefundPayment>();
+			
+			try {
+				String sql = "select * from refund_pay where memb_no = ?";
+				PreparedStatement ps = conn.prepareStatement(sql);
+				ps.setInt(1, memberNo);
+				ResultSet rs = ps.executeQuery();
+				while (rs.next()) { {
+					RefundPayment refund = new RefundPayment();
+					
+					if (rs.getString("paytype").length() > 0)
+						refund.setPayType(rs.getString("paytype"));
+					refund.setMemberNo(rs.getInt("memb_no"));
+					refund.setAmount(rs.getDouble("amount"));
+					refund.setTransactionNo(rs.getString("c_dd"));
+					
+					java.sql.Date cddte = rs.getDate("c_ddte");
+					if (cddte != null)
+						refund.setCdDate(new java.util.Date((cddte).getTime()));
+					
+					refund.setRemarks(rs.getString("remarks"));
+					refund.setpD(rs.getString("p_D"));
+					refund.setVoucherNo(rs.getInt("vr_no"));
+					refund.setSlNo(rs.getInt("sl_no"));
+					refund.setPaymentmode(rs.getString("payment_mode"));
+					listRefund.add(refund);
+				}
+				}
+			} catch (SQLException sq) {
+				System.out.println("Unable to find a receipts." + sq);
+			} finally {
+				pool.putConnection(conn);
+			}
+			return listRefund;
+					
+		}
+		
+		public static void main(String a[]) {
+//			RefundPaymentDao dao = new RefundPaymentDao();
+//			 Date d1 = null;
+//			 Date d2 = new Date();
+//			 Date d3 = new Date();
+//			 d3 = DateUtils.convertDate("02/04/2016");
+//		
+//
+//			 TransactionRecords t = new TransactionRecords(
+//			 44999,1,d1,"D","E0010","01","hv",d1," ",7299,8400.00,"ESTABLISHMENT FEES UPTO 31/03/2016",1,26,8,1,d2);
+//			 
+//			 RefundPayment r = new RefundPayment("r", 90, 452.00,"transactionNo",d3,"remarks",
+//						"pD",5, 8,"paymentmode");
+//			 
+//			 ChequePayment c = new ChequePayment(500, d2,"bCode","paymentMode","transactionNo",
+//						d3,5431.00,d2);
+//			 
+//			 
+//			 int id = dao.create(t, r);
+//			
+//			 int id = dao.create(t, r,c);
+//			 
+//			 System.out.println(id);
+//			 
+			 List<RefundPayment> list =new RefundPaymentDao().findMemRefundPay(90);
+			 for(RefundPayment r : list)
+				 System.out.println(r);
 			 
 		}	
 		
