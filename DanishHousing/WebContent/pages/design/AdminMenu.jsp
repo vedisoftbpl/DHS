@@ -90,7 +90,7 @@
 			</a>
 				<ul class="treeview-menu">
 					<li><a href="${pageContext.request.contextPath}/admin/pages/MemberReportController"><i
-							class="fa fa-circle-o"></i> Member Report Controller</a></li>
+							class="fa fa-circle-o"></i> Member Report </a></li>
 					<li><a href="../tables/data.html"><i
 							class="fa fa-circle-o"></i> Report Two </a></li>
 					<li><a href="../tables/data.html"><i
