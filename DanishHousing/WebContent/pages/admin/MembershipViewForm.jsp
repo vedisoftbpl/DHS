@@ -529,8 +529,8 @@
 																<div class="input-group-addon">
 																	<i class="fa  fa-bars"></i>
 																</div>
-																<select class="form-control select2" id="projectName"
-																	name="projectName" style="width: 100%;">
+																<select class="form-control select2" id="projectCode"
+																	name="projectCode" style="width: 100%;">
 																	<option value="0"
 																		${requestScope.member.projectCd eq 0 ? 'selected' : ''}>N/A</option>
 
@@ -1322,7 +1322,7 @@
 	<script src="../../plugins/select2/select2.js"></script>
 	<!-- iCheck -->
 	<!-- jQuery 2.2.3 -->
-	<script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
+	<script src="../../plugins/jQuery/jquery-2.2.3.min.js"></script>
 
 	<script>
 		function formin() {
