@@ -69,7 +69,7 @@
 
 					<!-- User Form -->
 					<div class="box-body">
-						<form enctype="multipart/form-data"
+						<form 
 							action="${pageContext.request.contextPath}/admin/pages/MemberReportController"
 							method="post" onsubmit="return validateForm(this)">
 
@@ -113,11 +113,11 @@
 										<h3>
 											<u>Member Details</u>
 										</h3>
-										<label>Member No :&emsp;<span>3362</span></label>&emsp;&emsp;
-										<label>Mr. Rajendra Singh&emsp;S/O Mr. Mahendra Singh</label><br>
-										<label>Plot No :&emsp;<span>K-4/555</span>&emsp;&emsp;Size
-											:&emsp;<span>30*50 Sqft</span>&emsp;&emsp;Project Name
-											:&emsp;<span>Danish Kunj -4</span></label>
+										<label>Member No :&emsp;<span>${requestScope.member.memberNo}</span></label>&emsp;&emsp;
+										<label>${requestScope.member.prefix} ${requestScope.member.memName}&emsp;${requestScope.member.fHRelation} ${requestScope.member.fHRelName}</label><br>
+										<label>Plot No :&emsp;<span>${requestScope.member.plotNo}</span>&emsp;&emsp;Size
+											:&emsp;<span>${requestScope.member.plotSize}</span>&emsp;&emsp;Project Name
+											:&emsp;<span>${requestScope.projectName}</span></label>
 									</div>
 								</div>
 								<div class="row" align="left">
@@ -134,52 +134,29 @@
 												style="border-top: 3px solid black; border-bottom: 3px solid black;">
 												<tr>
 													<th>Recept No.</th>
-													<th>Cash</th>
-													<th>Cheque Amount</th>
+													<th>Amount</th>
+													<th>Transaction Type</th>
 													<th>Chl/Tr</th>
-													<th>Cheque No</th>
+													<th>Transaction No</th>
 													<th>Remark</th>
 													<th>Date</th>
 												</tr>
 											</thead>
 											<tbody>
-												<tr>
-													<td>0374/2</td>
-													<td>0.00</td>
-													<td>5250.00</td>
-													<td>0.00</td>
-													<td>0549578</td>
-													<td>Plot Cost</td>
-													<td>06/01/1993</td>
+												<c:forEach items="${requestScope.receiptList}" var="receipt">
+													<tr>
+														<td><c:out value="${receipt.receno}" /></td>
+														<td><c:out value="${receipt.amount}" /></td>
+														<td><c:out value="${receipt.dC}" /></td>
+														
+														<td><c:out value="${receipt.balChq}" /></td>  
+																
+														<td><c:out value="${receipt.cDd}" /></td>
+														<td><c:out value="${receipt.remarks}" /></td>
+														<td><fmt:formatDate type="date" pattern="dd/MM/yyyy" value="${receipt.recDte}" /></td>
 
-												</tr>
-												<tr>
-													<td>0374/2</td>
-													<td>0.00</td>
-													<td>5250.00</td>
-													<td>0.00</td>
-													<td>0549578</td>
-													<td>Plot Cost</td>
-													<td>06/01/1993</td>
-												</tr>
-												<tr>
-													<td>0374/2</td>
-													<td>0.00</td>
-													<td>5250.00</td>
-													<td>0.00</td>
-													<td>0549578</td>
-													<td>Plot Cost</td>
-													<td>06/01/1993</td>
-												</tr>
-												<tr>
-													<td>0374/2</td>
-													<td>0.00</td>
-													<td>5250.00</td>
-													<td>0.00</td>
-													<td>0549578</td>
-													<td>Plot Cost</td>
-													<td>06/01/1993</td>
-												</tr>
+													</tr>
+												</c:forEach>
 											</tbody>
 											<!-- Table Body -->
 
@@ -199,28 +176,23 @@
 											<thead
 												style="border-top: 3px solid black; border-bottom: 3px solid black">
 												<tr>
-													<th>Cheque No</th>
-													<th>Cheque Date</th>
+													<th>Payment Type</th>
+													<th>Transaction No</th>
+													<th>Transaction Date</th>
 													<th>Amount</th>
 													<th>Remark</th>
 												</tr>
 											</thead>
 											<tbody>
+											<c:forEach items="${requestScope.refPayList}" var="refund">
 												<tr>
-													<td>0549578</td>
-													<td>06/01/1993</td>
-													<td>5250.00</td>
-													<td>Plot Cost</td>
+													<td><c:out value="${refund.paymentmode}" /></td>
+													<td><c:out value="${refund.transactionNo}" /></td>
+													<td><fmt:formatDate type="date" pattern="dd/MM/yyyy" value="${refund.cdDate}" /></td>
+													<td><c:out value="${refund.amount}" /></td>
+													<td><c:out value="${refund.remarks}" /></td>
 												</tr>
-												<tr>
-												<tr>
-													<td>0549578</td>
-													<td>06/01/1993</td>
-													<td>5250.00</td>
-													<td>Plot Cost</td>
-												</tr>
-
-
+													</c:forEach>
 											</tbody>
 											<!-- Table Body -->
 
@@ -232,13 +204,13 @@
 													<tr>
 														<td><label>&emsp;Total Receipt Amount &emsp;</label></td>
 														<td><label>:&emsp;Rs &nbsp;</label></td>
-														<td><span>8357.00</span></td>
+														<td><span>${requestScope.receiptTotalAmount}</span></td>
 													</tr>
 
 													<tr>
 														<td><label>&emsp;Refund Amount &emsp;</label></td>
 														<td><label>:&emsp;Rs &nbsp;</label></td>
-														<td><span>8357.00</span></td>
+														<td><span>${requestScope.refundTotalAmount}</span></td>
 													</tr>
 
 													<tr>
@@ -248,7 +220,7 @@
 													<tr>
 														<td><label>&emsp;Balance Amount &emsp;</label></td>
 														<td><label>:&emsp;Rs &nbsp;</label></td>
-														<td><span>8357.00</span></td>
+														<td><span>${requestScope.balanceAmount}</span></td>
 													</tr>
 													<tr>
 														<td colspan="3">----------------------------------------------------------------------</td>
@@ -264,7 +236,7 @@
 														<td>&nbsp;</td>
 													</tr>
 													<tr>
-														<td><label>Other Receipt Rs :&nbsp;<span>8357.00</span>&emsp;
+														<td><label>Other Receipt Rs :&nbsp;<span>${requestScope.receiptTotalAmount}</span>&emsp;
 														</label></td>
 													</tr>
 												</table>
@@ -299,7 +271,8 @@
 	</div>
 	<!-- ./wrapper -->
 	<%@ include file="../design/Bottom.jsp"%>
-
+	<!-- date-picker -->
+	<script src="../../plugins/datepicker/bootstrap-datepicker.js"></script>
 	<script>
 		<c:choose>
 		<c:when test="${requestScope.msg=='1'}">
@@ -312,7 +285,7 @@
 		<c:when test="${requestScope.msg=='2'}">
 		$(document).ready(function() {
 			$("#typeMemberId").addClass("form-group has-error");
-			$("#errorMemberId").html("Member doesn't exist");
+			$("#errorMemberID").html("Member doesn't exist");
 			$("#memberReport").hide();
 		});
 		</c:when>
