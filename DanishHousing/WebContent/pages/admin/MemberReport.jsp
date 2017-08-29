@@ -10,7 +10,36 @@
 		<jsp:include page="../design/AdminMenu.jsp" flush="true" />
 		<!-- =============================================== -->
 		<!-- Content Wrapper. Contains page content -->
+
+
+		<style type="text /css">.result {
+	height: 200px;
+	overflow: auto;
+}
+</style>
+		<style type="text/css" media="print">
+@media print {
+	.result {
+		height: 100%;
+		overflow: visible;
+	}
+}
+</style>
 		<style>
+body, html {
+	width: 100%;
+	height: 100%;
+}
+
+.print {
+	position: fixed;
+	overflow: auto;
+	width: 100%;
+	height: 100%;
+	z-index: 100000; /* CSS
+		doesn't support infinity */ /* Any other Print Properties */
+}
+
 .invoice-box {
 	max-width: 1000px;
 	margin: auto;
@@ -69,7 +98,7 @@
 
 					<!-- User Form -->
 					<div class="box-body">
-						<form 
+						<form
 							action="${pageContext.request.contextPath}/admin/pages/MemberReportController"
 							method="post" onsubmit="return validateForm(this)">
 
@@ -100,167 +129,229 @@
 								</div>
 							</div>
 						</form>
-						<div class=" row" id="printMemberReport">
-							<div class=" invoice-box row">
-								<div align="center">
-									<h1>
-										<b>MEMBER REPORT</b>
-									</h1>
-								</div>
-								<div class="row" align="left">
-									<div class="col-md-1"></div>
-									<div class="col-md-10">
-										<h3>
-											<u>Member Details</u>
-										</h3>
-										<label>Member No :&emsp;<span>${requestScope.member.memberNo}</span></label>&emsp;&emsp;
-										<label>${requestScope.member.prefix} ${requestScope.member.memName}&emsp;${requestScope.member.fHRelation} ${requestScope.member.fHRelName}</label><br>
-										<label>Plot No :&emsp;<span>${requestScope.member.plotNo}</span>&emsp;&emsp;Size
-											:&emsp;<span>${requestScope.member.plotSize}</span>&emsp;&emsp;Project Name
-											:&emsp;<span>${requestScope.projectName}</span></label>
+						<div class="invoice-box" id="printMemberReport" style="display: none;">
+							<div class="row" >
+
+								<div class="col-md-12">
+									<div class="col-md-12" align="center">
+										<h1>
+											<b><u>MEMBER REPORT</u></b>
+										</h1>
 									</div>
-								</div>
-								<div class="row" align="left">
+									<div class="row" align="left">
 
-									<div class="col-xs-1"></div>
-									<div class="col-md-10">
-										<h3>
-											<u>Receipt Details</u>
-										</h3>
-										<table class="table" align="center">
+										<div class="col-md-12">
+											<h3>
+												<u>Member Details</u>
+											</h3>
+											<label>Member No :&emsp;<span>${requestScope.member.memberNo}</span></label>&emsp;&emsp;
+											<label>${requestScope.member.prefix}
+												${requestScope.member.memName}&emsp;${requestScope.member.fHRelation}
+												${requestScope.member.fHRelName}&emsp;Water Connection Date :&nbsp;<fmt:formatDate type="date" pattern="dd/MM/yyyy"
+																	value="${requestScope.member.waterConnDate}" /></label><br> <label>Plot
+												No :&nbsp;<span>${requestScope.member.plotNo}</span>&emsp;&emsp;Size
+												:&nbsp;<span>${requestScope.member.plotSize}</span>&emsp;&emsp;Project
+												Name :&nbsp;<span>${requestScope.projectName}&emsp;Water Supply Date :&nbsp;<fmt:formatDate type="date" pattern="dd/MM/yyyy"
+																	value="${requestScope.member.watSupplyDt}" /></span>
+											</label>
+										</div>
+									</div>
+									<div class="row" align="left">
 
-											<!-- Table Header -->
-											<thead
-												style="border-top: 3px solid black; border-bottom: 3px solid black;">
-												<tr>
-													<th>Recept No.</th>
-													<th>Amount</th>
-													<th>Transaction Type</th>
-													<th>Chl/Tr</th>
-													<th>Transaction No</th>
-													<th>Remark</th>
-													<th>Date</th>
-												</tr>
-											</thead>
-											<tbody>
-												<c:forEach items="${requestScope.receiptList}" var="receipt">
+
+										<div class="col-md-12">
+											<h3>
+												<u>Receipt Details</u>
+											</h3>
+											<table class="table" align="center">
+
+												<!-- Table Header -->
+												<thead
+													style="border-top: 3px solid black; border-bottom: 3px solid black;">
 													<tr>
-														<td><c:out value="${receipt.receno}" /></td>
-														<td><c:out value="${receipt.amount}" /></td>
-														<td><c:out value="${receipt.dC}" /></td>
-														
-														<td><c:out value="${receipt.balChq}" /></td>  
-																
-														<td><c:out value="${receipt.cDd}" /></td>
-														<td><c:out value="${receipt.remarks}" /></td>
-														<td><fmt:formatDate type="date" pattern="dd/MM/yyyy" value="${receipt.recDte}" /></td>
-
+														<th>Recept No.</th>
+														<th>Amount</th>
+														<th>Transaction Mode</th>
+														<th>Chl/Tr</th>
+														<th>Transaction No</th>
+														<th>Remark</th>
+														<th>Date</th>
 													</tr>
-												</c:forEach>
-											</tbody>
-											<!-- Table Body -->
+												</thead>
+												<tbody>
+													<c:forEach items="${requestScope.receiptList}"
+														var="receipt">
+														<tr>
+															<td><c:out value="${receipt.receno}" /></td>
+															<td><c:out value="${receipt.amount}" /></td>
+															<td><c:out value="${receipt.dC}" /></td>
 
-										</table>
-									</div>
-								</div>
-								<div class="row" align="left">
+															<td><c:out value="${receipt.balChq}" /></td>
 
-									<div class="col-xs-1"></div>
-									<div class="col-md-10">
-										<h3>
-											<u>Refund Details</u>
-										</h3>
-										<table class="table" align="center">
+															<td><c:out value="${receipt.cDd}" /></td>
+															<td><c:out value="${receipt.remarks}" /></td>
+															<td><fmt:formatDate type="date" pattern="dd/MM/yyyy"
+																	value="${receipt.recDte}" /></td>
 
-											<!-- Table Header -->
-											<thead
-												style="border-top: 3px solid black; border-bottom: 3px solid black">
-												<tr>
-													<th>Payment Type</th>
-													<th>Transaction No</th>
-													<th>Transaction Date</th>
-													<th>Amount</th>
-													<th>Remark</th>
-												</tr>
-											</thead>
-											<tbody>
-											<c:forEach items="${requestScope.refPayList}" var="refund">
-												<tr>
-													<td><c:out value="${refund.paymentmode}" /></td>
-													<td><c:out value="${refund.transactionNo}" /></td>
-													<td><fmt:formatDate type="date" pattern="dd/MM/yyyy" value="${refund.cdDate}" /></td>
-													<td><c:out value="${refund.amount}" /></td>
-													<td><c:out value="${refund.remarks}" /></td>
-												</tr>
+														</tr>
 													</c:forEach>
-											</tbody>
-											<!-- Table Body -->
+												</tbody>
+												<!-- Table Body -->
 
-										</table>
-										<br>
-										<div class="row">
-											<div class="col-md-6" align="left">
-												<table>
-													<tr>
-														<td><label>&emsp;Total Receipt Amount &emsp;</label></td>
-														<td><label>:&emsp;Rs &nbsp;</label></td>
-														<td><span>${requestScope.receiptTotalAmount}</span></td>
-													</tr>
+											</table>
+										</div>
+									</div>
+									<div class="row" align="left" id="refund"
+										style="display: none;">
 
-													<tr>
-														<td><label>&emsp;Refund Amount &emsp;</label></td>
-														<td><label>:&emsp;Rs &nbsp;</label></td>
-														<td><span>${requestScope.refundTotalAmount}</span></td>
-													</tr>
 
-													<tr>
-														<td colspan="3">----------------------------------------------------------------------</td>
-													</tr>
+										<div class="col-md-12">
+											<h3>
+												<u>Refund Details</u>
+											</h3>
+											<table class="table" align="center">
 
+												<!-- Table Header -->
+												<thead
+													style="border-top: 3px solid black; border-bottom: 3px solid black">
 													<tr>
-														<td><label>&emsp;Balance Amount &emsp;</label></td>
-														<td><label>:&emsp;Rs &nbsp;</label></td>
-														<td><span>${requestScope.balanceAmount}</span></td>
+														<th>Transaction Mode</th>
+														<th>Transaction No</th>
+														<th>Transaction Date</th>
+														<th>Amount</th>
+														<th>Remark</th>
 													</tr>
+												</thead>
+												<tbody>
+													<c:forEach items="${requestScope.refPayList}" var="refund">
+														<tr>
+															<td><c:out value="${refund.paymentmode}" /></td>
+															<td><c:out value="${refund.transactionNo}" /></td>
+															<td><fmt:formatDate type="date" pattern="dd/MM/yyyy"
+																	value="${refund.cdDate}" /></td>
+															<td><c:out value="${refund.amount}" /></td>
+															<td><c:out value="${refund.remarks}" /></td>
+														</tr>
+													</c:forEach>
+												</tbody>
+												<!-- Table Body -->
+
+											</table>
+										</div>
+									</div>
+									<div class="row" align="left" id="transfer"
+										style="display: none;">
+
+
+										<div class="col-md-12">
+											<h3>
+												<u>Transfer Details</u>
+											</h3>
+											<table class="table" align="center">
+
+												<!-- Table Header -->
+												<thead
+													style="border-top: 3px solid black; border-bottom: 3px solid black">
 													<tr>
-														<td colspan="3">----------------------------------------------------------------------</td>
+														<th>Account Code</th>
+														<th>Amount</th>
+														<th>Transfer Date</th>
+														<th>Voucher Number</th>
+														<th>Remark</th>
 													</tr>
-												</table>
-											</div>
-											<div class="col-md-6" align="right">
-												<table>
+												</thead>
+												<tbody>
 													<tr>
-														<td>&nbsp;</td>
-													</tr>
-													<tr>
-														<td>&nbsp;</td>
-													</tr>
-													<tr>
-														<td><label>Other Receipt Rs :&nbsp;<span>${requestScope.receiptTotalAmount}</span>&emsp;
-														</label></td>
-													</tr>
-												</table>
-											</div>
+													<c:forEach items="${requestScope.transferList}" var="transfer">
+														<tr>
+															<td><c:out value="${transfer.acCode}" /></td>
+															<td><c:out value="${transfer.amt}" /></td>
+															<td><fmt:formatDate type="date" pattern="dd/MM/yyyy"
+																	value="${transfer.docDte}" /></td>
+															<td><c:out value="${transfer.vrNo}" /></td>
+															<td><c:out value="${transfer.parti}" /></td>
+														</tr>
+													</c:forEach>
+
+
+												</tbody>
+												<!-- Table Body -->
+
+											</table>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="col-md-6" align="left">
+											<table>
+												<tr>
+													<td><label>&emsp;Total Receipt Amount &emsp;</label></td>
+													<td><label>:&emsp;Rs &nbsp;</label></td>
+													<td align="right"><span>${requestScope.receiptTotalAmount}</span></td>
+												</tr>
+
+												<tr>
+													<td><div id="refundAmount">
+															<label>&emsp;Refund Amount &emsp;</label>
+														</div></td>
+													<td><div id="refundAmount">
+															<label>:&emsp;Rs &nbsp;</label>
+														</div></td>
+													<td align="right"><div id="refundAmount">
+															<span>${requestScope.refundTotalAmount}</span>
+														</div></td>
+												</tr>
+
+												<tr>
+													<td colspan="3">----------------------------------------------------------------------</td>
+												</tr>
+
+												<tr>
+													<td><label>&emsp;Balance Amount &emsp;</label></td>
+													<td><label>:&emsp;Rs &nbsp;</label></td>
+													<td align="right"><span>${requestScope.balanceAmount}</span></td>
+												</tr>
+												<tr>
+													<td colspan="3">----------------------------------------------------------------------</td>
+												</tr>
+											</table>
+										</div>
+										<div class="col-md-6" align="right">
+											<table>
+												<tr>
+													<td>&nbsp;</td>
+												</tr>
+												<tr>
+													<td>&nbsp;</td>
+												</tr>
+												<tr>
+													<td><label>Other Receipt Rs :&nbsp;<span>${requestScope.receiptTotalAmount}</span>&emsp;
+													</label></td>
+												</tr>
+											</table>
+										</div>
+									</div>
+									<div class="row" align="center">
+
+										<div>
+											<button type=button class="btn btn-info " value="print"
+												id="printButton"
+												onclick="printFunction('printMemberReport');">&emsp;Print&emsp;</button>
 										</div>
 									</div>
 								</div>
 							</div>
-
 							<!-- User Form -->
-							<div class="row" align="center">
 
-								<div>
-									<button type=button class="btn btn-info "
-										onclick="printFunction('printMemberReport');">&emsp;Print&emsp;</button>
-								</div>
-							</div>
 							<!-- /.box-body -->
-							<div class="box-footer">View Member Report</div>
+							
 
-							<!-- /.box-footer-->
+							
 						</div>
+						<div class="box-footer">View Member Report</div>
+						<!-- /.box-footer-->
 						<!-- /.box -->
-						</div>
+					</div>
 			</section>
 			<!-- /.content -->
 		</div>
@@ -271,23 +362,38 @@
 	</div>
 	<!-- ./wrapper -->
 	<%@ include file="../design/Bottom.jsp"%>
-	<!-- date-picker -->
-	<script src="../../plugins/datepicker/bootstrap-datepicker.js"></script>
+
 	<script>
+		<c:choose>
+		<c:when test="${requestScope.flagr == '2'}">
+		$(document).ready(function() {
+			$("#refund").show();
+		});
+		</c:when>
+		</c:choose>
+		<c:choose>
+		<c:when test="${requestScope.flagt == '2'}">
+		$(document).ready(function() {
+			$("#transfer").show();
+		});
+		</c:when>
+		</c:choose>
 		<c:choose>
 		<c:when test="${requestScope.msg=='1'}">
 		$(document).ready(function() {
-			$("#typeMemberId").addClass("form-group has-success");
-			$("#typeMemberId").html("");
-			$("#memberReport").show();
+			$("#divFormMemberID").addClass("form-group has-success");
+			$("#errorMemberID").html("");
+			$("#printMemberReport").show();
 		});
 		</c:when>
 		<c:when test="${requestScope.msg=='2'}">
-		$(document).ready(function() {
-			$("#typeMemberId").addClass("form-group has-error");
-			$("#errorMemberID").html("Member doesn't exist");
-			$("#memberReport").hide();
-		});
+		$(document).ready(
+				function() {
+					$("#divFormMemberID").addClass(
+							"alert alert-danger alert-dismissible");
+					$("#errorMemberID").html("Member doesn't exist");
+					$("#printMemberReport").hide();
+				});
 		</c:when>
 		</c:choose>
 		function validateForm(form) {
@@ -312,18 +418,18 @@
 			document.getElementById("errorMemberID").innerHTML = "";
 
 		}
-		function printFunction(printMemberReport) {
-			var printContents = document.getElementById(printMemberReport).innerHTML;
+		function printFunction(printDiv) {
+			var printContents = document.getElementById(printDiv).innerHTML;
 			var originalContents = document.body.innerHTML;
 
-			//document.body.innerHTML = printContents;
-			
-			document.body.innerHTML = 
-		          "<html><head><title></title></head><body>" + 
-		          printContents + "</body>";
+			document.body.innerHTML = printContents;
+
+			document.body.innerHTML = "<html><head><title></title></head><body>"
+					+ printContents + "</body>";
 
 			window.print();
 
 			document.body.innerHTML = originalContents;
 		}
+		
 	</script>
