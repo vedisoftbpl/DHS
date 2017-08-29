@@ -1321,9 +1321,7 @@
 	<!-- select2 -->
 	<script src="../../plugins/select2/select2.js"></script>
 	<!-- iCheck -->
-	<!-- jQuery 2.2.3 -->
-	<script src="../../plugins/jQuery/jquery-2.2.3.min.js"></script>
-
+	
 	<script>
 		function formin() {
 			var form = document.getElementById("membershipEditForm");
@@ -1832,7 +1830,7 @@
 
 		$(function() {
 			//Initialize Select2 Elements
-			$(".select2").select2();
+			$(".select2").select();
 
 			//Date picker
 			$('.datepicker').datepicker({
