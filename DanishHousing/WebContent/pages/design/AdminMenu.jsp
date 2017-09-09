@@ -17,7 +17,8 @@
 		<!-- /.search form -->
 		<!-- sidebar menu: : style can be found in sidebar.less -->
 		<ul class="sidebar-menu">
-			<li class="header">MAIN NAVIGATION</li><!-- 
+			<li class="header">MAIN NAVIGATION</li>
+			<!-- 
 			<li class="treeview"><a href="#"> <i class="fa fa-dashboard"></i>
 					<span>Dashboard</span> <span class="pull-right-container"> <i
 						class="fa fa-angle-left pull-right"></i>
@@ -60,14 +61,17 @@
 					<li><a
 						href="${pageContext.request.contextPath}/admin/pages/ReceiptFormController"><i
 							class="fa fa-circle-o"></i> Receipts</a></li>
-					<li><a href="${pageContext.request.contextPath}/admin/pages/MemberDocumentsController"><i
+					<li><a
+						href="${pageContext.request.contextPath}/admin/pages/MemberDocumentsController"><i
 							class="fa fa-circle-o"></i> Member Documents Upload</a></li>
-					<li><a href="${pageContext.request.contextPath}/admin/pages/ReceiptPrintController"><i
+					<li><a
+						href="${pageContext.request.contextPath}/admin/pages/ReceiptPrintController"><i
 							class="fa fa-circle-o"></i> Receipts Print</a></li>
 				</ul></li>
-				
-				<li class="treeview"><a href="#"> <i class="fa fa-credit-card"></i>
-					<span>Payment</span> <span class="pull-right-container"> <i
+
+			<li class="treeview"><a href="#"> <i
+					class="fa fa-credit-card"></i> <span>Payment</span> <span
+					class="pull-right-container"> <i
 						class="fa fa-angle-left pull-right"></i>
 				</span>
 			</a>
@@ -75,24 +79,29 @@
 					<li><a
 						href="${pageContext.request.contextPath}/admin/pages/MemberRefundController"><i
 							class="fa fa-circle-o"></i> Member Refund</a></li>
-					<li><a href="${pageContext.request.contextPath}/admin/pages/PaymentController"><i
+					<li><a
+						href="${pageContext.request.contextPath}/admin/pages/PaymentController"><i
 							class="fa fa-circle-o"></i> Payment</a></li>
-					<li><a href="${pageContext.request.contextPath}/admin/pages/MemberTransferController"><i
+					<li><a
+						href="${pageContext.request.contextPath}/admin/pages/MemberTransferController"><i
 							class="fa fa-circle-o"></i>Member Transfer </a></li>
-					<li><a href="${pageContext.request.contextPath}/admin/pages/JournalTransferController"><i
+					<li><a
+						href="${pageContext.request.contextPath}/admin/pages/JournalTransferController"><i
 							class="fa fa-circle-o"></i>Journal Transfer </a></li>
 				</ul></li>
-				
+
 			<li class="treeview"><a href="#"> <i class="fa fa-table"></i>
 					<span>Reports</span> <span class="pull-right-container"> <i
 						class="fa fa-angle-left pull-right"></i>
 				</span>
 			</a>
 				<ul class="treeview-menu">
-					<li><a href="${pageContext.request.contextPath}/admin/pages/MemberReportController"><i
+					<li><a
+						href="${pageContext.request.contextPath}/admin/pages/MemberReportController"><i
 							class="fa fa-circle-o"></i> Member Report </a></li>
-					<li><a href="../tables/data.html"><i
-							class="fa fa-circle-o"></i> Report Two </a></li>
+					<li><a
+						href="${pageContext.request.contextPath}/admin/pages/TransactionReportController"><i
+							class="fa fa-circle-o"></i> Transaction Report </a></li>
 					<li><a href="../tables/data.html"><i
 							class="fa fa-circle-o"></i> Report Three </a></li>
 					<li><a href="../tables/data.html"><i
