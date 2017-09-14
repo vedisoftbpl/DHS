@@ -9,15 +9,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.poi.util.SystemOutLogger;
-
 import com.vedisoft.danishhousing.config.ConnectionPool;
 import com.vedisoft.danishhousing.config.DateUtils;
 import com.vedisoft.danishhousing.pojos.ReceiptRecord;
 import com.vedisoft.danishhousing.pojos.TransactionRecords;
 import com.vedisoft.danishhousing.pojos.CashBankBookDto;
 
-import sun.net.www.content.text.plain;
+
 
 public class TransactionRecordsDao {
 	
