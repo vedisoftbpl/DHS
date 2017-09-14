@@ -7,7 +7,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.vedisoft.danishhousing.config.ConnectionPool;
 import com.vedisoft.danishhousing.config.DateUtils;
@@ -256,6 +258,25 @@ public class AccountDao {
 		return listAccount;
 	}
 
+	public HashMap<String, String> findAllInMap() {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		pool.initialize();
+		Connection conn = pool.getConnection();
+		HashMap<String, String> m = new HashMap<String, String>();
+		try {
+			String sql = "select bk_code, bk_name from accounts";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				m.put(rs.getString("bk_code"), rs.getString("bk_name"));
+			}
+		} catch (SQLException sq) {
+			System.out.println("Unable to create a new row.");
+		} finally {
+			pool.putConnection(conn);
+		}
+		return m;
+	}
 
 	public static void main(String[] args) {
 		AccountDao dao = new AccountDao();

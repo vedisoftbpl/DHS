@@ -189,7 +189,7 @@ body, html {
 							<div class="col-md-12">
 								<div class="col-md-12" align="center">
 									<h1>
-										<b><u>DANISH GRIN NIRMAN SAHAKARI SANSTHA MARYADIT
+										<b><u>DANISH GRIH NIRMAN SAHAKARI SANSTHA MARYADIT
 												BHOPAL</u></b>
 									</h1>
 								</div>

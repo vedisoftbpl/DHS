@@ -2,6 +2,7 @@ package com.vedisoft.danishhousing.config;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -93,4 +94,11 @@ public class DateUtils {
 		return age;
 	}
 
+	public static Date getPreviousDate(Date d){
+		final Calendar cal = Calendar.getInstance();
+		cal.setTime(d);
+	    cal.add(cal.DATE, -1);
+	    return cal.getTime();
+	}
+	
 }
