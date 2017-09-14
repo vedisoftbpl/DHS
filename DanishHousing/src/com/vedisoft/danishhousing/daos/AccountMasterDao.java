@@ -152,7 +152,7 @@ public class AccountMasterDao {
 		return accountmaster;
 	}
 	
-	public AccountMaster findByCode(String accCode) {
+	public static AccountMaster findByCode(String accCode) {
 		ConnectionPool pool = ConnectionPool.getInstance();
 		pool.initialize();
 		Connection conn = pool.getConnection();
