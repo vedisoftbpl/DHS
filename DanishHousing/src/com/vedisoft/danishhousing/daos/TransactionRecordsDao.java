@@ -264,7 +264,7 @@ public class TransactionRecordsDao {
 		Connection conn = pool.getConnection();
 		double openingBal = 0.0;
 		try {
-			String sql = "SELECT (a.credit - b.debit + ac.op_bal) as OpBal FROM danish_housing.accounts ac,(SELECT sum(amt) as credit"
+			String sql = "SELECT (coalesce(a.credit,0.00) - coalesce(b.debit,0.00) + coalesce(ac.op_bal,0.00)) as OpBal FROM danish_housing.accounts ac,(SELECT sum(amt) as credit"
 					+ " FROM danish_housing.transaction_records t  where docdte <= ? and bkcode = ? and doctype = 'D') a,"
 					+ "(SELECT sum(amt) as debit FROM danish_housing.transaction_records t  where docdte <= ? and bkcode = ? and "
 					+ "doctype = 'W') b where bk_code = ?;";
@@ -282,7 +282,7 @@ public class TransactionRecordsDao {
 			ps.setString(5, bkCode);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next())  {
-				openingBal =rs.getDouble("opBal");
+				openingBal =rs.getDouble("OpBal");
 			}
 		} catch (SQLException sq) {
 			System.out.println("Unable to fetch opening balance." + sq);
@@ -303,17 +303,17 @@ public class TransactionRecordsDao {
 //			 System.out.println(t);
 		
 		
-//		double openingBal = new TransactionRecordsDao().bankOpeningBalance(DateUtils.convertDate("21/08/2017"), "001");
-//		System.out.println(openingBal);
+		double openingBal = new TransactionRecordsDao().bankOpeningBalance(DateUtils.convertDate("19/08/2017"), "001");
+		System.out.println(openingBal);
 		
-//		ArrayList<CashBankBookDto> listCashBankBookDto = new TransactionRecordsDao().findCashBankBookDtoReceipt(DateUtils.convertDate("01/08/2016"),DateUtils.convertDate( "31/08/2017"), "001");
+//		ArrayList<CashBankBookDto> listCashBankBookDto = new TransactionRecordsDao().findCashBankBookDtoReceipt(DateUtils.convertDate("01/08/2017"),DateUtils.convertDate( "21/08/2017"), "001");
 //		for(CashBankBookDto t : listCashBankBookDto)
 //			 System.out.println(t);
 		
-		ArrayList<CashBankBookDto> listCashBankBookDto = new TransactionRecordsDao().findCashBankBookDtoPayment(DateUtils.convertDate("01/08/2016"),DateUtils.convertDate( "22/08/2017"), "001");
-		for(CashBankBookDto t : listCashBankBookDto)
-			 System.out.println(t);
-		
+//		ArrayList<CashBankBookDto> listCashBankBookDto = new TransactionRecordsDao().findCashBankBookDtoPayment(DateUtils.convertDate("01/08/2017"),DateUtils.convertDate( "21/08/2017"), "001");
+//		for(CashBankBookDto t : listCashBankBookDto)
+//			 System.out.println(t);
+//		
 		
 		
 	}

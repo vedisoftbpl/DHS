@@ -1,10 +1,10 @@
 {
   "name": "AdminLTE",
-  "homepage": "http://almsaeedstudio.com",
+  "homepage": "http://www.vedisoft.com/",
   "authors": [
-    "Abdullah Almsaeed <abdullah@almsaeedstudio.com>"
+    "Christopher Rozario <christopherrozario7@gmail.com>"
   ],
-  "description": "Admin dashboard and control panel template",
+  "description": "Management Software for Danish Housing Society.",
   "main": [
     "index2.html",
     "dist/css/AdminLTE.css",
@@ -22,7 +22,7 @@
     "backend",
     "responsive"
   ],
-  "license": "MIT",
+  "license": "GPL",
   "ignore": [
     "/.*",
     "node_modules",
