@@ -356,8 +356,8 @@ body, html {
 		<c:when test="${requestScope.msg=='2'}">
 		$(document).ready(function() {
 			$("#typeError").addClass("form-group has-error");
-			$("#errorTop").html("Fatal Error Occured . Try Again Later");
-			$("#printMemberReport").hide();
+			$("#errorTop").html("Could Not Fetch Records of given period.");
+			$("#printTransactionReport").hide();
 		});
 		</c:when>
 		</c:choose>

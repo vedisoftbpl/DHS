@@ -111,7 +111,7 @@ div.scrollmenu {
 					<!-- User Form -->
 					<div class="box-body">
 						<form
-							action="${pageContext.request.contextPath}/admin/pages/BankCashReportController"
+							action="${pageContext.request.contextPath}/admin/pages/CashBankReportController"
 							method="post" onsubmit="return validateForm(this)">
 
 							<div class="row">
@@ -163,6 +163,7 @@ div.scrollmenu {
 											</div>
 											<select class="form-control select2" id="BankName" name="BankName"
 												style="width: 100%;">
+												<option value="">--- Select Bank Name ---</option>
 												<c:forEach items="${requestScope.accounts}" var="val">
 													<option value="${val.key}">${val.value}</option>
 												</c:forEach>
@@ -195,8 +196,8 @@ div.scrollmenu {
 						</form>
 					</div>
 
-					<div class="invoice-box " id="printTransactionReport"
-						style="display: block;">
+					<div class="invoice-box " id="printBankCashReport"
+						style="display: none;"">
 						<div class="row">
 
 							<div class="col-md-12">
@@ -217,10 +218,10 @@ div.scrollmenu {
 
 									<div class="col-md-12">
 									<span style="display:inline-block;">
-									<h4>BANK CODE : ${requestScope.bkCode} -
-											${requestScope.accName}</h4>
-										<h4>BANK NAME : ${requestScope.bkName} -
-											${requestScope.bkName}</h4>
+									<h4>BANK CODE : ${requestScope.bkCode} ,-
+											</h4>
+										<h4>BANK NAME : ${requestScope.bkName} 
+											</h4>
 									</span>
 										
 									</div>
@@ -254,7 +255,7 @@ div.scrollmenu {
 														
 														<td><b><c:out value="${receipt.accName}" /></b><br><c:out value="${receipt.remarks}" /></td>
 														<td><c:out value="${receipt.amount}" /></td>
-														<td><c:out value="${receipt.adjustments}" /></td>
+														<td><c:out value="${receipt.adjustment}" /></td>
 
 
 													</tr>
@@ -310,7 +311,7 @@ div.scrollmenu {
 														
 														<td><b><c:out value="${payment.accName}" /></b><br><c:out value="${receipt.remarks}" /></td>
 														<td><c:out value="${payment.amount}" /></td>
-														<td><c:out value="${payment.adjustments}" /></td>
+														<td><c:out value="${payment.adjustment}" /></td>
 
 
 													</tr>
@@ -346,15 +347,17 @@ div.scrollmenu {
 									</div>
 								
 								</div>
-								<div class="row" >
+								<div class="row" ><br>
+								-----------------------------------------------------------------------------------------------------------
 								<div align="left"><label>&emsp;Closing Balance :&emsp;Rs :&nbsp;${requestScope.closingBalance}</label></div>
+								-----------------------------------------------------------------------------------------------------------
 								</div>
 								<div class="row" align="center">
 
 									<div>
 										<button type=button class="btn btn-info " value="print"
 											id="printButton"
-											onclick="printFunction('printTransactionReport');">&emsp;Print&emsp;</button>
+											onclick="printFunction('printBankCashReport');">&emsp;Print&emsp;</button>
 									</div>
 								</div>
 							</div>
@@ -366,7 +369,7 @@ div.scrollmenu {
 
 
 					</div>
-					<div class="box-footer">View Transaction Report</div>
+					<div class="box-footer">View Cash/Bank Book</div>
 					<!-- /.box-footer-->
 					<!-- /.box -->
 				</div>
@@ -401,18 +404,18 @@ div.scrollmenu {
 		<c:choose>
 		<c:when test="${requestScope.msg=='1'}">
 		$(document).ready(function() {
-			$("#divFormAccountCode").addClass("form-group has-success");
-			$("#errorAccountCode").html("");
+			$("#divFormBankName").addClass("form-group has-success");
+			$("#errorBankName").html("");
 			$("#typeError").addClass("form-group has-success");
 			$("#errorTop").html("Records shown below.");
-			$("#printTransactionReport").show();
+			$("#printBankCashReport").show();
 		});
 		</c:when>
 		<c:when test="${requestScope.msg=='2'}">
 		$(document).ready(function() {
 			$("#typeError").addClass("form-group has-error");
-			$("#errorTop").html("Fatal Error Occured . Try Again Later");
-			$("#printMemberReport").hide();
+			$("#errorTop").html("Could not fetch records of given period.");
+			$("#printBankCashReport").hide();
 		});
 		</c:when>
 		</c:choose>
@@ -420,8 +423,8 @@ div.scrollmenu {
 			error = "Please enter this field";
 
 			//Account Code Validation
-			var accountCode = document.getElementById("BankName").value;
-			if (accountCode == null || accountCode === "") {
+			var bankName = document.getElementById("BankName").value;
+			if (bankName == null || bankName === "") {
 				document.getElementById("divFormBankName").className = 'alert alert-danger alert-dismissible';
 				document.getElementById("errorBankName").innerHTML = error;
 				return false;
@@ -463,8 +466,8 @@ div.scrollmenu {
 				.ready(
 						function() {
 							$('#BankName')
-									.bind(
-											"onchange",
+									.on(
+											"change",
 											function(e) {
 
 												e.preventDefault();
@@ -482,7 +485,7 @@ div.scrollmenu {
 
 																success : function(
 																		data) {
-																	var bool = data["accountId"] === 0;
+																	var bool = data["bkCode"] === 0;
 																	$(
 																			'#divFormBankName')
 																			.toggleClass(
@@ -495,9 +498,9 @@ div.scrollmenu {
 																	$(
 																			'#errorBankName')
 																			.empty();
-																	if (data["accountId"] === 0) {
+																	if (data["bkCode"] === 0) {
 																		$(
-																				'#errorBankCode')
+																				'#errorBankName')
 																				.text(
 																						'Bank Code doesn\'t exist');
 																	} else {
@@ -508,6 +511,8 @@ div.scrollmenu {
 																						'<b>'
 																								+ data["bkCode"]
 																								+ '</b>');
+																		
+																		$("#BankName option[value="+data["bkCode"]+"]").prop('selected', 'selected');
 
 																	}
 																},

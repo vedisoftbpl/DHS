@@ -102,8 +102,8 @@
 					<li><a
 						href="${pageContext.request.contextPath}/admin/pages/TransactionReportController"><i
 							class="fa fa-circle-o"></i> Transaction Report </a></li>
-					<li><a href="../tables/data.html"><i
-							class="fa fa-circle-o"></i> Report Three </a></li>
+					<li><a href="${pageContext.request.contextPath}/admin/pages/CashBankReportController"><i
+							class="fa fa-circle-o"></i> Cash/Bank Book </a></li>
 					<li><a href="../tables/data.html"><i
 							class="fa fa-circle-o"></i> Report Four </a></li>
 				</ul></li>
