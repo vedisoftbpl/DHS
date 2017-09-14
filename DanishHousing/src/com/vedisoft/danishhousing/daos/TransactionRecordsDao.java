@@ -9,10 +9,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.poi.util.SystemOutLogger;
+
 import com.vedisoft.danishhousing.config.ConnectionPool;
 import com.vedisoft.danishhousing.config.DateUtils;
 import com.vedisoft.danishhousing.pojos.ReceiptRecord;
 import com.vedisoft.danishhousing.pojos.TransactionRecords;
+import com.vedisoft.danishhousing.pojos.CashBankBookDto;
 
 import sun.net.www.content.text.plain;
 
@@ -166,13 +169,156 @@ public class TransactionRecordsDao {
 		}
 		return listTransaction;
 	}
+	
+	
+	public ArrayList<CashBankBookDto> findCashBankBookDtoReceipt(Date d1, Date d2, String bkCode) {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		pool.initialize();
+		Connection conn = pool.getConnection();
+		ArrayList<CashBankBookDto> listCashBankBookDto = new ArrayList<CashBankBookDto>();
+		try {
+			String sql = "select * from transaction_records where docdte between ? and ? and bkcode = ? and doctype = 'D'";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			java.sql.Date date1 = null;
+			if (d1 != null)
+				date1 = new java.sql.Date(d1.getTime());
+			else
+				return null;
+			java.sql.Date date2 = null;
+			if (d2 != null)
+				date2 = new java.sql.Date(d2.getTime());
+			else
+				return null;
+			ps.setDate(1, date1);
+			ps.setDate(2, date2);
+			ps.setString(3, bkCode);
+			ResultSet rs = ps.executeQuery();
+			
+			while (rs.next())  {
+				CashBankBookDto cashBankBookDto = new CashBankBookDto();
+				
+				cashBankBookDto.setDocNo(rs.getInt("docno"));
+				cashBankBookDto.setAccNo(rs.getString("accode"));
+				cashBankBookDto.setAccName(AccountMasterDao.findByCode(cashBankBookDto.getAccNo()).getAcName());
+				cashBankBookDto.setRemarks(rs.getString("parti"));
+				cashBankBookDto.setAmount(rs.getDouble("amt"));
+				cashBankBookDto.setAdjustment(rs.getDouble("amt"));
+				listCashBankBookDto.add(cashBankBookDto);
+			}
+		} catch (SQLException sq) {
+			System.out.println("Unable to find a row." + sq);
+		} finally {
+			pool.putConnection(conn);
+		}
+		return listCashBankBookDto;
+	}
+	
+	
+	public ArrayList<CashBankBookDto> findCashBankBookDtoPayment(Date d1, Date d2, String bkCode) {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		pool.initialize();
+		Connection conn = pool.getConnection();
+		ArrayList<CashBankBookDto> listCashBankBookDto = new ArrayList<CashBankBookDto>();
+		try {
+			String sql = "select * from transaction_records where docdte between ? and ? and bkcode = ? and doctype = 'W'";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			java.sql.Date date1 = null;
+			if (d1 != null)
+				date1 = new java.sql.Date(d1.getTime());
+			else
+				return null;
+			java.sql.Date date2 = null;
+			if (d2 != null)
+				date2 = new java.sql.Date(d2.getTime());
+			else
+				return null;
+			ps.setDate(1, date1);
+			ps.setDate(2, date2);
+			ps.setString(3, bkCode);
+			ResultSet rs = ps.executeQuery();
+			
+			while (rs.next())  {
+				CashBankBookDto cashBankBookDto = new CashBankBookDto();
+				
+				cashBankBookDto.setDocNo(rs.getInt("docno"));
+				cashBankBookDto.setAccNo(rs.getString("accode"));
+				cashBankBookDto.setAccName(AccountMasterDao.findByCode(cashBankBookDto.getAccNo()).getAcName());
+				cashBankBookDto.setRemarks(rs.getString("parti"));
+				cashBankBookDto.setAmount(rs.getDouble("amt"));
+				cashBankBookDto.setAdjustment(rs.getDouble("amt"));
+				listCashBankBookDto.add(cashBankBookDto);
+			}
+		} catch (SQLException sq) {
+			System.out.println("Unable to find a row." + sq);
+		} finally {
+			pool.putConnection(conn);
+		}
+		return listCashBankBookDto;
+	}
+	
+	
+	
+	
+	
+	public static double bankOpeningBalance(Date d1,String bkCode) {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		pool.initialize();
+		Connection conn = pool.getConnection();
+		double openingBal = 0.0;
+		try {
+			String sql = "SELECT (a.credit - b.debit + ac.op_bal) as OpBal FROM danish_housing.accounts ac,(SELECT sum(amt) as credit"
+					+ " FROM danish_housing.transaction_records t  where docdte <= ? and bkcode = ? and doctype = 'D') a,"
+					+ "(SELECT sum(amt) as debit FROM danish_housing.transaction_records t  where docdte <= ? and bkcode = ? and "
+					+ "doctype = 'W') b where bk_code = ?;";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			java.sql.Date date1 = null;
+			if (d1 != null)
+				date1 = new java.sql.Date(d1.getTime());
+			else
+				return 0;
+			
+			ps.setDate(1, date1);
+			ps.setString(2, bkCode);
+			ps.setDate(3, date1);
+			ps.setString(4, bkCode);
+			ps.setString(5, bkCode);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next())  {
+				openingBal =rs.getDouble("opBal");
+			}
+		} catch (SQLException sq) {
+			System.out.println("Unable to fetch opening balance." + sq);
+		} finally {
+			pool.putConnection(conn);
+		}
+			return openingBal;
+	}
+	
+	
+	
 
 	public static void main(String[] args) {
 		
 //		 List<TransactionRecords> list =new TransactionRecordsDao().findMemTransactionRecord(7299);
-		List<TransactionRecords> list =new TransactionRecordsDao().findDateTransactionRecord(DateUtils.convertDate("24/08/2017"),DateUtils.convertDate("28/08/2017"),"A0001" ); 
-		for(TransactionRecords t : list)
+//		List<TransactionRecords> list =new TransactionRecordsDao().findDateTransactionRecord(DateUtils.convertDate("24/08/2017"),DateUtils.convertDate("28/08/2017"),"A0001" ); 
+//		for(TransactionRecords t : list)
+//			 System.out.println(t);
+		
+		
+//		double openingBal = new TransactionRecordsDao().bankOpeningBalance(DateUtils.convertDate("21/08/2017"), "001");
+//		System.out.println(openingBal);
+		
+//		ArrayList<CashBankBookDto> listCashBankBookDto = new TransactionRecordsDao().findCashBankBookDtoReceipt(DateUtils.convertDate("01/08/2016"),DateUtils.convertDate( "31/08/2017"), "001");
+//		for(CashBankBookDto t : listCashBankBookDto)
+//			 System.out.println(t);
+		
+		ArrayList<CashBankBookDto> listCashBankBookDto = new TransactionRecordsDao().findCashBankBookDtoPayment(DateUtils.convertDate("01/08/2016"),DateUtils.convertDate( "22/08/2017"), "001");
+		for(CashBankBookDto t : listCashBankBookDto)
 			 System.out.println(t);
+		
+		
+		
 	}
+	
 	
 }
