@@ -653,6 +653,7 @@
 		function sub() {
 			//Unique Id Vaildation
 			var id = $('#voucherNumber').val();
+			var dat = $('#date').val();
 			var y = '1';
 			if (id.length > 0) {
 				$
@@ -661,7 +662,8 @@
 							dataType : 'json',
 							type : 'post',
 							data : {
-								'vrNo' : id
+								'vrNo' : id,
+								'date' : dat
 							},
 
 							success : function(data) {

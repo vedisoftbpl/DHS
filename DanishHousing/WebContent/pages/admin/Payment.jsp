@@ -595,6 +595,7 @@
 		function sub(){
 			//Unique Id Vaildation
 			var id = $('#voucherNumber').val();
+			var dat = $('#date').val();
 			var y = '1';
 			if (id.length > 0) {
 				$
@@ -603,7 +604,8 @@
 							dataType : 'json',
 							type : 'post',
 							data : {
-								'vrNo' : id
+								'vrNo' : id,
+								'date' : dat
 							},
 
 							success : function(
@@ -611,7 +613,7 @@
 								var data0 = data["data"][0];
 								bool = data0["avail"];
 								if (bool === false) {
-									alert("Voucher Number is not available. Use Voucher No. : " + data0["next"]);
+									alert("Voucher Number is not available for given financial year . Use Voucher No. : " + data0["next"]);
 									document.getElementById("errorVoucherNumber").innerHTML = 'Receipt Number Already exist';
 									document.getElementById("divFormVoucherNumber").className = 'alert alert-warning alert-dismissible';
 									document.getElementById("divFormVoucherNumber")

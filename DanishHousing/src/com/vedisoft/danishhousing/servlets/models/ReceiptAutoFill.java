@@ -1,12 +1,15 @@
 package com.vedisoft.danishhousing.servlets.models;
 
 import java.io.IOException;
+import java.util.Date;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
+import com.vedisoft.danishhousing.config.DateUtils;
 import com.vedisoft.danishhousing.daos.AccountDao;
 import com.vedisoft.danishhousing.daos.AccountMasterDao;
 import com.vedisoft.danishhousing.daos.MembersDao;
@@ -95,8 +98,10 @@ public class ReceiptAutoFill extends HttpServlet {
 		}
 		if (request.getParameter("vrNo") != null && request.getParameter("vrNo").trim().length() > 0) {
 			vrNo = Integer.parseInt(request.getParameter("vrNo"));
-			boolean bool = UtilityDao.checkVoucherNo(vrNo);
-			String json = "{\"avail\":"+bool+",\"next\":\""+UtilityDao.maxVoucherNo()+"\"}";
+			Date d = DateUtils.convertDate(request.getParameter("date"));
+			System.out.println(d);
+			boolean bool = UtilityDao.checkVoucherNo(vrNo, d);
+			String json = "{\"avail\":"+bool+",\"next\":\""+UtilityDao.maxVoucherNo(d)+"\"}";
 			response.setContentType("application/json");
 			response.getWriter().write("{\"data\": [" + json + "]}");
 		}

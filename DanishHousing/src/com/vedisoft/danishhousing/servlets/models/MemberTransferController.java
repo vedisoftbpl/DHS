@@ -152,13 +152,13 @@ public class MemberTransferController extends HttpServlet {
 				msg = 1;
 				qu.append("docNo="+voucherNo+"&");
 			}
-			qu.append("voucherNo="+UtilityDao.maxVoucherNo()+"&");
+			qu.append("voucherNo="+UtilityDao.maxVoucherNo(new Date())+"&");
 			
 			qu.append("today="+DateUtils.dateFormat(new java.util.Date())+"&");
 			qu.append("msg="+msg);
 			response.sendRedirect("/DanishHousing"+page+qu);	
 		} else {
-			qu.append("voucherNo="+UtilityDao.maxVoucherNo()+"&");
+			qu.append("voucherNo="+UtilityDao.maxVoucherNo(new Date())+"&");
 			
 			qu.append("today="+DateUtils.dateFormat(new java.util.Date()));
 			response.sendRedirect("/DanishHousing"+page+qu);
