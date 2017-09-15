@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="shortcut icon" type="image/x-icon" href="../../../DanishHousing/pages/photos/main_icon.jpg" />
 <title>Danish Housing </title>
 <!-- Tell the browser to be responsive to screen width -->
 <meta
