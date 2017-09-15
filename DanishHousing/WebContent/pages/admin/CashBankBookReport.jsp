@@ -196,8 +196,7 @@ div.scrollmenu {
 						</form>
 					</div>
 
-					<div class="invoice-box " id="printBankCashReport"
-						style="display: none;"">
+					<div class="invoice-box " id="printBankCashReport" style="display: none;">
 						<div class="row">
 
 							<div class="col-md-12">

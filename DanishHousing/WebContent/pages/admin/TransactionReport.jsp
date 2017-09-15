@@ -15,7 +15,8 @@
 		<!-- Content Wrapper. Contains page content -->
 
 
-		<style type="text /css">.result {
+		<style type="text /css">
+.result {
 	height: 200px;
 	overflow: auto;
 }
@@ -244,8 +245,7 @@ body, html {
 																<c:when test="${tran.debit!=0}">
 																	<c:out value="${tran.debit}" />
 																</c:when>
-															</c:choose>
-														</td>
+															</c:choose></td>
 														<td><c:choose>
 																<c:when test="${tran.credit==0}">
 																	<c:out value=" " />
@@ -253,8 +253,7 @@ body, html {
 																<c:when test="${tran.credit!=0}">
 																	<c:out value="${tran.credit}" />
 																</c:when>
-															</c:choose>
-														</td>
+															</c:choose></td>
 
 
 													</tr>
@@ -270,7 +269,7 @@ body, html {
 								<div class="row">
 									<div class="col-md-6" align="left">
 										<table>
-											
+
 
 											<tr>
 												<td colspan="6">----------------------------------------------------------------------</td>
@@ -292,7 +291,7 @@ body, html {
 											</tr>
 										</table>
 									</div>
-								
+
 								</div>
 								<div class="row" align="center">
 
