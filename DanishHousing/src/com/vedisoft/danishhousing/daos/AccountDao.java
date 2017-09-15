@@ -277,6 +277,42 @@ public class AccountDao {
 		}
 		return m;
 	}
+	
+	
+	public HashMap<String, Double> findAllBalance() {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		pool.initialize();
+		Connection conn = pool.getConnection();
+		HashMap<String, Double> b = new HashMap<String, Double>();
+		try {
+			String sql = "SELECT bk_name,(coalesce(a.credit,0.00) - coalesce(b.debit,0.00) + coalesce(ac.op_bal,0.00)) as OpBal "
+					+"FROM accounts ac left outer join ((SELECT bkcode ,sum(amt) as credit from transaction_records t where "
+					+"docdte <= ?  and doctype = 'D' group by bkcode) a,"
+					+"(SELECT bkcode ,sum(amt) as debit FROM transaction_records"
+					 +" t  where docdte <= ? and doctype = 'W' group by bkcode) b) on bk_code= a.bkcode and a.bkcode=b.bkcode group by bk_code";
+          		
+          PreparedStatement ps = conn.prepareStatement(sql);
+          java.sql.Date date1 = null;
+			
+				date1 = new java.sql.Date(new Date().getTime());
+			
+			System.out.println(date1);
+			ps.setDate(1, date1);
+			ps.setDate(2, date1);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				b.put(rs.getString("bk_name"), rs.getDouble("OpBal"));
+			}
+		} catch (SQLException sq) {
+			System.out.println("Unable to fetch balance");
+			sq.printStackTrace();
+		} finally {
+			pool.putConnection(conn);
+		}
+		return b;
+	}
+	
+	
 
 	public static void main(String[] args) {
 		AccountDao dao = new AccountDao();
@@ -305,17 +341,20 @@ public class AccountDao {
 		
 		// dao.remove(3);
 		
-		 Account u = dao.find(1);
-		 System.out.println(u);
+//		 Account u = dao.find(1);
+//		 System.out.println(u);
 		
-		 List<Account> list = dao.findAll();
-		 for(Account u1 : list)
-		 System.out.println(u);
+//		 List<Account> list = dao.findAll();
+//		 for(Account u1 : list)
+//		 System.out.println(u);
 		
-		 List<Account> list2 = dao.findAll(1, 1);
-		 for(Account u2 : list2)
-		 System.out.println(u);
+//		 List<Account> list2 = dao.findAll(1, 1);
+//		 for(Account u2 : list2)
+//		 System.out.println(u);
 		
+		
+		HashMap<String, Double> balance = new AccountDao().findAllBalance();
+		 	System.out.println(balance);
 
 	}
 }
