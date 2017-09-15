@@ -54,7 +54,7 @@
 									<div class="col-md-2">
 										<div class="box box-info box-solid" >
 											<div class="box-header with-border" style="background-color:#3c8dbc;">
-												<h3 class="box-title">${ac.bkName}</h3>
+												<h3 class="box-title">${ac.key}</h3>
 
 												<div class="box-tools pull-right">
 													<button type="button" class="btn btn-box-tool"
@@ -65,7 +65,7 @@
 												<!-- /.box-tools -->
 											</div>
 											<!-- /.box-header -->
-											<div class="box-body" align="right"><span>Rs&nbsp;:&emsp;${ac.opBal}</span></div>
+											<div class="box-body" align="right"><span>Rs&nbsp;:&emsp;${ac.value}</span></div>
 											<!-- /.box-body -->
 										</div>
 										<!-- /.box -->
