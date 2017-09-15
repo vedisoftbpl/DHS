@@ -267,7 +267,7 @@ public class TransactionRecordsDao {
 			String sql = "SELECT (coalesce(a.credit,0.00) - coalesce(b.debit,0.00) + coalesce(ac.op_bal,0.00)) as OpBal FROM danish_housing.accounts ac,(SELECT sum(amt) as credit"
 					+ " FROM danish_housing.transaction_records t  where docdte <= ? and bkcode = ? and doctype = 'D') a,"
 					+ "(SELECT sum(amt) as debit FROM danish_housing.transaction_records t  where docdte <= ? and bkcode = ? and "
-					+ "doctype = 'W') b where bk_code = ?;";
+					+ "doctype = 'W') b where bk_code = ?";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			java.sql.Date date1 = null;
 			if (d1 != null)
@@ -303,7 +303,7 @@ public class TransactionRecordsDao {
 //			 System.out.println(t);
 		
 		
-		double openingBal = new TransactionRecordsDao().bankOpeningBalance(DateUtils.convertDate("19/08/2017"), "001");
+		double openingBal = new TransactionRecordsDao().bankOpeningBalance(DateUtils.convertDate("22/10/2017"), "SBI0089");
 		System.out.println(openingBal);
 		
 //		ArrayList<CashBankBookDto> listCashBankBookDto = new TransactionRecordsDao().findCashBankBookDtoReceipt(DateUtils.convertDate("01/08/2017"),DateUtils.convertDate( "21/08/2017"), "001");
