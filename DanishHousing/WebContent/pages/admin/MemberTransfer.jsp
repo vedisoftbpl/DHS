@@ -267,7 +267,7 @@
 							</div>
 
 						</div>
-
+</div>
 					</form>
 
 					<!-- User Form -->
