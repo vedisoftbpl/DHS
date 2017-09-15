@@ -114,7 +114,7 @@ public class PaymentController extends HttpServlet {
 		String page = "/pages/admin/Payment.jsp";
 		int k = 0;
 		HttpSession se = request.getSession();
-		se.setAttribute("accList", new AccountDao().findAll());
+		se.setAttribute("accList", new AccountDao().findAllBalance());
 		if (op.equals("create")) {
 
 			int d = 1;
