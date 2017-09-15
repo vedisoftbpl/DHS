@@ -50,16 +50,27 @@
 						<div class="box-body">
 
 							<div class="row">
-								<div class="col-md-4">
-									<table align="left" width="50%">
-										<c:forEach var="ac" items="${sessionScope.accList}">
-											<tr>
-												<th>${ac.bkName}:</th>
-												<th>${ac.opBal}</th>
-											</tr>
-										</c:forEach>
-									</table>
-								</div>
+								<c:forEach var="ac" items="${sessionScope.accList}">
+									<div class="col-md-2">
+										<div class="box box-info box-solid" >
+											<div class="box-header with-border" style="background-color:#3c8dbc;">
+												<h3 class="box-title">${ac.bkName}</h3>
+
+												<div class="box-tools pull-right">
+													<button type="button" class="btn btn-box-tool"
+														data-widget="collapse">
+														<i class="fa fa-minus"></i>
+													</button>
+												</div>
+												<!-- /.box-tools -->
+											</div>
+											<!-- /.box-header -->
+											<div class="box-body" align="right"><span>Rs&nbsp;:&emsp;${ac.opBal}</span></div>
+											<!-- /.box-body -->
+										</div>
+										<!-- /.box -->
+									</div>
+								</c:forEach>
 							</div>
 							<br>
 							<div class="row">
@@ -158,7 +169,9 @@
 													<i class="fa fa-minus"></i>
 												</button>
 												<button type="button" class="btn btn-box-tool"
-													data-widget="remove" onclick="remove('accountCode1','amount1')" data-toggle="tooltip" title="Remove">
+													data-widget="remove"
+													onclick="remove('accountCode1','amount1')"
+													data-toggle="tooltip" title="Remove">
 													<i class="fa fa-times"></i>
 												</button>
 											</div>
@@ -372,7 +385,8 @@
 								<button type="reset" class="btn btn-block btn-danger">Cancel</button>
 							</div>
 							<div class="col-xs-4" align="center">
-								<button type="button" onclick="sub();" class="btn btn-primary btn-block btn-flat">Submit</button>
+								<button type="button" onclick="sub();"
+									class="btn btn-primary btn-block btn-flat">Submit</button>
 							</div>
 
 						</div>
@@ -424,7 +438,10 @@
 														+ '<button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">'
 														+ '<i class="fa fa-minus"></i></button>'
 														+ '<button type="button" class="btn btn-box-tool"'
-														+ 'data-widget="remove" onclick="remove(\'accountCode' + n +'\',\'amount' + n 
+														+ 'data-widget="remove" onclick="remove(\'accountCode'
+														+ n
+														+ '\',\'amount'
+														+ n
 														+ '\')" data-toggle="tooltip" title="Remove">'
 														+ '<i class="fa fa-times"></i>'
 														+ '</button>'
@@ -460,41 +477,35 @@
 		});
 	</script>
 	<script>
-	function remove(a,b){
-		document.getElementById(a).value = "";
-		document.getElementById(b).value = 0;
-		var totalAccount = $(
-				'#totalAccounts').val();
-		var total = 0;
-		for (i = 1; i <= totalAccount; i++) {
-			var amt = $('#amount' + i)
-					.val();
-			if ($.isNumeric(amt)) {
-				total = total
-						+ parseInt(amt);
-			} else {
-				document
-						.getElementById("errorAmount"
-								+ i).innerHTML = "Invalid Amount";
-				document
-						.getElementById("divFormAmount"
-								+ i).className = 'alert alert-warning alert-dismissible';
-				document
-						.getElementById(
-								"divFormAmount"
-										+ i)
-						.scrollIntoView();
+		function remove(a, b) {
+			document.getElementById(a).value = "";
+			document.getElementById(b).value = 0;
+			var totalAccount = $('#totalAccounts').val();
+			var total = 0;
+			for (i = 1; i <= totalAccount; i++) {
+				var amt = $('#amount' + i).val();
+				if ($.isNumeric(amt)) {
+					total = total + parseInt(amt);
+				} else {
+					document.getElementById("errorAmount" + i).innerHTML = "Invalid Amount";
+					document.getElementById("divFormAmount" + i).className = 'alert alert-warning alert-dismissible';
+					document.getElementById("divFormAmount" + i)
+							.scrollIntoView();
+				}
 			}
+			$('#totalAmount').val(total);
 		}
-		$('#totalAmount').val(total);
-	}
-	
+
 		<c:choose>
 		<c:when test="${param.msg == '1'}">
-		$(document).ready(function() {
-			$("#typeError").addClass("form-group has-success");
-			$("#errorTop").html("Payment Record Added Successfully of Voucher No. : ${param.docNo}");
-		});
+		$(document)
+				.ready(
+						function() {
+							$("#typeError").addClass("form-group has-success");
+							$("#errorTop")
+									.html(
+											"Payment Record Added Successfully of Voucher No. : ${param.docNo}");
+						});
 		</c:when>
 		<c:when test="${param.msg=='2'}">
 		$(document).ready(function() {
@@ -621,7 +632,6 @@
 
 			//Transaction ID Validation
 			var tr = document.getElementById("transactionID").value;
-			
 
 			if (!(tr == null || tr === "")) {
 
@@ -640,7 +650,7 @@
 
 			return true;
 		}
-		function sub(){
+		function sub() {
 			//Unique Id Vaildation
 			var id = $('#voucherNumber').val();
 			var y = '1';
@@ -654,47 +664,40 @@
 								'vrNo' : id
 							},
 
-							success : function(
-									data) {
+							success : function(data) {
 								var data0 = data["data"][0];
 								bool = data0["avail"];
 								if (bool === false) {
-									alert("Voucher Number is not available. Use Voucher No. : " + data0["next"]);
-									document.getElementById("errorVoucherNumber").innerHTML = 'Receipt Number Already exist';
-									document.getElementById("divFormVoucherNumber").className = 'alert alert-warning alert-dismissible';
-									document.getElementById("divFormVoucherNumber")
+									alert("Voucher Number is not available. Use Voucher No. : "
+											+ data0["next"]);
+									document
+											.getElementById("errorVoucherNumber").innerHTML = 'Receipt Number Already exist';
+									document
+											.getElementById("divFormVoucherNumber").className = 'alert alert-warning alert-dismissible';
+									document.getElementById(
+											"divFormVoucherNumber")
 											.scrollIntoView();
-									
-								}
-								else
-									{
-									document.getElementById("errorVoucherNumber").innerHTML = '';
-									document.getElementById("divFormVoucherNumber").className = 'form-group has-success';
+
+								} else {
+									document
+											.getElementById("errorVoucherNumber").innerHTML = '';
+									document
+											.getElementById("divFormVoucherNumber").className = 'form-group has-success';
 									$('#form').submit();
-									
-									}
+
+								}
 							},
 
-							error : function(
-									req,
-									status,
-									err) {
+							error : function(req, status, err) {
 								alert('Error');
-								console
-										.log(req
-												+ ' '
-												+ status
-												+ ' '
-												+ err);
+								console.log(req + ' ' + status + ' ' + err);
 							}
 
 						});
 			}
 			//End Id Validation
-			
-			
+
 		}
-		
 
 		$(function() {
 			//Date picker
@@ -958,28 +961,29 @@
 																	} else {
 																		if (data["bkCode"] == '001') {
 																			$(
-																			"#paymentMode")
-																			.val(
-																					$(
-																							"#paymentMode option:eq(0)")
-																							.val())
-																			.change();
+																					"#paymentMode")
+																					.val(
+																							$(
+																									"#paymentMode option:eq(0)")
+																									.val())
+																					.change();
 																			$(
 																					'#transactionID')
 																					.prop(
 																							'disabled',
 																							true);
 																			$(
-																			'#transactionID')
-																			.val("");
+																					'#transactionID')
+																					.val(
+																							"");
 
 																			$(
 																					'#trDate')
 																					.prop(
 																							'disabled',
 																							true);
-																			
-																					$(
+
+																			$(
 																					'#trDate')
 																					.val(
 																							"");

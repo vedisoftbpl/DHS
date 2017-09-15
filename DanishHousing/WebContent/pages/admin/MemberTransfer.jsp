@@ -50,16 +50,27 @@
 						<div class="box-body">
 
 							<div class="row">
-								<div class="col-md-4">
-									<table align="left" width="50%">
-										<c:forEach var="ac" items="${sessionScope.accList}">
-											<tr>
-												<th>${ac.bkName}:</th>
-												<th>${ac.opBal}</th>
-											</tr>
-										</c:forEach>
-									</table>
-								</div>
+								<c:forEach var="ac" items="${sessionScope.accList}">
+									<div class="col-md-2">
+										<div class="box box-info box-solid" >
+											<div class="box-header with-border" style="background-color:#3c8dbc;">
+												<h3 class="box-title">${ac.bkName}</h3>
+
+												<div class="box-tools pull-right">
+													<button type="button" class="btn btn-box-tool"
+														data-widget="collapse">
+														<i class="fa fa-minus"></i>
+													</button>
+												</div>
+												<!-- /.box-tools -->
+											</div>
+											<!-- /.box-header -->
+											<div class="box-body" align="right"><span>Rs&nbsp;:&emsp;${ac.opBal}</span></div>
+											<!-- /.box-body -->
+										</div>
+										<!-- /.box -->
+									</div>
+								</c:forEach>
 							</div>
 							<br>
 							<div class="row">
