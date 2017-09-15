@@ -266,22 +266,22 @@ div.scrollmenu {
 										</table>
 									</div>
 									<div class="row" align="right">
-									<div class="col-md-6" >
+									<div class="col-md-12" >
 										<table>
 											
 
 											<tr>
-												<td colspan="6">----------------------------------------------------------------------</td>
+												<td colspan="12">----------------------------------------------------------------------</td>
 											</tr>
 
 											<tr>
 												<td><label>&emsp;Total Receipt Amount &emsp;</label></td>
 												<td><label>:&emsp;Rs &nbsp;</label></td>
-												<td align="right"><span>${requestScope.totalCreditAmount}</span></td>
+												<td ><span>${requestScope.totalCreditAmount}</span></td>
 											</tr>
 
 											
-												<td colspan="6">----------------------------------------------------------------------</td>
+												<td colspan="12">----------------------------------------------------------------------</td>
 											</tr>
 										</table>
 									</div>
@@ -325,23 +325,23 @@ div.scrollmenu {
 
 
 								<div class="row" align="right">
-									<div class="col-md-6" >
+									<div class="col-md-12" >
 										<table>
 											
 
 											<tr>
-												<td colspan="6">----------------------------------------------------------------------</td>
+												<td colspan="12">----------------------------------------------------------------------</td>
 											</tr>
 
 											<tr>
 												<td><label>&emsp;Total Payments Amount &emsp;</label></td>
 												<td><label>:&emsp;Rs &nbsp;</label></td>
-												<td align="right"><span>${requestScope.totalDebitAmount}</span></td>
+												<td ><span>${requestScope.totalDebitAmount}</span></td>
 											</tr>
 
 											
 											<tr>
-												<td colspan="6">----------------------------------------------------------------------</td>
+												<td colspan="12">----------------------------------------------------------------------</td>
 											</tr>
 										</table>
 									</div>
