@@ -101,4 +101,41 @@ public class DateUtils {
 	    return cal.getTime();
 	}
 	
+	public static Date getFinancialStartDate(Date d){
+		final Calendar cal = Calendar.getInstance();
+		cal.setTime(d);
+		int currentYear = cal.get(Calendar.YEAR);
+		int currentMonth = cal.get(Calendar.MONTH) + 1;
+		String finStart = "";
+		if(currentMonth < 4){
+			finStart  = "01/04/"+(currentYear - 1);
+		}
+		else {
+			finStart  = "01/04/"+(currentYear);
+		}
+	    return DateUtils.convertDate(finStart);
+	}
+	
+	public static Date getFinancialLastDate(Date d){
+		final Calendar cal = Calendar.getInstance();
+		cal.setTime(d);
+		int currentYear = cal.get(Calendar.YEAR);
+		int currentMonth = cal.get(Calendar.MONTH) + 1;
+		String finLast = ""; 
+		if(currentMonth < 4){
+			finLast  = "31/03/"+(currentYear);
+		}
+		else {
+			finLast  = "31/03/"+(currentYear + 1);
+		}
+	    return DateUtils.convertDate(finLast);
+	}
+	
+	public static void main(String[] arg){
+		Date d = convertDate("29/03/2017");
+		System.out.println(getFinancialStartDate(d));
+		System.out.println();
+		System.out.println(getFinancialLastDate(d));
+	}
+	
 }
