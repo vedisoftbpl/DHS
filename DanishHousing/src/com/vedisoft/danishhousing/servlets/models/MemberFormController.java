@@ -265,10 +265,10 @@ public class MemberFormController extends HttpServlet {
 			regDt = DateUtils.convertDate(request.getParameter("regDt"));
 
 		}
-		int registrationNo = 0;
+		String registrationNo =new String();
 		if (request.getParameter("registrationNo") != null
 				&& request.getParameter("registrationNo").trim().length() > 0) {
-			registrationNo = Integer.parseInt(request.getParameter("registrationNo"));
+			registrationNo = request.getParameter("registrationNo");
 		}
 		Date nocDt = new Date();
 		if (request.getParameter("nocdt") != null && request.getParameter("nocdt").trim().length() > 0) {
