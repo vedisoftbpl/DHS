@@ -17,6 +17,7 @@ public class MembersDao {
 		ConnectionPool pool = ConnectionPool.getInstance();
 		pool.initialize();
 		Connection conn = pool.getConnection();
+		System.out.println("Inside Member Dao");
 		try {
 			conn.setAutoCommit(false);
 			String sql = "insert into members" + " ("
@@ -87,7 +88,7 @@ public class MembersDao {
 			if (member.getRegDt() != null)
 				regDt = new java.sql.Date(member.getRegDt().getTime());
 			ps.setDate(42, regDt);
-			ps.setInt(43, member.getRegNo());
+			ps.setString(43, member.getRegNo());
 			ps.setString(44, "" + member.getrC());
 			java.sql.Date nocDte = null;
 			if (member.getNocDt() != null)
@@ -236,7 +237,7 @@ public class MembersDao {
 			if (member.getRegDt() != null)
 				regDt = new java.sql.Date(member.getRegDt().getTime());
 			ps.setDate(42, regDt);
-			ps.setInt(43, member.getRegNo());
+			ps.setString(43, member.getRegNo());
 			ps.setString(44, "" + member.getrC());
 			java.sql.Date nocDte = null;
 			if (member.getNocDt() != null)
@@ -394,7 +395,7 @@ public class MembersDao {
 					member.setRegDt(new java.util.Date((regDt).getTime()));
 				else
 					member.setRegDt(regDt);
-				member.setRegNo(rs.getInt("regno"));
+				member.setRegNo(rs.getString("regno"));
 				String rC = rs.getString("r_c");
 				if (rC != null && rC.length() > 0)
 					member.setrC(rs.getString("r_c").charAt(0));
@@ -533,7 +534,7 @@ public class MembersDao {
 					member.setRegDt(new java.util.Date((regDt).getTime()));
 				else
 					member.setRegDt(regDt);
-				member.setRegNo(rs.getInt("regno"));
+				member.setRegNo(rs.getString("regno"));
 				String rC = rs.getString("r_c");
 				if (rC != null && rC.length() > 0)
 					member.setrC(rs.getString("r_c").charAt(0));
@@ -676,7 +677,7 @@ public class MembersDao {
 					member.setRegDt(new java.util.Date((regDt).getTime()));
 				else
 					member.setRegDt(regDt);
-				member.setRegNo(rs.getInt("regno"));
+				member.setRegNo(rs.getString("regno"));
 				String rC = rs.getString("r_c");
 				if (rC != null && rC.length() > 0)
 					member.setrC(rs.getString("r_c").charAt(0));
