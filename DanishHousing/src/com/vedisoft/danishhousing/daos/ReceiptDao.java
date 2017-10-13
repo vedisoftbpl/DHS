@@ -17,7 +17,103 @@ import com.vedisoft.danishhousing.pojos.ReceiptRecord;
 import com.vedisoft.danishhousing.pojos.TransactionRecords;
 
 public class ReceiptDao {
+	public int create(ReceiptRecord receipt) {
+		int id = 0;
+		ConnectionPool pool = ConnectionPool.getInstance();
+		pool.initialize();
+		Connection conn = pool.getConnection();
+		try {
+			String sqlReceipt = "insert into receipt_records" + " (" + "s_no , paytype, slno, recdte, receno,prefix,membnme, membno,"
+					+ "f_h_nme,mad1,mad2,mad3,amount,balchq, c_dd, c_ddte,fullpay,inst1,inst2,inst3,chalno,chaldte, plsize, plno, projcd,chqdhr,flag, trcode,"
+					+ " remarks, r_c, p_d,  accode, branch,d_c,wc_lr_dt,"
+					+ "userid,lastupdate,city) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			PreparedStatement ps2 = conn.prepareStatement(sqlReceipt, Statement.RETURN_GENERATED_KEYS,
+					ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			
+			ps2.setInt(1, id);
+			ps2.setString(2, String.valueOf(receipt.getPayType()));
+			ps2.setInt(3, receipt.getSlno());
+			java.sql.Date recDate = null;
+			if (receipt.getRecDte() != null)
+				recDate = new java.sql.Date(receipt.getRecDte().getTime());
+			ps2.setDate(4, recDate);
+			ps2.setInt(5, receipt.getReceno());
+			ps2.setString(6, receipt.getPrefix());
+			ps2.setString(7, receipt.getMembNme());
+			ps2.setInt(8, receipt.getMembNo());
+			ps2.setString(9, receipt.getfHNme());
+			ps2.setString(10, receipt.getMad1());
+			ps2.setString(11, receipt.getMad2());
+			ps2.setString(12, receipt.getMad3());
+			
+			ps2.setDouble(13, receipt.getAmount());
+			System.out.println(receipt.getAmount());
+			ps2.setDouble(14, receipt.getBalChq());
+			ps2.setString(15, receipt.getcDd());
+			java.sql.Date cdDate = null;
+			if (receipt.getcDdte() != null)
+				cdDate = new java.sql.Date(receipt.getcDdte().getTime());
+			ps2.setDate(16, cdDate);
+			ps2.setString(17, receipt.getFullPay());
+			ps2.setString(18, receipt.getInst1());
+			ps2.setString(19, receipt.getInst2());
+			ps2.setString(20, receipt.getInst3());
+			ps2.setInt(21, receipt.getChalNo());
+			java.sql.Date chalDate = null;
+			if (receipt.getChalDte() != null)
+				chalDate = new java.sql.Date(receipt.getChalDte().getTime());
+			ps2.setDate(22, chalDate);
+			ps2.setString(23, receipt.getPlSize());
+			ps2.setString(24, receipt.getPlNo());
+			ps2.setDouble(25, receipt.getProjCd());
+			ps2.setString(26, receipt.getChqDhr());
+			ps2.setString(27, receipt.getFlag());
+			ps2.setString(28, String.valueOf(receipt.getTrCode()));
+			ps2.setString(29, receipt.getRemarks());
+			ps2.setString(30, String.valueOf(receipt.getrC()));
+			ps2.setString(31, receipt.getpD());
+			ps2.setString(32, receipt.getAccode());
+			ps2.setString(33, receipt.getBranch());
+			ps2.setString(34, String.valueOf(receipt.getdC()));
+		
+			
+			java.sql.Date wLrDt = null;
+			if (receipt.getwLrDt() != null)
+				wLrDt = new java.sql.Date(receipt.getwLrDt().getTime());
+			ps2.setDate(35, wLrDt);
+			ps2.setInt(36, receipt.getUserId());
+			java.sql.Date lastUpdate1 = null;
+			if (receipt.getLastUpdate() != null)
+				lastUpdate1 = new java.sql.Date(receipt.getLastUpdate().getTime());
+			ps2.setDate(37, lastUpdate1);
+			
+			ps2.setString(38,receipt.getCity());
+			
+			int x1 = ps2.executeUpdate();
+			if (x1 <= 0) {
+				Exception a = new Exception();
+				throw a;
+			}
+			
+			conn.commit();
 
+		} catch (Exception sq) {
+			try {
+				System.out.println("Rolling Back");
+				conn.rollback();
+			} catch (SQLException se2) {
+				se2.printStackTrace();
+			}
+			sq.printStackTrace();
+			return 0;
+		} finally {
+			pool.putConnection(conn);
+		}
+		System.out.println("Records SuccessFully Added");
+		return id;
+
+	}
+		
 	public int create(TransactionRecords transaction, ReceiptRecord receipt) {
 		int id = 0;
 		ConnectionPool pool = ConnectionPool.getInstance();
