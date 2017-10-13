@@ -17,6 +17,62 @@ import com.vedisoft.danishhousing.pojos.RefundPayment;
 import com.vedisoft.danishhousing.pojos.TransactionRecords;
 
 public class RefundPaymentDao {
+	
+	public int create( RefundPayment refundPayment) {
+		
+		int id = 0;
+		ConnectionPool pool = ConnectionPool.getInstance();
+		pool.initialize();
+		Connection conn = pool.getConnection();
+		try {
+			conn.setAutoCommit(false);
+			
+			String sqlRefundPay = "insert into refund_pay (paytype,memb_no,amount,c_dd,c_ddte,remarks,"
+					+ "p_d,vr_no,sl_no,payment_mode) values (?,?,?,?,?,?,?,?,?,?)";
+			
+			PreparedStatement ps2 = conn.prepareStatement(sqlRefundPay, Statement.RETURN_GENERATED_KEYS,
+					ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			
+			ps2.setString(1, refundPayment.getPayType());
+			ps2.setInt(2, refundPayment.getMemberNo());
+			ps2.setDouble(3, refundPayment.getAmount());
+			ps2.setString(4, refundPayment.getTransactionNo());
+			
+			java.sql.Date dt = null;
+			if(refundPayment.getCdDate() != null)
+				dt = new java.sql.Date(refundPayment.getCdDate().getTime());
+			
+			ps2.setDate(5, dt);
+			ps2.setString(6, refundPayment.getRemarks());
+			ps2.setString(7, refundPayment.getpD());
+			ps2.setInt(8, refundPayment.getVoucherNo());
+			ps2.setInt(9, refundPayment.getSlNo());
+			ps2.setString(10, refundPayment.getPaymentmode());
+			
+			int x1 = ps2.executeUpdate();
+			if (x1 <= 0) {
+				Exception a = new Exception();
+				throw a;
+			}
+			
+			conn.commit();
+
+		} catch (Exception sq) {
+			try {
+				System.out.println("Rolling Back");
+				conn.rollback();
+			} catch (SQLException se2) {
+				se2.printStackTrace();
+			}
+			sq.printStackTrace();
+			return 0;
+		} finally {
+			pool.putConnection(conn);
+		}
+		System.out.println("Records SuccessFully Added");
+		return id;
+	}
+
 
 		public int create(TransactionRecords transaction, RefundPayment refundPayment) {
 			
