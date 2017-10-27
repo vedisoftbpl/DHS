@@ -6,7 +6,8 @@ public enum AccountMasterFlagsEnum {
 	Plot("P"),
 	Others("O"),
 	WaterSuply("W"),
-	ShareCapital("S");
+	ShareCapital("S"),
+	Nil(" ");
 	
 	private final String value;
 	private AccountMasterFlagsEnum(String value) {

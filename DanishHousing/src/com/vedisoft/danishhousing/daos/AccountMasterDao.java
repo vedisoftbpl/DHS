@@ -218,8 +218,10 @@ public class AccountMasterDao {
 				accountmaster.setmBal(rs.getDouble("mbal"));
 				accountmaster.setPexp(rs.getString("pexp"));
 				accountmaster.setIxpge(rs.getString("ixpge"));
-
-				accountmaster.setFlag(rs.getString("flag"));
+				if(rs.getString("flag") != null && rs.getString("flag") != "")
+					accountmaster.setFlag(rs.getString("flag"));
+				else
+					accountmaster.setFlag(rs.getString(""));
 				accountmaster.setProjCd(rs.getInt("projcd"));
 				listAccountMaster.add(accountmaster);
 			}
