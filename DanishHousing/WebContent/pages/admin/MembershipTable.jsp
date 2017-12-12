@@ -73,7 +73,9 @@
 									<th></th>
 								</tr>
 							</thead>
-							<tbody>
+							
+							
+							<!--   <tbody>
 
 								<c:forEach items="${requestScope.membersList}" var="member">
 									<tr>
@@ -111,12 +113,15 @@
 								</c:forEach>
 
 
-							</tbody>
+							</tbody> -->
+							
+							
+							
 							<tfoot>
 								<tr>
 
 
-									<th>Plot No.</th>
+									<th>Member No.</th>
 									<th>Name</th>
 									<th>F/H Name</th>
 									<th>DOB</th>
@@ -150,6 +155,8 @@
 	<%@ include file="../design/Bottom.jsp"%>
 	<script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
 	<script src="../../plugins/datatables/dataTables.bootstrap.min.js"></script>
+	<script src="../../plugins/datatables/fnStandingRedraw.js"></script>
+	<script src="../../plugins/datatables/fnSetFilteringDelay.js"></script>
 	<script>
 		<c:choose>
 		<c:when test="${requestScope.msg=='1'}">
@@ -167,6 +174,17 @@
 		</c:choose>
 
 		$(function() {
-			$("#example1").DataTable();
+			$("#example1").DataTable({
+				 "bPaginate": true,
+				 dom : 'Bftrip',
+				 buttons : ['excel', 'pdf'],
+			     "order": [ 0, 'asc' ],
+			     "bInfo": true,
+			     "iDisplayStart":0,
+			     "bProcessing" : true,
+			     'iDisplayLength': 20,
+			    "bServerSide" : true,
+			    "sAjaxSource" : "../../admin/pages/MemberTableController",
+			       });
 		});
 	</script>

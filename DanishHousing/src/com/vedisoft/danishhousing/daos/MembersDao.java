@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-
 import com.vedisoft.danishhousing.config.ConnectionPool;
 import com.vedisoft.danishhousing.pojos.Members;;
 
@@ -738,6 +737,192 @@ public class MembersDao {
 		return listMembers;
 
 	}
+	
+	public static int totalRows() {
+		int id = -1;
+		ConnectionPool pool = ConnectionPool.getInstance();
+		pool.initialize();
+		Connection conn = pool.getConnection();
+		try {
+			String sql = "select count(*) as count from members";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				id = rs.getInt("count");
+			}
+		} catch (SQLException sq) {
+			System.out.println("Unable to create a new row." + sq);
+		} finally {
+			pool.putConnection(conn);
+		}
+		return id;
+
+	}
+	
+	public static ArrayList<Members> findAll(int start, int num ,String s,String COLUMN_NAME, String DIRECTION ) {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		pool.initialize();
+		Connection conn = pool.getConnection();
+		ArrayList<Members> listMembers = new ArrayList<Members>();
+		String sqli = new String();
+		String sql = new String();
+		String globalSearch = " where membno like '%" + s + "%'"
+			    + "or membnme like '%" + s + "%'"
+			    + "or f_h_name like '%" + s+ "%'"
+			    + "or dob like '%" + s+ "%'"
+			    + "or email like  '%" + s+ "%'"
+			    + "or mobile like '%" + s+ "%'"
+				+ "or live_dead like '%" + s+ "%'"
+				+ "or mad1 like '%" + s+ "%'"
+				+ "or mad2 like '%" + s+ "%'"
+				+ "or mad3 like '%" + s+ "%'";
+		
+		 sqli += " order by " + COLUMN_NAME + " " + DIRECTION;
+		
+		try {
+			if(s != null){
+				System.out.println("String : " + s);
+				 sql = "select * from members " + globalSearch + sqli + " limit ? , ? " ;
+			}
+			else{
+				 sql = "select * from members " + sqli + " limit ? , ? " ;
+			}
+			System.out.println(sql);
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, start);
+			ps.setInt(2, num);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				Members member = new Members();
+				member.setMemberId(rs.getInt("member_id"));
+				member.setPrefix(rs.getString("prefix"));
+				member.setMemName(rs.getString("membnme"));
+				member.setfHRelation(rs.getString("f_h_rel"));
+				member.setfHRelName(rs.getString("f_h_name"));
+				java.sql.Date dob = rs.getDate("dob");
+				if (dob != null)
+					member.setDob(new java.util.Date((dob).getTime()));
+				else
+					member.setDob(dob);
+				member.setEmail(rs.getString("email"));
+				member.setMemOccupation(rs.getString("moccu"));
+				member.setMobile(rs.getString("mobile"));
+				member.setAadhar(rs.getString("aadhar"));
+				member.setPhoto(rs.getString("photo"));
+				member.setAddress1(rs.getString("mad1"));
+				member.setAddress2(rs.getString("mad2"));
+				member.setAddress3(rs.getString("mad3"));
+				member.setAddProof(rs.getString("adressproof"));
+				member.setNomineeName(rs.getString("nome_name"));
+				member.setNomineeRelation(rs.getString("nome_rela"));
+				member.setMemFee(rs.getInt("membfee"));
+				member.setMemEntryFee(rs.getInt("entrfee"));
+				member.setUserId(rs.getInt("userid"));
+				java.sql.Date lupdt = rs.getDate("lastupdate");
+				if (lupdt != null)
+					member.setLastUpdate(new java.util.Date((lupdt).getTime()));
+				else
+					member.setLastUpdate(lupdt);
+				member.setMemberNo(rs.getInt("membno"));
+				member.setProjectCd(rs.getInt("projcd"));
+				member.setPlotSize(rs.getString("plsize"));
+				member.setNetPlotSize(rs.getFloat("nplsize")); // npl : float
+																// not double
+				member.setRegCor(rs.getString("reg_cor"));
+				member.setPlotNo(rs.getString("plno"));
+				member.setTempPlotNo(rs.getString("tplno"));
+				member.setAge(rs.getInt("mage"));
+				java.sql.Date recDte = rs.getDate("recedte");
+				if (recDte != null)
+					member.setReceiptdt(new java.util.Date((recDte).getTime()));
+				else
+					member.setReceiptdt(recDte);
+				member.setFullPay(rs.getString("fullpay"));
+				member.setInst1(rs.getString("inst1"));
+				member.setInst2(rs.getString("inst2"));
+				member.setInst3(rs.getString("inst3"));
+				member.setTransf(rs.getString("transf"));
+				member.setOpBal(rs.getDouble("opbal"));
+				member.setWaterConn(rs.getDouble("water_con"));
+				member.setSecDep(rs.getDouble("sec_dep"));
+				java.sql.Date wtCnDte = rs.getDate("wt_cn_dt");
+				if (wtCnDte != null)
+					member.setWaterConnDate(new java.util.Date((wtCnDte).getTime()));
+				else
+					member.setWaterConnDate(wtCnDte);
+				java.sql.Date opDte = rs.getDate("opdte");
+				if (opDte != null)
+					member.setOpDt(new java.util.Date((opDte).getTime()));
+				else
+					member.setOpDt(opDte);
+				member.setRegi(rs.getString("regi"));
+				java.sql.Date regDt = rs.getDate("regdte");
+				if (regDt != null)
+					member.setRegDt(new java.util.Date((regDt).getTime()));
+				else
+					member.setRegDt(regDt);
+				member.setRegNo(rs.getString("regno"));
+				String rC = rs.getString("r_c");
+				if (rC != null && rC.length() > 0)
+					member.setrC(rs.getString("r_c").charAt(0));
+				java.sql.Date nocDte = rs.getDate("nocdte");
+				if (nocDte != null)
+					member.setNocDt(new java.util.Date((nocDte).getTime()));
+				else
+					member.setNocDt(nocDte);
+				String liveDead = rs.getString("live_dead");
+				System.out.println(liveDead + "111");
+				if (liveDead != null && liveDead.length() > 0)
+					member.setLiveDead(rs.getString("live_dead").charAt(0));
+				java.sql.Date refDte = rs.getDate("refdte");
+				if (refDte != null)
+					member.setRefDt(new java.util.Date((refDte).getTime()));
+				else
+					member.setRefDt(refDte);
+				member.setDiversion(rs.getDouble("diversion"));
+				member.setFinalAmount(rs.getDouble("finalamt"));
+				member.setMaint(rs.getDouble("maint"));
+				member.setWater(rs.getString("water"));
+				java.sql.Date wSupDate = rs.getDate("wsupdte");
+				if (wSupDate != null)
+					member.setWatSupplyDt(new java.util.Date((wSupDate).getTime()));
+				else
+					member.setWatSupplyDt(wSupDate);
+				member.setEstabl(rs.getDouble("establ"));
+				java.sql.Date wcLrDt = rs.getDate("wc_lr_dt");
+				if (wcLrDt != null)
+					member.setWcLrDt(new java.util.Date((wcLrDt).getTime()));
+				else
+					member.setWcLrDt(wcLrDt);
+				member.setWatChg(rs.getDouble("wat_chg"));
+				member.setExtraAmount(rs.getDouble("extamt"));
+				member.setCost(rs.getDouble("cost"));
+				member.setBuildFlag(rs.getString("build_flag"));
+				member.setmNominal(rs.getString("m_nominal"));
+				member.setMutaNo1(rs.getInt("muta_no1"));
+				java.sql.Date mutaDt = rs.getDate("muta_dt1");
+				if (mutaDt != null)
+					member.setMutaDt1(new java.util.Date((mutaDt).getTime()));
+				else
+					member.setMutaDt1(mutaDt);
+				member.setGender(rs.getString("gender"));
+				member.setCategory(rs.getString("category"));
+				member.setDefaulter(rs.getString("defaulter"));
+				member.setMotherName(rs.getString("mother_name"));
+				member.setPanNo(rs.getString("pan_no"));
+				member.setEliInl(rs.getString("eli_ineli"));
+				member.setRefAmt(rs.getDouble("ref_amt"));
+				
+				listMembers.add(member);
+			}
+		} catch (SQLException sq) {
+			System.out.println("Unable to create a new row.");
+		} finally {
+			pool.putConnection(conn);
+		}
+		return listMembers;
+	}
+
 
 	public static void main(String a[]) {
 		MembersDao dao = new MembersDao();
