@@ -364,26 +364,26 @@
 			//End Full Name Validation
 
 			//Email Validation
-			var email = document.getElementById("userEmail").value;
+			//var email = document.getElementById("userEmail").value;
 
-			if (email == null || email === "") {
-				document.getElementById("errorEmail").innerHTML = error;
-				document.getElementById("divUserFormEmail").className = 'alert alert-danger alert-dismissible';
-				return false;
+			//if (email == null || email === "") {
+			//	document.getElementById("errorEmail").innerHTML = error;
+			//	document.getElementById("divUserFormEmail").className = 'alert alert-danger alert-dismissible';
+			//	return false;
 
-			}
+			//}
 
-			if (!(email == null || email === "")) {
-				var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+			//if (!(email == null || email === "")) {
+			//	var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
 
-				if (!emailReg.test(email)) {
-					document.getElementById("errorEmail").innerHTML = "Invaild Email Id ";
-					document.getElementById("divUserFormEmail").className = 'alert alert-warning alert-dismissible';
-					return false;
-				}
-				document.getElementById("errorEmail").innerHTML = "";
-				document.getElementById("divUserFormEmail").className = 'form-group has-success';
-			}
+			//	if (!emailReg.test(email)) {
+			//		document.getElementById("errorEmail").innerHTML = "Invaild Email Id ";
+			//		document.getElementById("divUserFormEmail").className = 'alert alert-warning alert-dismissible';
+			//		return false;
+			//	}
+			//	document.getElementById("errorEmail").innerHTML = "";
+			//	document.getElementById("divUserFormEmail").className = 'form-group has-success';
+			//}
 			//End Email Validation
 
 			//Password Validation
@@ -404,62 +404,62 @@
 			//End Password Validation
 
 			//Mobile Validation
-			var phone = document.getElementById("userMobile").value;
-			if (phone == null || phone === "") {
+			//var phone = document.getElementById("userMobile").value;
+			//if (phone == null || phone === "") {
 
-				document.getElementById("errorMobile").innerHTML = error;
-				document.getElementById("divUserFormMobile").className = 'alert alert-danger alert-dismissible';
-				return false;
+			//	document.getElementById("errorMobile").innerHTML = error;
+			//	document.getElementById("divUserFormMobile").className = 'alert alert-danger alert-dismissible';
+			//	return false;
 
 			}
 
-			if (!(phone == null || phone === "")) {
-				var phoneno = /^\d{10}$/;
-				if (!(phone.match(phoneno))) {
-					document.getElementById("errorMobile").innerHTML = "Invalid Mobile Number";
-					document.getElementById("divUserFormMobile").className = 'alert alert-warning alert-dismissible';
-					return false;
-				}
-				document.getElementById("errorMobile").innerHTML = "";
-				document.getElementById("divUserFormMobile").className = 'form-group has-success';
-			}
+			//if (!(phone == null || phone === "")) {
+			//	var phoneno = /^\d{10}$/;
+			//	if (!(phone.match(phoneno))) {
+			//		document.getElementById("errorMobile").innerHTML = "Invalid Mobile Number";
+			//		document.getElementById("divUserFormMobile").className = 'alert alert-warning alert-dismissible';
+			//		return false;
+			//	}
+			//	document.getElementById("errorMobile").innerHTML = "";
+			//	document.getElementById("divUserFormMobile").className = 'form-group has-success';
+			//}
 			//End Mobile Validation
 			
 			//Date of Birth Validation
-			var dob = document.getElementById("datepicker1").value;
-			document.getElementById("errorUserDateOfBirth").innerHTML = 'vALUE = ' + dob;
-			if (dob == null || dob === "") {
-				document.getElementById("errorUserDateOfBirth").innerHTML = error;
-				document.getElementById("divFormUserDateOfBirth").className = 'alert alert-danger alert-dismissible';
-				return false;
+			//var dob = document.getElementById("datepicker1").value;
+			//document.getElementById("errorUserDateOfBirth").innerHTML = 'vALUE = ' + dob;
+			//if (dob == null || dob === "") {
+			//	document.getElementById("errorUserDateOfBirth").innerHTML = error;
+			//	document.getElementById("divFormUserDateOfBirth").className = 'alert alert-danger alert-dismissible';
+			//	return false;
 
-			}
-			document.getElementById("errorUserDateOfBirth").innerHTML = "";
-			document.getElementById("divFormUserDateOfBirth").className = 'form-group has-success';
+			//}
+			//document.getElementById("errorUserDateOfBirth").innerHTML = "";
+			//document.getElementById("divFormUserDateOfBirth").className = 'form-group has-success';
 			//End Date of Birth Validation
 			
 			//Date of Join Validation
-			var doj = document.getElementById("datepicker2").value;
-			if (doj == null || doj === "") {
-				document.getElementById("errorUserDateOfJoin").innerHTML = error;
-				document.getElementById("divFormUserDateOfJoin").className = 'alert alert-danger alert-dismissible';
-				return false;
+			//var doj = document.getElementById("datepicker2").value;
+			//if (doj == null || doj === "") {
+			//	document.getElementById("errorUserDateOfJoin").innerHTML = error;
+			//	document.getElementById("divFormUserDateOfJoin").className = 'alert alert-danger alert-dismissible';
+			//	return false;
 
-			}
-			document.getElementById("errorUserDateOfJoin").innerHTML = "";
-			document.getElementById("divFormUserDateOfJoin").className = 'form-group has-success';
+			//}
+			//document.getElementById("errorUserDateOfJoin").innerHTML = "";
+			//document.getElementById("divFormUserDateOfJoin").className = 'form-group has-success';
 			//End Date of Join Validation
 
 			//Designation Validation
-			var desig = document.getElementById("userDesignation").value;
-			if (desig == null || desig === "") {
-				document.getElementById("errorDesignation").innerHTML = error;
-				document.getElementById("divUserFormDesignation").className = 'alert alert-danger alert-dismissible';
-				return false;
+			//var desig = document.getElementById("userDesignation").value;
+			//if (desig == null || desig === "") {
+			//	document.getElementById("errorDesignation").innerHTML = error;
+			//	document.getElementById("divUserFormDesignation").className = 'alert alert-danger alert-dismissible';
+			//	return false;
 
-			}
-			document.getElementById("errorDesignation").innerHTML = "";
-			document.getElementById("divUserFormDesignation").className = 'form-group has-success';
+			//}
+			//document.getElementById("errorDesignation").innerHTML = "";
+			//document.getElementById("divUserFormDesignation").className = 'form-group has-success';
 			//End Designation Validation
 
 			//Address Validation
@@ -475,15 +475,15 @@
 			//End Address Validation
 			
 			//Photo Validation
-			var photo = document.getElementById("userPhoto").value;
-			if (photo == null || photo === "") {
-				document.getElementById("errorPhoto").innerHTML = error;
-				document.getElementById("divUserFormPhoto").className = 'alert alert-danger alert-dismissible';
-				return false;
+			//var photo = document.getElementById("userPhoto").value;
+			//if (photo == null || photo === "") {
+			//	document.getElementById("errorPhoto").innerHTML = error;
+			//	document.getElementById("divUserFormPhoto").className = 'alert alert-danger alert-dismissible';
+			//	return false;
 
-			}
-			document.getElementById("errorPhoto").innerHTML = "";
-			document.getElementById("divUserFormPhoto").className = 'form-group has-success';
+			//}
+			//document.getElementById("errorPhoto").innerHTML = "";
+			//document.getElementById("divUserFormPhoto").className = 'form-group has-success';
 			//End Photo Validation
 			
 			
