@@ -21,7 +21,7 @@ public class ProjectsDao {
 		pool.initialize();
 		Connection conn = pool.getConnection();
 		try {
-			String sql = "insert into projects" + " (" + " project_name, bung_plot,opdt) values(?,?,?)";
+			String sql = "insert into projects" + " (" + " project_name, bung_plot,opdt,pad1,pad2,pad3) values(?,?,?,?,?,?)";
 			PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 	
 			ps.setString(1, projects.getProjectName());
@@ -30,6 +30,9 @@ public class ProjectsDao {
 			if (projects.getOpDate() != null)
 				opdt = new java.sql.Date(projects.getOpDate().getTime());
 			ps.setDate(3,opdt);
+			ps.setString(4, projects.getPad1());
+			ps.setString(5, projects.getPad2());
+			ps.setString(6, projects.getPad3());
 			int x = ps.executeUpdate();
 			if (x == 0) {
 				return 0;
@@ -54,7 +57,7 @@ public class ProjectsDao {
 		pool.initialize();
 		Connection conn = pool.getConnection();
 		try {
-			String sql = "update projects set  project_name=?, bung_plot =? ,opdt = ? where project_id = ?";
+			String sql = "update projects set  project_name=?, bung_plot =? ,opdt = ? , pad1 = ?, pad2 = ?, pad3 = ?  where project_id = ?";
 			PreparedStatement ps = conn.prepareStatement(sql);
 
 			ps.setString(1, projects.getProjectName());
@@ -63,7 +66,10 @@ public class ProjectsDao {
 			if (projects.getOpDate() != null)
 				opdt = new java.sql.Date(projects.getOpDate().getTime());
 			ps.setDate(3,opdt);
-			ps.setInt(4, projects.getProjectId());
+			ps.setString(4, projects.getPad1());
+			ps.setString(5, projects.getPad2());
+			ps.setString(6, projects.getPad3());
+			ps.setInt(7, projects.getProjectId());
 
 			int x = ps.executeUpdate();
 			if (x == 0) {
@@ -119,6 +125,9 @@ public class ProjectsDao {
 					projects.setOpDate(new java.util.Date((opdt).getTime()));
 				else
 					projects.setOpDate(opdt);
+				projects.setPad1(rs.getString("pad1"));
+				projects.setPad2(rs.getString("pad2"));
+				projects.setPad3(rs.getString("pad3"));
 			}
 		} catch (SQLException sq) {
 			System.out.println("Unable to create a new row." + sq);
@@ -147,10 +156,13 @@ public class ProjectsDao {
 					projects.setOpDate(new java.util.Date((opdt).getTime()));
 				else
 					projects.setOpDate(opdt);
+				projects.setPad1(rs.getString("pad1"));
+				projects.setPad2(rs.getString("pad2"));
+				projects.setPad3(rs.getString("pad3"));
 				listProjects.add(projects);
 			}
 		} catch (SQLException sq) {
-			System.out.println("Unable to create a new row.");
+			System.out.println("Unable to find row.");
 		} finally {
 			pool.putConnection(conn);
 		}
@@ -178,6 +190,9 @@ public class ProjectsDao {
 					projects.setOpDate(new java.util.Date((opdt).getTime()));
 				else
 					projects.setOpDate(opdt);
+				projects.setPad1(rs.getString("pad1"));
+				projects.setPad2(rs.getString("pad2"));
+				projects.setPad3(rs.getString("pad3"));
 				listProjects.add(projects);
 			}
 		} catch (SQLException sq) {
