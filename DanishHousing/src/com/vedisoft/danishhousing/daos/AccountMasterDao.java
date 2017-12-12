@@ -12,6 +12,8 @@ import java.util.List;
 import com.vedisoft.danishhousing.config.ConnectionPool;
 import com.vedisoft.danishhousing.config.DateUtils;
 import com.vedisoft.danishhousing.pojos.AccountMaster;
+import com.vedisoft.danishhousing.pojos.AccountMasterFlagsEnum;
+import com.vedisoft.danishhousing.pojos.Members;
 
 public class AccountMasterDao {
 	public int create(AccountMaster accountmaster) {
@@ -242,6 +244,83 @@ public class AccountMasterDao {
 			String sql = "select * from account_master limit ? , ?";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, start - 1);
+			ps.setInt(2, num);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				AccountMaster accountmaster = new AccountMaster();
+				accountmaster.setMasterAccountId(rs.getInt("account_master_id"));
+				accountmaster.setAnxCd(rs.getInt("anx_cd"));
+				accountmaster.setAcCode(rs.getString("accode"));
+				accountmaster.setAcName(rs.getString("acname"));
+				accountmaster.setAddress(rs.getString("address"));
+				accountmaster.setAcClass(rs.getString("acclass"));
+				java.sql.Date opdte = rs.getDate("opdte");
+				if (opdte != null)
+					accountmaster.setOpdte(new java.util.Date(opdte.getTime()));
+				accountmaster.setOpBal(rs.getDouble("opbal"));
+				accountmaster.setmBal(rs.getDouble("mbal"));
+				accountmaster.setPexp(rs.getString("pexp"));
+				accountmaster.setIxpge(rs.getString("ixpge"));
+				accountmaster.setFlag(rs.getString("flag"));
+				accountmaster.setProjCd(rs.getInt("projcd"));
+				listAccountMaster.add(accountmaster);
+			}
+		} catch (SQLException sq) {
+			System.out.println("Unable to create a new row.");
+		} finally {
+			pool.putConnection(conn);
+		}
+		return listAccountMaster;
+	}
+	
+	public static int totalRows() {
+		int id = -1;
+		ConnectionPool pool = ConnectionPool.getInstance();
+		pool.initialize();
+		Connection conn = pool.getConnection();
+		try {
+			String sql = "select count(*) as count from account_master";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				id = rs.getInt("count");
+			}
+		} catch (SQLException sq) {
+			System.out.println("Unable to create a new row." + sq);
+		} finally {
+			pool.putConnection(conn);
+		}
+		return id;
+
+	}
+	
+	public static ArrayList<AccountMaster> findAll(int start, int num ,String s,String COLUMN_NAME, String DIRECTION ) {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		pool.initialize();
+		Connection conn = pool.getConnection();
+		ArrayList<AccountMaster> listAccountMaster = new ArrayList<AccountMaster>();
+		
+		String sqli = new String();
+		String sql = new String();
+		String globalSearch = " where accode like '%" + s + "%'"
+			    + "or acname like '%" + s + "%'"
+			    + "or acclass like '%" + s+ "%'"
+			    + "or flag like '%" + s+ "%'"
+			    + "or projcd like  '%" + s+ "%'";
+		
+		 sqli += " order by " + COLUMN_NAME + " " + DIRECTION;
+		
+		try {
+			if(s != null){
+				System.out.println("String : " + s);
+				 sql = "select * from account_master " + globalSearch + sqli + " limit ? , ? " ;
+			}
+			else{
+				 sql = "select * from account_master " + sqli + " limit ? , ? " ;
+			}
+			System.out.println(sql);
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, start);
 			ps.setInt(2, num);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {

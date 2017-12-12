@@ -64,7 +64,7 @@
 									<th>View</th>
 								</tr>
 							</thead>
-							<tbody>
+							<!--  <tbody>
 								<c:forEach items="${requestScope.accountMasterList}" var="acmas">
 									<tr>
 
@@ -101,7 +101,7 @@
 									</tr>
 								</c:forEach>
 
-							</tbody>
+							</tbody>-->
 							<tfoot>
 							<tr>
 								<th>Account Code</th>
@@ -133,6 +133,8 @@
 	<%@ include file="../design/Bottom.jsp"%>
 	<script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
 	<script src="../../plugins/datatables/dataTables.bootstrap.min.js"></script>
+	<script src="../../plugins/datatables/fnStandingRedraw.js"></script>
+	<script src="../../plugins/datatables/fnSetFilteringDelay.js"></script>
 	<script>
 	<c:choose>
 	<c:when test="${param.msg=='1'}">
@@ -154,6 +156,17 @@
 	</c:choose>
 	
 		$(function() {
-			$("#example1").DataTable();
+			$("#example1").DataTable({
+				 "bPaginate": true,
+				 dom : 'Bftrip',
+				 buttons : ['excel', 'pdf'],
+			     "order": [ 0, 'asc' ],
+			     "bInfo": true,
+			     "iDisplayStart":0,
+			     "bProcessing" : true,
+			     'iDisplayLength': 20,
+			    "bServerSide" : true,
+			    "sAjaxSource" : "../../admin/pages/MasterAccountTableController",
+			       });
 		});
 	</script>
