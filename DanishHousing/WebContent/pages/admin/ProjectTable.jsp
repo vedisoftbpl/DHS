@@ -57,6 +57,7 @@
 								<tr>
 									<th>Project Name</th>
 									<th>Project Type</th>
+									<th>Project Address</th>
 									<th></th>
 								</tr>
 							</thead>
@@ -80,6 +81,7 @@
 											</c:when>
 
 										</c:choose>
+										<td><c:out value="${project.pad1}, ${project.pad2}, ${project.pad3}" /></td>
 										<td><a
 											href="${pageContext.request.contextPath}/admin/pages/ProjectFormController?operation=show&showId=${project.projectId}">
 												<i class="fa fa-edit"></i>View
@@ -94,6 +96,7 @@
 
 									<th>Project Name</th>
 									<th>Project Type</th>
+									<th>Project Address</th>
 									<th></th>
 
 								</tr>

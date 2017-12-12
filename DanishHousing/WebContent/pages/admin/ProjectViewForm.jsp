@@ -98,21 +98,87 @@
 							
 
 									<!-- form group -->
+<!-- Dob -->
+									<div class="form-group" id="divAccountFormDob">
+										<label>Project Opening Date:</label>
 
+										<div class="input-group date">
+											<div class="input-group-addon">
+												<i class="fa fa-calendar"></i>
+											</div>
+											<span id="formattedDate1" name="formattedDate1"
+																	style="display: none;"><fmt:formatDate
+																		type="date" pattern="dd/MM/yyyy"
+																		value="${requestScope.project.opDate}" /></span> <input
+																	type="text" class="form-control pull-right datepicker"
+												id="opDte" name="opDte"  />
+										</div>
+										<p id="erroropDte"></p>
+										<!-- /.input group -->
+									</div>
+</div>
+									<!--End Dob -->
 
+									<!-- /.form group -->
+
+									<div class="col-md-6">
+									<!-- form group -->
+									<!-- Address Line 1 -->
+									<div class="form-group" id="divMemberFormAddress1">
+										<label>Address Line 1</label>
+										<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-home"></i></span>
+											<input type="text" class="form-control"
+												placeholder="Address Line 1" id="projectAddress1"
+												name="projectAddress1" value="${requestScope.project.pad1}"/>
+										</div>
+										<p id="errorAddress1"></p>
+									</div>
+									<!-- End Address Line 1 -->
+									<!-- /.form-group -->
+
+									<!--  form-group -->
+									<!-- Address Line 2 -->
+									<div class="form-group" id="divMemberFormAddress1">
+										<label>Address Line 2</label>
+										<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-home"></i></span>
+											<input type="text" class="form-control"
+												placeholder="Address Line 2" id="projectAddress2"
+												name="projectAddress2" value="${requestScope.project.pad2}"/>
+										</div>
+										<p id="errorAddress2"></p>
+									</div>
+									<!-- End Address Line 1 -->
+									<!-- /.form group -->
+
+									<!-- form group -->
+									<!-- Address Line 1 -->
+									<div class="form-group" id="divMemberFormAddress1">
+										<label>Address Line 3</label>
+										<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-home"></i></span>
+											<input type="text" class="form-control"
+												placeholder="Address Line 3" id="projectAddress3"
+												name="projectAddress3" value="${requestScope.project.pad3}"/>
+										</div>
+										<p id="errorAddress3"></p>
+									</div>
+									<!-- End Address Line 1 -->
 									<!-- /.form group -->
 
 									<!-- form group -->
 
 									<!-- /.form group -->
 
-									<!-- form group -->
-
-									<!-- /.form group -->
-
-								</div>
+								
 								<!-- /.col -->
-								<div class="col-md-6">
+
+									<!-- /.form group -->
+
+								
+								<!-- /.col -->
+					
 
 									<input type="hidden" class="form-control" id="operation"
 										name="operation" value="edit" />
@@ -130,25 +196,7 @@
 									<!-- /. form group -->
 
 									<!-- form group -->
-									<!-- Date of Birth -->
-									<div class="form-group" id="divProjectDate">
-										<label>Project Date :</label>
-
-										<div class="input-group date">
-											<div class="input-group-addon">
-												<i class="fa fa-calendar"></i>
-											</div>
-											<span id="formattedDate1" name="formattedDate1"
-												style="display: none;"><fmt:formatDate type="date"
-													pattern="dd/MM/yyyy" value="${requestScope.project.opDate}" /></span> <input
-												type="text" class="form-control pull-right" id="datepicker1"
-												name="datepicker1" required />
-										</div>
-										<p id="errorOpeningDate"></p>
-										<!-- /.input group -->
-									</div>
-									<!--End Date of Birth -->
-									<!-- /.form group -->
+									
 									
 									
 										
@@ -209,7 +257,7 @@
 		}
 		document.getElementById("editbtn").disabled = false;
 		document.getElementById("cancel").disabled = false;
-		document.getElementById("datepicker1").value = document.getElementById("formattedDate1").innerHTML;
+		document.getElementById("opDte").value = document.getElementById("formattedDate1").innerHTML;
 	}
 	
 	function editfxn(){
@@ -240,16 +288,16 @@
 				return false;
 			}
 
-			if (!(name == null || name === "")) {
-				var nameValid = /^[a-zA-Z-.\d ]+$/;  						 //  which validation
-				if (!nameValid.test(name)) {
-					document.getElementById("errorProjectName").innerHTML = 'Invalid Name';
-					document.getElementById("divProjectFormName").className = 'alert alert-danger alert-dismissible';
-					return false;
-				}
+			//if (!(name == null || name === "")) {
+			//	var nameValid = /^[a-zA-Z-.\d ]+$/;  						 //  which validation
+			//	if (!nameValid.test(name)) {
+			//		document.getElementById("errorProjectName").innerHTML = 'Invalid Name';
+			//		document.getElementById("divProjectFormName").className = 'alert alert-danger alert-dismissible';
+			//		return false;
+			//	}
 				document.getElementById("errorProjectName").innerHTML = "";
 				document.getElementById("divProjectFormName").className = 'form-group has-success';
-			}
+			//}
 
 			//End Project Name Validation
 			return true;
@@ -261,7 +309,7 @@
 
 		}) ;
 		$(function() {
-			$('#datepicker1').datepicker({
+			$('#opDte').datepicker({
 				format : 'dd/mm/yyyy',
 				autoclose : true
 			});

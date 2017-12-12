@@ -1,7 +1,8 @@
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="../design/Top.jsp"%>
 <!-- select style -->
 <link rel="stylesheet" href="../../plugins/select2/select2.css">
+<link rel="stylesheet" href="../../plugins/datepicker/datepicker3.css">
 <body class="hold-transition skin-blue sidebar-mini">
 	<!-- Site wrapper -->
 	<div class="wrapper">
@@ -40,14 +41,15 @@
 					</div>
 
 					<!-- Project Form -->
-					
+
 					<div class="form-group" id="typeError">
-				<label class="control-label" id="errorTop"></label>
-			</div>
-			
-			
-					<form action="${pageContext.request.contextPath}/admin/pages/ProjectFormController" method="post"
-						onsubmit="return validateForm(this)">
+						<label class="control-label" id="errorTop"></label>
+					</div>
+
+
+					<form
+						action="${pageContext.request.contextPath}/admin/pages/ProjectFormController"
+						method="post" onsubmit="return validateForm(this)">
 						<div class="box-body">
 							<div class="row">
 								<div class="col-md-6">
@@ -57,10 +59,10 @@
 									<div class="form-group" id="divProjectFormName">
 										<label>Project Name</label>
 										<div class="input-group">
-											<span class="input-group-addon"><i class="fa fa-building"></i></span>
-											<input type="text" class="form-control"
-												placeholder="Project Name" id="ProjectName"
-												name="ProjectName" />
+											<span class="input-group-addon"><i
+												class="fa fa-building"></i></span> <input type="text"
+												class="form-control" placeholder="Project Name"
+												id="ProjectName" name="ProjectName" />
 										</div>
 										<p id="errorProjectName"></p>
 									</div>
@@ -69,19 +71,19 @@
 
 
 
-								<!--  form-group -->
+									<!--  form-group -->
 									<!-- Project Type -->
-		
-		
+
+
 									<div class="form-group" id="divProjectType">
 										<label>Project Type</label>
 										<div class="input-group">
 											<div class="input-group-addon">
 												<i class="fa  fa-info-circle"></i>
 											</div>
-									
-											<select class="form-control select2" id="ProjectType" name="ProjectType"
-												style="width: 100%;">
+
+											<select class="form-control select2" id="ProjectType"
+												name="ProjectType" style="width: 100%;">
 												<c:forEach items="${requestScope.enumList}" var="val">
 													<option value="${val.getValue()}">${val}</option>
 												</c:forEach>
@@ -91,30 +93,80 @@
 									<!-- End Project Type-->
 									<!-- /.form-group -->
 
-    
+									<!-- Dob -->
+									<div class="form-group" id="divAccountFormDob">
+										<label>Project Opening Date:</label>
+
+										<div class="input-group date">
+											<div class="input-group-addon">
+												<i class="fa fa-calendar"></i>
+											</div>
+											<input type="text" class="form-control pull-right"
+												id="opDte" name="opDte"  />
+										</div>
+										<p id="erroropDte"></p>
+										<!-- /.input group -->
+									</div>
+</div>
+									<!--End Dob -->
+<div class="col-md-6">
+									<!-- form group -->
+									<!-- Address Line 1 -->
+									<div class="form-group" id="divMemberFormAddress1">
+										<label>Address Line 1</label>
+										<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-home"></i></span>
+											<input type="text" class="form-control"
+												placeholder="Address Line 1" id="projectAddress1"
+												name="projectAddress1" />
+										</div>
+										<p id="errorAddress1"></p>
+									</div>
+									<!-- End Address Line 1 -->
+									<!-- /.form-group -->
+
+									<!--  form-group -->
+									<!-- Address Line 2 -->
+									<div class="form-group" id="divMemberFormAddress1">
+										<label>Address Line 2</label>
+										<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-home"></i></span>
+											<input type="text" class="form-control"
+												placeholder="Address Line 2" id="projectAddress2"
+												name="projectAddress2" />
+										</div>
+										<p id="errorAddress2"></p>
+									</div>
+									<!-- End Address Line 1 -->
+									<!-- /.form group -->
+
+									<!-- form group -->
+									<!-- Address Line 1 -->
+									<div class="form-group" id="divMemberFormAddress1">
+										<label>Address Line 3</label>
+										<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-home"></i></span>
+											<input type="text" class="form-control"
+												placeholder="Address Line 3" id="projectAddress3"
+												name="projectAddress3" />
+										</div>
+										<p id="errorAddress3"></p>
+									</div>
+									<!-- End Address Line 1 -->
+									<!-- /.form group -->
+
+									<!-- form group -->
+
+									<!-- /.form group -->
+
 								
-									<!-- form group -->
-
-
-									<!-- /.form group -->
-
-									<!-- form group -->
-
-									<!-- /.form group -->
-
-									<!-- form group -->
-
-									<!-- /.form group -->
-
-								</div>
 								<!-- /.col -->
-								<div class="col-md-6">
 
-										<input type="hidden" class="form-control"
-												 id="operation" name="operation" value = "create"/>
+									<input type="hidden" class="form-control" id="operation"
+										name="operation" value="create" />
 
 
-									
+
 
 									<!-- form group -->
 
@@ -126,12 +178,12 @@
 									<!-- /. form group -->
 
 									<!-- form group -->
-									<br>		<br>		<br>		<br>		<br>
-									
+<br>
 									<div class="row"></div>
 									<div class="col-xs-4" align="center">
 										<button type="submit"
-											class="btn btn-primary btn-block btn-flat">Add Project</button>
+											class="btn btn-primary btn-block btn-flat">Add
+											Project</button>
 									</div>
 									<div class="col-xs-4" align="center">
 										<button type="reset" class="btn btn-block btn-danger">Cancel</button>
@@ -149,7 +201,7 @@
 					<!-- User Form -->
 
 					<!-- /.box-body -->
-					<div class="box-footer">Provide the Project Detail </div>
+					<div class="box-footer">Provide the Project Detail</div>
 					<!-- /.box-footer-->
 				</div>
 				<!-- /.box -->
@@ -165,29 +217,26 @@
 	<%@ include file="../design/Bottom.jsp"%>
 	<!-- select2 -->
 	<script src="../../plugins/select2/select2.js"></script>
+	<script src="../../plugins/datepicker/bootstrap-datepicker.js"></script>
 	<!-- iCheck -->
 	<!-- jQuery 2.2.3 -->
 	<script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
 
 	<script>
-	<c:choose>
-	<c:when test="${requestScope.msg=='1'}">
-	$(document).ready(function() {
-		$("#typeError").addClass("form-group has-success");
-		$("#errorTop")
-		.html(
-				"Record Added Successfully.");
-	});
-	</c:when>
-	<c:when test="${requestScope.msg=='2'}">
-	$(document).ready(function() {
-		$("#typeError").addClass("form-group has-error");
-		$("#errorTop")
-		.html(
-				"Fail to Add Record.");
-	});
-	</c:when>
-	</c:choose>
+		<c:choose>
+		<c:when test="${requestScope.msg=='1'}">
+		$(document).ready(function() {
+			$("#typeError").addClass("form-group has-success");
+			$("#errorTop").html("Record Added Successfully.");
+		});
+		</c:when>
+		<c:when test="${requestScope.msg=='2'}">
+		$(document).ready(function() {
+			$("#typeError").addClass("form-group has-error");
+			$("#errorTop").html("Fail to Add Record.");
+		});
+		</c:when>
+		</c:choose>
 		function validateForm(form) {
 			error = "Please fill this field .";
 
@@ -200,7 +249,7 @@
 			}
 
 			if (!(name == null || name === "")) {
-				var nameValid = /^[a-zA-Z-.\d ]+$/;  						 //  which validation
+				var nameValid = /^[a-zA-Z-.\d ]+$/; //  which validation
 				if (!nameValid.test(name)) {
 					document.getElementById("errorProjectName").innerHTML = 'Invalid Name';
 					document.getElementById("divProjectFormName").className = 'alert alert-danger alert-dismissible';
@@ -216,6 +265,9 @@
 		$(function() {
 			//Initialize Select2 Elements
 			$(".select2").select2();
-
+			$('#opDte').datepicker({
+				format : 'dd/mm/yyyy',
+				autoclose : true
+			});
 		});
 	</script>

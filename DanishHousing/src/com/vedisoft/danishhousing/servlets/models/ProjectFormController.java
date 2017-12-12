@@ -65,9 +65,21 @@ public class ProjectFormController extends HttpServlet {
 		if (request.getParameter("ProjectType") != null && request.getParameter("ProjectType").trim().length() > 0)
 			projType = request.getParameter("ProjectType");
 		
+		String pad1 = new String();
+		if (request.getParameter("projectAddress3") != null && request.getParameter("projectAddress3").trim().length() > 0)
+			pad1 = request.getParameter("projectAddress3");
+		
+		String pad2 = new String();
+		if (request.getParameter("projectAddress3") != null && request.getParameter("projectAddress3").trim().length() > 0)
+			pad2 = request.getParameter("projectAddress3");
+		
+		String pad3 = new String();
+		if (request.getParameter("projectAddress3") != null && request.getParameter("projectAddress3").trim().length() > 0)
+			pad3 = request.getParameter("projectAddress3");
+		
 		Date opdte = null;
-		if (request.getParameter("datepicker1") != null && request.getParameter("datepicker1").trim().length() > 0) {
-			opdte = DateUtils.convertDate(request.getParameter("datepicker1"));
+		if (request.getParameter("opDte") != null && request.getParameter("opDte").trim().length() > 0) {
+			opdte = DateUtils.convertDate(request.getParameter("opDte"));
 		}
 
 		System.out.println(projectName + " " + projType);
@@ -80,7 +92,7 @@ public class ProjectFormController extends HttpServlet {
 
 		if (operation.equals("create")) {
 			ProjectsDao dao = new ProjectsDao();
-			Projects p = new Projects(projectName, projType,null);
+			Projects p = new Projects(projectName, projType,opdte,pad1,pad2,pad3);
 			System.out.println(p);
 			int a = 0;
 			a = dao.create(p);
@@ -103,7 +115,7 @@ public class ProjectFormController extends HttpServlet {
 			rd.forward(request, response);
 		} else if (operation.equals("edit")) {
 			ProjectsDao dao = new ProjectsDao();
-			Projects p = new Projects(id, projectName, projType,opdte);
+			Projects p = new Projects(id, projectName, projType,opdte,pad1,pad2,pad3);
 			System.out.println(p);
 			Boolean b = dao.edit(p);
 			if (b) {
