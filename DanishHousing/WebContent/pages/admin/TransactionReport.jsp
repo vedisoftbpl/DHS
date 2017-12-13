@@ -329,7 +329,39 @@ body, html {
 	<script src="../../plugins/datepicker/bootstrap-datepicker.js"></script>
 	<!-- select2 -->
 	<script src="../../plugins/select2/select2.js"></script>
-
+<script>
+	$('#accountCode')
+	.bind(
+			'keyup',
+			function(e) {
+				e.preventDefault();
+			var s = $('#accountCode').val();
+			if(s.length >= 1 ) {
+		    $.ajax({
+		     url:"http://localhost:8080/DanishHousing/AutoCompleteVoucher",
+		     type:"post",
+		     data:{'val' : s},
+		     success:function(data){
+		      $('#accountCode').autocomplete({   
+		          source: data,
+		          select: function(event,ui){    
+		              event.preventDefault();   
+		              var selectedArr = ui.item.value.split(":");
+		              this.value=$.trim(selectedArr[1]);            
+		          } 
+		        });
+		     
+		     },error:  function(data, status, er){
+		              console.log(data+"_"+status+"_"+er);
+		          },
+		           
+		    });
+			}
+		    });
+		   
+		 
+ 
+	</script>
 	<script>
 		$(function() {
 			//Date picker

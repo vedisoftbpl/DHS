@@ -144,7 +144,9 @@
 													<i class="fa fa-minus"></i>
 												</button>
 												<button type="button" class="btn btn-box-tool"
-													data-widget="remove" onclick="remove('accountCode1','amount1')" data-toggle="tooltip" title="Remove">
+													data-widget="remove"
+													onclick="remove('accountCode1','amount1')"
+													data-toggle="tooltip" title="Remove">
 													<i class="fa fa-times"></i>
 												</button>
 											</div>
@@ -192,7 +194,7 @@
 														<div class="input-group">
 															<span class="input-group-addon"><i
 																class="fa fa-bars"></i></span> <input type="text"
-																class="form-control" placeholder="Account Name"
+																class="form-control " placeholder="Account Name"
 																id="accountName1" name="accountName1" />
 														</div>
 														<p id="errorAccountName1"></p>
@@ -387,7 +389,8 @@
 								<button type="reset" class="btn btn-block btn-danger">Cancel</button>
 							</div>
 							<div class="col-xs-4" align="center">
-								<button type="button" onclick="sub();" class="btn btn-primary btn-block btn-flat">Submit</button>
+								<button type="button" onclick="sub();"
+									class="btn btn-primary btn-block btn-flat">Submit</button>
 							</div>
 
 						</div>
@@ -439,7 +442,10 @@
 														+ '<button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">'
 														+ '<i class="fa fa-minus"></i></button>'
 														+ '<button type="button" class="btn btn-box-tool"'
-														+ 'data-widget="remove" onclick="remove(\'accountCode' + n +'\',\'amount' + n 
+														+ 'data-widget="remove" onclick="remove(\'accountCode'
+														+ n
+														+ '\',\'amount'
+														+ n
 														+ '\')" data-toggle="tooltip" title="Remove">'
 														+ '<i class="fa fa-times"></i>'
 														+ '</button>'
@@ -475,43 +481,101 @@
 		});
 	</script>
 	<script>
-	function remove(a,b){
-		document.getElementById(a).value = "";
-		document.getElementById(b).value = 0;
-		var totalAccount = $(
-				'#totalAccounts').val();
-		var total = 0;
-		for (i = 1; i <= totalAccount; i++) {
-			var amt = $('#amount' + i)
-					.val();
-			if ($.isNumeric(amt)) {
-				total = total
-						+ parseInt(amt);
-			} else {
-				document
-						.getElementById("errorAmount"
-								+ i).innerHTML = "Invalid Amount";
-				document
-						.getElementById("divFormAmount"
-								+ i).className = 'alert alert-warning alert-dismissible';
-				document
-						.getElementById(
-								"divFormAmount"
-										+ i)
-						.scrollIntoView();
+	$('#accounts')
+	.on(
+			'keyup',
+			'.accCode',
+			function(e) {
+				e.preventDefault();
+			var s = $(this).val();
+			if(s.length >= 1 ) {
+		    $.ajax({
+		     url:"http://localhost:8080/DanishHousing/AutoCompleteVoucher",
+		     type:"post",
+		     data:{'val' : s},
+		     success:function(data){
+		      $('.accCode').autocomplete({   
+		          source: data,
+		          select: function(event,ui){    
+		              event.preventDefault();   
+		              var selectedArr = ui.item.value.split(":");
+		              this.value=$.trim(selectedArr[1]);            
+		          } 
+		        });
+		     
+		     },error:  function(data, status, er){
+		              console.log(data+"_"+status+"_"+er);
+		          },
+		           
+		    });
 			}
+		    });
+		   
+		 
+ 
+	</script>
+	<script>
+	$('#bankCode')
+	.bind(
+			'keyup',
+			function(e) {
+				e.preventDefault();
+			var s = $('#bankCode').val();
+			if(s.length >= 1 ) {
+		    $.ajax({
+		     url:"http://localhost:8080/DanishHousing/AutoCompleteBank",
+		     type:"post",
+		     data:{'val' : s},
+		     success:function(data){
+		      $('#bankCode').autocomplete({   
+		          source: data,
+		          select: function(event,ui){    
+		              event.preventDefault();   
+		              var selectedArr = ui.item.value.split(":");
+		              this.value=$.trim(selectedArr[1]);            
+		          } 
+		        });
+		     
+		     },error:  function(data, status, er){
+		              console.log(data+"_"+status+"_"+er);
+		          },
+		           
+		    });
+			}
+		    });
+		   
+		 
+ 
+	</script>
+	<script>
+		function remove(a, b) {
+			document.getElementById(a).value = "";
+			document.getElementById(b).value = 0;
+			var totalAccount = $('#totalAccounts').val();
+			var total = 0;
+			for (i = 1; i <= totalAccount; i++) {
+				var amt = $('#amount' + i).val();
+				if ($.isNumeric(amt)) {
+					total = total + parseInt(amt);
+				} else {
+					document.getElementById("errorAmount" + i).innerHTML = "Invalid Amount";
+					document.getElementById("divFormAmount" + i).className = 'alert alert-warning alert-dismissible';
+					document.getElementById("divFormAmount" + i)
+							.scrollIntoView();
+				}
+			}
+			$('#totalAmount').val(total);
 		}
-		$('#totalAmount').val(total);
-	}
-	
+
 		<c:choose>
 		<c:when test="${param.msg == '1'}">
 		$(document)
 				.ready(
 						function() {
 							$("#typeError").addClass("form-group has-success");
-							$("#errorTop").html(
-									"Receipt Record Added Successfully for Receipt No. :  ${param.docNo}");
+							$("#errorTop")
+									.html(
+											"Receipt Record Added Successfully for Receipt No. :  ${param.docNo}");
 							window
 									.open(
 											"../../admin/pages/ReceiptPrintController?docNo=${param.docNo}",
@@ -575,7 +639,7 @@
 				}
 				document.getElementById("errorReceiptNumber").innerHTML = "";
 				document.getElementById("divFormReceiptNumber").className = 'form-group has-success';
-				}
+			}
 
 			//End Receipt Number validation
 
@@ -694,10 +758,10 @@
 				document.getElementById("divFormCity").className = 'form-group has-success';
 			}
 			//End City Validation
-		
+
 			return true;
 		}
-		function sub(){
+		function sub() {
 			//Unique Id Vaildation
 			var id = $('#receiptNumber').val();
 			var y = '1';
@@ -711,45 +775,39 @@
 								'recNo' : id
 							},
 
-							success : function(
-									data) {
+							success : function(data) {
 								var data0 = data["data"][0];
 								bool = data0["avail"];
 								if (bool === false) {
-									alert("Receipt Number is not available. Use Receipt No. : " + data0["next"]);
-									document.getElementById("errorReceiptNumber").innerHTML = 'Receipt Number Already exist';
-									document.getElementById("divFormReceiptNumber").className = 'alert alert-warning alert-dismissible';
-									document.getElementById("divFormReceiptNumber")
+									alert("Receipt Number is not available. Use Receipt No. : "
+											+ data0["next"]);
+									document
+											.getElementById("errorReceiptNumber").innerHTML = 'Receipt Number Already exist';
+									document
+											.getElementById("divFormReceiptNumber").className = 'alert alert-warning alert-dismissible';
+									document.getElementById(
+											"divFormReceiptNumber")
 											.scrollIntoView();
-									
-								}
-								else
-									{
-									document.getElementById("errorReceiptNumber").innerHTML = '';
-									document.getElementById("divFormReceiptNumber").className = 'form-group has-success';
+
+								} else {
+									document
+											.getElementById("errorReceiptNumber").innerHTML = '';
+									document
+											.getElementById("divFormReceiptNumber").className = 'form-group has-success';
 									$('#form').submit();
-									
-									}
+
+								}
 							},
 
-							error : function(
-									req,
-									status,
-									err) {
+							error : function(req, status, err) {
 								alert('Error');
-								console
-										.log(req
-												+ ' '
-												+ status
-												+ ' '
-												+ err);
+								console.log(req + ' ' + status + ' ' + err);
 							}
 
 						});
 			}
 			//End Id Validation
-			
-			
+
 		}
 
 		$(function() {
@@ -973,99 +1031,48 @@
 												$('#totalAmount').val(total);
 
 											});
-							
-							$(
-							"#paymentMode").on("change",function(e){
-								e.preventDefault();
-								var code = $('#paymentMode').val();
-								if(code === 'Transfer'){
-									$(
-									'#bankCode')
-									.prop(
-											'disabled',
-											true);
-							$(
-									'#bankCode')
-									.val(
-											" ");
-									$(
-									'#transactionID')
-									.prop(
-											'disabled',
-											true);
-							$(
-									'#transactionID')
-									.val(
-											"");
-							$(
-									'#paymentBank')
-									.prop(
-											'disabled',
-											true);
-							$(
-									'#paymentBank')
-									.val(
-											"");
-							$(
-									'#city')
-									.prop(
-											'disabled',
-											true);
-							$(
-									'#city')
-									.val(
-											"");
-							$(
-									'#trDate')
-									.prop(
-											'disabled',
-											true);
-							$(
-									'#trDate')
-									.val(
-											"");
-							$(
-							'#bankName')
-							.prop('disabled',
-									true);
-							$(
-									'#bankName')
-									.val(
-											"");
-								}
-								else{
-									$(
-									'#bankCode')
-									.prop(
-											'disabled',
-											false);
-									$(
-									'#transactionID')
-									.prop(
-											'disabled',
-											false);
-							$(
-									'#paymentBank')
-									.prop(
-											'disabled',
-											false);
-							$(
-									'#city')
-									.prop(
-											'disabled',
-											false);
-							$(
-									'#trDate')
-									.prop(
-											'disabled',
-											false);
-							$(
-									'#bankName')
-									.prop(
-											'disabled',
-											false);
-								}
-							});
+
+							$("#paymentMode")
+									.on(
+											"change",
+											function(e) {
+												e.preventDefault();
+												var code = $('#paymentMode')
+														.val();
+												if (code === 'Transfer') {
+													$('#bankCode').prop(
+															'disabled', true);
+													$('#bankCode').val(" ");
+													$('#transactionID').prop(
+															'disabled', true);
+													$('#transactionID').val("");
+													$('#paymentBank').prop(
+															'disabled', true);
+													$('#paymentBank').val("");
+													$('#city').prop('disabled',
+															true);
+													$('#city').val("");
+													$('#trDate').prop(
+															'disabled', true);
+													$('#trDate').val("");
+													$('#bankName').prop(
+															'disabled', true);
+													$('#bankName').val("");
+												} else {
+													$('#bankCode').prop(
+															'disabled', false);
+													$('#transactionID').prop(
+															'disabled', false);
+													$('#paymentBank').prop(
+															'disabled', false);
+													$('#city').prop('disabled',
+															false);
+													$('#trDate').prop(
+															'disabled', false);
+													$('#bankName').prop(
+															'disabled', false);
+												}
+											});
 
 							//Bank Details Auto fill
 							$('#bankCode')

@@ -24,7 +24,7 @@
        folder instead of downloading all of them to reduce the load. -->
 <link rel="stylesheet" href="../../dist/css/skins/_all-skins.min.css">
 <link rel="stylesheet" href="../../plugins/datatables/dataTables.bootstrap.css">
-
+<link href="../../bootstrap/css/jquery-ui.css" rel="stylesheet">
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>

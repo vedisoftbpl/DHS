@@ -444,6 +444,73 @@
 		});
 	</script>
 	<script>
+	$('#accounts')
+	.on(
+			'keyup',
+			'.accCode',
+			function(e) {
+				e.preventDefault();
+			var s = $(this).val();
+			if(s.length >= 1 ) {
+		    $.ajax({
+		     url:"http://localhost:8080/DanishHousing/AutoCompleteVoucher",
+		     type:"post",
+		     data:{'val' : s},
+		     success:function(data){
+		      $('.accCode').autocomplete({   
+		          source: data,
+		          select: function(event,ui){    
+		              event.preventDefault();   
+		              var selectedArr = ui.item.value.split(":");
+		              this.value=$.trim(selectedArr[1]);            
+		          } 
+		        });
+		     
+		     },error:  function(data, status, er){
+		              console.log(data+"_"+status+"_"+er);
+		          },
+		           
+		    });
+			}
+		    });
+		   
+		 
+ 
+	</script>
+	<script>
+	$('#bankCode')
+	.bind(
+			'keyup',
+			function(e) {
+				e.preventDefault();
+			var s = $('#bankCode').val();
+			if(s.length >= 1 ) {
+		    $.ajax({
+		     url:"http://localhost:8080/DanishHousing/AutoCompleteBank",
+		     type:"post",
+		     data:{'val' : s},
+		     success:function(data){
+		      $('#bankCode').autocomplete({   
+		          source: data,
+		          select: function(event,ui){    
+		              event.preventDefault();   
+		              var selectedArr = ui.item.value.split(":");
+		              this.value=$.trim(selectedArr[1]);            
+		          } 
+		        });
+		     
+		     },error:  function(data, status, er){
+		              console.log(data+"_"+status+"_"+er);
+		          },
+		           
+		    });
+			}
+		    });
+		   
+		 
+ 
+	</script>
+	<script>
 	function remove(a,b){
 		document.getElementById(a).value = "";
 		document.getElementById(b).value = 0;
