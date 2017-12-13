@@ -357,4 +357,28 @@ public class AccountDao {
 		 	System.out.println(balance);
 
 	}
+
+	public ArrayList<String> findAll(String name) {
+		System.out.println("In AutoComplete Bank");
+		ConnectionPool pool = ConnectionPool.getInstance();
+		pool.initialize();
+		Connection conn = pool.getConnection();
+		ArrayList<String> listAccount = new ArrayList<String>();
+		try {
+			String sql = "select bk_name,bk_code from accounts where bk_name like '%"+name+"%' or bk_code like '%"+name+"%'";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				String account = new String();
+				System.out.println("Found: " + rs.getString("bk_name") + " : " + rs.getString("bk_code"));
+				account = rs.getString("bk_name")+ " : " + rs.getString("bk_code");
+				listAccount.add(account);
+			}
+		} catch (SQLException sq) {
+			System.out.println("Unable to create a new row.");
+		} finally {
+			pool.putConnection(conn);
+		}
+		return listAccount;
+	}
 }

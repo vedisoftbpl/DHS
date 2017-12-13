@@ -188,6 +188,30 @@ public class AccountMasterDao {
 		}
 		return accountmaster;
 	}
+	
+	public ArrayList<String> findAll(String name) {
+		System.out.println("In AutoComplete");
+		ConnectionPool pool = ConnectionPool.getInstance();
+		pool.initialize();
+		Connection conn = pool.getConnection();
+		ArrayList<String> listVoucher = new ArrayList<String>();
+		try {
+			String sql = "select acname,accode from account_master where acname like '%"+name+"%' or accode like '%"+name+"%'";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				String voucher = new String();
+				System.out.println("Found: " + rs.getString("acname") + " : " + rs.getString("accode"));
+				voucher = rs.getString("acname")+ " : " + rs.getString("accode");
+				listVoucher.add(voucher);
+			}
+		} catch (SQLException sq) {
+			System.out.println("Unable to create a new row.");
+		} finally {
+			pool.putConnection(conn);
+		}
+		return listVoucher;
+	}
 
 
 	public ArrayList<AccountMaster> findAll() {
@@ -383,6 +407,11 @@ public class AccountMasterDao {
 //		List<AccountMaster> list = dao.findAll();
 //		for (AccountMaster u1 : list)
 //			System.out.println(u1);
+		
+		List<String> list = dao.findAll("A000");
+		for (String u1 : list)
+			System.out.println(u1);
+		
 		//
 		// List<AccountMaster> list2 = dao.findAll(1, 2);
 		// for(AccountMaster u2 : list2)
