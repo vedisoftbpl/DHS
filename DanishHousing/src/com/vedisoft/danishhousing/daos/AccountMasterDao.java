@@ -351,10 +351,19 @@ public class AccountMasterDao {
 				AccountMaster accountmaster = new AccountMaster();
 				accountmaster.setMasterAccountId(rs.getInt("account_master_id"));
 				accountmaster.setAnxCd(rs.getInt("anx_cd"));
-				accountmaster.setAcCode(rs.getString("accode"));
-				accountmaster.setAcName(rs.getString("acname"));
+				if(rs.getString("accode") != null)
+					accountmaster.setAcCode(rs.getString("accode"));
+				else
+					accountmaster.setAcCode("N/A");
+				if(rs.getString("acname") != null)
+					accountmaster.setAcName(rs.getString("acname"));
+				else
+					accountmaster.setAcName("N/A");
 				accountmaster.setAddress(rs.getString("address"));
-				accountmaster.setAcClass(rs.getString("acclass"));
+				if(rs.getString("acclass") != null)
+					accountmaster.setAcClass(rs.getString("acclass"));
+				else
+					accountmaster.setAcClass("N/A");
 				java.sql.Date opdte = rs.getDate("opdte");
 				if (opdte != null)
 					accountmaster.setOpdte(new java.util.Date(opdte.getTime()));
@@ -362,8 +371,14 @@ public class AccountMasterDao {
 				accountmaster.setmBal(rs.getDouble("mbal"));
 				accountmaster.setPexp(rs.getString("pexp"));
 				accountmaster.setIxpge(rs.getString("ixpge"));
-				accountmaster.setFlag(rs.getString("flag"));
-				accountmaster.setProjCd(rs.getInt("projcd"));
+				if(rs.getString("flag") != null)
+					accountmaster.setFlag(rs.getString("flag"));
+				else
+					accountmaster.setFlag("N/A");
+				if(rs.getString("projcd") != null)
+					accountmaster.setProjCd(rs.getInt("projcd"));
+				else
+					accountmaster.setProjCd(-1);
 				listAccountMaster.add(accountmaster);
 			}
 		} catch (SQLException sq) {
