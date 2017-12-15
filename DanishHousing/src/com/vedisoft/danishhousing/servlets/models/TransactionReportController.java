@@ -144,10 +144,12 @@ public class TransactionReportController extends HttpServlet {
 				totalDebit += debit;
 				dto.add(report);
 			}
+			double balance=totalCredit-totalDebit;
 			if (list.size() > 0) {
 				request.setAttribute("transactionList", dto);
 				request.setAttribute("totalCreditAmount", totalCredit);
 				request.setAttribute("totalDebitAmount", totalDebit);
+				request.setAttribute("balanceAmount", balance);
 				request.setAttribute("msg", 1);
 			} else
 				request.setAttribute("msg", 2);

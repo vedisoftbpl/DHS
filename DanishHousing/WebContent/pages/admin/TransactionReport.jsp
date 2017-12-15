@@ -224,7 +224,6 @@ body, html {
 													<th>Recept No./Vr. No.</th>
 													<th>Date</th>
 													<th>Particulars</th>
-													<th>Mode</th>
 													<th>Debit</th>
 													<th>Credit</th>
 												</tr>
@@ -237,7 +236,6 @@ body, html {
 														<td><fmt:formatDate type="date" pattern="dd/MM/yyyy"
 																value="${tran.date}" /></td>
 														<td><c:out value="${tran.particular}" /></td>
-														<td><c:out value="${tran.mode}" /></td>
 														<td><c:choose>
 																<c:when test="${tran.debit==0}">
 																	<c:out value=" " />
@@ -291,7 +289,21 @@ body, html {
 											</tr>
 										</table>
 									</div>
+<div class="col-md-6" align="right">
+										<table>
+										<tr>
+												<td colspan="3">---------------------------------------------------------</td>
+											</tr>
 
+											<tr>
+												
+												<td align="right"><label>Balance&emsp;:&emsp;Rs &emsp;</label><span>${requestScope.balanceAmount}</span></td>
+											</tr>
+											<tr>
+												<td colspan="3">----------------------------------------------------------</td>
+											</tr>
+										</table>
+										</div>
 								</div>
 								<div class="row" align="center">
 
