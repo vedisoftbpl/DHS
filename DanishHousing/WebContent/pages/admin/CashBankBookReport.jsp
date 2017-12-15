@@ -1,4 +1,4 @@
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+0<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <link rel="stylesheet" href="../../plugins/datepicker/datepicker3.css">
 <!-- select style -->
@@ -57,8 +57,8 @@ div.scrollmenu {
 	margin: auto;
 	padding: 30px;
 	border: 1px solid #eee;
-	font-size: 16px;
-	line-height: 16px;
+	font-size: 14px;
+	line-height: 14px;
 	font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
 	color: #555;
 }
@@ -240,6 +240,9 @@ div.scrollmenu {
 												style="border-top: 3px solid black; border-bottom: 3px solid black;">
 												<tr>
 													<th>Recept No./Vr. No.</th>
+													<th>Date</th>
+													<th>Cheque No.</th>
+													<th>Member No.</th>
 													<th>Particulars</th>
 													<th>Total</th>
 													<th>Adjustments</th>
@@ -251,7 +254,10 @@ div.scrollmenu {
 													var="receipt">
 													<tr>
 														<td><c:out value="${receipt.docNo}" /></td>
-														
+														<td><fmt:formatDate type="date" pattern="dd/MM/yyyy"
+																	value="${receipt.chDate}"/></td>
+														<td><c:out value="${receipt.chqNo}" /></td>
+														<td><c:out value="${receipt.membNo}" /></td>
 														<td><b><c:out value="${receipt.accName}" /></b><br><c:out value="${receipt.remarks}" /></td>
 														<td><c:out value="${receipt.amount}" /></td>
 														<td><c:out value="${receipt.adjustment}" /></td>
@@ -276,7 +282,8 @@ div.scrollmenu {
 											<tr>
 												<td><label>&emsp;Total Receipt Amount &emsp;</label></td>
 												<td><label>:&emsp;Rs &nbsp;</label></td>
-												<td ><span>${requestScope.totalCreditAmount}</span></td>
+												<td ><span><fmt:formatNumber type="number"
+														maxFractionDigits="3" value="${requestScope.totalCreditAmount}" /></span></td>
 											</tr>
 
 											
@@ -296,7 +303,8 @@ div.scrollmenu {
 											<thead
 												style="border-top: 3px solid black; border-bottom: 3px solid black;">
 												<tr>
-													<th>Recept No./Vr. No.</th>
+													<th>Payment No./Vr. No.</th>
+													<th>Date</th>
 													<th>Particulars</th>
 													<th>Total</th>
 													<th>Adjustments</th>
@@ -307,8 +315,9 @@ div.scrollmenu {
 													var="payment">
 													<tr>
 														<td><c:out value="${payment.docNo}" /></td>
-														
-														<td><b><c:out value="${payment.accName}" /></b><br><c:out value="${receipt.remarks}" /></td>
+														<td><fmt:formatDate type="date" pattern="dd/MM/yyyy"
+																	value="${payment.chDate}" /></td>
+														<td><b><c:out value="${payment.accName}" /></b><br><c:out value="${payment.remarks} (Chq No/Tr No :${payment.chqNo})"/></td>
 														<td><c:out value="${payment.amount}" /></td>
 														<td><c:out value="${payment.adjustment}" /></td>
 
@@ -335,7 +344,8 @@ div.scrollmenu {
 											<tr>
 												<td><label>&emsp;Total Payments Amount &emsp;</label></td>
 												<td><label>:&emsp;Rs &nbsp;</label></td>
-												<td ><span>${requestScope.totalDebitAmount}</span></td>
+												<td ><span><fmt:formatNumber type="number"
+														maxFractionDigits="3" value="${requestScope.totalDebitAmount}" /></span></td>
 											</tr>
 
 											
@@ -348,7 +358,8 @@ div.scrollmenu {
 								</div>
 								<div class="row" ><br>
 								-----------------------------------------------------------------------------------------------------------
-								<div align="left"><label>&emsp;Closing Balance :&emsp;Rs :&nbsp;${requestScope.closingBalance}</label></div>
+								<div align="left"><label>&emsp;Closing Balance :&emsp;Rs :&nbsp;<fmt:formatNumber type="number"
+														maxFractionDigits="3" value="${requestScope.closingBalance}" /></label></div>
 								-----------------------------------------------------------------------------------------------------------
 								</div>
 								<div class="row" align="center">

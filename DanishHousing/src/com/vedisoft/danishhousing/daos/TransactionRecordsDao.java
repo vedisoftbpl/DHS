@@ -200,7 +200,13 @@ public class TransactionRecordsDao {
 				cashBankBookDto.setAccName(AccountMasterDao.findByCode(cashBankBookDto.getAccNo()).getAcName());
 				cashBankBookDto.setRemarks(rs.getString("parti"));
 				cashBankBookDto.setAmount(rs.getDouble("amt"));
-				cashBankBookDto.setAdjustment(rs.getDouble("amt"));
+				java.sql.Date chDate = rs.getDate("ch_date");
+				if (chDate != null)
+					cashBankBookDto.setChDate(new java.util.Date((chDate).getTime()));
+				else
+					cashBankBookDto.setChDate(chDate);
+				cashBankBookDto.setMembNo(rs.getInt("membno"));
+				cashBankBookDto.setChqNo(rs.getString("chqno"));
 				listCashBankBookDto.add(cashBankBookDto);
 			}
 		} catch (SQLException sq) {
@@ -244,6 +250,12 @@ public class TransactionRecordsDao {
 				cashBankBookDto.setRemarks(rs.getString("parti"));
 				cashBankBookDto.setAmount(rs.getDouble("amt"));
 				cashBankBookDto.setAdjustment(rs.getDouble("amt"));
+				cashBankBookDto.setChqNo(rs.getString("chqno"));
+				java.sql.Date chDate = rs.getDate("ch_date");
+				if (chDate != null)
+					cashBankBookDto.setChDate(new java.util.Date((chDate).getTime()));
+				else
+					cashBankBookDto.setChDate(chDate);
 				listCashBankBookDto.add(cashBankBookDto);
 			}
 		} catch (SQLException sq) {
