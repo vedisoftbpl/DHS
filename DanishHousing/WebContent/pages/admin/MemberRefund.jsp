@@ -51,9 +51,11 @@
 
 							<div class="row">
 								<c:forEach var="ac" items="${sessionScope.accList}">
+								
 									<div class="col-md-2">
-										<div class="box box-info box-solid" >
-											<div class="box-header with-border" style="background-color:#3c8dbc;">
+										<div class="box box-info box-solid">
+											<div class="box-header with-border"
+												style="background-color: #3c8dbc;">
 												<h3 class="box-title">${ac.key}</h3>
 
 												<div class="box-tools pull-right">
@@ -65,11 +67,15 @@
 												<!-- /.box-tools -->
 											</div>
 											<!-- /.box-header -->
-											<div class="box-body" align="right"><span>Rs&nbsp;:&emsp;${ac.value}</span></div>
+											<div class="box-body" align="right">
+												<span>Rs&nbsp;:&emsp;<fmt:formatNumber type="number"
+														maxFractionDigits="3" value="${ac.value}" /></span>
+											</div>
 											<!-- /.box-body -->
 										</div>
 										<!-- /.box -->
-									</div>
+										</div>
+									
 								</c:forEach>
 							</div>
 							<br>
@@ -477,71 +483,89 @@
 		});
 	</script>
 	<script>
-	$('#accounts')
-	.on(
-			'keyup',
-			'.accCode',
-			function(e) {
-				e.preventDefault();
-			var s = $(this).val();
-			if(s.length >= 1 ) {
-		    $.ajax({
-		     url:"http://localhost:8080/DanishHousing/AutoCompleteVoucher",
-		     type:"post",
-		     data:{'val' : s},
-		     success:function(data){
-		      $('.accCode').autocomplete({   
-		          source: data,
-		          select: function(event,ui){    
-		              event.preventDefault();   
-		              var selectedArr = ui.item.value.split(":");
-		              this.value=$.trim(selectedArr[1]);            
-		          } 
-		        });
-		     
-		     },error:  function(data, status, er){
-		              console.log(data+"_"+status+"_"+er);
-		          },
-		           
-		    });
-			}
-		    });
-		   
-		 
- 
+		$('#accounts')
+				.on(
+						'keyup',
+						'.accCode',
+						function(e) {
+							e.preventDefault();
+							var s = $(this).val();
+							if (s.length >= 1) {
+								$
+										.ajax({
+											url : "http://localhost:8080/DanishHousing/AutoCompleteVoucher",
+											type : "post",
+											data : {
+												'val' : s
+											},
+											success : function(data) {
+												$('.accCode')
+														.autocomplete(
+																{
+																	source : data,
+																	select : function(
+																			event,
+																			ui) {
+																		event
+																				.preventDefault();
+																		var selectedArr = ui.item.value
+																				.split(":");
+																		this.value = $
+																				.trim(selectedArr[1]);
+																	}
+																});
+
+											},
+											error : function(data, status, er) {
+												console.log(data + "_" + status
+														+ "_" + er);
+											},
+
+										});
+							}
+						});
 	</script>
 	<script>
-	$('#bankCode')
-	.bind(
-			'keyup',
-			function(e) {
-				e.preventDefault();
-			var s = $('#bankCode').val();
-			if(s.length >= 1 ) {
-		    $.ajax({
-		     url:"http://localhost:8080/DanishHousing/AutoCompleteBank",
-		     type:"post",
-		     data:{'val' : s},
-		     success:function(data){
-		      $('#bankCode').autocomplete({   
-		          source: data,
-		          select: function(event,ui){    
-		              event.preventDefault();   
-		              var selectedArr = ui.item.value.split(":");
-		              this.value=$.trim(selectedArr[1]);            
-		          } 
-		        });
-		     
-		     },error:  function(data, status, er){
-		              console.log(data+"_"+status+"_"+er);
-		          },
-		           
-		    });
-			}
-		    });
-		   
-		 
- 
+		$('#bankCode')
+				.bind(
+						'keyup',
+						function(e) {
+							e.preventDefault();
+							var s = $('#bankCode').val();
+							if (s.length >= 1) {
+								$
+										.ajax({
+											url : "http://localhost:8080/DanishHousing/AutoCompleteBank",
+											type : "post",
+											data : {
+												'val' : s
+											},
+											success : function(data) {
+												$('#bankCode')
+														.autocomplete(
+																{
+																	source : data,
+																	select : function(
+																			event,
+																			ui) {
+																		event
+																				.preventDefault();
+																		var selectedArr = ui.item.value
+																				.split(":");
+																		this.value = $
+																				.trim(selectedArr[1]);
+																	}
+																});
+
+											},
+											error : function(data, status, er) {
+												console.log(data + "_" + status
+														+ "_" + er);
+											},
+
+										});
+							}
+						});
 	</script>
 	<script>
 		function remove(a, b) {
