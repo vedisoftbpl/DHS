@@ -1371,32 +1371,33 @@
 
 			//Full Name Validation
 			var name = document.getElementById("memberFullName").value;
-			//if (name == null || name === "") {
-			//	document.getElementById("errorFullName").innerHTML = error;
-			//	document.getElementById("divMemberFormName").className = 'alert alert-danger alert-dismissible';
-			//	return false;
-			//}
-
-			if (!(name == null || name === "")) {
-				var nameValid = /^[a-zA-Z-. ]+$/;
-				if (!nameValid.test(name)) {
-					document.getElementById("errorFullName").innerHTML = 'Invalid Name';
-					document.getElementById("divMemberFormName").className = 'alert alert-danger alert-dismissible';
-					return false;
-				}
-				document.getElementById("errorFullName").innerHTML = "";
-				document.getElementById("divMemberFormName").className = 'form-group has-success';
+			if (name == null || name === "") {
+				document.getElementById("errorFullName").innerHTML = error;
+				document.getElementById("divMemberFormName").className = 'alert alert-danger alert-dismissible';
+				return false;
 			}
+
+			//if (!(name == null || name === "")) {
+			//	var nameValid = /^[a-zA-Z-. ]+$/;
+			//	if (!nameValid.test(name)) {
+			//		document.getElementById("errorFullName").innerHTML = 'Invalid Name';
+			//		document.getElementById("divMemberFormName").className = 'alert alert-danger alert-dismissible';
+			//		return false;
+			//	}
+			//	document.getElementById("errorFullName").innerHTML = "";
+			//	document.getElementById("divMemberFormName").className = 'form-group has-success';
+			//}
 
 			//End Full Name Validation
 
-			//Relative Name Validation
+		 <%--
+		 	//Relative Name Validation
 			var name = document.getElementById("relativeFullName").value;
-			//if (name == null || name === "") {
-			//	document.getElementById("errorRelativeName").innerHTML = error;
-			//	document.getElementById("divMemberFormRelativeName").className = 'alert alert-danger alert-dismissible';
-			//	return false;
-			//}
+			if (name == null || name === "") {
+				document.getElementById("errorRelativeName").innerHTML = error;
+				document.getElementById("divMemberFormRelativeName").className = 'alert alert-danger alert-dismissible';
+				return false;
+			}
 
 			if (!(name == null || name === "")) {
 				var nameValid = /^[a-zA-Z-. ]+$/;
@@ -1824,7 +1825,7 @@
 				document.getElementById("divMutationNo").className = 'form-group has-success';
 			}
 			//End  Mutation No. Validation
-
+ --%>
 			return true;
 		}
 
