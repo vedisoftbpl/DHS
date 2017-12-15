@@ -213,20 +213,7 @@
 									
 									<!-- form group -->
 									
-									<!-- form group -->
-									<!-- Upload Photo -->
-									<div class="form-group" id="divMemberFormPhoto">
-										<label for="exampleInputFile">Upload Photo</label>
-										<div class="input-group">
-											<div class="input-group-addon">
-												<i class="fa fa-photo"></i>
-											</div>
-											<input type="file" id="memberPhoto" name="memberPhoto"
-												class="btn btn-block btn-default btn" />
-										</div>
-										<p id="errorPhoto"></p>
-									</div>
-									<!-- End Upload Photo -->
+									
 									<!-- /.form group -->
 
 									<!-- form group -->
@@ -241,7 +228,20 @@
 								<!-- /.col -->
 								<div class="col-md-6">
 
-
+<!-- form group -->
+									<!-- Upload Photo -->
+									<div class="form-group" id="divMemberFormPhoto">
+										<label for="exampleInputFile">Upload Photo</label>
+										<div class="input-group">
+											<div class="input-group-addon">
+												<i class="fa fa-photo"></i>
+											</div>
+											<input type="file" id="memberPhoto" name="memberPhoto"
+												class="btn btn-block btn-default btn" />
+										</div>
+										<p id="errorPhoto"></p>
+									</div>
+									<!-- End Upload Photo -->
 
 									<!--  form-group -->
 									<!-- Address Line 1 -->
@@ -353,34 +353,7 @@
 									<!-- End Nominee Relation -->
 									<!-- /.form-group -->
 									
-									<!-- form group -->
-									<!-- Membership Fee -->
-									<div class="form-group" id="divMemberFormMembershipFee">
-										<label>Membership Fee</label>
-										<div class="input-group">
-											<span class="input-group-addon">
-												<i class="fa  fa-inr"></i></span>
-											<input type="text" class="form-control"
-												 id="membershipFee" name="membershipFee" />
-										</div>
-										<p id="errorMembershipFee"></p>
-									</div>
-									<!-- End Membership Fee -->
-									<!-- /.form group -->
-									
-									<!-- form group -->
-									<!-- Entrance Fee -->
-									<div class="form-group" id="divMemberFormEntranceFee">
-										<label>Entrance Fee</label>
-										<div class="input-group">
-											<span class="input-group-addon">
-												<i class="fa  fa-inr"></i></span>
-											<input type="text" class="form-control"
-												 id="entranceFee" name="entranceFee" />
-										</div>
-										<p id="errorEntranceFee"></p>
-									</div>
-									<!-- End Entrance Fee -->
+								
 									<!-- /.form group -->
 
 									<input type="hidden" class="form-control"
@@ -484,36 +457,36 @@
 			//End Full Name Validation
 			
 			//Relative Name Validation
-			var name = document.getElementById("relativeFullName").value;
+			//var name = document.getElementById("relativeFullName").value;
 			
-			if (!(name == null || name === "")) {
-				var nameValid = /^[a-zA-Z-. ]+$/;
-				if (!nameValid.test(name)) {
-					document.getElementById("errorRelativeName").innerHTML = 'Invalid Name';
-					document.getElementById("divMemberFormRelativeName").className = 'alert alert-danger alert-dismissible';
-					return false;
-				}
-				document.getElementById("errorRelativeName").innerHTML = "";
-				document.getElementById("divMemberFormRelativeName").className = 'form-group has-success';
-			}
+			//if (!(name == null || name === "")) {
+			//	var nameValid = /^[a-zA-Z-. ]+$/;
+			//	if (!nameValid.test(name)) {
+			//		document.getElementById("errorRelativeName").innerHTML = 'Invalid Name';
+			//		document.getElementById("divMemberFormRelativeName").className = 'alert alert-danger alert-dismissible';
+			//		return false;
+			//	}
+			//	document.getElementById("errorRelativeName").innerHTML = "";
+			//	document.getElementById("divMemberFormRelativeName").className = 'form-group has-success';
+			//}
 
 			//End Relative Name Validation
 
 			//Email Validation
-			var email = document.getElementById("memberEmail").value;
+			//var email = document.getElementById("memberEmail").value;
 
 
-			if (!(email == null || email === "")) {
-				var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+			//if (!(email == null || email === "")) {
+			//	var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
 
-				if (!emailReg.test(email)) {
-					document.getElementById("errorEmail").innerHTML = "Invaild Email Id ";
-					document.getElementById("divMemberFormEmail").className = 'alert alert-warning alert-dismissible';
-					return false;
-				}
-				document.getElementById("errorEmail").innerHTML = "";
-				document.getElementById("divMemberFormEmail").className = 'form-group has-success';
-			}
+			//	if (!emailReg.test(email)) {
+			//		document.getElementById("errorEmail").innerHTML = "Invaild Email Id ";
+			//		document.getElementById("divMemberFormEmail").className = 'alert alert-warning alert-dismissible';
+			//		return false;
+			//	}
+			//	document.getElementById("errorEmail").innerHTML = "";
+			//	document.getElementById("divMemberFormEmail").className = 'form-group has-success';
+			//}
 			//End Email Validation
 
 			//Occupation Validation
@@ -529,19 +502,19 @@
 			//End Occupation Validation
 
 			//Phone Validation
-			var phone = document.getElementById("memberPhone").value;
+			//var phone = document.getElementById("memberPhone").value;
 			
 
-			if (!(phone == null || phone === "")) {
-				var phoneno = /^\d{10}$/;
-				if (!(phone.match(phoneno))) {
-					document.getElementById("errorPhone").innerHTML = "Invalid Phone Number";
-					document.getElementById("divMemberFormPhone").className = 'alert alert-warning alert-dismissible';
-					return false;
-				}
-				document.getElementById("errorPhone").innerHTML = "";
-				document.getElementById("divMemberFormPhone").className = 'form-group has-success';
-			}
+			//if (!(phone == null || phone === "")) {
+			//	var phoneno = /^\d{10}$/;
+			//	if (!(phone.match(phoneno))) {
+			//		document.getElementById("errorPhone").innerHTML = "Invalid Phone Number";
+			//		document.getElementById("divMemberFormPhone").className = 'alert alert-warning alert-dismissible';
+			//		return false;
+			//	}
+			//	document.getElementById("errorPhone").innerHTML = "";
+			//	document.getElementById("divMemberFormPhone").className = 'form-group has-success';
+			//}
 			//End Phone Validation
 			
 			
@@ -559,15 +532,15 @@
 			//End Address 1 Validation
 			
 			//Address 2 Validation
-			var desig = document.getElementById("memberAddress2").value;
-			if (desig == null || desig == "") {
-				document.getElementById("errorAddress2").innerHTML = error;
-				document.getElementById("divMemberFormAddress2").className = 'alert alert-danger alert-dismissible';
-				return false;
+			//var desig = document.getElementById("memberAddress2").value;
+			//if (desig == null || desig == "") {
+			//	document.getElementById("errorAddress2").innerHTML = error;
+			//	document.getElementById("divMemberFormAddress2").className = 'alert alert-danger alert-dismissible';
+			//	return false;
 
-			}
-			document.getElementById("errorAddress2").innerHTML = "";
-			document.getElementById("divMemberFormAddress2").className = 'form-group has-success';
+			//}
+			//document.getElementById("errorAddress2").innerHTML = "";
+			//document.getElementById("divMemberFormAddress2").className = 'form-group has-success';
 			//End Address 2 Validation
 			
 			//City Validation
@@ -583,19 +556,19 @@
 			//End City Validation
 			
 			//Nominee Name Validation
-			var name = document.getElementById("memberNomineeName").value;
+			//var name = document.getElementById("memberNomineeName").value;
 			
 
-			if (!(name == null || name === "")) {
-				var nameValid = /^[a-zA-Z-. ]+$/;
-				if (!nameValid.test(name)) {
-					document.getElementById("errorNomineeName").innerHTML = 'Invalid Name';
-					document.getElementById("divMemberFormNominee").className = 'alert alert-danger alert-dismissible';
-					return false;
-				}
-				document.getElementById("errorNomineeName").innerHTML = "";
-				document.getElementById("divMemberFormNominee").className = 'form-group has-success';
-			}
+			//if (!(name == null || name === "")) {
+			//	var nameValid = /^[a-zA-Z-. ]+$/;
+			//	if (!nameValid.test(name)) {
+			//		document.getElementById("errorNomineeName").innerHTML = 'Invalid Name';
+			//		document.getElementById("divMemberFormNominee").className = 'alert alert-danger alert-dismissible';
+			//		return false;
+			//	}
+			//	document.getElementById("errorNomineeName").innerHTML = "";
+			//	document.getElementById("divMemberFormNominee").className = 'form-group has-success';
+			//}
 
 			//End Nominee Name Validation
 			
@@ -611,43 +584,6 @@
 			//document.getElementById("divMemberFormNomineeRelation").className = 'form-group has-success';
 			//End Nominee Relation Validation
 			
-			//Membership Fee Validation
-			var bal = document.getElementById("membershipFee").value;
-			if (bal == null || bal === "") {
-				document.getElementById("errorMembershipFee").innerHTML = error;
-				document.getElementById("divMemberFormMembershipFee").className = 'alert alert-danger alert-dismissible';
-				return false;
-			}
-			if (!(bal == null || bal === "")) {
-				var balanceValid = /^\d+(\.\d+)?$/;
-				if (!(bal.match(balanceValid))) {
-					document.getElementById("errorMembershipFee").innerHTML = "Invalid Amount";
-					document.getElementById("divMemberFormMembershipFee").className = 'alert alert-warning alert-dismissible';
-					return false;
-				}
-				document.getElementById("errorMembershipFee").innerHTML = "";
-				document.getElementById("divMemberFormMembershipFee").className = 'form-group has-success';
-			}
-			//End Membership Fee Validation
-			
-			//Entrance Fee Validation
-			var bal = document.getElementById("entranceFee").value;
-			if (bal == null || bal === "") {
-				document.getElementById("errorEntranceFee").innerHTML = error;
-				document.getElementById("divMemberFormEntranceFee").className = 'alert alert-danger alert-dismissible';
-				return false;
-			}
-			if (!(bal == null || bal === "")) {
-				var balanceValid = /^\d+(\.\d+)?$/;
-				if (!(bal.match(balanceValid))) {
-					document.getElementById("errorEntranceFee").innerHTML = "Invalid Amount";
-					document.getElementById("divMemberFormEntranceFee").className = 'alert alert-warning alert-dismissible';
-					return false;
-				}
-				document.getElementById("errorEntranceFee").innerHTML = "";
-				document.getElementById("divMemberFormEntranceFee").className = 'form-group has-success';
-			}
-			//End Entrance Fee Validation
 			
 			return true;
 		}
