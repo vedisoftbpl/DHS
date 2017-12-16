@@ -152,7 +152,10 @@ body, html {
 												No :&nbsp;<span>${requestScope.member.plotNo}</span>&emsp;&emsp;Size
 												:&nbsp;<span>${requestScope.member.plotSize}</span>&emsp;&emsp;Project
 												Name :&nbsp;<span>${requestScope.projectName}&emsp;Water Supply Date :&nbsp;<fmt:formatDate type="date" pattern="dd/MM/yyyy"
-																	value="${requestScope.member.watSupplyDt}" /></span>
+																	value="${requestScope.member.watSupplyDt}" /></span></label><br> <label>
+												Address :&nbsp;${requestScope.member.address1}&nbsp;${requestScope.member.address2}&nbsp;${requestScope.member.address3}&emsp;&emsp;Registration Date :&nbsp;<fmt:formatDate type="date" pattern="dd/MM/yyyy"
+																	value="${requestScope.member.regDt}" />&emsp;&emsp;NOC Date :&nbsp;<fmt:formatDate type="date" pattern="dd/MM/yyyy"
+																	value="${requestScope.member.nocDt}" />					
 											</label>
 										</div>
 									</div>
@@ -171,27 +174,28 @@ body, html {
 													<tr>
 														<th>Recept No.</th>
 														<th>Amount</th>
-														<th>Transaction Mode</th>
 														<th>Chl/Tr</th>
 														<th>Transaction No</th>
+														<th>Bank Name</th>
 														<th>Remark</th>
 														<th>Date</th>
 													</tr>
 												</thead>
 												<tbody>
 													<c:forEach items="${requestScope.receiptList}"
-														var="receipt">
+														var="rec">
 														<tr>
-															<td><c:out value="${receipt.receno}" /></td>
-															<td><c:out value="${receipt.amount}" /></td>
-															<td><c:out value="${receipt.dC}" /></td>
+															<td><c:out value="${rec.receipt.receiptNo}" /></td>
+															<td><c:out value="${rec.receipt.amount}" /></td>
+															
 
-															<td><c:out value="${receipt.balChq}" /></td>
+															<td><c:out value="${rec.receipt.balChq}" /></td>
 
-															<td><c:out value="${receipt.cDd}" /></td>
-															<td><c:out value="${receipt.remarks}" /></td>
+															<td><c:out value="${rec.receipt.cDd}" /></td>
+															<td><c:out value="${rec.bankName}" /></td>
+															<td><c:out value="${rec.receipt.remarks}" /></td>
 															<td><fmt:formatDate type="date" pattern="dd/MM/yyyy"
-																	value="${receipt.recDte}" /></td>
+																	value="${rec.receipt.recDte}" /></td>
 
 														</tr>
 													</c:forEach>
@@ -215,7 +219,7 @@ body, html {
 												<thead
 													style="border-top: 3px solid black; border-bottom: 3px solid black">
 													<tr>
-														<th>Transaction Mode</th>
+														
 														<th>Transaction No</th>
 														<th>Transaction Date</th>
 														<th>Amount</th>
@@ -225,7 +229,7 @@ body, html {
 												<tbody>
 													<c:forEach items="${requestScope.refPayList}" var="refund">
 														<tr>
-															<td><c:out value="${refund.paymentmode}" /></td>
+															
 															<td><c:out value="${refund.transactionNo}" /></td>
 															<td><fmt:formatDate type="date" pattern="dd/MM/yyyy"
 																	value="${refund.cdDate}" /></td>

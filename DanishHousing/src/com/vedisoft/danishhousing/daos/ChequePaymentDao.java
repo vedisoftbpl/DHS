@@ -258,21 +258,27 @@ public int create(TransactionRecords transaction) {
 			
 			java.sql.Date doDate = null;
 			if(chequePay.getDocDate() != null)
-				ps1.setDate(2,  new java.sql.Date(chequePay.getDocDate().getTime()));
+				doDate =  new java.sql.Date(chequePay.getDocDate().getTime());
+				ps1.setDate(2, doDate);
 				
 			ps1.setString(3, chequePay.getBankCode());
 			ps1.setString(4, chequePay.getPaymentMode());
+			if(chequePay.getTransactionNo() != null)
 			ps1.setString(5, chequePay.getTransactionNo());
+			else
+				ps1.setString(5, "0");
 			
 			java.sql.Date chequeDate = null;
 			if(chequePay.getChequeDate() != null)
-				ps1.setDate(6,  new java.sql.Date(chequePay.getChequeDate().getTime()));
+				chequeDate = new java.sql.Date(chequePay.getChequeDate().getTime());
+				ps1.setDate(6,  chequeDate);
 			
 			ps1.setDouble(7, chequePay.getAmount());
 			
 			java.sql.Date chequeClearDate = null;
 			if(chequePay.getCheqClDate() != null)
-				ps1.setDate(8,  new java.sql.Date(chequePay.getCheqClDate().getTime()));
+				chequeClearDate = new java.sql.Date(chequePay.getCheqClDate().getTime());
+			ps1.setDate(8,  chequeClearDate);
 			
 			int x1 = ps1.executeUpdate();
 			if (x1 <= 0) {

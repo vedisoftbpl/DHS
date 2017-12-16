@@ -11,12 +11,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.vedisoft.danishhousing.daos.AccountDao;
 import com.vedisoft.danishhousing.daos.MembersDao;
 import com.vedisoft.danishhousing.daos.ProjectsDao;
 import com.vedisoft.danishhousing.daos.ReceiptDao;
 import com.vedisoft.danishhousing.daos.RefundPaymentDao;
 import com.vedisoft.danishhousing.daos.TransactionRecordsDao;
 import com.vedisoft.danishhousing.pojos.Members;
+import com.vedisoft.danishhousing.pojos.ReceiptBankDto;
 import com.vedisoft.danishhousing.pojos.ReceiptRecord;
 import com.vedisoft.danishhousing.pojos.RefundPayment;
 import com.vedisoft.danishhousing.pojos.TransactionRecords;
@@ -64,7 +66,7 @@ public class MemberReportController extends HttpServlet {
 
 		Members member = new Members();
 		ArrayList<RefundPayment> refPayList = new ArrayList<RefundPayment>();
-		ArrayList<ReceiptRecord> receiptList = new ArrayList<ReceiptRecord>();
+		ArrayList<ReceiptBankDto> receiptList = new ArrayList<ReceiptBankDto>();
 		ArrayList<TransactionRecords> transferList = new ArrayList<TransactionRecords>();
 		double receiptTotalAmount = 0;
 		double refundTotalAmount = 0;
@@ -78,11 +80,10 @@ public class MemberReportController extends HttpServlet {
 
 		if (member.getMemberNo() > 0) {
 
-			receiptList = new ReceiptDao().findMemReceiptRecords(memberNo);
+			receiptList = new ReceiptDao().findMemRecRecordList(memberNo);
 			refPayList = new RefundPaymentDao().findMemRefundPay(memberNo);
 			transferList = new TransactionRecordsDao().findMemTransactionRecord(memberNo);
 			projectName = (new ProjectsDao().find(member.getProjectCd())).getProjectName();
-
 			request.setAttribute("member", member);
 			request.setAttribute("projectName", projectName);
 			if (refPayList.size() > 0){
@@ -106,9 +107,9 @@ public class MemberReportController extends HttpServlet {
 				System.out.println(rf);
 				refundTotalAmount = refundTotalAmount + rf.getAmount();
 			}
-			for (ReceiptRecord r : receiptList) {
+			for (ReceiptBankDto r : receiptList) {
 				System.out.println(r);
-				receiptTotalAmount = receiptTotalAmount + r.getAmount();
+				receiptTotalAmount = receiptTotalAmount + r.getReceipt().getAmount();
 			}
 
 			for (TransactionRecords t : transferList)

@@ -301,6 +301,7 @@ public class AccountDao {
 			ps.setDate(2, date1);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
+				
 				b.put(rs.getString("bk_name"), rs.getDouble("OpBal"));
 			}
 		} catch (SQLException sq) {
@@ -381,4 +382,28 @@ public class AccountDao {
 		}
 		return listAccount;
 	}
+	
+	public static String findBankNameFromCode(String bkcode){
+		ConnectionPool pool = ConnectionPool.getInstance();
+		pool.initialize();
+		Connection conn = pool.getConnection();
+		String bkname = new String();
+		
+		try {
+			String sql = "select bk_name from accounts where bk_code = ?";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, bkcode);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) { 
+				bkname=rs.getString("bk_name");
+			}
+		} catch (SQLException sq) {
+			System.out.println("Unable to find a record." + sq);
+		} finally {
+			pool.putConnection(conn);
+		}
+		return bkname;
+	}
+	
+	
 }
