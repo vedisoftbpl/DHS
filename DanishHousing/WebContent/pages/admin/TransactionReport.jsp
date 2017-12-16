@@ -4,18 +4,7 @@
 <!-- select style -->
 <link rel="stylesheet" href="../../plugins/select2/select2.css">
 <%@ include file="../design/Top.jsp"%>
-<body class="hold-transition skin-blue sidebar-mini">
-	<!-- Site wrapper -->
-	<div class="wrapper">
-		<jsp:include page="../design/Header.jsp" flush="true" />
-		<!-- =============================================== -->
-		<!-- Left side column. contains the sidebar -->
-		<jsp:include page="../design/AdminMenu.jsp" flush="true" />
-		<!-- =============================================== -->
-		<!-- Content Wrapper. Contains page content -->
-
-
-		<style type="text /css">
+<style type="text /css">
 .result {
 	height: 200px;
 	overflow: auto;
@@ -83,6 +72,18 @@ body, html {
 	font-weight: bold;
 }
 </style>
+<body class="hold-transition skin-blue sidebar-mini">
+	<!-- Site wrapper -->
+	<div class="wrapper">
+		<jsp:include page="../design/Header.jsp" flush="true" />
+		<!-- =============================================== -->
+		<!-- Left side column. contains the sidebar -->
+		<jsp:include page="../design/AdminMenu.jsp" flush="true" />
+		<!-- =============================================== -->
+		<!-- Content Wrapper. Contains page content -->
+
+<div class="se-pre-con"></div>
+		
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
@@ -218,7 +219,7 @@ body, html {
 								<div class="row" align="center">
 
 									<div class="col-md-12">
-										<h4>ACCOUNT CODE : ${requestScope.accCode} -
+										<h4><b>ACCOUNT CODE :</b> ${requestScope.accCode} -
 											${requestScope.accName}</h4>
 									</div>
 								</div>
@@ -235,7 +236,7 @@ body, html {
 											<thead
 												style="border-top: 3px solid black; border-bottom: 3px solid black;">
 												<tr>
-													<th>Recept No./Vr. No.</th>
+													<th>Receipt No./Vr. No.</th>
 													<th>Date</th>
 													<th>Particulars</th>
 													<th>Debit</th>
