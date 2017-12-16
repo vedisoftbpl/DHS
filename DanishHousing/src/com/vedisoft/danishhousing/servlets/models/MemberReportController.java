@@ -93,7 +93,7 @@ public class MemberReportController extends HttpServlet {
 			
 				
 
-			if (refPayList.size() > 0){
+			if (transferList.size() > 0){
 				request.setAttribute("transferList", transferList);
 				request.setAttribute("flagt", 2);
 			}	

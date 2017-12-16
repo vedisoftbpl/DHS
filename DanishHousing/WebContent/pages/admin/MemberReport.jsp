@@ -1,19 +1,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ include file="../design/Top.jsp"%>
-<body class="hold-transition skin-blue sidebar-mini">
-	<!-- Site wrapper -->
-	<div class="wrapper">
-		<jsp:include page="../design/Header.jsp" flush="true" />
-		<!-- =============================================== -->
-		<!-- Left side column. contains the sidebar -->
-		<jsp:include page="../design/AdminMenu.jsp" flush="true" />
-		<!-- =============================================== -->
-		<!-- Content Wrapper. Contains page content -->
-
-<div class="se-pre-con"></div>
-
-		<style type="text /css">.result {
+<style type="text /css">.result {
 	height: 200px;
 	overflow: auto;
 }
@@ -80,6 +68,19 @@ body, html {
 	font-weight: bold;
 }
 </style>
+<body class="hold-transition skin-blue sidebar-mini">
+	<!-- Site wrapper -->
+	<div class="wrapper">
+		<jsp:include page="../design/Header.jsp" flush="true" />
+		<!-- =============================================== -->
+		<!-- Left side column. contains the sidebar -->
+		<jsp:include page="../design/AdminMenu.jsp" flush="true" />
+		<!-- =============================================== -->
+		<!-- Content Wrapper. Contains page content -->
+
+<div class="se-pre-con"></div>
+
+		
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
@@ -159,19 +160,19 @@ body, html {
 											<h3>
 												<u>Member Details</u>
 											</h3>
-											<label>Member No :&emsp;<span>${requestScope.member.memberNo}</span></label>&emsp;&emsp;
-											<label>${requestScope.member.prefix}
+											
+											<p><label><b>Member No :</b>&emsp;${requestScope.member.memberNo}</label>&emsp;&emsp;${requestScope.member.prefix}
 												${requestScope.member.memName}&emsp;${requestScope.member.fHRelation}
-												${requestScope.member.fHRelName}&emsp;Water Connection Date :&nbsp;<fmt:formatDate type="date" pattern="dd/MM/yyyy"
-																	value="${requestScope.member.waterConnDate}" /></label><br> <label>Plot
-												No :&nbsp;<span>${requestScope.member.plotNo}</span>&emsp;&emsp;Size
-												:&nbsp;<span>${requestScope.member.plotSize}</span>&emsp;&emsp;Project
-												Name :&nbsp;<span>${requestScope.projectName}&emsp;Water Supply Date :&nbsp;<fmt:formatDate type="date" pattern="dd/MM/yyyy"
-																	value="${requestScope.member.watSupplyDt}" /></span></label><br> <label>
-												Address :&nbsp;${requestScope.member.address1}&nbsp;${requestScope.member.address2}&nbsp;${requestScope.member.address3}&emsp;&emsp;Registration Date :&nbsp;<fmt:formatDate type="date" pattern="dd/MM/yyyy"
-																	value="${requestScope.member.regDt}" />&emsp;&emsp;NOC Date :&nbsp;<fmt:formatDate type="date" pattern="dd/MM/yyyy"
+												${requestScope.member.fHRelName}&emsp;<b>Water Connection Date :</b>&nbsp;<fmt:formatDate type="date" pattern="dd/MM/yyyy"
+																	value="${requestScope.member.waterConnDate}" /></p><br> <p><b>Plot
+												No :</b>&nbsp;<span>${requestScope.member.plotNo}</span>&emsp;&emsp;<b>Size
+												:</b>&nbsp;<span>${requestScope.member.plotSize}</span>&emsp;&emsp;<b>Project
+												Name :</b>&nbsp;<span>${requestScope.projectName}&emsp;<b>Water Supply Date :</b>&nbsp;<fmt:formatDate type="date" pattern="dd/MM/yyyy"
+																	value="${requestScope.member.watSupplyDt}" /></span></p><br> <p>
+												<b>Address :</b>&nbsp;${requestScope.member.address1}&nbsp;${requestScope.member.address2}&nbsp;${requestScope.member.address3}&emsp;&emsp;<b>Registration Date :</b>&nbsp;<fmt:formatDate type="date" pattern="dd/MM/yyyy"
+																	value="${requestScope.member.regDt}" />&emsp;&emsp;<b>NOC Date :</b>&nbsp;<fmt:formatDate type="date" pattern="dd/MM/yyyy"
 																	value="${requestScope.member.nocDt}" />					
-											</label>
+											</p>
 										</div>
 									</div>
 									<div class="row" align="left">
