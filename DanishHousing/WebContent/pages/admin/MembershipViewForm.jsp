@@ -98,12 +98,17 @@
 																	class="fa fa-user"></i></span> <span class="col-xs-2"><select
 																	class="form-control select2" id="prefix" name="prefix"
 																	style="width: 80px;" required="required">
-																		<option
-																			${requestScope.member.prefix eq 'Mr.' ? 'selected' : ''}>Mr.</option>
-																		<option
-																			${requestScope.member.prefix eq 'Mrs.' ? 'selected' : ''}>Mrs.</option>
+																	<option  value="${requestScope.member.prefix}" <c:if test="${(requestScope.member.prefix == 'Mr.')||(requestScope.member.prefix == 'Mr')||(requestScope.member.prefix == 'SHRI')}"> selected </c:if>>Mr.</option>
+																		<!--   <option
+																			${requestScope.member.prefix eq 'Mr.'||'SHRI' ? 'selected' : ''}>Mr.</option> -->
+																			<option  value="${requestScope.member.prefix}" <c:if test="${(requestScope.member.prefix == 'Mrs.')||(requestScope.member.prefix == 'Mrs')||(requestScope.member.prefix == 'SMT.')}"> selected </c:if>>Mrs.</option> 
+																<!--		<option
+																			${requestScope.member.prefix eq 'Mrs.'||'Mrs'||'SMT.' ? 'selected' : ''}>Mrs.</option>    -->
 																		<option
 																			${requestScope.member.prefix eq 'Miss' ? 'selected' : ''}>Miss</option>
+																			<option
+																			${requestScope.member.prefix eq 'DR' ? 'selected' : ''}>Dr</option>
+																			
 																</select> </span> <span class="col-md-10"> <input type="text"
 																	class="form-control" placeholder="Full Name"
 																	id="memberFullName" name="memberFullName"

@@ -88,7 +88,7 @@ public class MemberFormController extends HttpServlet {
 			relativeFullName = request.getParameter("relativeFullName");
 		}
 
-		Date dob = new Date();
+		Date dob = null;
 		if (request.getParameter("dob") != null && request.getParameter("dob").trim().length() > 0) {
 			dob = DateUtils.convertDate(request.getParameter("dob"));
 			// System.out.println(request.getParameter("dob"));
@@ -270,12 +270,12 @@ public class MemberFormController extends HttpServlet {
 				&& request.getParameter("registrationNo").trim().length() > 0) {
 			registrationNo = request.getParameter("registrationNo");
 		}
-		Date nocDt = new Date();
+		Date nocDt = null;
 		if (request.getParameter("nocdt") != null && request.getParameter("nocdt").trim().length() > 0) {
 			nocDt = DateUtils.convertDate(request.getParameter("nocdt"));
 
 		}
-		Date refDt = new Date();
+		Date refDt = null;
 		if (request.getParameter("refDt") != null && request.getParameter("refDt").trim().length() > 0) {
 			refDt = DateUtils.convertDate(request.getParameter("refDt"));
 
@@ -294,7 +294,7 @@ public class MemberFormController extends HttpServlet {
 		if (request.getParameter("waterCharge") != null && request.getParameter("waterCharge").trim().length() > 0) {
 			waterCharge = Double.parseDouble(request.getParameter("waterCharge"));
 		}
-		Date wtCnDt = new Date();
+		Date wtCnDt = null;
 		if (request.getParameter("waterConnDate") != null && request.getParameter("waterConnDate").trim().length() > 0) {
 			wtCnDt = DateUtils.convertDate(request.getParameter("waterConnDate"));
 
@@ -307,7 +307,7 @@ public class MemberFormController extends HttpServlet {
 		if (request.getParameter("mutationNo") != null && request.getParameter("mutationNo").trim().length() > 0) {
 			mutationNo = Integer.parseInt(request.getParameter("mutationNo"));
 		}
-		Date mutaDt = new Date();
+		Date mutaDt = null;
 		if (request.getParameter("mutaDt") != null && request.getParameter("mutaDt").trim().length() > 0) {
 			mutaDt = DateUtils.convertDate(request.getParameter("mutaDt"));
 
