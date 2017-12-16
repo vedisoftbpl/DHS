@@ -89,7 +89,7 @@ public class ReceiptDao {
 			ps2.setDate(37, lastUpdate1);
 			
 			ps2.setString(38,receipt.getCity());
-			ps2.setString(39,receipt.getReceiptNo());
+			ps2.setString(39,Integer.toString(receipt.getReceno()));
 			int x1 = ps2.executeUpdate();
 			if (x1 <= 0) {
 				Exception a = new Exception();
@@ -251,7 +251,7 @@ public class ReceiptDao {
 			ps2.setDate(37, lastUpdate1);
 			
 			ps2.setString(38,receipt.getCity());
-			ps2.setString(39,receipt.getReceiptNo());
+			ps2.setString(39,Integer.toString(receipt.getReceno()));
 			int x1 = ps2.executeUpdate();
 			if (x1 <= 0) {
 				Exception a = new Exception();
