@@ -381,7 +381,7 @@ body, html {
 	</div>
 	<!-- ./wrapper -->
 	<%@ include file="../design/Bottom.jsp"%>
- <script src="../../bootstrap/js/jquery.min.js"></script>
+ <!--  <script src="../../bootstrap/js/jquery.min.js"></script>-->
   <script src="../../bootstrap/js/modernizr.js"></script>
 	<script>
 	$(window).load(function() {
