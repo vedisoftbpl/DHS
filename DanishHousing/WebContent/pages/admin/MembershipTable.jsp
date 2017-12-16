@@ -157,6 +157,8 @@
 	<script src="../../plugins/datatables/dataTables.bootstrap.min.js"></script>
 	<script src="../../plugins/datatables/fnStandingRedraw.js"></script>
 	<script src="../../plugins/datatables/fnSetFilteringDelay.js"></script>
+	<script src="../../plugins/datatables/buttons.print.min.js"></script>
+    <script src="../../plugins/datatables/dataTables.buttons.min.js"></script>
 	<script>
 		<c:choose>
 		<c:when test="${requestScope.msg=='1'}">
