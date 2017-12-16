@@ -1,20 +1,10 @@
-0<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <link rel="stylesheet" href="../../plugins/datepicker/datepicker3.css">
 <!-- select style -->
 <link rel="stylesheet" href="../../plugins/select2/select2.css">
 <%@ include file="../design/Top.jsp"%>
-<body class="hold-transition skin-blue sidebar-mini">
-	<!-- Site wrapper -->
-	<div class="wrapper">
-		<jsp:include page="../design/Header.jsp" flush="true" />
-		<!-- =============================================== -->
-		<!-- Left side column. contains the sidebar -->
-		<jsp:include page="../design/AdminMenu.jsp" flush="true" />
-		<!-- =============================================== -->
-		<!-- Content Wrapper. Contains page content -->
-
-
+<div class="se-pre-con"></div>
 		<style type="text /css">.result {
 	height: 200px;
 	overflow: auto;
@@ -72,8 +62,8 @@ div.scrollmenu {
 	margin: auto;
 	padding: 30px;
 	border: 1px solid #eee;
-	font-size: 14px;
-	line-height: 14px;
+	font-size: 16px;
+	line-height: 16px;
 	font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
 	color: #555;
 }
@@ -92,6 +82,17 @@ div.scrollmenu {
 	font-weight: bold;
 }
 </style>
+<body class="hold-transition skin-blue sidebar-mini">
+	<!-- Site wrapper -->
+	<div class="wrapper">
+		<jsp:include page="../design/Header.jsp" flush="true" />
+		<!-- =============================================== -->
+		<!-- Left side column. contains the sidebar -->
+		<jsp:include page="../design/AdminMenu.jsp" flush="true" />
+		<!-- =============================================== -->
+		<!-- Content Wrapper. Contains page content -->
+
+
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
@@ -232,9 +233,9 @@ div.scrollmenu {
 
 									<div class="col-md-12">
 									<span style="display:inline-block;">
-									<h4>BANK CODE : ${requestScope.bkCode} ,-
+									<h4><b>BANK CODE :</b> ${requestScope.bkCode} ,-
 											</h4>
-										<h4>BANK NAME : ${requestScope.bkName} 
+										<h4><b>BANK NAME : </b>${requestScope.bkName} 
 											</h4>
 									</span>
 										
@@ -242,7 +243,8 @@ div.scrollmenu {
 								</div>
 								<div class="row" align="left">
 
-<div align="left"><label>&emsp;Opening Balance :&emsp;Rs :&nbsp;${requestScope.openingBalance}</label></div>
+<div align="left"><p><b>&emsp;Opening Balance :&emsp;</b>Rs :&nbsp;<fmt:formatNumber type="number"
+														maxFractionDigits="3" value="${requestScope.openingBalance}" /></p></div>
 									<div class="col-md-12">
 										<h3>
 											<u>RECEIPTS</u>
