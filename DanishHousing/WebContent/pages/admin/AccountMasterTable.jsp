@@ -1,6 +1,9 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <link rel="stylesheet"
 	href="../../plugins/datatables/dataTables.bootstrap.css">
+	
+	<link rel="stylesheet"
+	href="../../plugins/datatables/buttons.dataTable.min.css">
 <%@ include file="../design/Top.jsp"%>
 <body class="hold-transition skin-blue sidebar-mini">
 	<!-- Site wrapper -->
@@ -135,6 +138,8 @@
 	<script src="../../plugins/datatables/dataTables.bootstrap.min.js"></script>
 	<script src="../../plugins/datatables/fnStandingRedraw.js"></script>
 	<script src="../../plugins/datatables/fnSetFilteringDelay.js"></script>
+	 <script src="../../plugins/datatables/buttons.print.min.js"></script>
+    <script src="../../plugins/datatables/dataTables.buttons.min.js"></script>
 	<script>
 	<c:choose>
 	<c:when test="${param.msg=='1'}">
@@ -159,7 +164,24 @@
 			$("#example1").DataTable({
 				 "bPaginate": true,
 				 dom : 'Bftrip',
-				 buttons : ['excel', 'pdf'],
+				 
+				 buttons: [
+				            {
+                extend: 'print',
+                customize: function ( win ) {
+                    $(win.document.body)
+                        .css( 'font-size', '10pt' )
+                        .prepend(
+                            '<img src="../../../DanishHousing/pages/photos/logo-fade.png" style="position:absolute; top:0; left:0;" />'
+                        );
+ 
+                    $(win.document.body).find( 'table' )
+                        .addClass( 'compact' )
+                        .css( 'font-size', 'inherit' );
+                }
+				            
+				            }
+				        ],
 			     "order": [ 0, 'asc' ],
 			     "bInfo": true,
 			     "iDisplayStart":0,
