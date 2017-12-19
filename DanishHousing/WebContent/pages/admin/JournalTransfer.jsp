@@ -50,27 +50,66 @@
 						<div class="box-body">
 
 							<div class="row">
-								<c:forEach var="ac" items="${sessionScope.accList}">
-									<div class="col-md-2">
-										<div class="box box-info box-solid" >
-											<div class="box-header with-border" style="background-color:#3c8dbc;">
-												<h3 class="box-title">${ac.key}</h3>
+								<c:forEach var="ac" items="${sessionScope.accList}"
+									varStatus="loop">
+									<c:set var="counter"  value="${loop.index}" />
+									<c:if test="${counter < 6 }">
+										<div class="col-md-2">
+											<div class="box box-info box-solid" style="height: 120px; width: 160px;">
+												<div class="box-header with-border"
+													style="background-color: #3c8dbc;height: 75px;">
+													<h3 class="box-title">${ac.key}</h3>
 
-												<div class="box-tools pull-right">
-													<button type="button" class="btn btn-box-tool"
-														data-widget="collapse">
-														<i class="fa fa-minus"></i>
-													</button>
+													<div class="box-tools pull-right">
+														<button type="button" class="btn btn-box-tool"
+															data-widget="collapse">
+															<i class="fa fa-minus"></i>
+														</button>
+													</div>
+													<!-- /.box-tools -->
 												</div>
-												<!-- /.box-tools -->
+												<!-- /.box-header -->
+												<div class="box-body" align="right">
+													<span>Rs&nbsp;:&emsp;<fmt:formatNumber type="number"
+															maxFractionDigits="3" value="${ac.value}" /></span>
+												</div>
+												<!-- /.box-body -->
 											</div>
-											<!-- /.box-header -->
-											<div class="box-body" align="right"><span>Rs&nbsp;:&emsp;<fmt:formatNumber type="number"
-														maxFractionDigits="3" value="${ac.value}" /></span></div>
-											<!-- /.box-body -->
+											<!-- /.box -->
 										</div>
-										<!-- /.box -->
-									</div>
+									</c:if>
+								</c:forEach>
+							</div>
+							
+							<div class="row">
+								<c:forEach var="ac" items="${sessionScope.accList}"
+									varStatus="loop">
+									<c:set var="counter"  value="${loop.count}" />
+									<c:if test="${counter > 6 }">
+										<div class="col-md-2">
+											<div class="box box-info box-solid" style="height: 120px; width: 160px;">
+												<div class="box-header with-border"
+													style="background-color: #3c8dbc; height: 75px;">
+													<h3 class="box-title">${ac.key}</h3>
+
+													<div class="box-tools pull-right" >
+														<button type="button" class="btn btn-box-tool"
+															data-widget="collapse">
+															<i class="fa fa-minus"></i>
+														</button>
+													</div>
+													<!-- /.box-tools -->
+												</div>
+												<!-- /.box-header -->
+												<div class="box-body" align="right" ">
+													<span>Rs&nbsp;:&emsp;<fmt:formatNumber type="number"
+															maxFractionDigits="3" value="${ac.value}" /></span>
+												</div>
+												<!-- /.box-body -->
+											</div>
+											<!-- /.box -->
+										</div>
+									</c:if>
 								</c:forEach>
 							</div>
 							<br>
