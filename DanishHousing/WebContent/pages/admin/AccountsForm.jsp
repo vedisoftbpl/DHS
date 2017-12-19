@@ -161,7 +161,7 @@
 												<i class="fa fa-calendar"></i>
 											</div>
 											<input type="text" class="form-control pull-right"
-												id="datepicker" name="datepicker" required="true" />
+												id="datepicker" name="datepicker" />
 										</div>
 										<p id="errorOpeningDate"></p>
 										<!-- /.input group -->
@@ -284,6 +284,8 @@
 			}
 			//End Bank Code Validation
 
+			<%--
+			
 			//IFSC Code Validation
 			var ifsc = document.getElementById("ifscCode").value;
 			if (ifsc == null || ifsc === "") {
@@ -349,8 +351,18 @@
 			
 			
 			
-			
-		
+			--%>
+			//Opening Date Validation
+			var opdte = document.getElementById("datepicker").value;
+			//document.getElementById("errorUserDateOfBirth").innerHTML = 'vALUE = ' + dob;
+			if (opdte == null || opdte === "") {
+				document.getElementById("errorOpeningDate").innerHTML = error;
+				document.getElementById("divAccountFormDate").className = 'alert alert-danger alert-dismissible';
+			return false;
+			}
+			document.getElementById("errorOpeningDate").innerHTML = "";
+			document.getElementById("divAccountFormDate").className = 'form-group has-success';
+			//Opening Date Validation
 
 			return true;
 		}

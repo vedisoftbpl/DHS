@@ -170,7 +170,7 @@
 												style="display: none;"><fmt:formatDate type="date"
 													pattern="dd/MM/yyyy" value="${requestScope.account.opDate}" /></span>
 											<input type="text" class="form-control pull-right"
-												id="datepicker" name="datepicker" required="true" />		
+												id="datepicker" name="datepicker"  />		
 													
 										</div>
 										<p id="errorOpeningDate"></p>
@@ -362,6 +362,7 @@
 			}
 			//End Bank Code Validation
 
+<%--			
 			//IFSC Code Validation
 			var ifsc = document.getElementById("ifscCode").value;
 			if (ifsc == null || ifsc === "") {
@@ -433,7 +434,7 @@
 			//End Opening Balance Validation
 		
 			
-			
+		--%>	
 				
 			//Opening Date Validation
 			var dob = document.getElementById("datepicker").value;
@@ -448,27 +449,7 @@
 			//Opening Date Validation
 			
 			
-				
-			
-			
-			
-			//Closing Balance Validation
-			var bal = document.getElementById("closingBalance").value;
-			
-			if (!(bal == null || bal === "")) {
-				var balanceValid = /^\d+(\.\d+)?$/;
-				if (!(bal.match(balanceValid))) {
-					document.getElementById("errorCBalance").innerHTML = "Invalid Amount";
-					document.getElementById("divAccountFormCBalance").className = 'alert alert-warning alert-dismissible';
-					return false;
-				}
-				document.getElementById("errorCBalance").innerHTML = "";
-				document.getElementById("divAccountFormCBalance").className = 'form-group has-success';
-			}
-			//End Closing Balance Validation
-			
-			
-			
+	<%--
 			
 			//Closing Balance Validation
 			var bal = document.getElementById("closingBalance").value;
@@ -521,7 +502,7 @@
 			
 			
 			
-			
+		--%>	
 
 			return true;
 		}
