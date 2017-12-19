@@ -317,9 +317,7 @@
 	<%@ include file="../design/Bottom.jsp"%>
 	<script src="../../plugins/datepicker/bootstrap-datepicker.js"></script>
 	<!-- iCheck -->
-	<!-- jQuery 2.2.3 -->
-	<script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
-
+	
 	<script>
 	<c:choose>
 	<c:when test="${param.msg=='1'}">
@@ -411,7 +409,7 @@
 			//	document.getElementById("divUserFormMobile").className = 'alert alert-danger alert-dismissible';
 			//	return false;
 
-			}
+			//}
 
 			//if (!(phone == null || phone === "")) {
 			//	var phoneno = /^\d{10}$/;

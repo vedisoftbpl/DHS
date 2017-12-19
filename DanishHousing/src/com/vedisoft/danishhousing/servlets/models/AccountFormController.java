@@ -84,7 +84,7 @@ public class AccountFormController extends HttpServlet {
 			coCode = request.getParameter("coCode");
 		}
 
-		Date d = new Date();
+		Date d = null;
 		if (request.getParameter("datepicker") != null && request.getParameter("datepicker").trim().length() > 0) {
 			d = DateUtils.convertDate(request.getParameter("datepicker"));
 			//System.out.println(request.getParameter("datepicker"));
