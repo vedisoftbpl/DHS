@@ -356,8 +356,8 @@ public class ReceiptDao {
 		try {
 			String sql = "delete from receipt_records where receiptno = ? and amount = ?";
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, receipt.getReceno());
-			ps.setDouble(1, receipt.getAmount());
+			ps.setString(1, receipt.getReceiptNo());
+			ps.setDouble(2, receipt.getAmount());
 			int x = ps.executeUpdate();
 			if (x == 0)
 				return false;
@@ -376,10 +376,10 @@ public class ReceiptDao {
 		pool.initialize();
 		Connection conn = pool.getConnection();
 		try {
-			String sql = "select count() as total from receipt_records where receno = ? and amount = ?";
+			String sql = "select count(*) as total from receipt_records where receiptno = ? and amount = ?";
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, receipt.getReceno());
-			ps.setDouble(1, receipt.getAmount());
+			ps.setString(1, receipt.getReceiptNo());
+			ps.setDouble(2, receipt.getAmount());
 			ResultSet rs = ps.executeQuery();
 			while (rs.next())  {
 				c = rs.getInt("total");
@@ -710,17 +710,17 @@ public class ReceiptDao {
 	}
 	public static void main(String a[]) {
 		ReceiptDao dao = new ReceiptDao();
-//		 Date d1 = null;
-//		 Date d2 = new Date();
-//		 Date d3 = new Date();
-//		 d3 = DateUtils.convertDate("02/04/2016");
-//		 String fl = AccountMasterFlagsEnum.Developement.getValue();
+		 Date d1 = null;
+		 Date d2 = new Date();
+		 Date d3 = new Date();
+		 d3 = DateUtils.convertDate("02/04/2016");
+		 String fl = AccountMasterFlagsEnum.Developement.getValue();
 //		 System.out.println(fl);
 //		 TransactionRecords t = new TransactionRecords(
 //		 44901,1,d1,"D","E0010","01","hv",d1," ",7299,8400.00,"ESTABLISHMENT FEES UPTO 31/03/2016",1,25,8,1,d2);
-//		 ReceiptRecord r = new ReceiptRecord('R',1,d3,44901,"Mr.","Name",25,"FName","a1","a2","a3",84100.00,6541.00,"51361",d1,"No","","","",45,d2,
-//				 "35x60","DK-1/326",8,"chqdhr","flag",'R',
-//				 "ESTABLISHMENT FEES UPTO 31/03/2016",'r',fl,"E0010","Branch","Checque",d2,4,d2,"chhatarpur");
+		 ReceiptRecord r = new ReceiptRecord('R',1,d3,9860,"Mr.","Name",25,"FName","a1","a2","a3",84100.00,6541.00,"51361",d1,"No","","","",45,d2,
+				 "35x60","DK-1/326",8,"chqdhr","flag",'R',
+				 "ESTABLISHMENT FEES UPTO 31/03/2016",'r',fl,"E0010","Branch","Checque",d2,4,d2,"chhatarpur");
 //		 int id = dao.create(t, r);
 //		 System.out.println(id);
 //		TransactionRecords t1 = dao.findTransactionRecord(3);

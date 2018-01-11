@@ -86,7 +86,16 @@ public class ExcelToObjectUtility {
 					project.setBungProject(((String) getCellValue(nextCell)));
 					break;
 				case 3:
-					project.setOpDate(((java.util.Date) getCellValue(nextCell)));
+					project.setPad1(((String) getCellValue(nextCell)));
+					break;
+				case 4:
+					project.setPad2(((String) getCellValue(nextCell)));
+					break;
+				case 5:
+					project.setPad3(((String) getCellValue(nextCell)));
+					break;
+				case 6:
+					project.setOpDate((java.util.Date) getCellValue(nextCell));
 					break;
 				}
 
@@ -105,7 +114,7 @@ public class ExcelToObjectUtility {
 		FileInputStream inputStream = new FileInputStream(new File(excelFilePath));
 
 		Workbook workbook = getWorkbook(inputStream, excelFilePath);
-		Sheet firstSheet = workbook.getSheetAt(1);
+		Sheet firstSheet = workbook.getSheetAt(0);
 		Iterator<Row> iterator = firstSheet.iterator();
 		boolean firstRow = true;
 		while (iterator.hasNext()) {
@@ -222,13 +231,13 @@ public class ExcelToObjectUtility {
 						member.setRegDt((java.util.Date) getCellValue(nextCell));
 						break;
 					case 32:
-						//Cell cell=nextCell;
-						//if(((String) getCellValue(cell)).contains("/")){
-						//String s[]=((String) getCellValue(cell)).split("/");
-						//member.setRegNo(Integer.parseInt(s[0]));
-						//member.setCol2(s[1]);
-						//}else
-							member.setRegNo(((String) getCellValue(nextCell)));
+						// Cell cell=nextCell;
+						// if(((String) getCellValue(cell)).contains("/")){
+						// String s[]=((String) getCellValue(cell)).split("/");
+						// member.setRegNo(Integer.parseInt(s[0]));
+						// member.setCol2(s[1]);
+						// }else
+						member.setRegNo(((String) getCellValue(nextCell)));
 						break;
 					case 33:
 						member.setrC(((String) getCellValue(nextCell)).charAt(0));
@@ -242,9 +251,9 @@ public class ExcelToObjectUtility {
 					case 36:
 						member.setRefDt((java.util.Date) getCellValue(nextCell));
 						break;
-					 case 37:
-					 member.setRefAmt((double) getCellValue(nextCell));
-					 break;
+					case 37:
+						member.setRefAmt((double) getCellValue(nextCell));
+						break;
 					case 38:
 						member.setDiversion((double) getCellValue(nextCell));
 						break;
@@ -369,19 +378,18 @@ public class ExcelToObjectUtility {
 				if (getCellValue(nextCell) != null) {
 					switch (columnIndex) {
 					case 0:
-						account.setAccountId(((Double) getCellValue(nextCell)).intValue());
-						break;
-					case 1:
 						account.setCoCode((String) getCellValue(nextCell));
 						break;
-					case 2:
+					case 1:
 						account.setBkCode(((String) getCellValue(nextCell)));
 						break;
 
-					case 3:
+					case 2:
 						account.setBkName(((String) getCellValue(nextCell)));
 						break;
-
+					case 3:
+						account.setOpDate(((java.util.Date) getCellValue(nextCell)));
+						break;
 					case 4:
 						account.setOpBal(((double) getCellValue(nextCell)));
 						break;
@@ -443,46 +451,46 @@ public class ExcelToObjectUtility {
 				// account.setAccountId(((Double)
 				// getCellValue(nextCell)).intValue());
 				// break;
-				case 1:
-					accountMaster.setAnxCd(((Double) getCellValue(nextCell)).intValue());
+				case 0:
+					accountMaster.setAnxCd(Integer.parseInt(((String) getCellValue(nextCell)).trim()));
 					break;
-				case 2:
+				case 1:
 					accountMaster.setAcCode(((String) getCellValue(nextCell)));
 					break;
 
-				case 3:
+				case 2:
 					accountMaster.setAcName(((String) getCellValue(nextCell)));
 					break;
 
-				case 4:
+				case 3:
 					accountMaster.setAddress(((String) getCellValue(nextCell)));
 					break;
-				case 5:
+				case 4:
 					accountMaster.setAcClass(((String) getCellValue(nextCell)));
 					break;
 
-				case 6:
+				case 5:
 					accountMaster.setOpdte(((java.util.Date) getCellValue(nextCell)));
 					break;
 
-				case 7:
+				case 6:
 					accountMaster.setOpBal(((Double) getCellValue(nextCell)));
 					break;
 
-				case 8:
+				case 7:
 					accountMaster.setmBal(((Double) getCellValue(nextCell)));
 					break;
 
-				case 9:
+				case 8:
 					accountMaster.setPexp(((String) getCellValue(nextCell)));
 					break;
-				case 10:
+				case 9:
 					accountMaster.setIxpge(((String) getCellValue(nextCell)));
 					break;
-				case 11:
+				case 10:
 					accountMaster.setFlag(((String) getCellValue(nextCell)));
 					break;
-				case 12:
+				case 11:
 					accountMaster.setProjCd(((Double) getCellValue(nextCell)).intValue());
 					break;
 
@@ -503,7 +511,7 @@ public class ExcelToObjectUtility {
 		FileInputStream inputStream = new FileInputStream(new File(excelFilePath));
 
 		Workbook workbook = getWorkbook(inputStream, excelFilePath);
-		Sheet firstSheet = workbook.getSheetAt(0); ///////
+		Sheet firstSheet = workbook.getSheetAt(5); ///////
 		Iterator<Row> iterator = firstSheet.iterator();
 		boolean firstRow = true;
 		while (iterator.hasNext()) {
@@ -514,11 +522,12 @@ public class ExcelToObjectUtility {
 			}
 			Iterator<Cell> cellIterator = nextRow.cellIterator();
 			ReceiptRecord receipt = new ReceiptRecord();
-
+			double d =0,e=0;
+			double balchq=0;
 			while (cellIterator.hasNext()) {
 				Cell nextCell = cellIterator.next();
 				int columnIndex = nextCell.getColumnIndex();
-
+				receipt.setAmount(0.0);
 				if (getCellValue(nextCell) != null) {
 					switch (columnIndex) {
 					case 0:
@@ -536,7 +545,17 @@ public class ExcelToObjectUtility {
 						break;
 
 					case 4:
-						receipt.setReceno(Integer.parseInt(((String) getCellValue(nextCell))));
+						Cell c = nextCell;
+						if (getCellValue(c) instanceof Double) {
+							receipt.setReceno(((Double) getCellValue(nextCell)).intValue());
+							receipt.setReceiptNo(new Integer(((Double) getCellValue(nextCell)).intValue()).toString());
+						} else {
+							String rec=((String)getCellValue(c)).trim();
+							if(isNumeric(rec))
+								receipt.setReceno((Integer.parseInt(rec)));
+							receipt.setReceiptNo(((String) getCellValue(nextCell)));
+						}
+						System.out.println("Rec="+receipt.getReceno());
 						break;
 
 					case 5:
@@ -563,94 +582,119 @@ public class ExcelToObjectUtility {
 						receipt.setMad3((String) getCellValue(nextCell));
 						break;
 					case 12:
-						receipt.setAmount(((double) getCellValue(nextCell)));
+						d = (double) getCellValue(nextCell); 
+						
 						break;
 					case 13:
-						receipt.setBalChq((double) getCellValue(nextCell));
+						 e = (double) getCellValue(nextCell); 
+					
+						
 						break;
 					case 14:
-						receipt.setcDd(((String) getCellValue(nextCell)));
+						balchq=(double) getCellValue(nextCell);
 						break;
 					case 15:
-						receipt.setcDdte((java.util.Date) getCellValue(nextCell));
+						if ((getCellValue(nextCell)) instanceof Double)
+							receipt.setcDd(((Double) getCellValue(nextCell)).toString());
+						else
+							receipt.setcDd(((String) getCellValue(nextCell)));
 						break;
 					case 16:
-						receipt.setFullPay((String) getCellValue(nextCell));
+						receipt.setcDdte((java.util.Date) getCellValue(nextCell));
 						break;
 					case 17:
-						receipt.setInst1((String) getCellValue(nextCell));
+						receipt.setFullPay((String) getCellValue(nextCell));
 						break;
 					case 18:
-						receipt.setInst2((String) getCellValue(nextCell));
+						receipt.setInst1((String) getCellValue(nextCell));
 						break;
 					case 19:
-						receipt.setInst3((String) getCellValue(nextCell));
+						receipt.setInst2((String) getCellValue(nextCell));
 						break;
 					case 20:
-						receipt.setChalNo(((Double) getCellValue(nextCell)).intValue());
+						receipt.setInst3((String) getCellValue(nextCell));
 						break;
 					case 21:
-						receipt.setChalDte((java.util.Date) getCellValue(nextCell));
+						receipt.setChalNo(((Double) getCellValue(nextCell)).intValue());
 						break;
 					case 22:
-						receipt.setPlSize(((String) getCellValue(nextCell)));
+						receipt.setChalDte((java.util.Date) getCellValue(nextCell));
 						break;
 					case 23:
-						receipt.setPlNo(((String) getCellValue(nextCell)));
+						if ((getCellValue(nextCell)) instanceof Double)
+						receipt.setPlSize(((Double) getCellValue(nextCell)).toString());
+						else
+							receipt.setPlSize(((String) getCellValue(nextCell)));
+						break;
+					case 24:
+						if ((getCellValue(nextCell)) instanceof Double)
+						receipt.setPlNo(((Double) getCellValue(nextCell)).toString());
+						else
+							receipt.setPlNo(((String) getCellValue(nextCell)));
 						break;
 
-					case 24:
+					case 25:
 						receipt.setProjCd(((Double) getCellValue(nextCell)).intValue());
 						break;
-					case 25:
-						receipt.setChqDhr((String) getCellValue(nextCell));
-						break;
 					case 26:
+						if ((getCellValue(nextCell)) instanceof Double)
+						receipt.setChqDhr(((Double) getCellValue(nextCell)).toString());
+						else
+							receipt.setChqDhr((String) getCellValue(nextCell));
+						break;
+					case 27:
 						receipt.setFlag(((String) getCellValue(nextCell)));
 						break;
 
-					case 27:
+					case 28:
 						receipt.setTrCode(((String) getCellValue(nextCell)).charAt(0));
 						break;
 
-					case 28:
+					case 29:
 						receipt.setRemarks(((String) getCellValue(nextCell)));
 						break;
 
-					case 29:
+					case 30:
 						receipt.setrC(((String) getCellValue(nextCell)).charAt(0));
 						break;
 
-					case 30:
+					case 31:
 						receipt.setpD(((String) getCellValue(nextCell)));
 						break;
-					case 31:
+					case 32:
 						receipt.setAccode(((String) getCellValue(nextCell)));
 						break;
-					case 32:
+					case 33:
 						receipt.setBranch(((String) getCellValue(nextCell)));
 						break;
-					case 33:
+					case 34:
 						receipt.setdC(((String) getCellValue(nextCell)));
 						break;
-					case 34:
+					case 35:
 						receipt.setwLrDt(((java.util.Date) getCellValue(nextCell)));
 						break;
-					case 35:
-						receipt.setCity(((String) getCellValue(nextCell)));
-						break;
-					case 36:
-						receipt.setUserId(((Double) getCellValue(nextCell)).intValue());
-						break;
-					case 37:
-						receipt.setLastUpdate(((java.util.Date) getCellValue(nextCell)));
-						break;
+					// case 35:
+					// receipt.setCity(((String) getCellValue(nextCell)));
+					// break;
+					// case 36:
+					// receipt.setUserId(((Double)
+					// getCellValue(nextCell)).intValue());
+					// break;
+					// case 37:
+					// receipt.setLastUpdate(((java.util.Date)
+					// getCellValue(nextCell)));
+					// break;
 
 					}
 
 				}
 
 			}
+			receipt.setAmount(d + e);
+			receipt.setBalChq(balchq);
+			receipt.setCity(" ");
+			receipt.setUserId(0);
+			receipt.setLastUpdate(null);
 			receiptList.add(receipt);
 		}
 
@@ -665,7 +709,7 @@ public class ExcelToObjectUtility {
 		FileInputStream inputStream = new FileInputStream(new File(excelFilePath));
 
 		Workbook workbook = getWorkbook(inputStream, excelFilePath);
-		Sheet firstSheet = workbook.getSheetAt(1); //////
+		Sheet firstSheet = workbook.getSheetAt(0); //////
 		Iterator<Row> iterator = firstSheet.iterator();
 		boolean firstRow = true;
 		while (iterator.hasNext()) {
@@ -683,7 +727,10 @@ public class ExcelToObjectUtility {
 				if (getCellValue(nextCell) != null) {
 					switch (columnIndex) {
 					case 0:
-						chequePayment.setDocno(((Double) getCellValue(nextCell)).intValue());
+						if (getCellValue(nextCell) instanceof Double)
+							chequePayment.setDocno(((Double) getCellValue(nextCell)).intValue());
+						else
+							chequePayment.setDocno(Integer.parseInt(((String) getCellValue(nextCell)).trim()));
 						break;
 					case 1:
 						chequePayment.setDocDate((java.util.Date) getCellValue(nextCell));
@@ -703,12 +750,11 @@ public class ExcelToObjectUtility {
 					case 6:
 						chequePayment.setCheqClDate((java.util.Date) getCellValue(nextCell));
 						break;
-					case 7:
-						chequePayment.setPaymentMode("Cheque");
-						break;	
+
 					}
 				}
 			}
+			chequePayment.setPaymentMode("Cheque");
 			chequePaymentList.add(chequePayment);
 		}
 
@@ -723,7 +769,7 @@ public class ExcelToObjectUtility {
 		FileInputStream inputStream = new FileInputStream(new File(excelFilePath));
 
 		Workbook workbook = getWorkbook(inputStream, excelFilePath);
-		Sheet firstSheet = workbook.getSheetAt(0); //////
+		Sheet firstSheet = workbook.getSheetAt(3); //////
 		Iterator<Row> iterator = firstSheet.iterator();
 		boolean firstRow = true;
 		while (iterator.hasNext()) {
@@ -809,7 +855,10 @@ public class ExcelToObjectUtility {
 						transactionRecord.setsNo(((Double) getCellValue(nextCell)).intValue());
 						break;
 					case 1:
-						transactionRecord.setDocNo(((Double) getCellValue(nextCell)).intValue());
+						if ((getCellValue(nextCell)) instanceof Double)
+							transactionRecord.setDocNo(((Double) getCellValue(nextCell)).intValue());
+						else
+							transactionRecord.setDocNo(Integer.parseInt(((String) getCellValue(nextCell)).trim()));
 						break;
 					case 2:
 						transactionRecord.setSlno(((Double) getCellValue(nextCell)).intValue());
@@ -848,14 +897,17 @@ public class ExcelToObjectUtility {
 						transactionRecord.setaP((String) getCellValue(nextCell));
 						break;
 					case 14:
-						transactionRecord.setFlag(((Double) getCellValue(nextCell)).intValue());
+						if ((getCellValue(nextCell)) instanceof Double)
+							transactionRecord.setFlag(((Double) getCellValue(nextCell)).intValue());
+						else
+							transactionRecord.setFlag(Integer.parseInt(((String) getCellValue(nextCell)).trim()));
 						break;
 					case 15:
 						transactionRecord.setVrNo(((Double) getCellValue(nextCell)).intValue());
 						// //F_H name
 						break;
 					case 16:
-						transactionRecord.setsN((String) getCellValue(nextCell));
+						transactionRecord.setsN(((Double) getCellValue(nextCell)).toString());
 						// Nominee name & relation
 						break;
 					case 17:
@@ -874,10 +926,14 @@ public class ExcelToObjectUtility {
 						transactionRecord.setChClDt((java.util.Date) getCellValue(nextCell));
 						break;
 					case 22:
+
 						transactionRecord.setcFlag((String) getCellValue(nextCell));
 						break;
 					case 23:
-						transactionRecord.setPartyCd(((Double) getCellValue(nextCell)).intValue());
+						if ((getCellValue(nextCell)) instanceof Double)
+							transactionRecord.setPartyCd(((Double) getCellValue(nextCell)).intValue());
+						else
+							transactionRecord.setPartyCd(Integer.parseInt(((String) getCellValue(nextCell)).trim()));
 						break;
 					case 24:
 						transactionRecord.setUserId(((Double) getCellValue(nextCell)).intValue());
@@ -890,62 +946,77 @@ public class ExcelToObjectUtility {
 			}
 			transactionRecordsList.add(transactionRecord);
 		}
-		
+
 		workbook.close();
 		inputStream.close();
 
 		return transactionRecordsList;
 	}
 
+	public static boolean isNumeric(String str)  
+	{  
+	  try  
+	  {  
+	    double d = Double.parseDouble(str);  
+	  }  
+	  catch(NumberFormatException nfe)  
+	  {  
+	    return false;  
+	  }  
+	  return true;  
+	}
+	
 	public static void main(String args[]) {
-//		try {
-//			System.out.println("Printing cheque Data");
-//			List<ChequePayment> projectList = ExcelToObjectUtility.readChequePaymentFromExcelFile("E:\\DHS\\DATA.xls");
-//			for (ChequePayment p : projectList) {
-//				System.out.println(p);
-//			}
-//		} catch (IOException ioe) {
-//			ioe.printStackTrace();
-//		} catch (NumberFormatException ioe) {
-//			ioe.printStackTrace();
-//			System.out.println("Please Input No. only");
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
+		// try {
+		// System.out.println("Printing cheque Data");
+		// List<ChequePayment> projectList =
+		// ExcelToObjectUtility.readChequePaymentFromExcelFile("E:\\DHS\\DATA.xls");
+		// for (ChequePayment p : projectList) {
+		// System.out.println(p);
+		// }
+		// } catch (IOException ioe) {
+		// ioe.printStackTrace();
+		// } catch (NumberFormatException ioe) {
+		// ioe.printStackTrace();
+		// System.out.println("Please Input No. only");
+		// } catch (Exception e) {
+		// e.printStackTrace();
+		// }
 
-		try {
-			System.out.println("Printing Member Data");
-			List<Members> projectList = ExcelToObjectUtility.readMembersFromExcelFile("E:\\DHS\\MEMBER_DATA_FROM_1_TO_1000.xls");
-			MembersDao mdao=new MembersDao();
-			for (Members p : projectList) {
-				System.out.println(p);
-				mdao.create(p);
-			}
-		} catch (IOException ioe) {
-			ioe.printStackTrace();
-		} catch (NumberFormatException ioe) {
-			ioe.printStackTrace();
-			System.out.println("Please Input No. only");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-//		 try {
-//		 System.out.println("Printing Transaction Data");
-//		 List<RefundPayment> projectList = ExcelToObjectUtility
-//		 .readRefundPaymentFromExcelFile("E:\\DHS\\TR9900_DATA.xls");
-//		 RefundPaymentDao tDao=new RefundPaymentDao();
-//		 for (RefundPayment p : projectList) {
-//			 tDao.create(transaction, refundPayment);
-//		 System.out.println(p);
-//		 }
-//		 } catch (IOException ioe) {
-//		 ioe.printStackTrace();
-//		 } catch (NumberFormatException ioe) {
-//		 ioe.printStackTrace();
-//		 System.out.println("Please Input No. only");
-//		 } catch (Exception e) {
-//		 e.printStackTrace();
-//		 }
+		// try {
+		// System.out.println("Printing Member Data");
+		// List<Members> projectList =
+		// ExcelToObjectUtility.readMembersFromExcelFile("E:\\DHS\\MEMBER_DATA_FROM_1_TO_1000.xls");
+		// MembersDao mdao=new MembersDao();
+		// for (Members p : projectList) {
+		// System.out.println(p);
+		// mdao.create(p);
+		// }
+		// } catch (IOException ioe) {
+		// ioe.printStackTrace();
+		// } catch (NumberFormatException ioe) {
+		// ioe.printStackTrace();
+		// System.out.println("Please Input No. only");
+		// } catch (Exception e) {
+		// e.printStackTrace();
+		// }
+
+		// try {
+		// System.out.println("Printing Transaction Data");
+		// List<RefundPayment> projectList = ExcelToObjectUtility
+		// .readRefundPaymentFromExcelFile("E:\\DHS\\TR9900_DATA.xls");
+		// RefundPaymentDao tDao=new RefundPaymentDao();
+		// for (RefundPayment p : projectList) {
+		// tDao.create(transaction, refundPayment);
+		// System.out.println(p);
+		// }
+		// } catch (IOException ioe) {
+		// ioe.printStackTrace();
+		// } catch (NumberFormatException ioe) {
+		// ioe.printStackTrace();
+		// System.out.println("Please Input No. only");
+		// } catch (Exception e) {
+		// e.printStackTrace();
+		// }
 	}
 }

@@ -350,6 +350,54 @@ public class RefundPaymentDao {
 			return id;
 		}
 		
+		public boolean remove( RefundPayment refundPayment) {
+			ConnectionPool pool = ConnectionPool.getInstance();
+			pool.initialize();
+			Connection conn = pool.getConnection();
+			try {
+				String sql = "delete from refund_pay where vr_no = ? and p_d= ? and amount = ?";
+				PreparedStatement ps = conn.prepareStatement(sql);
+				ps.setInt(1, refundPayment.getVoucherNo());
+				ps.setString(2, refundPayment.getpD());
+				ps.setDouble(3, refundPayment.getAmount());
+				int x = ps.executeUpdate();
+				if (x == 0)
+					return false;
+			} catch (SQLException sq) {
+				return false;
+			} finally {
+				pool.putConnection(conn);
+			}
+			System.out.println("Record Successfully Deleted");
+			return true;
+		}
+		
+		public int count( RefundPayment refundPayment){
+			int c = 0;
+			ConnectionPool pool = ConnectionPool.getInstance();
+			pool.initialize();
+			Connection conn = pool.getConnection();
+			try {
+				String sql = "select count(*) as total from refund_pay where vr_no = ? and p_d = ? and amount = ?";
+				PreparedStatement ps = conn.prepareStatement(sql);
+				ps.setInt(1, refundPayment.getVoucherNo());
+				ps.setString(2, refundPayment.getpD());
+				ps.setDouble(3, refundPayment.getAmount());
+				ResultSet rs = ps.executeQuery();
+				while (rs.next())  {
+					c = rs.getInt("total");
+				}
+				
+			} catch (SQLException sq) {
+				return 0;
+			} finally {
+				pool.putConnection(conn);
+			}
+			System.out.println("Record Successfully counted");
+			return c;
+		} 
+		
+		
 		public ArrayList<RefundPayment> findMemRefundPay(int memberNo) {
 			
 			ConnectionPool pool = ConnectionPool.getInstance();

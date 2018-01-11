@@ -13,13 +13,11 @@ import com.vedisoft.danishhousing.config.ConnectionPool;
 import com.vedisoft.danishhousing.config.DateUtils;
 import com.vedisoft.danishhousing.pojos.ReceiptRecord;
 import com.vedisoft.danishhousing.pojos.TransactionRecords;
+import com.vedisoft.danishhousing.pojos.Users;
 import com.vedisoft.danishhousing.pojos.CashBankBookDto;
 
-
-
 public class TransactionRecordsDao {
-	
-	
+
 	public ArrayList<TransactionRecords> findMemTransactionRecord(int memberNo) {
 		ConnectionPool pool = ConnectionPool.getInstance();
 		pool.initialize();
@@ -30,7 +28,7 @@ public class TransactionRecordsDao {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, memberNo);
 			ResultSet rs = ps.executeQuery();
-			while (rs.next())  {
+			while (rs.next()) {
 				TransactionRecords transaction = new TransactionRecords();
 				transaction.setsNo(rs.getInt("s_no"));
 				transaction.setSlno(rs.getInt("slno"));
@@ -87,7 +85,7 @@ public class TransactionRecordsDao {
 		}
 		return listTransaction;
 	}
-	
+
 	public ArrayList<TransactionRecords> findDateTransactionRecord(Date d1, Date d2, String acCode) {
 		ConnectionPool pool = ConnectionPool.getInstance();
 		pool.initialize();
@@ -110,7 +108,7 @@ public class TransactionRecordsDao {
 			ps.setDate(2, date2);
 			ps.setString(3, acCode);
 			ResultSet rs = ps.executeQuery();
-			while (rs.next())  {
+			while (rs.next()) {
 				TransactionRecords transaction = new TransactionRecords();
 				transaction.setsNo(rs.getInt("s_no"));
 				transaction.setSlno(rs.getInt("slno"));
@@ -167,8 +165,7 @@ public class TransactionRecordsDao {
 		}
 		return listTransaction;
 	}
-	
-	
+
 	public ArrayList<CashBankBookDto> findCashBankBookDtoReceipt(Date d1, Date d2, String bkCode) {
 		ConnectionPool pool = ConnectionPool.getInstance();
 		pool.initialize();
@@ -191,10 +188,10 @@ public class TransactionRecordsDao {
 			ps.setDate(2, date2);
 			ps.setString(3, bkCode);
 			ResultSet rs = ps.executeQuery();
-			
-			while (rs.next())  {
+
+			while (rs.next()) {
 				CashBankBookDto cashBankBookDto = new CashBankBookDto();
-				
+
 				cashBankBookDto.setDocNo(rs.getInt("docno"));
 				cashBankBookDto.setAccNo(rs.getString("accode"));
 				cashBankBookDto.setAccName(AccountMasterDao.findByCode(cashBankBookDto.getAccNo()).getAcName());
@@ -216,8 +213,7 @@ public class TransactionRecordsDao {
 		}
 		return listCashBankBookDto;
 	}
-	
-	
+
 	public ArrayList<CashBankBookDto> findCashBankBookDtoPayment(Date d1, Date d2, String bkCode) {
 		ConnectionPool pool = ConnectionPool.getInstance();
 		pool.initialize();
@@ -240,10 +236,10 @@ public class TransactionRecordsDao {
 			ps.setDate(2, date2);
 			ps.setString(3, bkCode);
 			ResultSet rs = ps.executeQuery();
-			
-			while (rs.next())  {
+
+			while (rs.next()) {
 				CashBankBookDto cashBankBookDto = new CashBankBookDto();
-				
+
 				cashBankBookDto.setDocNo(rs.getInt("docno"));
 				cashBankBookDto.setAccNo(rs.getString("accode"));
 				cashBankBookDto.setAccName(AccountMasterDao.findByCode(cashBankBookDto.getAccNo()).getAcName());
@@ -265,12 +261,8 @@ public class TransactionRecordsDao {
 		}
 		return listCashBankBookDto;
 	}
-	
-	
-	
-	
-	
-	public static double bankOpeningBalance(Date d1,String bkCode) {
+
+	public static double bankOpeningBalance(Date d1, String bkCode) {
 		ConnectionPool pool = ConnectionPool.getInstance();
 		pool.initialize();
 		Connection conn = pool.getConnection();
@@ -286,49 +278,181 @@ public class TransactionRecordsDao {
 				date1 = new java.sql.Date(d1.getTime());
 			else
 				return 0;
-			
+
 			ps.setDate(1, date1);
 			ps.setString(2, bkCode);
 			ps.setDate(3, date1);
 			ps.setString(4, bkCode);
 			ps.setString(5, bkCode);
 			ResultSet rs = ps.executeQuery();
-			while (rs.next())  {
-				openingBal =rs.getDouble("OpBal");
+			while (rs.next()) {
+				openingBal = rs.getDouble("OpBal");
 			}
 		} catch (SQLException sq) {
 			System.out.println("Unable to fetch opening balance." + sq);
 		} finally {
 			pool.putConnection(conn);
 		}
-			return openingBal;
+		return openingBal;
 	}
-	
-	
-	
+
+	public boolean edit(TransactionRecords transaction) {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		pool.initialize();
+		Connection conn = pool.getConnection();
+		try {
+			String sql = "update transaction_records set  lastupdate = ?, docno= ?,slno= ?,docdte= ?,doctype= ?,accode= ?,bkcode= ?,chqno= ?,ch_date= ?,bank_br= ?,"
+					+ "membno= ?,amt= ?,parti= ?,a_p= ?,flag= ?,vr_no= ?,sno= ?,sr= ?,docnoo= ?,projcd= ?,wc_lr_dt= ?,ch_cl_dt= ?,c_flag= ?,party_cd= ?,userid= ? ";
+			;
+			PreparedStatement ps1 = conn.prepareStatement(sql);
+
+			java.sql.Date lastUpdate = new java.sql.Date(new Date().getTime());
+			;
+
+			ps1.setDate(1, lastUpdate);
+
+			ps1.setInt(2, transaction.getDocNo());
+			ps1.setInt(3, transaction.getSlno());
+			java.sql.Date docDate = null;
+			if (transaction.getDocDte() != null)
+				docDate = new java.sql.Date(transaction.getDocDte().getTime());
+			ps1.setDate(4, docDate);
+			ps1.setString(5, transaction.getDocType()); // D
+			ps1.setString(6, transaction.getAcCode());
+			ps1.setString(7, transaction.getBkCode());
+			ps1.setString(8, transaction.getChqNo());
+			java.sql.Date chkDate = null;
+			if (transaction.getChDate() != null)
+				chkDate = new java.sql.Date(transaction.getChDate().getTime());
+			ps1.setDate(9, chkDate);
+			ps1.setString(10, transaction.getBankBr());
+			ps1.setInt(11, transaction.getMembNo());
+			ps1.setDouble(12, transaction.getAmt());
+			ps1.setString(13, transaction.getParti());
+			ps1.setString(14, transaction.getaP());
+			ps1.setInt(15, transaction.getFlag());
+			ps1.setInt(16, transaction.getVrNo());
+			ps1.setString(17, transaction.getsN());
+			ps1.setString(18, transaction.getsR());
+			ps1.setString(19, transaction.getDocNoo());
+			ps1.setInt(20, transaction.getProjCd());
+			java.sql.Date wcLrDt = null;
+			if (transaction.getWcLrDt() != null)
+				wcLrDt = new java.sql.Date(transaction.getWcLrDt().getTime());
+			ps1.setDate(21, wcLrDt);
+			java.sql.Date chClDt = null;
+			if (transaction.getChClDt() != null)
+				chClDt = new java.sql.Date(transaction.getChClDt().getTime());
+			ps1.setDate(22, chClDt);
+			ps1.setString(23, transaction.getcFlag());
+			ps1.setInt(24, transaction.getPartyCd());
+			ps1.setInt(25, transaction.getUserId());
+			int x = ps1.executeUpdate();
+			if (x == 0) {
+				System.out.println("Record not Edited");
+				return false;
+			}
+		} catch (SQLException sq) {
+			sq.printStackTrace();
+			return false;
+		} finally {
+			pool.putConnection(conn);
+		}
+		System.out.println("Record SuccessFully Updated");
+		return true;
+	}
+
+	public int count(TransactionRecords transaction) {
+		int c = 0;
+		ConnectionPool pool = ConnectionPool.getInstance();
+		pool.initialize();
+		Connection conn = pool.getConnection();
+		try {
+			String sql = "select count(*) as total from transaction_records where docno = ? and accode= ? and amt = ? and doctype= ? ";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, transaction.getDocNo());
+			ps.setString(2, transaction.getAcCode());
+			ps.setDouble(3, transaction.getAmt());
+			ps.setString(4, transaction.getDocType());
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				c = rs.getInt("total");
+			}
+
+		} catch (SQLException sq) {
+			return 0;
+		} finally {
+			pool.putConnection(conn);
+		}
+		System.out.println("Record Successfully Counted");
+		return c;
+	}
+
+	public boolean updateDeletedRecords(TransactionRecords transaction) {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		pool.initialize();
+		Connection conn = pool.getConnection();
+		try {
+			System.out.println(transaction.getDocType());
+			if (transaction.getDocType() != null && transaction.getDocType().equals("D")) {
+				//System.out.println("D to DD");
+				String sql = "update transaction_records set doctype=\"DD\" where docno = ? and accode = ? and amt = ? limit 1";
+				//System.out.println("DD");
+				PreparedStatement ps = conn.prepareStatement(sql);
+				ps.setInt(1, transaction.getDocNo());
+				ps.setString(2, transaction.getAcCode());
+				ps.setDouble(3, transaction.getAmt());
+				int x = ps.executeUpdate();
+				if (x == 0)
+					return false;
+			} else if (transaction.getDocType() != null && transaction.getDocType().equals("W")) {
+				//System.out.println("W to WD");
+				String sql = "update transaction_records set doctype=\"WD\" where docno = ? and accode=? and amt = ? limit 1";
+				//System.out.println("WD");
+				PreparedStatement ps = conn.prepareStatement(sql);
+				ps.setInt(1, transaction.getDocNo());
+				ps.setString(2, transaction.getAcCode());
+				ps.setDouble(3, transaction.getAmt());
+				int x = ps.executeUpdate();
+				if (x == 0)
+					return false;
+			}
+		} catch (SQLException sq) {
+			return false;
+		} finally {
+			pool.putConnection(conn);
+		}
+		System.out.println("Record Successfully Updated");
+		return true;
+	}
 
 	public static void main(String[] args) {
-		
-//		 List<TransactionRecords> list =new TransactionRecordsDao().findMemTransactionRecord(7299);
-//		List<TransactionRecords> list =new TransactionRecordsDao().findDateTransactionRecord(DateUtils.convertDate("24/08/2017"),DateUtils.convertDate("28/08/2017"),"A0001" ); 
-//		for(TransactionRecords t : list)
-//			 System.out.println(t);
-		
-		
-		double openingBal = new TransactionRecordsDao().bankOpeningBalance(DateUtils.convertDate("22/10/2017"), "SBI0089");
+
+		// List<TransactionRecords> list =new
+		// TransactionRecordsDao().findMemTransactionRecord(7299);
+		// List<TransactionRecords> list =new
+		// TransactionRecordsDao().findDateTransactionRecord(DateUtils.convertDate("24/08/2017"),DateUtils.convertDate("28/08/2017"),"A0001"
+		// );
+		// for(TransactionRecords t : list)
+		// System.out.println(t);
+
+		double openingBal = new TransactionRecordsDao().bankOpeningBalance(DateUtils.convertDate("22/10/2017"),
+				"SBI0089");
 		System.out.println(openingBal);
-		
-//		ArrayList<CashBankBookDto> listCashBankBookDto = new TransactionRecordsDao().findCashBankBookDtoReceipt(DateUtils.convertDate("01/08/2017"),DateUtils.convertDate( "21/08/2017"), "001");
-//		for(CashBankBookDto t : listCashBankBookDto)
-//			 System.out.println(t);
-		
-//		ArrayList<CashBankBookDto> listCashBankBookDto = new TransactionRecordsDao().findCashBankBookDtoPayment(DateUtils.convertDate("01/08/2017"),DateUtils.convertDate( "21/08/2017"), "001");
-//		for(CashBankBookDto t : listCashBankBookDto)
-//			 System.out.println(t);
-//		
-		
-		
+
+		// ArrayList<CashBankBookDto> listCashBankBookDto = new
+		// TransactionRecordsDao().findCashBankBookDtoReceipt(DateUtils.convertDate("01/08/2017"),DateUtils.convertDate(
+		// "21/08/2017"), "001");
+		// for(CashBankBookDto t : listCashBankBookDto)
+		// System.out.println(t);
+
+		// ArrayList<CashBankBookDto> listCashBankBookDto = new
+		// TransactionRecordsDao().findCashBankBookDtoPayment(DateUtils.convertDate("01/08/2017"),DateUtils.convertDate(
+		// "21/08/2017"), "001");
+		// for(CashBankBookDto t : listCashBankBookDto)
+		// System.out.println(t);
+		//
+
 	}
-	
-	
+
 }
