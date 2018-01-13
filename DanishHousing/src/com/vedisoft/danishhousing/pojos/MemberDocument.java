@@ -4,19 +4,31 @@ import java.util.Date;
 
 public class MemberDocument {
 
-	int memberDocumentId;
-	String memberDocumentTitle;
-	String memberDocumentDetails;
-	String memberDocumentFile;
-	Date lastUpdate;
-	int userId;
+	private int memberDocumentId;
+	private String memberDocumentTitle;
+	private String memberDocumentDetails;
+	private String memberDocumentFile;
+	private Date lastUpdate;
+	private int userId;
+	private int membno;
 
 	public MemberDocument() {
 		super();
 	}
 
+	public MemberDocument(String memberDocumentTitle, String memberDocumentDetails, String memberDocumentFile,
+			Date lastUpdate, int userId, int membno) {
+		super();
+		this.memberDocumentTitle = memberDocumentTitle;
+		this.memberDocumentDetails = memberDocumentDetails;
+		this.memberDocumentFile = memberDocumentFile;
+		this.lastUpdate = lastUpdate;
+		this.userId = userId;
+		this.membno = membno;
+	}
+
 	public MemberDocument(int memberDocumentId, String memberDocumentTitle, String memberDocumentDetails,
-			String memberDocumentFile, Date lastUpdate, int userId) {
+			String memberDocumentFile, Date lastUpdate, int userId, int membno) {
 		super();
 		this.memberDocumentId = memberDocumentId;
 		this.memberDocumentTitle = memberDocumentTitle;
@@ -24,17 +36,9 @@ public class MemberDocument {
 		this.memberDocumentFile = memberDocumentFile;
 		this.lastUpdate = lastUpdate;
 		this.userId = userId;
+		this.membno = membno;
 	}
 
-	public MemberDocument(String memberDocumentTitle, String memberDocumentDetails, String memberDocumentFile,
-			Date lastUpdate, int userId) {
-		super();
-		this.memberDocumentTitle = memberDocumentTitle;
-		this.memberDocumentDetails = memberDocumentDetails;
-		this.memberDocumentFile = memberDocumentFile;
-		this.lastUpdate = lastUpdate;
-		this.userId = userId;
-	}
 
 	public int getMemberDocumentId() {
 		return memberDocumentId;
@@ -84,11 +88,20 @@ public class MemberDocument {
 		this.userId = userId;
 	}
 
+	public int getMembno() {
+		return membno;
+	}
+
+	public void setMembno(int membno) {
+		this.membno = membno;
+	}
+
+	
 	@Override
 	public String toString() {
 		return "MemberDocument [memberDocumentId=" + memberDocumentId + ", memberDocumentTitle=" + memberDocumentTitle
 				+ ", memberDocumentDetails=" + memberDocumentDetails + ", memberDocumentFile=" + memberDocumentFile
-				+ ", lastUpdate=" + lastUpdate + ", userId=" + userId + "]";
+				+ ", lastUpdate=" + lastUpdate + ", userId=" + userId + ", membno=" + membno + "]";
 	}
 
 	@Override
@@ -100,6 +113,7 @@ public class MemberDocument {
 		result = prime * result + ((memberDocumentFile == null) ? 0 : memberDocumentFile.hashCode());
 		result = prime * result + memberDocumentId;
 		result = prime * result + ((memberDocumentTitle == null) ? 0 : memberDocumentTitle.hashCode());
+		result = prime * result + membno;
 		result = prime * result + userId;
 		return result;
 	}
@@ -135,9 +149,14 @@ public class MemberDocument {
 				return false;
 		} else if (!memberDocumentTitle.equals(other.memberDocumentTitle))
 			return false;
+		if (membno != other.membno)
+			return false;
 		if (userId != other.userId)
 			return false;
 		return true;
 	}
 
+	
+
+	
 }

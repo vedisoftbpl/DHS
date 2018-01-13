@@ -31,7 +31,7 @@ public class MemberDocumentController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private static final String SAVE_DIR = "photos";
-	
+
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -55,16 +55,21 @@ public class MemberDocumentController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		HttpSession session = request.getSession();
-		Users user = (Users)session.getAttribute("userLogin");
+		Users user = (Users) session.getAttribute("userLogin");
 		String page = "/pages/admin/MembersDocuments.jsp";
-		
+		//String page1 = "/pages/admin/MembersDocumentView.jsp";
+
 		request.setAttribute("documentsList", DocumentCategoriesEnum.values());
 		String renamedFileName = new String();
 		String operation = new String();
 		operation = request.getParameter("operation");
 		if (operation != null) {
+
+			int membNo = 0;
+			if (request.getParameter("memberID") != null && request.getParameter("memberID").trim().length() > 0)
+				membNo = Integer.parseInt(request.getParameter("memberID"));
 
 			String docTitle = new String();
 			if (request.getParameter("memberDocTitle") != null
@@ -82,28 +87,28 @@ public class MemberDocumentController extends HttpServlet {
 			}
 			String appPath = request.getServletContext().getRealPath("") + "pages/";
 			String savePath = appPath + SAVE_DIR;
-			
+
 			System.out.println(savePath);
 			File fileSaveDir = new File(savePath);
-			
-			if(!fileSaveDir.exists()){
+
+			if (!fileSaveDir.exists()) {
 				fileSaveDir.mkdir();
 			}
 			Collection<Part> allUploadedParts = request.getParts();
-			int i =0;
-			for(Part part : allUploadedParts) {
+			int i = 0;
+			for (Part part : allUploadedParts) {
 				String fileName = part.getSubmittedFileName();
-				if(fileName == null)
+				if (fileName == null)
 					continue;
-				
+
 				part.write(savePath + File.separator + fileName);
 				File f1 = new File(savePath + File.separator + fileName);
 				int index = fileName.lastIndexOf(".");
 				String primary = fileName.substring(0, index);
 				String secondary = fileName.substring(index);
-				
+
 				renamedFileName = primary + System.currentTimeMillis() + secondary;
-				
+
 				String renamed = savePath + File.separator + renamedFileName;
 				File f2 = new File(renamed);
 				System.out.println(renamed);
@@ -116,25 +121,24 @@ public class MemberDocumentController extends HttpServlet {
 			memberDoc.setMemberDocumentFile(renamedFileName);
 			memberDoc.setUserId(user.getUserId());
 			memberDoc.setLastUpdate(new Date());
+			memberDoc.setMembno(membNo);
 			MemberDocumentDao dao = new MemberDocumentDao();
-			
-			int a= 0;
+
+			int a = 0;
 			a = dao.create(memberDoc);
-			if(a > 0){
+			if (a > 0) {
 				request.setAttribute("msg", 1);
 				RequestDispatcher rd = request.getRequestDispatcher(page);
 				rd.forward(request, response);
-			}
-			else{
+			} else {
 				request.setAttribute("msg", 2);
 				RequestDispatcher rd = request.getRequestDispatcher(page);
 				rd.forward(request, response);
 			}
-		}
 
-		else {
-		RequestDispatcher rd = request.getRequestDispatcher(page);
-		rd.forward(request, response);
+		} else {
+			RequestDispatcher rd = request.getRequestDispatcher(page);
+			rd.forward(request, response);
 		}
 	}
 

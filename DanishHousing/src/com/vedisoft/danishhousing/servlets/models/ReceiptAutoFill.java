@@ -1,6 +1,7 @@
 package com.vedisoft.danishhousing.servlets.models;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.ServletException;
@@ -12,12 +13,14 @@ import com.google.gson.Gson;
 import com.vedisoft.danishhousing.config.DateUtils;
 import com.vedisoft.danishhousing.daos.AccountDao;
 import com.vedisoft.danishhousing.daos.AccountMasterDao;
+import com.vedisoft.danishhousing.daos.MemberDocumentDao;
 import com.vedisoft.danishhousing.daos.MembersDao;
 import com.vedisoft.danishhousing.daos.ProjectsDao;
 import com.vedisoft.danishhousing.daos.UtilityDao;
 import com.vedisoft.danishhousing.pojos.Account;
 import com.vedisoft.danishhousing.pojos.AccountMaster;
 import com.vedisoft.danishhousing.pojos.Members;
+import com.vedisoft.danishhousing.pojos.MemberDocument;
 import com.vedisoft.danishhousing.pojos.Projects;
 
 /**
@@ -65,8 +68,10 @@ public class ReceiptAutoFill extends HttpServlet {
 			} else {
 				json2 = "{\"projectId\":\"NA\",\"projectName\":\"NA\",\"bungProj\":\"NA\"}";
 			}
+			ArrayList<MemberDocument>  docList= new MemberDocumentDao().findDocOfMember(memberId);
+			String json3 = gson.toJson(docList);
 			response.setContentType("application/json");
-			response.getWriter().write("{\"data\": [" + json1 + "," + json2 + "]}");
+			response.getWriter().write("{\"data\": [" + json1 + "," + json2 + "," + json3 + "]}");
 		}
 		if(request.getParameter("accode") != null && request.getParameter("accode").trim().length() > 0) {
 			accCode = request.getParameter("accode");

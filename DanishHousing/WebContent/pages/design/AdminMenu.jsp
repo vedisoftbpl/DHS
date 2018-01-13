@@ -62,8 +62,11 @@
 						href="${pageContext.request.contextPath}/admin/pages/ReceiptFormController"><i
 							class="fa fa-circle-o"></i> Receipts</a></li>
 					<li><a
-						href="${pageContext.request.contextPath}/admin/pages/MemberDocumentsController"><i
+						href="${pageContext.request.contextPath}/admin/pages/MemberDocumentController"><i
 							class="fa fa-circle-o"></i> Member Documents Upload</a></li>
+					<li><a
+						href="${pageContext.request.contextPath}/admin/pages/MemberDocumentDownloadController"><i
+							class="fa fa-circle-o"></i> Member Documents Download</a></li>
 					<li><a
 						href="${pageContext.request.contextPath}/admin/pages/ReceiptPrintController"><i
 							class="fa fa-circle-o"></i> Receipts Print</a></li>
@@ -108,10 +111,10 @@
 					<!-- 
 					<li><a href="../tables/data.html"><i
 							class="fa fa-circle-o"></i> Report Four </a></li>
-					 -->		
+					 -->
 				</ul></li>
-					
-					 <!-- 
+
+			<!-- 
 					<li class="treeview"><a href="#"> <i
 							class="fa fa-pie-chart"></i> <span>Charts</span> <span
 							class="pull-right-container"> <i
@@ -130,13 +133,12 @@
 						</ul></li>
 					<li><a href="../../documentation/index.html"><i
 							class="fa fa-book"></i> <span>Documentation</span></a></li>
-					 -->		
-					<li class="header">LABELS</li>
-					<li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
-					<li><a href="#"><i class="fa fa-circle-o text-yellow"></i>
-							<span>Warning</span></a></li>
-					<li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
-				</ul>
+					 -->
+			<li class="header">LABELS</li>
+			<li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
+			<li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
+			<li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
+		</ul>
 	</section>
 	<!-- /.sidebar -->
 </aside>
