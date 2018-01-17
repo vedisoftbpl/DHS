@@ -41,7 +41,7 @@
 					</div>
 
 					<!-- User Form -->
-					<form enctype="multipart/form-data"
+					<form
 						action="${pageContext.request.contextPath}/admin/pages/MemberDocumentDownloadController"
 						method="post" onsubmit="return validateForm(this)">
 						<div class="box-body">
@@ -71,7 +71,8 @@
 										class="btn btn-primary btn-block btn-flat" id="checkMember">Check</button>
 								</div>
 							</div>
-							<div class="row" align="center">
+							<div class="row" id="memberDetailBox" align="center"
+								style="display: none;">
 								<div class="box-header with-border">
 									<h3 class="box-title">Member Details</h3>
 								</div>
@@ -87,7 +88,7 @@
 									<h3 class="box-title">Member Documents Details</h3>
 								</div>
 								<div class="box-body">
-								<div class="col-md-1" ></div>
+									<div class="col-md-1"></div>
 									<div class="col-md-5">
 										<!--  form-group -->
 
@@ -100,24 +101,24 @@
 													class="form-control" id="memberDocTitle"
 													name="memberDocTitle">
 													<option value="0">N/A</option>
-													
+
 												</select>
 											</div>
 											<p id="errorMemberDocTitle"></p>
 										</div>
 										<!--End Zone Id-->
-										
+
 										<input type="hidden" id="operation" name="operation"
 											value="view" />
-											
+
 										<!-- /.form-group -->
 									</div>
-									<div class="col-md-2" ></div>
+									<div class="col-md-2"></div>
 									<div class="col-md-2">
-									<div class="col-xs-4" align="right"></div>
+										<div class="col-xs-4" align="right"></div>
 										<label>&nbsp;</label>
 										<button type="submit"
-											class="btn btn-primary btn-block btn-flat" id="viewDoc">View</button>
+											class="btn btn-primary btn-block btn-flat" id="viewDoc">Download</button>
 									</div>
 
 
@@ -160,8 +161,8 @@
 		</c:when>
 		<c:when test="${requestScope.msg=='2'}">
 		$(document).ready(function() {
-			$("#typeError").addClass("form-group has-error");
-			$("#errorTop").html("Fail to Add Receipt Record.");
+			$("#divFormMemberDocTitle").addClass("form-group has-error");
+			$("#errorMemberDocTitle").html("Fail to Download.");
 		});
 		</c:when>
 		</c:choose>
@@ -251,6 +252,9 @@
 																		$(
 																				'#uploadButton')
 																				.hide();
+																		$(
+																				'#memberDetailBox')
+																				.hide();
 																	} else {
 																		$(
 																				'#memberDetails')
@@ -288,21 +292,35 @@
 																								+ '<dt>Project Type</dt><dd>'
 																								+ data1["bungProject"]
 																								+ '</dd>');
-																		
-																		 $('#memberDocTitle').empty();
-																		 $.each(data2,function(i,obj)
-																	                {
-																	                 //alert(obj.memberDocumentId+":"+obj.memberDocumentTitle);
-																	                 data2="<option value="+obj.memberDocumentId+">"+obj.memberDocumentTitle+"</option>";
-																	                //alert(data2);
-																	                $(data2).appendTo('#memberDocTitle'); 
-																	                });
-										
+
+																		$(
+																				'#memberDocTitle')
+																				.empty();
+																		$
+																				.each(
+																						data2,
+																						function(
+																								i,
+																								obj) {
+																							//alert(obj.memberDocumentId+":"+obj.memberDocumentTitle);
+																							data2 = "<option value="+obj.memberDocumentId+">"
+																									+ obj.memberDocumentTitle
+																									+ "</option>";
+																							//alert(data2);
+																							$(
+																									data2)
+																									.appendTo(
+																											'#memberDocTitle');
+																						});
+
 																		$(
 																				'#memberDocuments')
 																				.show();
 																		$(
 																				'#uploadButton')
+																				.show();
+																		$(
+																				'#memberDetailBox')
 																				.show();
 																	}
 																},

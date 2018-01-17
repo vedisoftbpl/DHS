@@ -62,7 +62,7 @@
 						href="${pageContext.request.contextPath}/admin/pages/ReceiptFormController"><i
 							class="fa fa-circle-o"></i> Receipts</a></li>
 					<li><a
-						href="${pageContext.request.contextPath}/admin/pages/MemberDocumentController"><i
+						href="${pageContext.request.contextPath}/admin/pages/MemberDocumentsController"><i
 							class="fa fa-circle-o"></i> Member Documents Upload</a></li>
 					<li><a
 						href="${pageContext.request.contextPath}/admin/pages/MemberDocumentDownloadController"><i

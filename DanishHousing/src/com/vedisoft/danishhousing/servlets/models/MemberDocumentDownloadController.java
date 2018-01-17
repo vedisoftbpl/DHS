@@ -1,6 +1,7 @@
 package com.vedisoft.danishhousing.servlets.models;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -52,27 +53,37 @@ public class MemberDocumentDownloadController extends HttpServlet {
 		String page = "/pages/admin/MemberDocumentView.jsp";
 		int mDocId = 0;
 		String operation = new String();
-		operation = request.getParameter("operation");
-		if (operation != null) {
+		if (request.getParameter("operation") != null && request.getParameter("memberDocTitle").trim().length() > 0)
+			operation = request.getParameter("operation");
+		System.out.println(operation);
+		if (operation.equals("view")) {
 			if (request.getParameter("memberDocTitle") != null
 					&& request.getParameter("memberDocTitle").trim().length() > 0)
 				mDocId = Integer.parseInt(request.getParameter("memberDocTitle"));
+			System.out.println("MemberId = " + mDocId);
 			response.setContentType("text/html");
 			PrintWriter out = response.getWriter();
 			String filename = new MemberDocumentDao().findFileFromTitle(mDocId);
-
-			String filepath = "D:\\J2EE\\WebWorkspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp2\\wtpwebapps\\DanishHousing\\pages/photos\\";
+			System.out.println(filename);
+			String filepath = "D:\\J2EE\\WebWorkspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp2\\wtpwebapps\\DanishHousing\\pages\\documents\\";
 			response.setContentType("APPLICATION/OCTET-STREAM");
 			response.setHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");
-			FileInputStream fileInputStream = new FileInputStream(filepath + filename);
-			int i;
+			try {
+				FileInputStream fileInputStream = new FileInputStream(filepath + filename);
+				int i;
 
-			while ((i = fileInputStream.read()) != -1) {
-				out.write(i);
+				while ((i = fileInputStream.read()) != -1) {
+					out.write(i);
+				}
+
+				fileInputStream.close();
+				out.close();
+			} catch (FileNotFoundException e) {
+				request.setAttribute("msg", 2);
+				RequestDispatcher rd = request.getRequestDispatcher(page);
+				rd.forward(request, response);
 			}
 
-			fileInputStream.close();
-			out.close();
 		} else {
 			RequestDispatcher rd = request.getRequestDispatcher(page);
 			rd.forward(request, response);

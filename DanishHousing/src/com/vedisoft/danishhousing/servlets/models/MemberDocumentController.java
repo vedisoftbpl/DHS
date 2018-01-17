@@ -30,7 +30,7 @@ import com.vedisoft.danishhousing.pojos.Users;
 public class MemberDocumentController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private static final String SAVE_DIR = "photos";
+	private static final String SAVE_DIR = "documents";
 
 	/**
 	 * @see HttpServlet#HttpServlet()
