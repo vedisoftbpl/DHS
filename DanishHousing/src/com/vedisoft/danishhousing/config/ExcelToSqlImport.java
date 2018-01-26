@@ -76,7 +76,7 @@ public class ExcelToSqlImport {
 			MembersDao mdao = new MembersDao();
 			for (Members m : memberList) {
 				System.out.println(m);
-				mdao.create(m);
+				//mdao.createImport(m);
 			}
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
@@ -95,7 +95,7 @@ public class ExcelToSqlImport {
 					.readReceiptRecordFromExcelFile(file);
 			ReceiptDao recDao = new ReceiptDao();
 			for (ReceiptRecord rec : receiptList) {
-				recDao.create(rec);
+				//recDao.createForImport(rec);
 				System.out.println(rec);
 			}
 		} catch (IOException ioe) {
@@ -168,14 +168,14 @@ public class ExcelToSqlImport {
 	}
 
 	public static void main(String[] args) {
-		importProject("");
-		importAccount("");
-		importAccountMaster("");
-		importMembers("");
-		importReceiptRecord("");
-		importTransactionRecord("Data.xls");
-		importChequePyment("Data.xls");
-		importRefundPayent("Data.xls");
+		//importProject("I:\\PROJFL.xls");
+		//importAccount("I:\\DHS\\BKMAS.xls");
+		//importAccountMaster("I:\\DHS\\ACMAST.xls");
+		//importMembers("I:\\DHS\\MEMBFL11.xls");
+		//importReceiptRecord("I:\\DHS\\RCPFLD.xls");
+		importTransactionRecord("C:\\Users\\AMAN\\Desktop\\Rohot ji-20-01-2018\\TR9900Z4.xls");
+		//importChequePyment("I:\\DHS\\CHREG1.xls");
+		//importRefundPayent("I:\\DHS\\REFUND1.xls");
 	}
 
 }

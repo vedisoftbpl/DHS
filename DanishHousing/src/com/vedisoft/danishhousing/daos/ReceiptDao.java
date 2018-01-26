@@ -354,7 +354,7 @@ public class ReceiptDao {
 		pool.initialize();
 		Connection conn = pool.getConnection();
 		try {
-			String sql = "delete from receipt_records where receiptno = ? and amount = ?";
+			String sql = "delete from receipt_records where receiptno = ? and amount = ? limit 1";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, receipt.getReceiptNo());
 			ps.setDouble(2, receipt.getAmount());
