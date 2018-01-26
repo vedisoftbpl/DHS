@@ -355,7 +355,7 @@ public class RefundPaymentDao {
 			pool.initialize();
 			Connection conn = pool.getConnection();
 			try {
-				String sql = "delete from refund_pay where vr_no = ? and p_d= ? and amount = ?";
+				String sql = "delete from refund_pay where vr_no = ? and p_d= ? and amount = ? limit 1";
 				PreparedStatement ps = conn.prepareStatement(sql);
 				ps.setInt(1, refundPayment.getVoucherNo());
 				ps.setString(2, refundPayment.getpD());
