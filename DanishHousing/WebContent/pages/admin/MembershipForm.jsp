@@ -150,11 +150,11 @@
 											<select class="form-control select2" id="category"
 												name="category" style="width: 100%;" >
 												<option>N/A</option>
-												<option>General</option>
-												<option>Scheduled Caste(SC)</option>
-												<option>Scheduled Tribe(ST)</option>
-												<option>Other Backward Classes(OBC)</option>
-												<option>Others</option>
+												<option value="GEN">General</option>
+												<option value="SC">Scheduled Caste(SC)</option>
+												<option value="ST">Scheduled Tribe(ST)</option>
+												<option value="OBC">Other Backward Classes(OBC)</option>
+												<option value="Others">Others</option>
 											</select>
 										</div>
 									</div>

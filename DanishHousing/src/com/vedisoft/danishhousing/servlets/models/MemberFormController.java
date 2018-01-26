@@ -176,7 +176,7 @@ public class MemberFormController extends HttpServlet {
 			operation = request.getParameter("operation");
 		}
 
-		int projectCd = 0;
+		int projectCd = -1;
 		if (request.getParameter("projectCode") != null && request.getParameter("projectCode").trim().length() > 0) {
 			projectCd = Integer.parseInt(request.getParameter("projectCode"));
 		}
@@ -251,7 +251,7 @@ public class MemberFormController extends HttpServlet {
 		if (request.getParameter("entranceFee") != null && request.getParameter("entranceFee").trim().length() > 0) {
 			entranceFee = Integer.parseInt(request.getParameter("entranceFee"));
 		}
-		Date receiptDt = new Date();
+		Date receiptDt = null;
 		if (request.getParameter("receiptdt") != null && request.getParameter("receiptdt").trim().length() > 0) {
 			receiptDt = DateUtils.convertDate(request.getParameter("receiptdt"));
 
@@ -260,7 +260,7 @@ public class MemberFormController extends HttpServlet {
 		if (request.getParameter("registered") != null && request.getParameter("registered").trim().length() > 0) {
 			registered = request.getParameter("registered");
 		}
-		Date regDt = new Date();
+		Date regDt = null;
 		if (request.getParameter("regDt") != null && request.getParameter("regDt").trim().length() > 0) {
 			regDt = DateUtils.convertDate(request.getParameter("regDt"));
 

@@ -97,7 +97,7 @@
 																<span class="input-group-addon"><i
 																	class="fa fa-user"></i></span> <span class="col-xs-2"><select
 																	class="form-control select2" id="prefix" name="prefix"
-																	style="width: 80px;" required="required">
+																	style="width: 80px;" >
 																	<option  value="${requestScope.member.prefix}" <c:if test="${(requestScope.member.prefix == 'Mr.')||(requestScope.member.prefix == 'Mr')||(requestScope.member.prefix == 'SHRI')}"> selected </c:if>>Mr.</option>
 																		<!--   <option
 																			${requestScope.member.prefix eq 'Mr.'||'SHRI' ? 'selected' : ''}>Mr.</option> -->
@@ -128,13 +128,14 @@
 																<span class="input-group-addon"><i
 																	class="fa fa-user"></i></span> <span class="col-xs-2"><select
 																	class="form-control select2" id="relation"
-																	name="relation" style="width: 80px;"
-																	required="required">
-																		<option
+																	name="relation" style="width: 80px;">
+																	<option value="N/A"
+																			${requestScope.member.fHRelation eq 'N/A' ? 'selected' : ''}>N/A</option>
+																		<option value="S/O"
 																			${requestScope.member.fHRelation eq 'S/O' ? 'selected' : ''}>S/O</option>
-																		<option
+																		<option value="D/O"
 																			${requestScope.member.fHRelation eq 'D/O' ? 'selected' : ''}>D/O</option>
-																		<option
+																		<option value="W/O"
 																			${requestScope.member.fHRelation eq 'W/O' ? 'selected' : ''}>W/O</option>
 																</select> </span> <span class="col-md-10"> <input type="text"
 																	class="form-control" placeholder="Full Name"
@@ -368,20 +369,20 @@
 																</div>
 																<select class="form-control select2" id="addressProof"
 																	name="addressProof" style="width: 100%;">
-																	<option 
+																	<option value="N/A"
 																		${requestScope.member.addProof eq 'N/A' ? 'selected' : ''}>N/A</option>
-																	<option
+																	<option value="Voter Id"
 																		${requestScope.member.addProof eq 'Voter Id' ? 'selected' : ''}>Voter
 																		Id</option>
-																	<option
+																	<option value="Driving License"
 																		${requestScope.member.addProof eq 'Driving License' ? 'selected' : ''}>Driving
 																		License</option>
-																	<option
+																	<option value="Passport"
 																		${requestScope.member.addProof eq 'Passport' ? 'selected' : ''}>Passport</option>
-																	<option
+																	<option value="PAN Card"
 																		${requestScope.member.addProof eq 'PAN Card' ? 'selected' : ''}>PAN
 																		Card</option>
-																	<option
+																	<option value="Ration Card"
 																		${requestScope.member.addProof eq 'Ration Card' ? 'selected' : ''}>Ration
 																		Card</option>
 																</select>
@@ -449,14 +450,14 @@
 																	<i class="fa   fa-group"></i>
 																</div>
 																<select class="form-control select2" id="gender"
-																	name="gender" style="width: 100%;" required="required">
-																	<option 
+																	name="gender" style="width: 100%;" >
+																	<option value="N/A"
 																		${requestScope.member.gender eq 'N/A' ? 'selected' : ''}>N/A</option>
-																	<option
+																	<option value="Male"
 																		${requestScope.member.gender eq 'Male' ? 'selected' : ''}>Male</option>
-																	<option
+																	<option value="Female"
 																		${requestScope.member.gender eq 'Female' ? 'selected' : ''}>Female</option>
-																	<option
+																	<option value="Others"
 																		${requestScope.member.gender eq 'Others' ? 'selected' : ''}>Others</option>
 																</select>
 															</div>
@@ -475,11 +476,11 @@
 																</div>
 																<select class="form-control select2" id="category"
 																	name="category" style="width: 100%;"
-																	required="required">
-																	<option
+																	>
+																	<option value="N/A"
 																		${requestScope.member.category eq 'N/A' ? 'selected' : ''}>N/A</option>
-																	<option value="GEN."
-																		${requestScope.member.category eq 'GEN.' ? 'selected' : ''}>General</option>
+																	<option value="GEN"
+																		${requestScope.member.category eq 'GEN' ? 'selected' : ''}>General</option>
 																	<option value="SC"
 																		${requestScope.member.category eq 'SC' ? 'selected' : ''}>Scheduled
 																		Caste(SC)</option>
@@ -536,8 +537,8 @@
 																</div>
 																<select class="form-control select2" id="projectCode"
 																	name="projectCode" style="width: 100%;">
-																	<option value="0"
-																		${requestScope.member.projectCd eq 0 ? 'selected' : ''}>N/A</option>
+																	<option value="-1"
+																		${requestScope.member.projectCd eq '-1' ? 'selected' : ''}>N/A</option>
 
 																	<c:forEach items="${requestScope.projectList}"
 																		var="project">
@@ -703,7 +704,7 @@
 																</div>
 																<select class="form-control select2" id="fullpay"
 																	name="fullpay" style="width: 100%;">
-																	<option
+																	<option  value="N/A"
 																		${requestScope.member.fullPay eq 'N/A' ? 'selected' : ''}>N/A</option>
 																	<option value="Y"
 																		${requestScope.member.fullPay eq 'Y' ? 'selected' : ''}>Yes</option>
@@ -727,7 +728,7 @@
 																</div>
 																<select class="form-control select2" id=" inst1"
 																	name="inst1" style="width: 100%;">
-																	<option
+																	<option value="N/A"
 																		${requestScope.member.inst1 eq 'N/A' ? 'selected' : ''}>N/A</option>
 
 																	<option value="Y"
@@ -750,7 +751,7 @@
 																</div>
 																<select class="form-control select2" id=" inst2"
 																	name="inst2" style="width: 100%;">
-																	<option
+																	<option value="N/A"
 																		${requestScope.member.inst2 eq 'N/A' ? 'selected' : ''}>N/A</option>
 
 																	<option value="Y"
@@ -774,7 +775,7 @@
 																</div>
 																<select class="form-control select2" id=" inst3"
 																	name="inst3" style="width: 100%;">
-																	<option
+																	<option value="N/A"
 																		${requestScope.member.inst3 eq 'N/A' ? 'selected' : ''}>N/A</option>
 
 																	<option value="Y"
@@ -929,7 +930,7 @@
 																</div>
 																<select class="form-control select2" id="registered"
 																	name="registered" style="width: 100%;">
-																	<option
+																	<option value="N/A"
 																		${requestScope.member.regi eq 'N/A' ? 'selected' : ''}>N/A</option>
 
 																	<option value="Y"
@@ -1157,12 +1158,12 @@
 																<select class="form-control select2"
 																	id=" eligibleIneligible" name="eligibleIneligible"
 																	style="width: 100%;">
-																	<option
+																	<option value="N/A"
 																		${requestScope.member.eliInl eq 'N/A' ? 'selected' : ''}>N/A</option>
 
-																	<option
+																	<option value="Eligible"
 																		${requestScope.member.eliInl eq 'Eligible' ? 'selected' : ''}>Eligible</option>
-																	<option
+																	<option value="Ineligible"
 																		${requestScope.member.eliInl eq 'Ineligible' ? 'selected' : ''}>Ineligible</option>
 
 																</select>
@@ -1182,7 +1183,7 @@
 																</div>
 																<select class="form-control select2" id="buildingFlag"
 																	name="buildingFlag" style="width: 100%;">
-																	<option
+																	<option value="N/A"
 																		${requestScope.member.buildFlag eq 'N/A' ? 'selected' : ''}>N/A</option>
 
 																	<option value="C"
@@ -1211,12 +1212,12 @@
 																</div>
 																<select class="form-control select2" id="memberNominal"
 																	name="memberNominal" style="width: 100%;">
-																	<option
+																	<option value="N/A"
 																		${requestScope.member.mNominal eq 'N/A' ? 'selected' : ''}>N/A</option>
 
-																	<option
+																	<option value="C"
 																		${requestScope.member.mNominal eq 'C' ? 'selected' : ''}>C</option>
-																	<option
+																	<option value="None"
 																		${requestScope.member.mNominal eq 'None' ? 'selected' : ''}>None</option>
 
 																</select>
@@ -1235,7 +1236,7 @@
 																</div>
 																<select class="form-control select2" id="defaulter"
 																	name="defaulter" style="width: 100%;">
-																	<option
+																	<option value="N/A"
 																		${requestScope.member.defaulter eq 'N/A' ? 'selected' : ''}>N/A</option>
 
 																	<option value="Y"
