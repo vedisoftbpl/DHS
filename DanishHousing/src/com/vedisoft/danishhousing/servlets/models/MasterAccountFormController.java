@@ -90,7 +90,7 @@ public class MasterAccountFormController extends HttpServlet {
 			address = request.getParameter("address");
 		}
 		
-		Date opdte = new Date();
+		Date opdte = null;
 		if (request.getParameter("datepicker") != null && request.getParameter("datepicker").trim().length() > 0) {
 			opdte = DateUtils.convertDate(request.getParameter("datepicker"));
 		}
