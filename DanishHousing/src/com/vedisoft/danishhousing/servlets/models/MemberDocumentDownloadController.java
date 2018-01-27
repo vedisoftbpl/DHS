@@ -1,5 +1,6 @@
 package com.vedisoft.danishhousing.servlets.models;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -22,6 +23,7 @@ import com.vedisoft.danishhousing.pojos.Users;
 @WebServlet("/admin/pages/MemberDocumentDownloadController")
 public class MemberDocumentDownloadController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final String SAVE_DIR = "documents";
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -51,7 +53,20 @@ public class MemberDocumentDownloadController extends HttpServlet {
 		HttpSession session = request.getSession();
 		Users user = (Users) session.getAttribute("userLogin");
 		String page = "/pages/admin/MemberDocumentView.jsp";
-		int mDocId = 0;
+		int mDocId = 0,docNo = 0;
+		if( request.getParameter("docNo")!= null &&  ((String)request.getParameter("docNo")).trim().length() > 0) {
+			System.out.println(request.getParameter("docNo"));
+				docNo = Integer.parseInt((String)request.getParameter("docNo"));
+			}
+		if(docNo > 0){
+			String filename = new MemberDocumentDao().findFileFromTitle(docNo);
+			System.out.println(filename);
+			String filepath = request.getServletContext().getRealPath("") + "pages/" + SAVE_DIR;
+			RequestDispatcher rd = request.getRequestDispatcher("<html><head><head><body><img src='filepath "+   File.separator +" filename'></body></html>");
+			rd.forward(request, response);
+			
+			
+		} else {
 		String operation = new String();
 		if (request.getParameter("operation") != null && request.getParameter("memberDocTitle").trim().length() > 0)
 			operation = request.getParameter("operation");
@@ -65,11 +80,11 @@ public class MemberDocumentDownloadController extends HttpServlet {
 			PrintWriter out = response.getWriter();
 			String filename = new MemberDocumentDao().findFileFromTitle(mDocId);
 			System.out.println(filename);
-			String filepath = "D:\\J2EE\\WebWorkspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp2\\wtpwebapps\\DanishHousing\\pages\\documents\\";
+			String filepath = request.getServletContext().getRealPath("") + "pages/" + SAVE_DIR;
 			response.setContentType("APPLICATION/OCTET-STREAM");
 			response.setHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");
 			try {
-				FileInputStream fileInputStream = new FileInputStream(filepath + filename);
+				FileInputStream fileInputStream = new FileInputStream(filepath +   File.separator + filename);
 				int i;
 
 				while ((i = fileInputStream.read()) != -1) {
@@ -89,5 +104,5 @@ public class MemberDocumentDownloadController extends HttpServlet {
 			rd.forward(request, response);
 		}
 	}
-
+	}
 }

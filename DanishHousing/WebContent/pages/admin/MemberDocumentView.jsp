@@ -117,6 +117,8 @@
 									<div class="col-md-2">
 										<div class="col-xs-4" align="right"></div>
 										<label>&nbsp;</label>
+										<button type="button" onclick="print();"
+											class="btn btn-primary btn-block btn-flat" id="viewDoc">Save</button>
 										<button type="submit"
 											class="btn btn-primary btn-block btn-flat" id="viewDoc">Download</button>
 									</div>
@@ -202,6 +204,20 @@
 			document.getElementById("divMemberDocFile").className = 'form-group has-success';
 
 		}
+		
+		function print() {
+			
+			$("#typeError").addClass("form-group has-success");
+			$("#errorTop").html(
+					"Document Viewed.");
+			window
+					.open(
+							"../../admin/pages/MemberDocumentDownloadController?docNo=" + $('#memberDocTitle').val(),
+							"Document : $('#memberDocTitle').val()",
+							"_blank");
+		}
+		
+		
 
 		//Auto fill data
 		$(document)
