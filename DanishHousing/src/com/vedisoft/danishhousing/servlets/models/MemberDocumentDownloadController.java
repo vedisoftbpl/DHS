@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 
 import com.vedisoft.danishhousing.daos.MemberDocumentDao;
 import com.vedisoft.danishhousing.pojos.Users;
+import com.vedisoft.danishhousing.pojos.MemberDocument;
 
 /**
  * Servlet implementation class MemberDocumentDownload
@@ -61,10 +62,14 @@ public class MemberDocumentDownloadController extends HttpServlet {
 		if(docNo > 0){
 			String filename = new MemberDocumentDao().findFileFromTitle(docNo);
 			System.out.println(filename);
-			String filepath = request.getServletContext().getRealPath("") + "pages/" + SAVE_DIR;
-			RequestDispatcher rd = request.getRequestDispatcher("<html><head><head><body><img src='filepath "+   File.separator +" filename'></body></html>");
+			String filepath = request.getServletContext().getRealPath("") + "pages/" + SAVE_DIR +   File.separator + filename;
+			request.setAttribute("img", filepath);
+			MemberDocument m  = new MemberDocumentDao().find(docNo);
+			request.setAttribute("memberDocument", m);
+			String pg = "/pages/admin/Document.jsp";
+			RequestDispatcher rd = request.getRequestDispatcher(pg);
 			rd.forward(request, response);
-			
+		
 			
 		} else {
 		String operation = new String();

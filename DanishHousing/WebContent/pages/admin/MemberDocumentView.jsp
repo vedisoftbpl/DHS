@@ -118,7 +118,7 @@
 										<div class="col-xs-4" align="right"></div>
 										<label>&nbsp;</label>
 										<button type="button" onclick="print();"
-											class="btn btn-primary btn-block btn-flat" id="viewDoc">Save</button>
+											class="btn btn-primary btn-block btn-flat" id="viewDoc">View</button>
 										<button type="submit"
 											class="btn btn-primary btn-block btn-flat" id="viewDoc">Download</button>
 									</div>
