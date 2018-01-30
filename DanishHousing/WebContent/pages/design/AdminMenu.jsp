@@ -58,6 +58,9 @@
 				</span>
 			</a>
 				<ul class="treeview-menu">
+				<li><a
+						href="${pageContext.request.contextPath}/admin/pages/BalanceViewController"><i
+							class="fa fa-circle-o"></i>View Balance </a></li>
 					<li><a
 						href="${pageContext.request.contextPath}/admin/pages/ReceiptFormController"><i
 							class="fa fa-circle-o"></i> Receipts</a></li>
@@ -91,6 +94,7 @@
 					<li><a
 						href="${pageContext.request.contextPath}/admin/pages/JournalTransferController"><i
 							class="fa fa-circle-o"></i>Journal Transfer </a></li>
+							
 				</ul></li>
 
 			<li class="treeview"><a href="#"> <i class="fa fa-table"></i>

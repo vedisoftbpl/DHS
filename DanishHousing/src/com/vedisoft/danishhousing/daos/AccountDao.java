@@ -313,6 +313,40 @@ public class AccountDao {
 		return b;
 	}
 	
+	public HashMap<String, Double> findAllBalanceByDate(Date date) {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		pool.initialize();
+		Connection conn = pool.getConnection();
+		HashMap<String, Double> b = new HashMap<String, Double>();
+		try {
+			String sql = "SELECT bk_name,(coalesce(a.credit,0.00) - coalesce(b.debit,0.00) + coalesce(ac.op_bal,0.00)) as OpBal "
+					+"FROM accounts ac left outer join ((SELECT bkcode ,sum(amt) as credit from transaction_records t where "
+					+"docdte <= ?  and doctype = 'D' group by bkcode) a,"
+					+"(SELECT bkcode ,sum(amt) as debit FROM transaction_records"
+					 +" t  where docdte <= ? and doctype = 'W' group by bkcode) b) on bk_code= a.bkcode and a.bkcode=b.bkcode group by bk_code";
+          		
+          PreparedStatement ps = conn.prepareStatement(sql);
+          java.sql.Date date1 = null;
+			
+				date1 = new java.sql.Date(date.getTime());
+			
+			System.out.println(date1);
+			ps.setDate(1, date1);
+			ps.setDate(2, date1);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				
+				b.put(rs.getString("bk_name"), rs.getDouble("OpBal"));
+			}
+		} catch (SQLException sq) {
+			System.out.println("Unable to fetch balance");
+			sq.printStackTrace();
+		} finally {
+			pool.putConnection(conn);
+		}
+		return b;
+	}
+	
 	
 
 	public static void main(String[] args) {
