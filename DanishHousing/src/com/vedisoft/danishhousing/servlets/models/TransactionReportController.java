@@ -1,6 +1,8 @@
 package com.vedisoft.danishhousing.servlets.models;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -19,6 +21,7 @@ import com.vedisoft.danishhousing.daos.ReceiptDao;
 import com.vedisoft.danishhousing.daos.TransactionRecordsDao;
 import com.vedisoft.danishhousing.pojos.AccountMaster;
 import com.vedisoft.danishhousing.pojos.Members;
+import com.vedisoft.danishhousing.pojos.MonthlyTransactionReportDto;
 import com.vedisoft.danishhousing.pojos.ReceiptRecord;
 import com.vedisoft.danishhousing.pojos.TransactionRecords;
 import com.vedisoft.danishhousing.pojos.TransactionReportDto;
@@ -84,6 +87,8 @@ public class TransactionReportController extends HttpServlet {
 		if (op.equals("create")) {
 			double totalCredit = 0;
 			double totalDebit = 0;
+			double monthlyCredit = 0;
+			double monthlyDebit = 0;
 			request.setAttribute("date1", DateUtils.dateFormat(date1));
 			request.setAttribute("date2", DateUtils.dateFormat(date2));
 			request.setAttribute("accCode", accCode);
@@ -91,12 +96,59 @@ public class TransactionReportController extends HttpServlet {
 			ArrayList<TransactionRecords> list = new TransactionRecordsDao().findDateTransactionRecord(date1, date2,
 					accCode);
 			ArrayList<TransactionReportDto> dto = new ArrayList<TransactionReportDto>();
+			ArrayList<MonthlyTransactionReportDto> mdto = new ArrayList<MonthlyTransactionReportDto>();
+			Date date = list.get(0).getDocDte();
+			LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+			int month = localDate.getMonthValue();
+			int counter=0;
+			//System.out.println("Month : "+month);
+			for (TransactionRecords t : list) {
+				Date d1 = t.getDocDte();
+				LocalDate ld1 = d1.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+				int tempMonth1 = ld1.getMonthValue();
+				if(tempMonth1!=month){
+					counter++;
+					month=tempMonth1;
+				}
+			}
+			month = localDate.getMonthValue();
+			int i=0;
 			for (TransactionRecords t : list) {
 				double credit = 0;
 				double debit = 0;
 				String mode = new String();
 				String particular = new String();
 				Members m = new MembersDao().find(t.getMembNo());
+				Date d = t.getDocDte();
+				LocalDate ld = d.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+				int tempMonth = ld.getMonthValue();
+				//System.out.println("Temp Month : "+tempMonth);
+				if(tempMonth!=month){
+					ArrayList<TransactionReportDto> tempdto = new ArrayList<TransactionReportDto>();
+					for(TransactionReportDto rep:dto){
+						//System.out.println(rep);
+						tempdto.add(rep);
+						}
+					MonthlyTransactionReportDto mReport = new MonthlyTransactionReportDto(tempdto,monthlyDebit,monthlyCredit,monthlyCredit-monthlyDebit);
+//					System.out.println("Mrep");
+//					System.out.println(mReport);
+					mdto.add(mReport);
+//					for(MonthlyTransactionReportDto rep:mdto){
+//						System.out.println(rep);
+//						}
+					monthlyDebit=0;
+					monthlyCredit=0;
+					dto.clear();
+//					for(MonthlyTransactionReportDto rep:mdto){
+//						System.out.println(rep);
+//						}
+//					for(TransactionReportDto rep:dto){
+//						System.out.println(rep);
+//						}
+					month=tempMonth;
+//					System.out.println("Month : "+month);
+					i++;
+				}
 				if (t.getDocType().equals("D")) {
 					
 					if (t.getFlag() == 2){
@@ -140,13 +192,34 @@ public class TransactionReportController extends HttpServlet {
 
 				TransactionReportDto report = new TransactionReportDto(t.getDocNo(), t.getDocDte(), particular, mode,
 						credit, debit);
+//				System.out.println("Trep");
+//				System.out.println(report);
 				totalCredit += credit;
+				monthlyCredit += credit;
 				totalDebit += debit;
+				monthlyDebit += debit;
 				dto.add(report);
+			
 			}
+			if(i==counter){
+				ArrayList<TransactionReportDto> tempdto = new ArrayList<TransactionReportDto>();
+				for(TransactionReportDto rep:dto){
+//					System.out.println(rep);
+					tempdto.add(rep);
+					}
+				MonthlyTransactionReportDto mReport = new MonthlyTransactionReportDto(tempdto,monthlyDebit,monthlyCredit,monthlyCredit-monthlyDebit);
+//				System.out.println("Mrep");
+//				System.out.println(mReport);
+				mdto.add(mReport);
+			}
+//			for(MonthlyTransactionReportDto rep:mdto){
+//				System.out.println(rep);
+//				}
+				
+			
 			double balance=totalCredit-totalDebit;
 			if (list.size() > 0) {
-				request.setAttribute("transactionList", dto);
+				request.setAttribute("transactionList", mdto);
 				request.setAttribute("totalCreditAmount", totalCredit);
 				request.setAttribute("totalDebitAmount", totalDebit);
 				request.setAttribute("balanceAmount", balance);

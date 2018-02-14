@@ -70,7 +70,12 @@ div.scrollmenu {
 
 .table>thead>tr>th {
 	border: 1px solid #060606;
-	padding: 5px
+	padding: 1px;
+	font-size: 9pt;
+}
+.table>tbody>tr>td {
+	padding: 1px;
+	font-size: 8pt;
 }
 
 .invoice-box table tr.item td {
@@ -217,38 +222,37 @@ div.scrollmenu {
 
 							<div class="col-md-12">
 								<div class="col-md-12" align="center">
-									<h1>
+									<h2>
 										<b><u>DANISH GRIH NIRMAN SAHAKARI SANSTHA MARYADIT
 												BHOPAL</u></b>
-									</h1>
+									</h2>
 								</div>
 								<div class="row" align="center">
 
 									<div class="col-md-12">
 										<h4>CASH/BANK - BOOK FOR PERIOD ${requestScope.date1} TO
-											${requestScope.date2}</h4>
+											${requestScope.date2}</h5>
 									</div>
 								</div>
 								<div class="row" align="center">
 
 									<div class="col-md-12">
 									<span style="display:inline-block;">
-									<h4><b>BANK CODE :</b> ${requestScope.bkCode} ,-
-											</h4>
-										<h4><b>BANK NAME : </b>${requestScope.bkName} 
-											</h4>
+									<h5><b>BANK CODE :</b> ${requestScope.bkCode} ,-
+											</h5>
+										<h5><b>BANK NAME : </b>${requestScope.bkName} 
+											</h5>
 									</span>
 										
 									</div>
 								</div>
 								<div class="row" align="left">
 
-<div align="left"><p><b>&emsp;Opening Balance :&emsp;</b>Rs :&nbsp;<fmt:formatNumber type="number"
-														maxFractionDigits="3" value="${requestScope.openingBalance}" /></p></div>
+<div align="left"><p><b>&emsp;Opening Balance :&emsp;</b><fmt:setLocale value="en_IN"/><fmt:formatNumber value="${requestScope.openingBalance}" type="currency" /></p></div>
 									<div class="col-md-12">
-										<h3>
-											<u>RECEIPTS</u>
-										</h3>
+										<h4>
+											<u><b>RECEIPTS</b></u>
+										</h4>
 										
 										<table class="table" align="center">
 
@@ -298,9 +302,8 @@ div.scrollmenu {
 
 											<tr>
 												<td><label>&emsp;Total Receipt Amount &emsp;</label></td>
-												<td><label>:&emsp;Rs &nbsp;</label></td>
-												<td ><span><fmt:formatNumber type="number"
-														maxFractionDigits="3" value="${requestScope.totalCreditAmount}" /></span></td>
+												<td><label>:&emsp;</label></td>
+												<td ><span><fmt:setLocale value="en_IN"/><fmt:formatNumber value="${requestScope.totalCreditAmount}" type="currency" /></span></td>
 											</tr>
 
 											
@@ -311,9 +314,9 @@ div.scrollmenu {
 								
 								</div>
 									<div class="col-md-12">
-										<h3>
-											<u>PAYMENTS</u>
-										</h3>
+										<h4>
+											<u><b>PAYMENTS</b></u>
+										</h4>
 										<table class="table" align="center">
 
 											<!-- Table Header -->
@@ -360,9 +363,8 @@ div.scrollmenu {
 
 											<tr>
 												<td><label>&emsp;Total Payments Amount &emsp;</label></td>
-												<td><label>:&emsp;Rs &nbsp;</label></td>
-												<td ><span><fmt:formatNumber type="number"
-														maxFractionDigits="3" value="${requestScope.totalDebitAmount}" /></span></td>
+												<td><label>:&emsp;</label></td>
+												<td ><span><fmt:setLocale value="en_IN"/><fmt:formatNumber value="${requestScope.totalDebitAmount}" type="currency" /></span></td>
 											</tr>
 
 											
@@ -375,8 +377,7 @@ div.scrollmenu {
 								</div>
 								<div class="row" ><br>
 								-----------------------------------------------------------------------------------------------------------
-								<div align="left"><label>&emsp;Closing Balance :&emsp;Rs :&nbsp;<fmt:formatNumber type="number"
-														maxFractionDigits="3" value="${requestScope.closingBalance}" /></label></div>
+								<div align="left"><label>&emsp;Closing Balance :&emsp;<fmt:setLocale value="en_IN"/><fmt:formatNumber value="${requestScope.closingBalance}" type="currency" /></label></div>
 								-----------------------------------------------------------------------------------------------------------
 								</div>
 								<div class="row" align="center">

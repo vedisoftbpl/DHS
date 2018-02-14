@@ -10,7 +10,7 @@
 	overflow: auto;
 }
 </style>
-		<style type="text/css" media="print">
+<style type="text/css" media="print">
 @media print {
 	.result {
 		height: 100%;
@@ -18,9 +18,18 @@
 	}
 }
 </style>
-		<style>
-			.no-js #loader { display: none;  }
-.js #loader { display: block; position: absolute; left: 100px; top: 0; }
+<style>
+.no-js #loader {
+	display: none;
+}
+
+.js #loader {
+	display: block;
+	position: absolute;
+	left: 100px;
+	top: 0;
+}
+
 .se-pre-con {
 	position: fixed;
 	left: 0px;
@@ -28,11 +37,10 @@
 	width: 100%;
 	height: 100%;
 	z-index: 9999;
-	background: url(../../../DanishHousing/pages/photos/Eclipse.gif) center no-repeat #fff;
+	background: url(../../../DanishHousing/pages/photos/Eclipse.gif) center
+		no-repeat #fff;
 }
-		
-		
-		
+
 body, html {
 	width: 100%;
 	height: 100%;
@@ -60,16 +68,13 @@ body, html {
 
 .table>thead>tr>th {
 	border: 1px solid #060606;
-	padding: 5px
+	padding: 1px;
+	font-size: 10pt;
 }
 
-.invoice-box table tr.item td {
-	border-bottom: 1px solid #eee;
-}
-
-.invoice-box table tr.total td:nth-child(2) {
-	border-top: 2px solid #eee;
-	font-weight: bold;
+.table>tbody>tr>td {
+	padding: 1px;
+	font-size: 8pt;
 }
 </style>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -82,8 +87,8 @@ body, html {
 		<!-- =============================================== -->
 		<!-- Content Wrapper. Contains page content -->
 
-<div class="se-pre-con"></div>
-		
+		<div class="se-pre-con"></div>
+
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
@@ -204,71 +209,92 @@ body, html {
 
 							<div class="col-md-12">
 								<div class="col-md-12" align="center">
-									<h1>
+									<h2>
 										<b><u>DANISH GRIH NIRMAN SAHAKARI SANSTHA MARYADIT
 												BHOPAL</u></b>
-									</h1>
+									</h2>
 								</div>
 								<div class="row" align="center">
 
 									<div class="col-md-12">
-										<h4>GENERAL LEDGER FOR PERIOD ${requestScope.date1} TO
-											${requestScope.date2}</h4>
+										<h5>GENERAL LEDGER FOR PERIOD ${requestScope.date1} TO
+											${requestScope.date2}</h5>
 									</div>
 								</div>
 								<div class="row" align="center">
 
 									<div class="col-md-12">
-										<h4><b>ACCOUNT CODE :</b> ${requestScope.accCode} -
-											${requestScope.accName}</h4>
+										<h5>
+											<b>ACCOUNT CODE :</b> ${requestScope.accCode} -
+											${requestScope.accName}
+										</h5>
 									</div>
 								</div>
 								<div class="row" align="left">
 
 
 									<div class="col-md-12">
-										<h3>
+										<h4>
 											<u>Transactions Details</u>
-										</h3>
+										</h4>
 										<table class="table" align="center">
 
 											<!-- Table Header -->
 											<thead
-												style="border-top: 3px solid black; border-bottom: 3px solid black;">
+												style="border-top: 2px solid black; border-bottom: 2px solid black;">
 												<tr>
-													<th>Receipt No./Vr. No.</th>
 													<th>Date</th>
 													<th>Particulars</th>
+													<th>Receipt No./<br>Vr. No.</th>
 													<th>Debit</th>
 													<th>Credit</th>
+													<th>Balance</th>
 												</tr>
 											</thead>
 											<tbody>
 												<c:forEach items="${requestScope.transactionList}"
 													var="tran">
+													<c:forEach items="${tran.tdto}" var="rep">
+
+														<tr>
+															<td><fmt:formatDate type="date" pattern="dd/MM/yyyy"
+																	value="${rep.date}" /></td>
+															<td><c:out value="${rep.particular}" /></td>
+															<td><c:out value="${rep.recNo}" /></td>
+															<td><c:choose>
+																	<c:when test="${rep.debit==0}">
+																		<c:out value=" " />
+																	</c:when>
+																	<c:when test="${rep.debit!=0}">
+																		<c:out value="${rep.debit}" />
+																	</c:when>
+																</c:choose></td>
+															<td><c:choose>
+																	<c:when test="${rep.credit==0}">
+																		<c:out value=" " />
+																	</c:when>
+																	<c:when test="${rep.credit!=0}">
+																		<c:out value="${rep.credit}" />
+																	</c:when>
+																</c:choose></td>
+															<td><c:out value="" /></td>
+														</tr>
+													</c:forEach>
 													<tr>
-														<td><c:out value="${tran.recNo}" /></td>
-														<td><fmt:formatDate type="date" pattern="dd/MM/yyyy"
-																value="${tran.date}" /></td>
-														<td><c:out value="${tran.particular}" /></td>
-														<td><c:choose>
-																<c:when test="${tran.debit==0}">
-																	<c:out value=" " />
-																</c:when>
-																<c:when test="${tran.debit!=0}">
-																	<c:out value="${tran.debit}" />
-																</c:when>
-															</c:choose></td>
-														<td><c:choose>
-																<c:when test="${tran.credit==0}">
-																	<c:out value=" " />
-																</c:when>
-																<c:when test="${tran.credit!=0}">
-																	<c:out value="${tran.credit}" />
-																</c:when>
-															</c:choose></td>
-
-
+														<td colspan=3><h5>
+																<b>&emsp;&emsp;&emsp;&emsp;Monthly &emsp;:&nbsp;</b>
+															</h5></td>
+														<td><h5>
+																<b><fmt:setLocale value="en_IN"/><fmt:formatNumber value="${tran.monthlyCredit}" type="currency" /></b>
+															</h5></td>
+														<td><h5>
+																<b><fmt:setLocale value="en_IN"/><fmt:formatNumber value="${tran.monthlyDebit}" type="currency" /></b>
+															</h5></td>
+														<td>
+															<h5>
+																<b><fmt:setLocale value="en_IN"/><fmt:formatNumber value="${tran.monthlyBalance}" type="currency" /></b>
+															</h5>
+														</td>
 													</tr>
 												</c:forEach>
 											</tbody>
@@ -280,7 +306,7 @@ body, html {
 
 
 								<div class="row">
-									<div class="col-md-6" align="left">
+									<div class="col-md-6">
 										<table>
 
 
@@ -290,35 +316,36 @@ body, html {
 
 											<tr>
 												<td><label>&emsp;Total Debit Amount &emsp;</label></td>
-												<td><label>:&emsp;Rs &nbsp;</label></td>
-												<td align="right"><span>${requestScope.totalDebitAmount}</span></td>
+												<td><label>:&emsp;</label></td>
+												<td align="right"><span><fmt:setLocale value="en_IN"/><fmt:formatNumber value="${requestScope.totalDebitAmount}" type="currency" /></span></td>
 											</tr>
 
 											<tr>
 												<td><label>&emsp;Total Credit Amount &emsp;</label></td>
-												<td><label>:&emsp;Rs &nbsp;</label></td>
-												<td align="right"><span>${requestScope.totalCreditAmount}</span></td>
+												<td><label>:&emsp;</label></td>
+												<td align="right"><span><fmt:setLocale value="en_IN"/><fmt:formatNumber value="${requestScope.totalCreditAmount}" type="currency" /></span></td>
 											</tr>
 											<tr>
 												<td colspan="6">----------------------------------------------------------------------</td>
 											</tr>
 										</table>
 									</div>
-<div class="col-md-6" align="right">
+									<div class="col-md-1"></div>
+									<div class="col-md-5">
 										<table>
-										<tr>
-												<td colspan="3">---------------------------------------------------------</td>
+											<tr>
+												<td colspan="3">--------------------------------------------------------</td>
 											</tr>
 
 											<tr>
-												
-												<td align="right"><label>Balance&emsp;:&emsp;Rs &emsp;</label><span>${requestScope.balanceAmount}</span></td>
+
+												<td align="right"><label>Balance&emsp;:&emsp;</label><span><fmt:setLocale value="en_IN"/><fmt:formatNumber value="${requestScope.balanceAmount}" type="currency" /></span></td>
 											</tr>
 											<tr>
-												<td colspan="3">----------------------------------------------------------</td>
+												<td colspan="3">-------------------------------------------------------</td>
 											</tr>
 										</table>
-										</div>
+									</div>
 								</div>
 								<div class="row" align="center">
 
@@ -358,43 +385,53 @@ body, html {
 	<script src="../../plugins/select2/select2.js"></script>
 	<script src="../../bootstrap/js/modernizr.js"></script>
 	<script>
-	$(window).load(function() {
-		// Animate loader off screen
-		$(".se-pre-con").fadeOut("slow");;
-	});
+		$(window).load(function() {
+			// Animate loader off screen
+			$(".se-pre-con").fadeOut("slow");
+			;
+		});
 	</script>
-<script>
-	$('#accountCode')
-	.bind(
-			'keyup',
-			function(e) {
-				e.preventDefault();
-			var s = $('#accountCode').val();
-			if(s.length >= 1 ) {
-		    $.ajax({
-		     url:"http://localhost:8080/DanishHousing/AutoCompleteVoucher",
-		     type:"post",
-		     data:{'val' : s},
-		     success:function(data){
-		      $('#accountCode').autocomplete({   
-		          source: data,
-		          select: function(event,ui){    
-		              event.preventDefault();   
-		              var selectedArr = ui.item.value.split(":");
-		              this.value=$.trim(selectedArr[1]);            
-		          } 
-		        });
-		     
-		     },error:  function(data, status, er){
-		              console.log(data+"_"+status+"_"+er);
-		          },
-		           
-		    });
-			}
-		    });
-		   
-		 
- 
+	<script>
+		$('#accountCode')
+				.bind(
+						'keyup',
+						function(e) {
+							e.preventDefault();
+							var s = $('#accountCode').val();
+							if (s.length >= 1) {
+								$
+										.ajax({
+											url : "http://localhost:8080/DanishHousing/AutoCompleteVoucher",
+											type : "post",
+											data : {
+												'val' : s
+											},
+											success : function(data) {
+												$('#accountCode')
+														.autocomplete(
+																{
+																	source : data,
+																	select : function(
+																			event,
+																			ui) {
+																		event
+																				.preventDefault();
+																		var selectedArr = ui.item.value
+																				.split(":");
+																		this.value = $
+																				.trim(selectedArr[1]);
+																	}
+																});
+
+											},
+											error : function(data, status, er) {
+												console.log(data + "_" + status
+														+ "_" + er);
+											},
+
+										});
+							}
+						});
 	</script>
 	<script>
 		$(function() {

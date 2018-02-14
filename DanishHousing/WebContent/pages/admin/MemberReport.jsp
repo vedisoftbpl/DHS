@@ -56,7 +56,12 @@ body, html {
 
 .table>thead>tr>th {
 	border: 1px solid #060606;
-	padding: 5px
+	padding: 1px;
+	font-size: 9pt;
+}
+.table>tbody>tr>td {
+	padding: 1px;
+	font-size: 8pt;
 }
 
 .invoice-box table tr.item td {
@@ -150,38 +155,38 @@ body, html {
 
 								<div class="col-md-12">
 									<div class="col-md-12" align="center">
-										<h1>
+										<h2>
 											<b><u>MEMBER REPORT</u></b>
-										</h1>
+										</h2>
 									</div>
 									<div class="row" align="left">
 
 										<div class="col-md-12">
-											<h3>
+											<h4>
 												<u>Member Details</u>
-											</h3>
+											</h4>
 											
-											<p><label><b>Member No :</b>&emsp;${requestScope.member.memberNo}</label>&emsp;&emsp;${requestScope.member.prefix}
+											<h5><label><b>Member No :</b>&emsp;${requestScope.member.memberNo}</label>&emsp;&emsp;${requestScope.member.prefix}
 												${requestScope.member.memName}&emsp;${requestScope.member.fHRelation}
 												${requestScope.member.fHRelName}&emsp;<b>Water Connection Date :</b>&nbsp;<fmt:formatDate type="date" pattern="dd/MM/yyyy"
-																	value="${requestScope.member.waterConnDate}" /></p><br> <p><b>Plot
-												No :</b>&nbsp;<span>${requestScope.member.plotNo}</span>&emsp;&emsp;<b>Size
+																	value="${requestScope.member.waterConnDate}" />&emsp;<b>Water Supply Date :</b>&nbsp;<fmt:formatDate type="date" pattern="dd/MM/yyyy"
+																	value="${requestScope.member.watSupplyDt}" /><br> <label><b>Plot
+												No :</b>&nbsp;</label><span>${requestScope.member.plotNo}</span>&emsp;&emsp;<b>Size
 												:</b>&nbsp;<span>${requestScope.member.plotSize}</span>&emsp;&emsp;<b>Project
-												Name :</b>&nbsp;<span>${requestScope.projectName}&emsp;<b>Water Supply Date :</b>&nbsp;<fmt:formatDate type="date" pattern="dd/MM/yyyy"
-																	value="${requestScope.member.watSupplyDt}" /></span></p><br> <p>
-												<b>Address :</b>&nbsp;${requestScope.member.address1}&nbsp;${requestScope.member.address2}&nbsp;${requestScope.member.address3}&emsp;&emsp;<b>Registration Date :</b>&nbsp;<fmt:formatDate type="date" pattern="dd/MM/yyyy"
+												Name :</b>&nbsp;<span>${requestScope.projectName}&emsp;</span>&emsp;<b>Registration Date :</b>&nbsp;<fmt:formatDate type="date" pattern="dd/MM/yyyy"
 																	value="${requestScope.member.regDt}" />&emsp;&emsp;<b>NOC Date :</b>&nbsp;<fmt:formatDate type="date" pattern="dd/MM/yyyy"
-																	value="${requestScope.member.nocDt}" />					
-											</p>
+																	value="${requestScope.member.nocDt}" />	<br> 
+												<b>Address :</b>&nbsp;${requestScope.member.address1}&nbsp;${requestScope.member.address2}&nbsp;${requestScope.member.address3}&emsp;&emsp;				
+											</h5>
 										</div>
 									</div>
 									<div class="row" align="left">
 
 
 										<div class="col-md-12">
-											<h3>
+											<h4>
 												<u>Receipt Details</u>
-											</h3>
+											</h4>
 											<table class="table" align="center">
 
 												<!-- Table Header -->
@@ -226,9 +231,9 @@ body, html {
 
 
 										<div class="col-md-12">
-											<h3>
+											<h4>
 												<u>Refund Details</u>
-											</h3>
+											</h4>
 											<table class="table" align="center">
 
 												<!-- Table Header -->
@@ -264,9 +269,9 @@ body, html {
 
 
 										<div class="col-md-12">
-											<h3>
+											<h4>
 												<u>Transfer Details</u>
-											</h3>
+											</h4>
 											<table class="table" align="center">
 
 												<!-- Table Header -->
@@ -305,20 +310,20 @@ body, html {
 										<div class="col-md-6" align="left">
 											<table>
 												<tr>
-													<td><label>&emsp;Total Receipt Amount &emsp;</label></td>
-													<td><label>:&emsp;Rs &nbsp;</label></td>
-													<td align="right"><span>${requestScope.receiptTotalAmount}</span></td>
+													<td><h4><label>&emsp;Total Receipt Amount &emsp;</label></h4></td>
+													<td><label>:&emsp;</label></td>
+													<td align="right"><h4><span><fmt:setLocale value="en_IN"/><fmt:formatNumber value="${requestScope.receiptTotalAmount}" type="currency" /></span></h4></td>
 												</tr>
 
 												<tr>
 													<td><div id="refundAmount">
-															<label>&emsp;Refund Amount &emsp;</label>
+															<h4><label>&emsp;Refund Amount &emsp;</label></h4>
 														</div></td>
 													<td><div id="refundAmount">
-															<label>:&emsp;Rs &nbsp;</label>
+															<label>:&emsp;</label>
 														</div></td>
 													<td align="right"><div id="refundAmount">
-															<span>${requestScope.refundTotalAmount}</span>
+															<h4><span><fmt:setLocale value="en_IN"/><fmt:formatNumber value="${requestScope.refundTotalAmount}" type="currency" /></span></h4>
 														</div></td>
 												</tr>
 
@@ -327,9 +332,9 @@ body, html {
 												</tr>
 
 												<tr>
-													<td><label>&emsp;Balance Amount &emsp;</label></td>
-													<td><label>:&emsp;Rs &nbsp;</label></td>
-													<td align="right"><span>${requestScope.balanceAmount}</span></td>
+													<td><h4><label>&emsp;Balance Amount &emsp;</label></h4></td>
+													<td><label>:&emsp;</label></td>
+													<td align="right"><h4><span><fmt:setLocale value="en_IN"/><fmt:formatNumber value="${requestScope.balanceAmount}" type="currency" /></span></h4></td>
 												</tr>
 												<tr>
 													<td colspan="3">----------------------------------------------------------------------</td>
@@ -345,8 +350,8 @@ body, html {
 													<td>&nbsp;</td>
 												</tr>
 												<tr>
-													<td><label>Other Receipt Rs :&nbsp;<span>${requestScope.receiptTotalAmount}</span>&emsp;
-													</label></td>
+													<td><h4><label>Other Receipt &nbsp;<span><fmt:setLocale value="en_IN"/><fmt:formatNumber value="${requestScope.receiptTotalAmount}" type="currency" /></span>&emsp;
+													</label></h4></td>
 												</tr>
 											</table>
 										</div>
