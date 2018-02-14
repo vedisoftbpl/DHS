@@ -69,9 +69,8 @@
 													<!-- /.box-tools -->
 												</div>
 												<!-- /.box-header -->
-												<div class="box-body" align="right">
-													<span>Rs&nbsp;:&emsp;<fmt:formatNumber type="number"
-															maxFractionDigits="3" value="${ac.value}" /></span>
+												<div class="box-body" align="right" ">
+													<span><fmt:setLocale value="en_IN"/><fmt:formatNumber value="${ac.value}" type="currency" /></span>
 												</div>
 												<!-- /.box-body -->
 											</div>
@@ -102,8 +101,7 @@
 												</div>
 												<!-- /.box-header -->
 												<div class="box-body" align="right" ">
-													<span>Rs&nbsp;:&emsp;<fmt:formatNumber type="number"
-															maxFractionDigits="3" value="${ac.value}" /></span>
+													<span><fmt:setLocale value="en_IN"/><fmt:formatNumber value="${ac.value}" type="currency" /></span>
 												</div>
 												<!-- /.box-body -->
 											</div>
@@ -625,7 +623,7 @@
 													var lastChar = id[id.length - 1];
 													$
 															.ajax({
-																url : 'http://localhost:8080/DanishHousing/ReceiptAutoFill',
+																url : 'http://request.getSession().getServletContext()/DanishHousing/ReceiptAutoFill',
 																dataType : 'json',
 																type : 'post',
 																data : {

@@ -70,8 +70,7 @@
 												</div>
 												<!-- /.box-header -->
 												<div class="box-body" align="right">
-													<span>Rs&nbsp;:&emsp;<fmt:formatNumber type="number"
-															maxFractionDigits="3" value="${ac.value}" /></span>
+													<span><fmt:setLocale value="en_IN"/><fmt:formatNumber value="${ac.value}" type="currency" /></span>
 												</div>
 												<!-- /.box-body -->
 											</div>
@@ -102,8 +101,7 @@
 												</div>
 												<!-- /.box-header -->
 												<div class="box-body" align="right" ">
-													<span>Rs&nbsp;:&emsp;<fmt:formatNumber type="number"
-															maxFractionDigits="3" value="${ac.value}" /></span>
+													<span><fmt:setLocale value="en_IN"/><fmt:formatNumber value="${ac.value}" type="currency" /></span>
 												</div>
 												<!-- /.box-body -->
 											</div>

@@ -30,7 +30,7 @@
 				<!-- Default box -->
 				<div class="box box-primary">
 					<div class="box-header with-border">
-						
+
 						<div class="box-tools pull-right">
 							<span id="today">${param.today}</span>
 							<button type="button" class="btn btn-box-tool"
@@ -48,10 +48,9 @@
 						action="${pageContext.request.contextPath}/admin/pages/BalanceViewController"
 						method="post" onsubmit="return validateForm(this)" id="form">
 						<div class="box-body">
-<div class="row">
-<div class="col-md-2">
-</div>
-<div class="col-md-4">
+							<div class="row">
+								<div class="col-md-2"></div>
+								<div class="col-md-4">
 									<!-- form group -->
 									<!-- Receipt Date -->
 									<div class="form-group" id="divAccountFormDate">
@@ -71,21 +70,22 @@
 									<!-- /.form group -->
 								</div>
 								<div class="col-md-2" align="center">
-								<label>&nbsp;</label>
-								<button type="submit" class="btn btn-block btn-info">View</button>
-								<br>
+									<label>&nbsp;</label>
+									<button type="submit" class="btn btn-block btn-info">View</button>
+									<br>
+								</div>
 							</div>
-</div>
 							<div class="row">
-							
+
 								<c:forEach var="ac" items="${sessionScope.accList}"
 									varStatus="loop">
-									<c:set var="counter"  value="${loop.index}" />
+									<c:set var="counter" value="${loop.index}" />
 									<c:if test="${counter < 6 }">
 										<div class="col-md-2">
-											<div class="box box-info box-solid" style="height: 120px; width: 160px;">
+											<div class="box box-info box-solid"
+												style="height: 120px; width: 160px;">
 												<div class="box-header with-border"
-													style="background-color: #3c8dbc;height: 75px;">
+													style="background-color: #3c8dbc; height: 75px;">
 													<h3 class="box-title">${ac.key}</h3>
 
 													<div class="box-tools pull-right">
@@ -97,9 +97,9 @@
 													<!-- /.box-tools -->
 												</div>
 												<!-- /.box-header -->
-												<div class="box-body" align="right">
-													<span>Rs&nbsp;:&emsp;<fmt:formatNumber type="number"
-															maxFractionDigits="3" value="${ac.value}" /></span>
+												<div class="box-body" align="right"">
+													<span><fmt:setLocale value="en_IN" />
+														<fmt:formatNumber value="${ac.value}" type="currency" /></span>
 												</div>
 												<!-- /.box-body -->
 											</div>
@@ -108,19 +108,20 @@
 									</c:if>
 								</c:forEach>
 							</div>
-							
+
 							<div class="row">
 								<c:forEach var="ac" items="${sessionScope.accList}"
 									varStatus="loop">
-									<c:set var="counter"  value="${loop.count}" />
+									<c:set var="counter" value="${loop.count}" />
 									<c:if test="${counter > 6 }">
 										<div class="col-md-2">
-											<div class="box box-info box-solid" style="height: 120px; width: 160px;">
+											<div class="box box-info box-solid"
+												style="height: 120px; width: 160px;">
 												<div class="box-header with-border"
 													style="background-color: #3c8dbc; height: 75px;">
 													<h3 class="box-title">${ac.key}</h3>
 
-													<div class="box-tools pull-right" >
+													<div class="box-tools pull-right">
 														<button type="button" class="btn btn-box-tool"
 															data-widget="collapse">
 															<i class="fa fa-minus"></i>
@@ -129,9 +130,9 @@
 													<!-- /.box-tools -->
 												</div>
 												<!-- /.box-header -->
-												<div class="box-body" align="right" ">
-													<span>Rs&nbsp;:&emsp;<fmt:formatNumber type="number"
-															maxFractionDigits="3" value="${ac.value}" /></span>
+												<div class="box-body" align="right"">
+													<span><fmt:setLocale value="en_IN" />
+														<fmt:formatNumber value="${ac.value}" type="currency" /></span>
 												</div>
 												<!-- /.box-body -->
 											</div>
@@ -140,24 +141,23 @@
 									</c:if>
 								</c:forEach>
 							</div>
-							
+
 							<!-- /.row -->
 							<!-- Row Default box -->
-							
+
 							<!-- /.Row Default box -->
 							<!-- Row Default box -->
-							
+
 							<!-- /.Row Default box -->
 							<!-- Row Default box -->
-							
+
 							<!-- /.Row Default box -->
 						</div>
 						<!-- /.box-body -->
 
-						<input id="operation" name="operation" type="hidden"
-							value="show">
+						<input id="operation" name="operation" type="hidden" value="show">
 
-		
+
 
 					</form>
 
@@ -183,14 +183,14 @@
 	<!-- select2 -->
 	<script src="../../plugins/select2/select2.js"></script>
 
-	<script type="text/javascript">	
-	$(function() {
-		//Date picker
-		$('.datepicker').datepicker({
-			format : 'dd/mm/yyyy',
-			autoclose : true
+	<script type="text/javascript">
+		$(function() {
+			//Date picker
+			$('.datepicker').datepicker({
+				format : 'dd/mm/yyyy',
+				autoclose : true
+			});
+			//Initialize Select2 Elements
+			$(".select2").select2();
 		});
-		//Initialize Select2 Elements
-		$(".select2").select2();
-	});
 	</script>
