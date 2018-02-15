@@ -52,8 +52,8 @@
 								<div class="col-md-6">
 
 									<!--  form-group -->
-									<!-- Bank Name -->
-									<div class="form-group" id="divAccountFormBankName">
+									<!-- Supplier Name -->
+									<div class="form-group" id="divSupplierFormName">
 										<label>Supplier Name</label>
 										<div class="input-group">
 											<span class="input-group-addon"><i class="fa fa-bank "></i></span>
@@ -63,42 +63,53 @@
 										</div>
 										<p id="errorSupplierName"></p>
 									</div>
-									<!-- End Bank Name -->
+									<!-- End Supplier Name -->
 									<!-- /.form-group -->
 
 
 									<!--  form group -->
 									<!-- Address Line 1 -->
-									<div class="form-group" id="divMemberFormAddress1">
+									<div class="form-group" id="divSupplierFormAddress1">
 										<label>Address Line 1</label>
 										<div class="input-group">
 											<span class="input-group-addon"><i class="fa fa-home"></i></span>
 											<input type="text" class="form-control"
-												placeholder="Address Line 1" id="memberAddress1"
-												name="memberAddress1" />
+												placeholder="Address Line 1" id="supplierAddress1"
+												name="supplierAddress1" />
 										</div>
-										<p id="errorAddress1"></p>
+										<p id="errorSupplierAddress1"></p>
 									</div>
 									<!-- End Address Line 1 -->
 									<!-- /.form-group -->
 
 									<!--  form-group -->
 									<!-- Address Line 2 -->
-									<div class="form-group" id="divMemberFormAddress2">
+									<div class="form-group" id="divSupplierFormAddress2">
 										<label>Address Line 2</label>
 										<div class="input-group">
 											<span class="input-group-addon"><i class="fa fa-home"></i></span>
 											<input type="text" class="form-control"
-												placeholder="Address Line 2" id="memberAddress2"
-												name="memberAddress2" />
+												placeholder="Address Line 2" id="supplierAddress2"
+												name="supplierAddress2" />
 										</div>
-										<p id="errorAddress2"></p>
+										<p id="errorSupplierAddress2"></p>
 									</div>
 									<!-- End Address Line 2 -->
 									<!-- /.form-group -->
 
 									<!--  form-group -->
-									
+									<div class="form-group" id="divSupplierFormCity">
+										<label>City</label>
+										<div class="input-group">
+											<span class="input-group-addon"><i
+												class="fa fa-map-marker"></i></span> <input type="text"
+												class="form-control" placeholder="City" id="supplierCity"
+												name="supplierCity" />
+										</div>
+										<p id="errorCity"></p>
+									</div>
+									<!-- End City -->
+									<!-- /.form-group -->
 
 									<!-- form group -->
 									<input type="hidden" class="form-control" id="operation"
@@ -113,32 +124,53 @@
 								<!-- /.col -->
 								<div class="col-md-6">
 
-<!-- City -->
-									<div class="form-group" id="divMemberFormCity">
-										<label>City</label>
+
+
+									<!-- Opening Balance -->
+									<div class="form-group" id="divSupplierFormBalance">
+										<label>Balance</label>
 										<div class="input-group">
-											<span class="input-group-addon"><i
-												class="fa fa-map-marker"></i></span> <input type="text"
-												class="form-control" placeholder="City" id="memberCity"
-												name="memberCity" />
+											<span class="input-group-addon"> <i class="fa  fa-inr"></i></span>
+											<input type="text" class="form-control" id="balance"
+												name="balance" />
 										</div>
-										<p id="errorCity"></p>
+										<p id="errorBalance"></p>
 									</div>
-									<!-- End City -->
-									<!-- /.form-group -->
+									<!-- End Opening Balance -->
+									<!-- /.form group -->
+
+
 
 									<!-- form group -->
+									<!-- Opening Date -->
+									<div class="form-group" id="divSupplierFormDate">
+										<label>Balance Date :</label>
+
+										<div class="input-group date">
+											<div class="input-group-addon">
+												<i class="fa fa-calendar"></i>
+											</div>
+											<input type="text" class="form-control pull-right" id="balDt"
+												name="balDt" />
+										</div>
+										<p id="errorBalanceDate"></p>
+										<!-- /.input group -->
+									</div>
+
+									<!--End Opening Date -->
+									<!-- /.form group -->
+									<!-- form group -->
 									<!-- PAN -->
-									<div class="form-group" id="divMemberFormPAN">
+									<div class="form-group" id="divSupplierFormPAN">
 										<label> PAN Number:</label>
 										<!-- .input group -->
 										<div class="input-group">
 											<div class="input-group-addon">
 												<i class="fa fa-credit-card"></i>
 											</div>
-											<input type="text" class="form-control" id="memberPAN"
-												name="memberPAN" placeholder=" PAN number"/>
-												 
+											<input type="text" class="form-control" id="supplierPAN"
+												name="supplierPAN" placeholder=" PAN number" />
+
 										</div>
 										<p id="errorPAN"></p>
 										<!-- /.input group -->
@@ -147,15 +179,15 @@
 									<!-- /.form group -->
 									<!-- form group -->
 									<!-- GST -->
-									<div class="form-group" id="divMemberFormPAN">
+									<div class="form-group" id="divSupplierFormGST">
 										<label> GST Number:</label>
 										<!-- .input group -->
 										<div class="input-group">
 											<div class="input-group-addon">
 												<i class="fa fa-credit-card"></i>
 											</div>
-											<input type="text" class="form-control" id="memberGST"
-												name="memberGST" placeholder=" GST number"/>
+											<input type="text" class="form-control" id="supplierGST"
+												name="supplierGST" placeholder=" GST number" />
 										</div>
 										<p id="errorGST"></p>
 										<!-- /.input group -->
@@ -163,7 +195,7 @@
 									<!-- End PAN -->
 									<!-- /.form group -->
 
-									
+
 									<!--  form group -->
 
 									<!-- /. form group -->
@@ -228,132 +260,119 @@
 		function validateForm(form) {
 			error = "Please fill this field .";
 
-			//Bank Name Validation
-			var name = document.getElementById("bankName").value;
+			//Supplier Name Validation
+			var name = document.getElementById("supplierName").value;
 			if (name == null || name === "") {
-				document.getElementById("errorBankName").innerHTML = error;
-				document.getElementById("divAccountFormBankName").className = 'alert alert-danger alert-dismissible';
+				document.getElementById("errorSupplierName").innerHTML = error;
+				document.getElementById("divSupplierFormName").className = 'alert alert-danger alert-dismissible';
 				return false;
 			}
 
-			if (!(name == null || name === "")) {
-				var nameValid = /^[a-zA-Z ]+$/;
-				if (!name.match(nameValid)) {
-					document.getElementById("errorFullName").innerHTML = 'Invalid Name';
-					document.getElementById("divAccountFormBankName").className = 'alert alert-warning alert-dismissible';
-					return false;
-				}
-				document.getElementById("errorBankName").innerHTML = "";
-				document.getElementById("divAccountFormBankName").className = 'form-group has-success';
-			}
+			//	if (!(name == null || name === "")) {
+			//		var nameValid = /^[a-zA-Z ]+$/;
+			//		if (!name.match(nameValid)) {
+			//			document.getElementById("errorSupplierName").innerHTML = 'Invalid Name';
+			//			document.getElementById("divSupplierFormBankName").className = 'alert alert-warning alert-dismissible';
+			//			return false;
+			//		}
+			document.getElementById("errorSupplierName").innerHTML = "";
+			document.getElementById("divSupplierFormName").className = 'form-group has-success';
+			//}
 
-			//End Bank Name Validation
+			//End Supplier Name Validation
 
-			//Bank Code Validation
-			var bankCode = document.getElementById("bankCode").value;
-			if (bankCode == null || bankCode === "") {
-				document.getElementById("errorBankCode").innerHTML = error;
-				document.getElementById("divAccountFormBankCode").className = 'alert alert-danger alert-dismissible';
+			//Supplier Address 1 Validation
+			var name = document.getElementById("supplierAddress1").value;
+			if (name == null || name === "") {
+				document.getElementById("errorSupplierAddress1").innerHTML = error;
+				document.getElementById("divSupplierFormAddress1").className = 'alert alert-danger alert-dismissible';
 				return false;
 			}
 
-			if (!(bankCode == null || bankCode === "")) {
-				var codeValid = /^[a-zA-Z0-9-]+$/;
-				if (!codeValid.test(bankCode)) {
-					document.getElementById("errorBankCode").innerHTML = "Invaild Bank Code ";
-					document.getElementById("divAccountFormBankCode").className = 'alert alert-warning alert-dismissible';
-					return false;
-				}
-				document.getElementById("errorBankCode").innerHTML = "";
-				document.getElementById("divAccountFormBankCode").className = 'form-group has-success';
-			}
-			//End Bank Code Validation
-	<%--
-			
-			//IFSC Code Validation
-			var ifsc = document.getElementById("ifscCode").value;
-			if (ifsc == null || ifsc === "") {
-				document.getElementById("errorIfscCode").innerHTML = error;
-				document.getElementById("divAccountFormIfsc").className = 'alert alert-danger alert-dismissible';
+			document.getElementById("errorSupplierAddress1").innerHTML = "";
+			document.getElementById("divSupplierFormAddress1").className = 'form-group has-success';
+
+			//End Supplier Name Validation
+
+			//Supplier City Validation
+			var name = document.getElementById("supplierCity").value;
+			if (name == null || name === "") {
+				document.getElementById("errorCity").innerHTML = error;
+				document.getElementById("divSupplierFormCity").className = 'alert alert-danger alert-dismissible';
 				return false;
 			}
 
-			if (!(ifsc == null || ifsc === "")) {
-				var ifscValid = /^[a-zA-Z]+[0-9]+$/;
-				if (!ifscValid.test(ifsc)) {
-					document.getElementById("errorIfscCode").innerHTML = 'Please enter a valid IFSC Code';
-					document.getElementById("divAccountFormIfsc").className = 'alert alert-warning alert-dismissible';
-					return false;
-				}
-				document.getElementById("errorIfscCode").innerHTML = "";
-				document.getElementById("divAccountFormIfsc").className = 'form-group has-success';
-			}
-			
-			//End IFSC Code Validation
+			document.getElementById("errorCity").innerHTML = "";
+			document.getElementById("divSupplierFormCity").className = 'form-group has-success';
 
-			//Branch Validation
-			var branch = document.getElementById("branch").value;
-			if (branch == null || branch === "") {
-				document.getElementById("errorBranch").innerHTML = error;
-				document.getElementById("divAccountFormBranch").className = 'alert alert-danger alert-dismissible';
-				return false;
-			}
+			//End City Validation
 
-			if (!(branch == null || branch === "")) {
-				var branchValid = /^[\w, ]+$/;
-				if (!(branch.match(branchValid))) {
-					document.getElementById("errorBranch").innerHTML = "Invalid Branch Name";
-					document.getElementById("divAccountFormBranch").className = 'alert alert-warning alert-dismissible';
-					return false;
-				}
-				document.getElementById("errorBranch").innerHTML = "";
-				document.getElementById("divAccountFormBranch").className = 'form-group has-success';
-			}
-			//End Branch Validation
-			
-			
-			
+<!--			
+			//Supplier Balance Validation
 
-			//Opening Balance Validation
-			var bal = document.getElementById("openingBalance").value;
+			var bal = document.getElementById("balance").value;
 			if (bal == null || bal === "") {
-				document.getElementById("errorOpeningBalance").innerHTML = error;
-				document.getElementById("divAccountFormBalance").className = 'alert alert-danger alert-dismissible';
+				document.getElementById("errorBalance").innerHTML = error;
+				document.getElementById("divSupplierFormBalance").className = 'alert alert-danger alert-dismissible';
 				return false;
 			}
 			if (!(bal == null || bal === "")) {
 				var balanceValid = /^\d+(\.\d+)?$/;
 				if (!(bal.match(balanceValid))) {
-					document.getElementById("errorOpeningBalance").innerHTML = "Invalid Amount";
-					document.getElementById("divAccountFormBalance").className = 'alert alert-warning alert-dismissible';
+					document.getElementById("errorBalance").innerHTML = "Invalid amount";
+					document.getElementById("divSupplierFormBalance").className = 'alert alert-warning alert-dismissible';
 					return false;
 				}
-				document.getElementById("errorOpeningBalance").innerHTML = "";
-				document.getElementById("divAccountFormBalance").className = 'form-group has-success';
+				document.getElementById("errorBalance").innerHTML = "";
+				document.getElementById("divSupplierFormBalance").className = 'form-group has-success';
+
 			}
-			//End Opening Balance Validation
-			
-			
-			
-			--%>
-		//Opening Date Validation
-			var opdte = document.getElementById("datepicker").value;
+			//End Balance Validation
+
+			//Bal Date Validation
+			var baldte = document.getElementById("balDt").value;
 			//document.getElementById("errorUserDateOfBirth").innerHTML = 'vALUE = ' + dob;
-			if (opdte == null || opdte === "") {
-				document.getElementById("errorOpeningDate").innerHTML = error;
-				document.getElementById("divAccountFormDate").className = 'alert alert-danger alert-dismissible';
+			if (baldte == null || baldte === "") {
+				document.getElementById("errorBalanceDate").innerHTML = error;
+				document.getElementById("divSupplierFormDate").className = 'alert alert-danger alert-dismissible';
 				return false;
 			}
-			document.getElementById("errorOpeningDate").innerHTML = "";
-			document.getElementById("divAccountFormDate").className = 'form-group has-success';
-			//Opening Date Validation
+			document.getElementById("errorBalanceDate").innerHTML = "";
+			document.getElementById("divSupplierFormDate").className = 'form-group has-success';
+			//Bal Date Validation
 
+			//Supplier PAN Validation
+			var name = document.getElementById("supplierPAN").value;
+			if (name == null || name === "") {
+				document.getElementById("errorPAN").innerHTML = error;
+				document.getElementById("divSupplierFormPAN").className = 'alert alert-danger alert-dismissible';
+				return false;
+			}
+
+			document.getElementById("errorPAN").innerHTML = "";
+			document.getElementById("divSupplierFormPAN").className = 'form-group has-success';
+
+			//End PAN Validation
+
+			//Supplier GST Validation
+			var name = document.getElementById("supplierGST").value;
+			if (name == null || name === "") {
+				document.getElementById("errorGST").innerHTML = error;
+				document.getElementById("divSupplierFormGST").className = 'alert alert-danger alert-dismissible';
+				return false;
+			}
+
+			document.getElementById("errorGST").innerHTML = "";
+			document.getElementById("divSupplierFormGST").className = 'form-group has-success';
+
+			//End GST Validation
+-->
 			return true;
 		}
 
 		$(function() {
 			//Date picker
-			$('#datepicker').datepicker({
+			$('#balDt').datepicker({
 				format : 'dd/mm/yyyy',
 				autoclose : true
 			});

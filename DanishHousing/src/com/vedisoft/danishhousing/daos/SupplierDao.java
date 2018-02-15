@@ -89,11 +89,11 @@ public class SupplierDao {
 		return id;
 
 	}
-	public int edit(Supplier supplier) {
-		int id = 0;
+	public boolean edit(Supplier supplier) {
 		ConnectionPool pool = ConnectionPool.getInstance();
 		pool.initialize();
 		Connection conn = pool.getConnection();
+		System.out.println("In edit dao");
 		try {
 			String sql = "update supplier set suppl_name = ?, suppl_add1 = ?, suppl_add2 = ?, suppl_add3 = ?, balance = ?, bal_dt = ?, "
 					+ " pan_no = ?, gst_no = ? where  suppl_id = ?";
@@ -112,21 +112,17 @@ public class SupplierDao {
 			ps.setInt(9, supplier.getSupplId());
 			int x = ps.executeUpdate();
 			if (x == 0) {
-				return 0;
-			}
-			ResultSet generatedKeys = ps.getGeneratedKeys();
-			if (generatedKeys.next()) {
-				id = generatedKeys.getInt(1);
+				return false;
 			}
 		} catch (SQLException sq) {
 			System.out.println("Fail to Updated Record  Update");
 			sq.printStackTrace();
-			return 0;
+			return false;
 		} finally {
 			pool.putConnection(conn);
 		}
 		System.out.println("Record SuccessFully Updated");
-		return id;
+		return true;
 
 	}
 	public boolean remove(int supplId) {
@@ -184,7 +180,7 @@ public class SupplierDao {
 		} finally {
 			pool.putConnection(conn);
 		}
-		System.out.println("Record SuccessFully Delete");
+		System.out.println("Record Find SuccessFully ");
 		return sup;
 
 	}
@@ -220,7 +216,7 @@ public class SupplierDao {
 		} finally {
 			pool.putConnection(conn);
 		}
-		System.out.println("Record SuccessFully Delete");
+		System.out.println("Record Find SuccessFully ");
 		return supList;
 	}
 	
@@ -258,7 +254,7 @@ public class SupplierDao {
 		} finally {
 			pool.putConnection(conn);
 		}
-		System.out.println("Record SuccessFully Delete");
+		System.out.println("Record Find SuccessFully ");
 		return supList;
 	}
 	
