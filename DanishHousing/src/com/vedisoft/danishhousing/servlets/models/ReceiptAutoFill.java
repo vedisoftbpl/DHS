@@ -16,12 +16,14 @@ import com.vedisoft.danishhousing.daos.AccountMasterDao;
 import com.vedisoft.danishhousing.daos.MemberDocumentDao;
 import com.vedisoft.danishhousing.daos.MembersDao;
 import com.vedisoft.danishhousing.daos.ProjectsDao;
+import com.vedisoft.danishhousing.daos.SupplierDao;
 import com.vedisoft.danishhousing.daos.UtilityDao;
 import com.vedisoft.danishhousing.pojos.Account;
 import com.vedisoft.danishhousing.pojos.AccountMaster;
 import com.vedisoft.danishhousing.pojos.Members;
 import com.vedisoft.danishhousing.pojos.MemberDocument;
 import com.vedisoft.danishhousing.pojos.Projects;
+import com.vedisoft.danishhousing.pojos.Supplier;
 
 /**
  * Servlet implementation class ReceiptAutoFill
@@ -56,6 +58,7 @@ public class ReceiptAutoFill extends HttpServlet {
 		int memberId = 0,recNo,vrNo;
 		String accCode = new String();
 		String bankCode = new String();
+		int partyCode=0;
 		Gson gson = new Gson();
 		if (request.getParameter("id") != null && request.getParameter("id").trim().length() > 0) {
 			memberId = Integer.parseInt(request.getParameter("id"));
@@ -75,8 +78,17 @@ public class ReceiptAutoFill extends HttpServlet {
 		}
 		if(request.getParameter("accode") != null && request.getParameter("accode").trim().length() > 0) {
 			accCode = request.getParameter("accode");
-			AccountMaster acc = new AccountMasterDao().findByCode(accCode);
+			AccountMaster acc =  AccountMasterDao.findByCode(accCode);
 			String json = gson.toJson(acc);
+			response.setContentType("application/json");
+			response.getWriter().write(json);
+			
+		}
+		if(request.getParameter("partycode") != null && request.getParameter("partycode").trim().length() > 0) {
+			partyCode = Integer.parseInt(request.getParameter("partycode"));
+			Supplier acc = new SupplierDao().find(partyCode);
+			String json = gson.toJson(acc);
+			System.out.println(json);
 			response.setContentType("application/json");
 			response.getWriter().write(json);
 			
