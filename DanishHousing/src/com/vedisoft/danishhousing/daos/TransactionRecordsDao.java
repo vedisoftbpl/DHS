@@ -165,6 +165,86 @@ public class TransactionRecordsDao {
 		}
 		return listTransaction;
 	}
+	
+	public ArrayList<TransactionRecords> findDateTransactionRecord(Date d1, Date d2, int partyCode) {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		pool.initialize();
+		Connection conn = pool.getConnection();
+		ArrayList<TransactionRecords> listTransaction = new ArrayList<TransactionRecords>();
+		try {
+			String sql = "select * from transaction_records where accode = 'P0079' and party_cd = ? and docdte between ? and ? ";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			java.sql.Date date1 = null;
+			if (d1 != null)
+				date1 = new java.sql.Date(d1.getTime());
+			else
+				return null;
+			java.sql.Date date2 = null;
+			if (d2 != null)
+				date2 = new java.sql.Date(d2.getTime());
+			else
+				return null;
+			ps.setInt(1, partyCode);
+			ps.setDate(2, date1);
+			ps.setDate(3, date2);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				TransactionRecords transaction = new TransactionRecords();
+				transaction.setsNo(rs.getInt("s_no"));
+				transaction.setSlno(rs.getInt("slno"));
+				transaction.setDocNo(rs.getInt("docno"));
+				java.sql.Date docDate = rs.getDate("docdte");
+				if (docDate != null)
+					transaction.setDocDte(new java.util.Date((docDate).getTime()));
+				else
+					transaction.setDocDte(docDate);
+				transaction.setDocType(rs.getString("doctype"));
+				transaction.setAcCode(rs.getString("accode"));
+				transaction.setBkCode(rs.getString("bkcode"));
+				transaction.setChqNo(rs.getString("chqno"));
+				java.sql.Date chDate = rs.getDate("ch_date");
+				if (chDate != null)
+					transaction.setChDate(new java.util.Date((chDate).getTime()));
+				else
+					transaction.setChDate(chDate);
+				transaction.setBankBr(rs.getString("bank_br"));
+				transaction.setMembNo(rs.getInt("membno"));
+				transaction.setAmt(rs.getDouble("amt"));
+				transaction.setParti(rs.getString("parti"));
+				transaction.setaP(rs.getString("a_p"));
+				transaction.setFlag(rs.getInt("flag"));
+				transaction.setVrNo(rs.getInt("vr_no"));
+				transaction.setsN(rs.getString("sno"));
+				transaction.setsR(rs.getString("sr"));
+				transaction.setDocNoo(rs.getString("docnoo"));
+				transaction.setProjCd(rs.getInt("projcd"));
+				java.sql.Date wcLrDt = rs.getDate("wc_lr_dt");
+				if (wcLrDt != null)
+					transaction.setWcLrDt(new java.util.Date((wcLrDt).getTime()));
+				else
+					transaction.setWcLrDt(wcLrDt);
+				java.sql.Date chClDt = rs.getDate("ch_cl_dt");
+				if (chClDt != null)
+					transaction.setChClDt(new java.util.Date((chClDt).getTime()));
+				else
+					transaction.setChClDt(chClDt);
+				transaction.setcFlag(rs.getString("c_flag"));
+				transaction.setPartyCd(rs.getInt("party_cd"));
+				transaction.setUserId(rs.getInt("userid"));
+				java.sql.Date lastupdate = rs.getDate("lastupdate");
+				if (lastupdate != null)
+					transaction.setLastUpdate(new java.util.Date((lastupdate).getTime()));
+				else
+					transaction.setLastUpdate(lastupdate);
+				listTransaction.add(transaction);
+			}
+		} catch (SQLException sq) {
+			System.out.println("Unable to find a row." + sq);
+		} finally {
+			pool.putConnection(conn);
+		}
+		return listTransaction;
+	}
 
 	public ArrayList<CashBankBookDto> findCashBankBookDtoReceipt(Date d1, Date d2, String bkCode) {
 		ConnectionPool pool = ConnectionPool.getInstance();
@@ -436,9 +516,9 @@ public class TransactionRecordsDao {
 		// for(TransactionRecords t : list)
 		// System.out.println(t);
 
-		double openingBal = new TransactionRecordsDao().bankOpeningBalance(DateUtils.convertDate("22/10/2017"),
-				"SBI0089");
-		System.out.println(openingBal);
+//		double openingBal = new TransactionRecordsDao().bankOpeningBalance(DateUtils.convertDate("22/10/2017"),
+	//			"SBI0089");
+	//	System.out.println(openingBal);
 
 		// ArrayList<CashBankBookDto> listCashBankBookDto = new
 		// TransactionRecordsDao().findCashBankBookDtoReceipt(DateUtils.convertDate("01/08/2017"),DateUtils.convertDate(
