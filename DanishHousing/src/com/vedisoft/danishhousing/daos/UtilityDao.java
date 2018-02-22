@@ -68,16 +68,16 @@ public class UtilityDao {
 		int sno = 0;
 		Connection conn = pool.getConnection();
 		try {
-			String sql = "select s_no from receipt_records where receno = ?";
+			String sql = "select receipt_id from receipt_records where receno = ?";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, recno);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
-				sno = rs.getInt("s_no");
+				sno = rs.getInt("receipt_id");
 			}
 			
 		} catch (SQLException sq) {
-			System.out.println("Unable to create a new row." + sq);
+			System.out.println("Unable to find row." + sq);
 		} finally {
 			pool.putConnection(conn);
 		}

@@ -67,7 +67,7 @@ public class ReceiptFormController extends HttpServlet {
 		if (request.getParameter("receiptNumber") != null && request.getParameter("receiptNumber").trim().length() > 0) {
 			receiptNo = Integer.parseInt(request.getParameter("receiptNumber"));
 		}
-		
+		System.out.println("receiptNo : "+receiptNo);
 		
 		Date receiptDate = new Date();
 		if (request.getParameter("date") != null && request.getParameter("date").trim().length() > 0) {
@@ -135,6 +135,7 @@ public class ReceiptFormController extends HttpServlet {
 			op = request.getParameter("operation");
 		}
 		
+		System.out.println(op);
 		String page = "/pages/admin/ReceiptsForm.jsp";
 		String page1 = "/pages/admin/DuplicateReceiptForm.jsp";
 		int k = 0;
@@ -279,7 +280,7 @@ public class ReceiptFormController extends HttpServlet {
 		} else if(op.equals("duplicate")){
 			
 			Boolean check = new UtilityDao().checkReceiptNo(receiptNo);
-		
+		System.out.println(check);
 			if(check == false){
 				
 				msg = 1;
@@ -287,6 +288,7 @@ public class ReceiptFormController extends HttpServlet {
 			} else {
 				System.out.println("Receipt not found");
 			}
+			System.out.println(msg);
 			qu.append("msg="+msg);
 			response.sendRedirect("/DanishHousing"+page1+qu);
 		} 
