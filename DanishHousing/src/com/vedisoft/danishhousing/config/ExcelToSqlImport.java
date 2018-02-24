@@ -27,7 +27,25 @@ public class ExcelToSqlImport {
 			e.printStackTrace();
 		}
 	}
-
+	public static void importSupplier(String file) {
+		try {
+			System.out.println("Printing Supplier Data");
+			List<Supplier> supList = ExcelToObjectUtility
+					.readSupplierFromExcelFile(file);
+			SupplierDao pDao = new SupplierDao();
+			for (Supplier p : supList) {
+				pDao.createForImport(p);
+				System.out.println(p);
+			}
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		} catch (NumberFormatException ioe) {
+			ioe.printStackTrace();
+			System.out.println("Please Input No. only");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	public static void importAccount(String file) {
 		try {
 			System.out.println("Printing Transaction Data");
@@ -95,7 +113,7 @@ public class ExcelToSqlImport {
 					.readReceiptRecordFromExcelFile(file);
 			ReceiptDao recDao = new ReceiptDao();
 			for (ReceiptRecord rec : receiptList) {
-				//recDao.createForImport(rec);
+				recDao.create(rec);
 				System.out.println(rec);
 			}
 		} catch (IOException ioe) {
@@ -172,10 +190,11 @@ public class ExcelToSqlImport {
 		//importAccount("I:\\DHS\\BKMAS.xls");
 		//importAccountMaster("I:\\DHS\\ACMAST.xls");
 		//importMembers("I:\\DHS\\MEMBFL11.xls");
-		//importReceiptRecord("I:\\DHS\\RCPFLD.xls");
-		importTransactionRecord("C:\\Users\\AMAN\\Desktop\\Rohot ji-20-01-2018\\TR9900Z4.xls");
+		//importReceiptRecord("C:\\Users\\AMAN\\Desktop\\DHS\\Date- 21-02-2018\\REC40.xls");
+		//importTransactionRecord("C:\\Users\\AMAN\\Desktop\\DHS\\Date- 21-02-2018\\TR40.xls");
 		//importChequePyment("I:\\DHS\\CHREG1.xls");
 		//importRefundPayent("I:\\DHS\\REFUND1.xls");
+		//importSupplier("C:\\Users\\AMAN\\Downloads\\Supply_Master.xls");
 	}
 
 }

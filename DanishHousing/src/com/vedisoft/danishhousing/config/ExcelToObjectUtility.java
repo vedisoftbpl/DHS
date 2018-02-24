@@ -109,6 +109,67 @@ public class ExcelToObjectUtility {
 		return projectList;
 	}
 
+	public static List<Supplier> readSupplierFromExcelFile(String excelFilePath) throws IOException {
+		List<Supplier> supList = new ArrayList<>();
+		FileInputStream inputStream = new FileInputStream(new File(excelFilePath));
+
+		Workbook workbook = getWorkbook(inputStream, excelFilePath);
+		Sheet firstSheet = workbook.getSheetAt(0);
+		Iterator<Row> iterator = firstSheet.iterator();
+		boolean firstRow = true;
+		while (iterator.hasNext()) {
+			Row nextRow = iterator.next();
+			if (firstRow == true) {
+				firstRow = false;
+				nextRow = iterator.next();
+			}
+			Iterator<Cell> cellIterator = nextRow.cellIterator();
+			Supplier supplier = new Supplier();
+
+			while (cellIterator.hasNext()) {
+				Cell nextCell = cellIterator.next();
+				int columnIndex = nextCell.getColumnIndex();
+
+				switch (columnIndex) {
+				case 0:
+					supplier.setSupplId(((Double) getCellValue(nextCell)).intValue());
+					break;
+				case 1:
+					supplier.setSupplName((String) getCellValue(nextCell));
+					break;
+				case 2:
+					supplier.setSupplAdd1(((String) getCellValue(nextCell)));
+					break;
+				case 3:
+					supplier.setSupplAdd2(((String) getCellValue(nextCell)));
+					break;
+				case 4:
+					supplier.setSupplAdd3(((String) getCellValue(nextCell)));
+					break;
+				case 5:
+					supplier.setBalance(((Double) getCellValue(nextCell)));
+					break;
+				case 6:
+					supplier.setBalDt((java.util.Date) getCellValue(nextCell));
+					break;
+				case 7:
+					supplier.setPanNo(((String) getCellValue(nextCell)));
+					break;
+				case 8:
+					supplier.setGstNo(((String) getCellValue(nextCell)));
+					break;
+				}
+
+			}
+			supList.add(supplier);
+		}
+
+		workbook.close();
+		inputStream.close();
+
+		return supList;
+	}
+
 	public static List<Members> readMembersFromExcelFile(String excelFilePath) throws IOException {
 		List<Members> memberList = new ArrayList<>();
 		FileInputStream inputStream = new FileInputStream(new File(excelFilePath));
@@ -133,7 +194,7 @@ public class ExcelToObjectUtility {
 				if (getCellValue(nextCell) != null) {
 					switch (columnIndex) {
 					case 0:
-						member.setProjectCd(((Double) getCellValue(nextCell)).intValue());
+						member.setProjectCd(Integer.parseInt(((String) getCellValue(nextCell))));
 						break;
 					case 1:
 						member.setMemberNo(((Double) getCellValue(nextCell)).intValue());
@@ -511,7 +572,7 @@ public class ExcelToObjectUtility {
 		FileInputStream inputStream = new FileInputStream(new File(excelFilePath));
 
 		Workbook workbook = getWorkbook(inputStream, excelFilePath);
-		Sheet firstSheet = workbook.getSheetAt(2); ///////
+		Sheet firstSheet = workbook.getSheetAt(0); ///////
 		Iterator<Row> iterator = firstSheet.iterator();
 		boolean firstRow = true;
 		while (iterator.hasNext()) {
