@@ -110,13 +110,91 @@
 							<!-- /.row -->
 							<!-- Row Default box -->
 							<div class="row">
-								<div class="box-header with-border">
+								<div class="box-header with-border memberDetail"
+									id="memberDetail" style="display: none;">
 									<h3 class="box-title">Member Details</h3>
 								</div>
-								<div class="box-body">
+								<div class="box-body ">
 									<dl class="dl-horizontal" id="memberDetails">
 									</dl>
 
+								</div>
+								<!-- /.box-body -->
+							</div>
+							<div class="row">
+								<div class="box-header with-border customMemberDetails"
+									style="display: none;">
+									<h3 class="box-title ">Member Details</h3>
+								</div>
+								<div class="box-body customMemberDetails" style="display: none;">
+									<div class="col-md-6">
+										<!--  form-group -->
+										<!-- Full Name -->
+										<div class="form-group" id="divMemberFormName">
+											<label>Full Name</label>
+											<div class="input-group">
+												<span class="input-group-addon"><i class="fa fa-user"></i></span>
+												<span class="col-xs-2"><select
+													class="form-control select2" id="prefix" name="prefix"
+													style="width: 80px;" required="required">
+														<option>Mr.</option>
+														<option>Mrs.</option>
+														<option>Miss</option>
+												</select> </span> <span class="col-md-10"> <input type="text"
+													class="form-control" placeholder="Full Name"
+													id="memberFullName" name="memberFullName" />
+												</span>
+											</div>
+											<p id="errorFullName"></p>
+										</div>
+										<!-- End Full Name -->
+										<!-- /.form-group -->
+										<!--  form-group -->
+										<!-- Address Line 1 -->
+										<div class="form-group" id="divMemberFormAddress1">
+											<label>Address Line 1</label>
+											<div class="input-group">
+												<span class="input-group-addon"><i class="fa fa-home"></i></span>
+												<input type="text" class="form-control"
+													placeholder="Address Line 1" id="memberAddress1"
+													name="memberAddress1" />
+											</div>
+											<p id="errorAddress1"></p>
+										</div>
+										<!-- End Address Line 1 -->
+										<!-- /.form-group -->
+									</div>
+									<div class="col-md-6">
+										<!--  form-group -->
+										<!-- Address Line 2 -->
+										<div class="form-group" id="divMemberFormAddress2">
+											<label>Address Line 2</label>
+											<div class="input-group">
+												<span class="input-group-addon"><i class="fa fa-home"></i></span>
+												<input type="text" class="form-control"
+													placeholder="Address Line 2" id="memberAddress2"
+													name="memberAddress2" />
+											</div>
+											<p id="errorAddress2"></p>
+										</div>
+										<!-- End Address Line 2 -->
+										<!-- /.form-group -->
+
+										<!--  form-group -->
+										<!-- City -->
+										<div class="form-group" id="divMemberFormCity">
+											<label>City</label>
+											<div class="input-group">
+												<span class="input-group-addon"><i
+													class="fa fa-map-marker"></i></span> <input type="text"
+													class="form-control" placeholder="City" id="memberCity"
+													name="memberCity" />
+											</div>
+											<p id="errorCity"></p>
+										</div>
+										<!-- End City -->
+										<!-- /.form-group -->
+									</div>
 								</div>
 								<!-- /.box-body -->
 							</div>
@@ -481,71 +559,89 @@
 		});
 	</script>
 	<script>
-	$('#accounts')
-	.on(
-			'keyup',
-			'.accCode',
-			function(e) {
-				e.preventDefault();
-			var s = $(this).val();
-			if(s.length >= 1 ) {
-		    $.ajax({
-		     url:"http://localhost:8080/DanishHousing/AutoCompleteVoucher",
-		     type:"post",
-		     data:{'val' : s},
-		     success:function(data){
-		      $('.accCode').autocomplete({   
-		          source: data,
-		          select: function(event,ui){    
-		              event.preventDefault();   
-		              var selectedArr = ui.item.value.split(":");
-		              this.value=$.trim(selectedArr[1]);            
-		          } 
-		        });
-		     
-		     },error:  function(data, status, er){
-		              console.log(data+"_"+status+"_"+er);
-		          },
-		           
-		    });
-			}
-		    });
-		   
-		 
- 
+		$('#accounts')
+				.on(
+						'keyup',
+						'.accCode',
+						function(e) {
+							e.preventDefault();
+							var s = $(this).val();
+							if (s.length >= 1) {
+								$
+										.ajax({
+											url : "http://localhost:8080/DanishHousing/AutoCompleteVoucher",
+											type : "post",
+											data : {
+												'val' : s
+											},
+											success : function(data) {
+												$('.accCode')
+														.autocomplete(
+																{
+																	source : data,
+																	select : function(
+																			event,
+																			ui) {
+																		event
+																				.preventDefault();
+																		var selectedArr = ui.item.value
+																				.split(":");
+																		this.value = $
+																				.trim(selectedArr[1]);
+																	}
+																});
+
+											},
+											error : function(data, status, er) {
+												console.log(data + "_" + status
+														+ "_" + er);
+											},
+
+										});
+							}
+						});
 	</script>
 	<script>
-	$('#bankCode')
-	.bind(
-			'keyup',
-			function(e) {
-				e.preventDefault();
-			var s = $('#bankCode').val();
-			if(s.length >= 1 ) {
-		    $.ajax({
-		     url:"http://localhost:8080/DanishHousing/AutoCompleteBank",
-		     type:"post",
-		     data:{'val' : s},
-		     success:function(data){
-		      $('#bankCode').autocomplete({   
-		          source: data,
-		          select: function(event,ui){    
-		              event.preventDefault();   
-		              var selectedArr = ui.item.value.split(":");
-		              this.value=$.trim(selectedArr[1]);            
-		          } 
-		        });
-		     
-		     },error:  function(data, status, er){
-		              console.log(data+"_"+status+"_"+er);
-		          },
-		           
-		    });
-			}
-		    });
-		   
-		 
- 
+		$('#bankCode')
+				.bind(
+						'keyup',
+						function(e) {
+							e.preventDefault();
+							var s = $('#bankCode').val();
+							if (s.length >= 1) {
+								$
+										.ajax({
+											url : "http://localhost:8080/DanishHousing/AutoCompleteBank",
+											type : "post",
+											data : {
+												'val' : s
+											},
+											success : function(data) {
+												$('#bankCode')
+														.autocomplete(
+																{
+																	source : data,
+																	select : function(
+																			event,
+																			ui) {
+																		event
+																				.preventDefault();
+																		var selectedArr = ui.item.value
+																				.split(":");
+																		this.value = $
+																				.trim(selectedArr[1]);
+																	}
+																});
+
+											},
+											error : function(data, status, er) {
+												console.log(data + "_" + status
+														+ "_" + er);
+											},
+
+										});
+							}
+						});
 	</script>
 	<script>
 		function remove(a, b) {
@@ -643,6 +739,8 @@
 
 			//End Receipt Number validation
 
+			
+			
 			//Bank Code Validation
 			var bankCode = document.getElementById("bankCode").value;
 			if (bankCode == null || bankCode === "") {
@@ -692,7 +790,7 @@
 			//Bank Name Validation
 			var name = document.getElementById("bankName").value;
 			if (!(name == null || name === "")) {
-				var nameValid = /^[a-zA-Z ]+$/;
+				var nameValid = /^[a-zA-Z-. ]+$/;
 				if (!name.match(nameValid)) {
 
 					document.getElementById("errorbankName").innerHTML = 'Invalid Name';
@@ -708,7 +806,14 @@
 
 			//Transaction ID Validation
 			var tr = document.getElementById("transactionID").value;
+			if (tr == null || tr === "") {
 
+				document.getElementById("errorTransctionID").innerHTML = 'Invalid Transaction ID';
+				document.getElementById("divFormTransctionID").className = 'alert alert-danger alert-dismissible';
+				document.getElementById("divFormTransctionID")
+						.scrollIntoView();
+				return false;
+			}
 			if (!(tr == null || tr === "")) {
 
 				var trValid = /^[a-zA-Z0-9- ]+$/;
@@ -729,7 +834,7 @@
 
 			if (!(pay == null || pay === "")) {
 
-				var payValid = /^[a-zA-Z,_ ]+$/;
+				var payValid = /^[a-zA-Z,_. ]+$/;
 				if (!pay.match(payValid)) {
 
 					document.getElementById("errorPaymentBank").innerHTML = 'Invalid Name';
@@ -845,7 +950,7 @@
 																		data) {
 																	var data0 = data["data"][0];
 																	var data1 = data["data"][1];
-																	var bool = data0["memberId"] === 0;
+																	var bool = data0["memberId"] === -1;
 																	$(
 																			'#divFormMemberID')
 																			.toggleClass(
@@ -857,12 +962,32 @@
 																	$(
 																			'#errorMemberID')
 																			.empty();
-																	if (data0["memberId"] === 0) {
+																	if (data0["memberId"] === -1) {
 																		$(
 																				'#errorMemberID')
 																				.text(
 																						'MemberID doesn\'t exist');
+																		$(
+																				'.memberDetail')
+																				.hide();
+
+																	} else if (data0["memberId"] === 0) {
+																		$(
+																				'.customMemberDetails')
+																				.show();
+																		$(
+																				'.memberDetail')
+																				.hide();
+																		$(
+																				'#memberDetails')
+																				.empty();
 																	} else {
+																		$(
+																				'.customMemberDetails')
+																				.hide();
+																		$(
+																				'.memberDetail')
+																				.show();
 																		$(
 																				'#memberDetails')
 																				.append(

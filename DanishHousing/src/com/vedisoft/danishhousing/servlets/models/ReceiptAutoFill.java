@@ -62,7 +62,9 @@ public class ReceiptAutoFill extends HttpServlet {
 		Gson gson = new Gson();
 		if (request.getParameter("id") != null && request.getParameter("id").trim().length() > 0) {
 			memberId = Integer.parseInt(request.getParameter("id"));
+			int mId=new MembersDao().findMember(memberId);
 			Members m = new MembersDao().find(memberId);
+			m.setMemberId(mId);
 			String json1 = gson.toJson(m);
 			String json2 = new String();
 			if (m.getProjectCd() != 0) {

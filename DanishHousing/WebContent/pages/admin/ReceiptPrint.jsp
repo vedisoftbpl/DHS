@@ -229,11 +229,3 @@
 		</div>
 </body>
 </html>
-<script>
-
-
-	//$(function() {
-	//$('#receiptHeading').circleType({fluid:true});
-	//});
-	
-</script>

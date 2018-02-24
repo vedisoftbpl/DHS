@@ -63,6 +63,34 @@ public class ReceiptFormController extends HttpServlet {
 		
 		Members mem = new MembersDao().find(memberNo);
 		
+		String prefix = new String();
+		if (request.getParameter("prefix") != null && request.getParameter("prefix").trim().length() > 0) {
+			prefix = request.getParameter("prefix");
+		}
+
+		String memberFullName = new String();
+		if (request.getParameter("memberFullName") != null
+				&& request.getParameter("memberFullName").trim().length() > 0) {
+			memberFullName = request.getParameter("memberFullName");
+		}
+		
+		String memberAddress1 = new String();
+		if (request.getParameter("memberAddress1") != null
+				&& request.getParameter("memberAddress1").trim().length() > 0) {
+			memberAddress1 = request.getParameter("memberAddress1");
+		}
+
+		String memberAddress2 = new String();
+		if (request.getParameter("memberAddress2") != null
+				&& request.getParameter("memberAddress2").trim().length() > 0) {
+			memberAddress2 = request.getParameter("memberAddress2");
+		}
+
+		String memberCity = new String();
+		if (request.getParameter("memberCity") != null && request.getParameter("memberCity").trim().length() > 0) {
+			memberCity = request.getParameter("memberCity");
+		}
+		
 		int receiptNo = 0;
 		if (request.getParameter("receiptNumber") != null && request.getParameter("receiptNumber").trim().length() > 0) {
 			receiptNo = Integer.parseInt(request.getParameter("receiptNumber"));
@@ -144,7 +172,7 @@ public class ReceiptFormController extends HttpServlet {
 				
 			int d = 1;
 			if(paymentMode.equals("Transfer")){
-				
+				System.out.println("Transfer Receipt");
 				for(int i = 0; i < totalAccounts; i++)
 				{
 					int j = i+1;
@@ -179,16 +207,23 @@ public class ReceiptFormController extends HttpServlet {
 					Users u = (Users) se.getAttribute("userLogin");
 					Date d1 = null;
 					
-					
+					ReceiptRecord r;
 					TransactionRecords t = new TransactionRecords(
 							 receiptNo,d,receiptDate,"D",accountCode,bankCode,transctionID,trDate,branch,memberNo,Amount,remarks,flag,0,mem.getProjectCd(),u.getUserId(),new Date());
-					ReceiptRecord r = new
+					if(memberNo==0){
+						 r = new ReceiptRecord('R',d,receiptDate,receiptNo, prefix, memberFullName,
+								 0," " + " " + "" , memberAddress1,memberAddress1, memberCity, 0.0,
+									Amount, transctionID,trDate," ", " ", " ", " ",0,
+									d1, " ", " ", 0," ", " ", 'R',
+									remarks, ' ', "", accountCode, branch, paymentMode, d1,u.getUserId(), new Date(), city);
+					}else{
+					 r = new
 							 ReceiptRecord('R',d,receiptDate,receiptNo, mem.getPrefix(), mem.getMemName(),
 									 mem.getMemberNo(),mem.getfHRelation() + " " + mem.getfHRelName(), mem.getAddress1(),mem.getAddress2(), mem.getAddress3(), 0.0,
 										Amount, transctionID,trDate,mem.getFullPay(), mem.getInst1(), mem.getInst2(), mem.getInst3(),0,
 										d1, mem.getPlotSize(), mem.getPlotNo(), mem.getProjectCd()," ", " ", 'R',
 										remarks, mem.getrC(), acc.getFlag(), accountCode, branch, paymentMode, d1,u.getUserId(), new Date(), city);
-					
+					}
 					if(r.getAccode() != null && r.getAccode().trim().length() > 0){
 						System.out.println(r.getSlno());
 						k = new ReceiptDao().create(t,r);
@@ -246,16 +281,23 @@ public class ReceiptFormController extends HttpServlet {
 				Users u = (Users) se.getAttribute("userLogin");
 				Date d1 = null;
 				
-				
+				ReceiptRecord r;
 				TransactionRecords t = new TransactionRecords(
 						 receiptNo,d,receiptDate,"D",accountCode,bankCode,transctionID,trDate,branch,memberNo,Amount,remarks,flag,0,mem.getProjectCd(),u.getUserId(),new Date());
-				ReceiptRecord r = new
+				if(memberNo==0){
+					 r = new ReceiptRecord('R',d,receiptDate,receiptNo, prefix, memberFullName,
+							 0," " + " " + "" , memberAddress1,memberAddress1, memberCity, Amount,
+								0.0, transctionID,trDate," ", " ", " ", " ",0,
+								d1, " ", " ", 0," ", " ", 'R',
+								remarks, ' ', "", accountCode, branch, paymentMode, d1,u.getUserId(), new Date(), city);
+				}else{
+				 r = new
 						 ReceiptRecord('R',d,receiptDate,receiptNo, mem.getPrefix(), mem.getMemName(),
 								 mem.getMemberNo(),mem.getfHRelation() + " " + mem.getfHRelName(), mem.getAddress1(),mem.getAddress2(), mem.getAddress3(), Amount,
 									0.0, transctionID,trDate,mem.getFullPay(), mem.getInst1(), mem.getInst2(), mem.getInst3(),0,
 									d1, mem.getPlotSize(), mem.getPlotNo(), mem.getProjectCd()," ", " ", 'R',
 									remarks, mem.getrC(), acc.getFlag(), accountCode, branch, paymentMode, d1,u.getUserId(), new Date(), city);
-				
+				}
 				if(r.getAccode() != null && r.getAccode().trim().length() > 0){
 					System.out.println(r.getSlno());
 					k = new ReceiptDao().create(t,r);
