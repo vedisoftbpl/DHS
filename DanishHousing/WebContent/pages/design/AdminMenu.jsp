@@ -1,3 +1,4 @@
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <aside class="main-sidebar">
 	<!-- sidebar: style can be found in sidebar.less -->
 	<section class="sidebar">
@@ -34,90 +35,113 @@
 					<span>Master Data</span> <span class="pull-right-container">
 						<i class="fa fa-angle-left pull-right"></i>
 				</span>
-			</a>
-				<ul class="treeview-menu">
-					<li><a
-						href="${pageContext.request.contextPath}/admin/pages/UserTableController"><i
-							class="fa fa-circle-o"></i> Users </a></li>
-					<li><a
-						href="${pageContext.request.contextPath}/admin/pages/MemberTableController"><i
-							class="fa fa-circle-o"></i> Members </a></li>
-					<li><a
-						href="${pageContext.request.contextPath}/admin/pages/ProjectTableController"><i
-							class="fa fa-circle-o"></i> Projects </a></li>
-					<li><a
-						href="${pageContext.request.contextPath}/admin/pages/AccountTableController"><i
-							class="fa fa-circle-o"></i> Accounts </a></li>
-					<li><a
-						href="${pageContext.request.contextPath}/admin/pages/MasterAccountTableController"><i
-							class="fa fa-circle-o"></i> Voucher Types </a></li>
-				</ul></li>
-			<li class="treeview"><a href="#"> <i class="fa fa-inr"></i>
-					<span>Forms</span> <span class="pull-right-container"> <i
-						class="fa fa-angle-left pull-right"></i>
-				</span>
-			</a>
-				<ul class="treeview-menu">
-				<li><a
-						href="${pageContext.request.contextPath}/admin/pages/BalanceViewController"><i
-							class="fa fa-circle-o"></i>View Balance </a></li>
-					<li><a
-						href="${pageContext.request.contextPath}/admin/pages/ReceiptFormController"><i
-							class="fa fa-circle-o"></i> Receipts</a></li>
-					<li><a
-						href="${pageContext.request.contextPath}/admin/pages/MemberDocumentsController"><i
-							class="fa fa-circle-o"></i> Member Documents Upload</a></li>
-					<li><a
-						href="${pageContext.request.contextPath}/admin/pages/MemberDocumentDownloadController"><i
-							class="fa fa-circle-o"></i> Member Documents Download</a></li>
-					<li><a
-						href="${pageContext.request.contextPath}/admin/pages/ReceiptPrintController"><i
-							class="fa fa-circle-o"></i> Receipts Print</a></li>
-				</ul></li>
+			</a> 
+					<ul class="treeview-menu">
+						<li id="1" class="userrights"><a
+							href="${pageContext.request.contextPath}/admin/pages/UserTableController"><i
+								class="fa fa-circle-o"></i> Users  </a></li>
+						<li id="2" class="userrights"><a
+							href="${pageContext.request.contextPath}/admin/pages/MemberTableController"><i
+								class="fa fa-circle-o"></i> Members </a></li>
+						<li id="3" class="userrights"><a
+							href="${pageContext.request.contextPath}/admin/pages/ProjectTableController"><i
+								class="fa fa-circle-o"></i> Projects </a></li>
+						<li id="4" class="userrights"><a
+							href="${pageContext.request.contextPath}/admin/pages/AccountTableController"><i
+								class="fa fa-circle-o"></i> Bank </a></li>
+						<li id="5" class="userrights"><a
+							href="${pageContext.request.contextPath}/admin/pages/MasterAccountTableController"><i
+								class="fa fa-circle-o"></i> Account Master </a></li>
+						<li id="6" class="userrights"><a
+							href="${pageContext.request.contextPath}/admin/pages/SupplierTableController"><i
+								class="fa fa-circle-o"></i> Supplier </a></li>		
+					</ul></li>
+	
+				<li class="treeview"><a href="#"> <i class="fa fa-inr"></i>
+						<span>Forms</span> <span class="pull-right-container"> <i
+							class="fa fa-angle-left pull-right"></i>
+					</span>
+				</a>
+					<ul class="treeview-menu">
+						<li id="7" class="userrights"><a
+							href="${pageContext.request.contextPath}/admin/pages/BalanceViewController"><i
+								class="fa fa-circle-o"></i>View Balance </a></li>
+						<li id="8" class="userrights"><a
+							href="${pageContext.request.contextPath}/admin/pages/ReceiptFormController"><i
+								class="fa fa-circle-o"></i> Receipts</a></li>
+						<li id="9" class="userrights"><a
+							href="${pageContext.request.contextPath}/admin/pages/MemberDocumentsController"><i
+								class="fa fa-circle-o"></i> Member Documents Upload</a></li>
+						<li id="10" class="userrights"><a
+							href="${pageContext.request.contextPath}/admin/pages/MemberDocumentDownloadController"><i
+								class="fa fa-circle-o"></i> Member Documents View</a></li>
+						<li id="11" class="userrights"><a
+							href="${pageContext.request.contextPath}/admin/pages/ReceiptPrintController"><i
+								class="fa fa-circle-o"></i> Receipts Print</a></li>
+					</ul></li>
+	
 
-			<li class="treeview"><a href="#"> <i
-					class="fa fa-credit-card"></i> <span>Payment</span> <span
-					class="pull-right-container"> <i
-						class="fa fa-angle-left pull-right"></i>
-				</span>
-			</a>
-				<ul class="treeview-menu">
-					<li><a
-						href="${pageContext.request.contextPath}/admin/pages/MemberRefundController"><i
-							class="fa fa-circle-o"></i> Member Refund</a></li>
-					<li><a
-						href="${pageContext.request.contextPath}/admin/pages/PaymentController"><i
-							class="fa fa-circle-o"></i> Payment</a></li>
-					<li><a
-						href="${pageContext.request.contextPath}/admin/pages/MemberTransferController"><i
-							class="fa fa-circle-o"></i>Member Transfer </a></li>
-					<li><a
-						href="${pageContext.request.contextPath}/admin/pages/JournalTransferController"><i
-							class="fa fa-circle-o"></i>Journal Transfer </a></li>
-							
-				</ul></li>
+				<li class="treeview"><a href="#"> <i
+						class="fa fa-credit-card"></i> <span>Payment</span> <span
+						class="pull-right-container"> <i
+							class="fa fa-angle-left pull-right"></i>
+					</span>
+				</a>
+					<ul class="treeview-menu">
+						<li id="12" class="userrights"><a
+							href="${pageContext.request.contextPath}/admin/pages/MemberRefundController"><i
+								class="fa fa-circle-o"></i> Member Refund</a></li>
+						<li id="13" class="userrights"><a
+							href="${pageContext.request.contextPath}/admin/pages/PaymentController"><i
+								class="fa fa-circle-o"></i> Payment</a></li>
+						<li id="14" class="userrights"><a
+							href="${pageContext.request.contextPath}/admin/pages/MemberTransferController"><i
+								class="fa fa-circle-o"></i>Member Transfer </a></li>
+						<li id="15" class="userrights"><a
+							href="${pageContext.request.contextPath}/admin/pages/JournalTransferController"><i
+								class="fa fa-circle-o"></i>Journal Transfer </a></li>
 
-			<li class="treeview"><a href="#"> <i class="fa fa-table"></i>
-					<span>Reports</span> <span class="pull-right-container"> <i
-						class="fa fa-angle-left pull-right"></i>
-				</span>
-			</a>
-				<ul class="treeview-menu">
-					<li><a
-						href="${pageContext.request.contextPath}/admin/pages/MemberReportController"><i
-							class="fa fa-circle-o"></i> Member Report </a></li>
-					<li><a
-						href="${pageContext.request.contextPath}/admin/pages/TransactionReportController"><i
-							class="fa fa-circle-o"></i> Transaction Report </a></li>
-					<li><a
-						href="${pageContext.request.contextPath}/admin/pages/CashBankReportController"><i
-							class="fa fa-circle-o"></i> Cash/Bank Book </a></li>
-					<!-- 
+					</ul></li>
+
+				<li class="treeview"><a href="#"> <i class="fa fa-table"></i>
+						<span>Reports</span> <span class="pull-right-container"> <i
+							class="fa fa-angle-left pull-right"></i>
+					</span>
+				</a>
+					<ul class="treeview-menu">
+						<li id="16"  class="userrights"><a
+							href="${pageContext.request.contextPath}/admin/pages/MemberReportController"><i
+								class="fa fa-circle-o"></i> Member Report </a></li>
+						<li id="17" class="userrights"><a
+							href="${pageContext.request.contextPath}/admin/pages/TransactionReportController"><i
+								class="fa fa-circle-o"></i> Ledger </a></li>
+						<li id="18" class="userrights"><a
+							href="${pageContext.request.contextPath}/admin/pages/CashBankBookReportController"><i
+								class="fa fa-circle-o"></i> Cash/Bank Book Report</a></li>
+						<li id="19" class="userrights"><a
+							href="${pageContext.request.contextPath}/admin/pages/SubledgerReportController"><i
+								class="fa fa-circle-o"></i> SubLedger </a></li>
+						<li id="19" class="userrights"><a
+							href="${pageContext.request.contextPath}/admin/pages/SubledgerTrialBalanceController"><i
+								class="fa fa-circle-o"></i> SubLedger Trial Balance</a></li>		
+						<li id="20" class="userrights"><a
+							href="${pageContext.request.contextPath}/admin/pages/TrialBalanceController"><i
+								class="fa fa-circle-o"></i> Trial Balance </a></li>	
+						<li id="18" class="userrights"><a
+							href="${pageContext.request.contextPath}/admin/pages/CashBankBookController"><i
+								class="fa fa-circle-o"></i> Cash/Bank Book(Bankwise) </a></li>					
+						<!-- 
 					<li><a href="../tables/data.html"><i
 							class="fa fa-circle-o"></i> Report Four </a></li>
 					 -->
-				</ul></li>
+					</ul></li>
 
+			<li class="treeview" id="rights" class="userrights"><a href="${pageContext.request.contextPath}/admin/pages/RightsController" > <i class="fa fa-table"></i>
+						<span>Rights</span> <span class="pull-right-container"> <i
+							></i>
+					</span>
+				</a>
+				</li>
 			<!-- 
 					<li class="treeview"><a href="#"> <i
 							class="fa fa-pie-chart"></i> <span>Charts</span> <span

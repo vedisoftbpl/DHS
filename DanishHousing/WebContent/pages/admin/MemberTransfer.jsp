@@ -100,7 +100,7 @@
 													<!-- /.box-tools -->
 												</div>
 												<!-- /.box-header -->
-												<div class="box-body" align="right" ">
+												<div class="box-body" align="left">
 													<span><fmt:setLocale value="en_IN"/><fmt:formatNumber value="${ac.value}" type="currency" /></span>
 												</div>
 												<!-- /.box-body -->

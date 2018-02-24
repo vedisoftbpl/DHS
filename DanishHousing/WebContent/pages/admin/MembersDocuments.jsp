@@ -2,6 +2,9 @@
 <%@ include file="../design/Top.jsp"%>
 <body class="hold-transition skin-blue sidebar-mini">
 	<!-- Site wrapper -->
+	<%
+out.print(request.getSession().getServletContext());
+%>
 	<div class="wrapper">
 		<jsp:include page="../design/Header.jsp" flush="true" />
 		<!-- =============================================== -->
@@ -193,8 +196,11 @@
 	</div>
 	<!-- ./wrapper -->
 	<%@ include file="../design/Bottom.jsp"%>
-
 	<script>
+	function servletContext() {
+        var sc = window.location.pathname.split( '/' );
+        return "/"+sc[1];
+	}
 		<c:choose>
 		<c:when test="${requestScope.msg=='1'}">
 		$(document).ready(function() {
@@ -260,7 +266,7 @@
 												if (id.length > 0) {
 													$
 															.ajax({
-																url : 'http://localhost:8080/DanishHousing/ReceiptAutoFill',
+																url : 'servletContext()/DanishHousing/ReceiptAutoFill',
 																dataType : 'json',
 																type : 'post',
 																data : {
