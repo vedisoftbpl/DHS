@@ -31,8 +31,19 @@ public class DateUtils {
 		return dt;
 	}
 
+	public static String bankInitials(String bkName) {
+		String bkIn = new String();
+		String[] parts = bkName.split(" ");
+		for (String s : parts) {
+			if (s != null && !s.isEmpty())
+				bkIn = bkIn + s.charAt(0);
+		}
+
+		return bkIn;
+	}
+
 	public static String dateFormat(java.util.Date date) {
-		if(date == null)
+		if (date == null)
 			return "";
 		String d = date.toString();
 		String mon = d.substring(4, 7);
@@ -94,48 +105,65 @@ public class DateUtils {
 		return age;
 	}
 
-	public static Date getPreviousDate(Date d){
+	public static Date getPreviousDate(Date d) {
 		final Calendar cal = Calendar.getInstance();
 		cal.setTime(d);
-	    cal.add(cal.DATE, -1);
-	    return cal.getTime();
+		cal.add(cal.DATE, -1);
+		return cal.getTime();
 	}
-	
-	public static Date getFinancialStartDate(Date d){
+
+	public static Date getNextDate(Date d) {
+		final Calendar cal = Calendar.getInstance();
+		cal.setTime(d);
+		cal.add(cal.DATE, +1);
+		return cal.getTime();
+	}
+
+	// public static String getNextDate(String date) {
+	// final SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+	// final Date date = format.parse(date);
+	// final Calendar calendar = Calendar.getInstance();
+	// calendar.setTime(date);
+	// calendar.add(Calendar.DAY_OF_YEAR, 1);
+	// return format.format(calendar.getTime());
+	// }
+
+	public static Date getFinancialStartDate(Date d) {
 		final Calendar cal = Calendar.getInstance();
 		cal.setTime(d);
 		int currentYear = cal.get(Calendar.YEAR);
 		int currentMonth = cal.get(Calendar.MONTH) + 1;
 		String finStart = "";
-		if(currentMonth < 4){
-			finStart  = "01/04/"+(currentYear - 1);
+		if (currentMonth < 4) {
+			finStart = "01/04/" + (currentYear - 1);
+		} else {
+			finStart = "01/04/" + (currentYear);
 		}
-		else {
-			finStart  = "01/04/"+(currentYear);
-		}
-	    return DateUtils.convertDate(finStart);
+		return DateUtils.convertDate(finStart);
 	}
-	
-	public static Date getFinancialLastDate(Date d){
+
+	public static Date getFinancialLastDate(Date d) {
 		final Calendar cal = Calendar.getInstance();
 		cal.setTime(d);
 		int currentYear = cal.get(Calendar.YEAR);
 		int currentMonth = cal.get(Calendar.MONTH) + 1;
-		String finLast = ""; 
-		if(currentMonth < 4){
-			finLast  = "31/03/"+(currentYear);
+		String finLast = "";
+		if (currentMonth < 4) {
+			finLast = "31/03/" + (currentYear);
+		} else {
+			finLast = "31/03/" + (currentYear + 1);
 		}
-		else {
-			finLast  = "31/03/"+(currentYear + 1);
-		}
-	    return DateUtils.convertDate(finLast);
+		return DateUtils.convertDate(finLast);
 	}
-	
-	public static void main(String[] arg){
-		Date d = convertDate("29/03/2017");
-		System.out.println(getFinancialStartDate(d));
-		System.out.println();
-		System.out.println(getFinancialLastDate(d));
+
+	public static void main(String[] arg) {
+		// Date d = convertDate("29/03/2017");
+		// System.out.println(getFinancialStartDate(d));
+		// System.out.println();
+		// System.out.println(getFinancialLastDate(d));
+		// System.out.println(getNextDate(d));
+
+		System.out.println(bankInitials(" State Bank Of India"));
 	}
-	
+
 }

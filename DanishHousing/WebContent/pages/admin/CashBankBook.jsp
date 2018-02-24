@@ -4,13 +4,13 @@
 <!-- select style -->
 <link rel="stylesheet" href="../../plugins/select2/select2.css">
 <%@ include file="../design/Top.jsp"%>
-<style type="text /css">
-.result {
+<div class="se-pre-con"></div>
+		<style type="text /css">.result {
 	height: 200px;
 	overflow: auto;
 }
 </style>
-<style type="text/css" media="print">
+		<style type="text/css" media="print">
 @media print {
 	.result {
 		height: 100%;
@@ -18,18 +18,10 @@
 	}
 }
 </style>
-<style>
-.no-js #loader {
-	display: none;
-}
-
-.js #loader {
-	display: block;
-	position: absolute;
-	left: 100px;
-	top: 0;
-}
-
+		<style>
+		
+			.no-js #loader { display: none;  }
+.js #loader { display: block; position: absolute; left: 100px; top: 0; }
 .se-pre-con {
 	position: fixed;
 	left: 0px;
@@ -37,10 +29,11 @@
 	width: 100%;
 	height: 100%;
 	z-index: 9999;
-	background: url(../../../DanishHousing/pages/photos/Eclipse.gif) center
-		no-repeat #fff;
+	background: url(../../../DanishHousing/pages/photos/Eclipse.gif) center no-repeat #fff;
 }
-
+		
+		
+		
 body, html {
 	width: 100%;
 	height: 100%;
@@ -54,7 +47,16 @@ body, html {
 	z-index: 100000; /* CSS
 		doesn't support infinity */ /* Any other Print Properties */
 }
-
+#printTransactionReport{
+    overflow-x: scroll;
+    width: auto;
+    white-space: nowrap;
+}
+div.scrollmenu {
+    background-color: #333;
+    overflow: auto;
+    white-space: nowrap;
+}
 .invoice-box {
 	max-width: 1000px;
 	margin: auto;
@@ -69,12 +71,20 @@ body, html {
 .table>thead>tr>th {
 	border: 1px solid #060606;
 	padding: 1px;
-	font-size: 10pt;
+	font-size: 9pt;
 }
-
 .table>tbody>tr>td {
 	padding: 1px;
 	font-size: 8pt;
+}
+
+.invoice-box table tr.item td {
+	border-bottom: 1px solid #eee;
+}
+
+.invoice-box table tr.total td:nth-child(2) {
+	border-top: 2px solid #eee;
+	font-weight: bold;
 }
 </style>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -87,20 +97,19 @@ body, html {
 		<!-- =============================================== -->
 		<!-- Content Wrapper. Contains page content -->
 
-		<div class="se-pre-con"></div>
 
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
-				<h1>Ledger</h1>
+				<h1>Cash/Bank - Book  Report</h1>
 				<ol class="breadcrumb">
 					<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
 					<li><a href="#">Reports</a></li>
-					<li class="active">Ledger</li>
+					<li class="active">Cash/Bank - Book  Report</li>
 				</ol>
 			</section>
 			<!-- Main content -->
-			<section class="content">
+			<section class="content" >
 				<!-- Default box -->
 				<div class="box">
 					<div class="box-header with-border">
@@ -123,7 +132,7 @@ body, html {
 					<!-- User Form -->
 					<div class="box-body">
 						<form
-							action="${pageContext.request.contextPath}/admin/pages/TransactionReportController"
+							action="${pageContext.request.contextPath}/admin/pages/CashBankBookController"
 							method="post" onsubmit="return validateForm(this)">
 
 							<div class="row">
@@ -167,24 +176,29 @@ body, html {
 							<div class="row">
 								<div class="col-md-4">
 
-									<div class="form-group" id="divFormAccountCode">
-										<label>Account Code :</label>
+									<div class="form-group" id="divFormBankName">
+										<label>Bank Name :</label>
 										<div class="input-group">
 											<div class="input-group-addon">
 												<i class="fa fa-navicon"></i>
 											</div>
-											<input type="text" class="form-control accCode"
-												placeholder="Account Code" id="accountCode"
-												name="accountCode" />
+											<select class="form-control select2" id="BankName" name="BankName"
+												style="width: 100%;">
+												<option value="">--- Select Bank Name ---</option>
+												<c:forEach items="${requestScope.accounts}" var="val">
+													<option value="${val.key}">${val.value}</option>
+												</c:forEach>
+											</select>
+											
 										</div>
-										<p id="errorAccountCode"></p>
+										<p id="errorBankName"></p>
 									</div>
 
 								</div>
 								<div class="col-md-4">
-									<label>Account Name :</label><br>
+									<label>Bank Code :</label><br>
 									<h4>
-										<span id="AccountCodeName"></span>
+										<span id="BankCode"></span>
 									</h4>
 								</div>
 							</div>
@@ -203,8 +217,7 @@ body, html {
 						</form>
 					</div>
 
-					<div class="invoice-box" id="printTransactionReport"
-						style="display: none;">
+					<div class="invoice-box " id="printBankCashReport" style="display: none;">
 						<div class="row">
 
 							<div class="col-md-12">
@@ -217,84 +230,118 @@ body, html {
 								<div class="row" align="center">
 
 									<div class="col-md-12">
-										<h5>GENERAL LEDGER FOR PERIOD ${requestScope.date1} TO
+										<h4>CASH/BANK - BOOK FOR PERIOD ${requestScope.date1} TO
 											${requestScope.date2}</h5>
 									</div>
 								</div>
 								<div class="row" align="center">
 
 									<div class="col-md-12">
-										<h5>
-											<b>ACCOUNT CODE :</b> ${requestScope.accCode} -
-											${requestScope.accName}
-										</h5>
+									<span style="display:inline-block;">
+									<h5><b>BANK CODE :</b> ${requestScope.bkCode} ,-
+											</h5>
+										<h5><b>BANK NAME : </b>${requestScope.bkName} 
+											</h5>
+									</span>
+										
 									</div>
 								</div>
 								<div class="row" align="left">
 
-
+<div align="left"><p><b>&emsp;Opening Balance :&emsp;</b><fmt:setLocale value="en_IN"/><fmt:formatNumber value="${requestScope.openingBalance}" type="currency" /></p></div>
 									<div class="col-md-12">
 										<h4>
-											<u>Transactions Details</u>
+											<u><b>RECEIPTS</b></u>
+										</h4>
+										
+										<table class="table" align="center">
+
+											<!-- Table Header -->
+											<thead
+												style="border-top: 3px solid black; border-bottom: 3px solid black;">
+												<tr>
+													<th>Recept No./Vr. No.</th>
+													<th>Date</th>
+													<th>Cheque No.</th>
+													<th>Member No.</th>
+													<th>Particulars</th>
+													<th>Total</th>
+													<th>Adjustments</th>
+											
+												</tr>
+											</thead>
+											<tbody>
+												<c:forEach items="${requestScope.creditList}"
+													var="receipt">
+													<tr>
+														<td><c:out value="${receipt.docNo}" /></td>
+														<td><fmt:formatDate type="date" pattern="dd/MM/yyyy"
+																	value="${receipt.docDate}"/></td>
+														<td><c:out value="${receipt.chqNo}" /></td>
+														<td><c:out value="${receipt.membNo}" /></td>
+														<td><b><c:out value="${receipt.accName}" /></b><br><c:out value="${receipt.remarks}" /></td>
+														<td><c:out value="${receipt.amount}" /></td>
+														<td><c:out value="${receipt.adjustment}" /></td>
+
+
+													</tr>
+												</c:forEach>
+											</tbody>
+											<!-- Table Body -->
+
+										</table>
+									</div>
+									<div class="row" align="right">
+									<div class="col-md-12" >
+										<table>
+											
+
+											<tr>
+												<td colspan="12">----------------------------------------------------------------------</td>
+											</tr>
+
+											<tr>
+												<td><label>&emsp;Total Receipt Amount &emsp;</label></td>
+												<td><label>:&emsp;</label></td>
+												<td ><span><fmt:setLocale value="en_IN"/><fmt:formatNumber value="${requestScope.totalCreditAmount}" type="currency" /></span></td>
+											</tr>
+
+											
+												<td colspan="12">----------------------------------------------------------------------</td>
+											</tr>
+										</table>
+									</div>
+								
+								</div>
+									<div class="col-md-12">
+										<h4>
+											<u><b>PAYMENTS</b></u>
 										</h4>
 										<table class="table" align="center">
 
 											<!-- Table Header -->
 											<thead
-												style="border-top: 2px solid black; border-bottom: 2px solid black;">
+												style="border-top: 3px solid black; border-bottom: 3px solid black;">
 												<tr>
+													<th>Payment No./Vr. No.</th>
 													<th>Date</th>
 													<th>Particulars</th>
-													<th>Receipt No./<br>Vr. No.</th>
-													<th>Debit</th>
-													<th>Credit</th>
-													<th>Balance</th>
+													<th>Total</th>
+													<th>Adjustments</th>
 												</tr>
 											</thead>
 											<tbody>
-												<c:forEach items="${requestScope.transactionList}"
-													var="tran">
-													<c:forEach items="${tran.tdto}" var="rep">
-
-														<tr>
-															<td><fmt:formatDate type="date" pattern="dd/MM/yyyy"
-																	value="${rep.date}" /></td>
-															<td><c:out value="${rep.particular}" /></td>
-															<td><c:out value="${rep.recNo}" /></td>
-															<td><c:choose>
-																	<c:when test="${rep.debit==0}">
-																		<c:out value=" " />
-																	</c:when>
-																	<c:when test="${rep.debit!=0}">
-																		<c:out value="${rep.debit}" />
-																	</c:when>
-																</c:choose></td>
-															<td><c:choose>
-																	<c:when test="${rep.credit==0}">
-																		<c:out value=" " />
-																	</c:when>
-																	<c:when test="${rep.credit!=0}">
-																		<c:out value="${rep.credit}" />
-																	</c:when>
-																</c:choose></td>
-															<td><c:out value="" /></td>
-														</tr>
-													</c:forEach>
+												<c:forEach items="${requestScope.debitList}"
+													var="payment">
 													<tr>
-														<td colspan=3><h5>
-																<b>&emsp;&emsp;&emsp;&emsp;Monthly &emsp;:&nbsp;</b>
-															</h5></td>
-														<td><h5>
-																<b><fmt:setLocale value="en_IN"/><fmt:formatNumber value="${tran.monthlyCredit}" type="currency" /></b>
-															</h5></td>
-														<td><h5>
-																<b><fmt:setLocale value="en_IN"/><fmt:formatNumber value="${tran.monthlyDebit}" type="currency" /></b>
-															</h5></td>
-														<td>
-															<h5>
-																<b><fmt:setLocale value="en_IN"/><fmt:formatNumber value="${tran.monthlyBalance}" type="currency" /></b>
-															</h5>
-														</td>
+														<td><c:out value="${payment.docNo}" /></td>
+														<td><fmt:formatDate type="date" pattern="dd/MM/yyyy"
+																	value="${payment.docDate}" /></td>
+														<td><b><c:out value="${payment.accName}" /></b><br><c:out value="${payment.remarks} (Chq No/Tr No :${payment.chqNo})"/></td>
+														<td><c:out value="${payment.amount}" /></td>
+														<td><c:out value="${payment.adjustment}" /></td>
+
+
 													</tr>
 												</c:forEach>
 											</tbody>
@@ -305,54 +352,40 @@ body, html {
 								</div>
 
 
-								<div class="row">
-									<div class="col-md-6">
+								<div class="row" align="right">
+									<div class="col-md-12" >
 										<table>
-
+											
 
 											<tr>
-												<td colspan="6">----------------------------------------------------------------------</td>
+												<td colspan="12">----------------------------------------------------------------------</td>
 											</tr>
 
 											<tr>
-												<td><label>&emsp;Total Debit Amount &emsp;</label></td>
+												<td><label>&emsp;Total Payments Amount &emsp;</label></td>
 												<td><label>:&emsp;</label></td>
-												<td align="right"><span><fmt:setLocale value="en_IN"/><fmt:formatNumber value="${requestScope.totalDebitAmount}" type="currency" /></span></td>
+												<td ><span><fmt:setLocale value="en_IN"/><fmt:formatNumber value="${requestScope.totalDebitAmount}" type="currency" /></span></td>
 											</tr>
 
+											
 											<tr>
-												<td><label>&emsp;Total Credit Amount &emsp;</label></td>
-												<td><label>:&emsp;</label></td>
-												<td align="right"><span><fmt:setLocale value="en_IN"/><fmt:formatNumber value="${requestScope.totalCreditAmount}" type="currency" /></span></td>
-											</tr>
-											<tr>
-												<td colspan="6">----------------------------------------------------------------------</td>
+												<td colspan="12">----------------------------------------------------------------------</td>
 											</tr>
 										</table>
 									</div>
-									<div class="col-md-1"></div>
-									<div class="col-md-5">
-										<table>
-											<tr>
-												<td colspan="3">--------------------------------------------------------</td>
-											</tr>
-
-											<tr>
-
-												<td align="right"><label>Balance&emsp;:&emsp;</label><span><fmt:setLocale value="en_IN"/><fmt:formatNumber value="${requestScope.balanceAmount}" type="currency" /></span></td>
-											</tr>
-											<tr>
-												<td colspan="3">-------------------------------------------------------</td>
-											</tr>
-										</table>
-									</div>
+								
+								</div>
+								<div class="row" ><br>
+								-----------------------------------------------------------------------------------------------------------
+								<div align="left"><label>&emsp;Closing Balance :&emsp;<fmt:setLocale value="en_IN"/><fmt:formatNumber value="${requestScope.closingBalance}" type="currency" /></label></div>
+								-----------------------------------------------------------------------------------------------------------
 								</div>
 								<div class="row" align="center">
 
 									<div>
 										<button type=button class="btn btn-info " value="print"
 											id="printButton"
-											onclick="printFunction('printTransactionReport');">&emsp;Print&emsp;</button>
+											onclick="printFunction('printBankCashReport');">&emsp;Print&emsp;</button>
 									</div>
 								</div>
 							</div>
@@ -364,7 +397,7 @@ body, html {
 
 
 					</div>
-					<div class="box-footer">View Transaction Report</div>
+					<div class="box-footer">View Cash/Bank Book</div>
 					<!-- /.box-footer-->
 					<!-- /.box -->
 				</div>
@@ -383,55 +416,12 @@ body, html {
 	<script src="../../plugins/datepicker/bootstrap-datepicker.js"></script>
 	<!-- select2 -->
 	<script src="../../plugins/select2/select2.js"></script>
-	<script src="../../bootstrap/js/modernizr.js"></script>
+<script src="../../bootstrap/js/modernizr.js"></script>
 	<script>
-		$(window).load(function() {
-			// Animate loader off screen
-			$(".se-pre-con").fadeOut("slow");
-			;
-		});
-	</script>
-	<script>
-		$('#accountCode')
-				.bind(
-						'keyup',
-						function(e) {
-							e.preventDefault();
-							var s = $('#accountCode').val();
-							if (s.length >= 1) {
-								$
-										.ajax({
-											url : "http://localhost:8080/DanishHousing/AutoCompleteVoucher",
-											type : "post",
-											data : {
-												'val' : s
-											},
-											success : function(data) {
-												$('#accountCode')
-														.autocomplete(
-																{
-																	source : data,
-																	select : function(
-																			event,
-																			ui) {
-																		event
-																				.preventDefault();
-																		var selectedArr = ui.item.value
-																				.split(":");
-																		this.value = $
-																				.trim(selectedArr[1]);
-																	}
-																});
-
-											},
-											error : function(data, status, er) {
-												console.log(data + "_" + status
-														+ "_" + er);
-											},
-
-										});
-							}
-						});
+	$(window).load(function() {
+		// Animate loader off screen
+		$(".se-pre-con").fadeOut("slow");;
+	});
 	</script>
 	<script>
 		$(function() {
@@ -448,18 +438,18 @@ body, html {
 		<c:choose>
 		<c:when test="${requestScope.msg=='1'}">
 		$(document).ready(function() {
-			$("#divFormAccountCode").addClass("form-group has-success");
-			$("#errorAccountCode").html("");
+			$("#divFormBankName").addClass("form-group has-success");
+			$("#errorBankName").html("");
 			$("#typeError").addClass("form-group has-success");
 			$("#errorTop").html("Records shown below.");
-			$("#printTransactionReport").show();
+			$("#printBankCashReport").show();
 		});
 		</c:when>
 		<c:when test="${requestScope.msg=='2'}">
 		$(document).ready(function() {
 			$("#typeError").addClass("form-group has-error");
-			$("#errorTop").html("Could Not Fetch Records of given period.");
-			$("#printTransactionReport").hide();
+			$("#errorTop").html("Could not fetch records of given period.");
+			$("#printBankCashReport").hide();
 		});
 		</c:when>
 		</c:choose>
@@ -467,10 +457,10 @@ body, html {
 			error = "Please enter this field";
 
 			//Account Code Validation
-			var accountCode = document.getElementById("accountCode").value;
-			if (accountCode == null || accountCode === "") {
-				document.getElementById("divFormAccountCode").className = 'alert alert-danger alert-dismissible';
-				document.getElementById("errorAccountCode").innerHTML = error;
+			var bankName = document.getElementById("BankName").value;
+			if (bankName == null || bankName === "") {
+				document.getElementById("divFormBankName").className = 'alert alert-danger alert-dismissible';
+				document.getElementById("errorBankName").innerHTML = error;
 				return false;
 			}
 
@@ -509,9 +499,9 @@ body, html {
 		$(document)
 				.ready(
 						function() {
-							$('#accountCode')
-									.bind(
-											"blur",
+							$('#BankName')
+									.on(
+											"change",
 											function(e) {
 
 												e.preventDefault();
@@ -524,37 +514,39 @@ body, html {
 																dataType : 'json',
 																type : 'post',
 																data : {
-																	'accode' : code
+																	'code' : code
 																},
 
 																success : function(
 																		data) {
-																	var bool = data["masterAccountId"] === 0;
+																	var bool = data["bkCode"] === 0;
 																	$(
-																			'#divFormAccountCode')
+																			'#divFormBankName')
 																			.toggleClass(
 																					'alert alert-danger alert-dismissible',
 																					bool);
 																	$(
-																			'#AccountName')
+																			'#BankName')
 																			.val(
 																					'');
 																	$(
-																			'#errorAccountCode')
+																			'#errorBankName')
 																			.empty();
-																	if (data["masterAccountId"] === 0) {
+																	if (data["bkCode"] === 0) {
 																		$(
-																				'#errorAccountCode')
+																				'#errorBankName')
 																				.text(
-																						'Account Code doesn\'t exist');
+																						'Bank Code doesn\'t exist');
 																	} else {
 
 																		$(
-																				'#AccountCodeName')
+																				'#BankCode')
 																				.html(
 																						'<b>'
-																								+ data["acName"]
+																								+ data["bkCode"]
 																								+ '</b>');
+																		
+																		$("#BankName option[value="+data["bkCode"]+"]").prop('selected', 'selected');
 
 																	}
 																},

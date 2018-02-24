@@ -82,7 +82,7 @@ public class TransactionReportController extends HttpServlet {
 			accCode = request.getParameter("accountCode");
 		}
 
-		AccountMaster a = new AccountMasterDao().findByCode(accCode);
+		AccountMaster a = AccountMasterDao.findByCode(accCode);
 
 		if (op.equals("create")) {
 			double totalCredit = 0;
