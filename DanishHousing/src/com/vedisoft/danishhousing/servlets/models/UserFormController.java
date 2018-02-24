@@ -83,12 +83,12 @@ public class UserFormController extends HttpServlet {
 			userMobile = request.getParameter("userMobile");
 		}
 
-		Date dob = null;
+		Date dob = new Date();
 		// System.out.println(request.getParameter("datepicker1"));
 		if (request.getParameter("datepicker1") != null && request.getParameter("datepicker1").trim().length() > 0) {
 			dob = DateUtils.convertDate(request.getParameter("datepicker1"));
 		}
-		Date doj = null;
+		Date doj = new Date();
 		if (request.getParameter("datepicker2") != null && request.getParameter("datepicker2").trim().length() > 0) {
 			doj = DateUtils.convertDate(request.getParameter("datepicker2"));
 		}

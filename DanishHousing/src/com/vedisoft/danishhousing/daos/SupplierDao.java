@@ -328,11 +328,34 @@ public class SupplierDao {
 				listSupplier.add(sup);
 			}
 		} catch (SQLException sq) {
-			System.out.println("Unable to create a new row.");
+			System.out.println("Unable to find row.");
 		} finally {
 			pool.putConnection(conn);
 		}
 		return listSupplier;
+	}
+	public ArrayList<String> findAll(String name) {
+		System.out.println("In AutoComplete");
+		ConnectionPool pool = ConnectionPool.getInstance();
+		pool.initialize();
+		Connection conn = pool.getConnection();
+		ArrayList<String> listVoucher = new ArrayList<String>();
+		try {
+			String sql = "select suppl_name,suppl_id from supplier where suppl_name like '%"+name+"%' or suppl_id like '%"+name+"%'";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				String voucher = new String();
+				System.out.println("Found: " + rs.getString("suppl_name") + " : " + rs.getString("suppl_id"));
+				voucher = rs.getString("suppl_name")+ " : " + rs.getString("suppl_id");
+				listVoucher.add(voucher);
+			}
+		} catch (SQLException sq) {
+			System.out.println("Unable to find row.");
+		} finally {
+			pool.putConnection(conn);
+		}
+		return listVoucher;
 	}
 
 }

@@ -32,7 +32,7 @@
 					<div class="box-header with-border">
 
 						<div class="box-tools pull-right">
-							<span id="today">${param.today}</span>
+							<span id="today">${requestScope.date}</span>
 							<button type="button" class="btn btn-box-tool"
 								data-widget="collapse" data-toggle="tooltip" title="Collapse">
 								<i class="fa fa-minus"></i>
@@ -61,7 +61,7 @@
 											</div>
 											<input type="text" class="form-control pull-right datepicker"
 												id="date" name="date" required="required"
-												value="${param.today}" />
+												value="${requestScope.date}" />
 										</div>
 										<p id="errorReceiptDate"></p>
 										<!-- /.input group -->
@@ -72,6 +72,11 @@
 								<div class="col-md-2" align="center">
 									<label>&nbsp;</label>
 									<button type="submit" class="btn btn-block btn-info">View</button>
+									<br>
+								</div>
+								<div class="col-md-2" align="center">
+									<label>&nbsp;</label>
+									<button type="submit"  name="printButton" class="btn btn-block btn-info" value="print">Print</button>
 									<br>
 								</div>
 							</div>
@@ -97,7 +102,7 @@
 													<!-- /.box-tools -->
 												</div>
 												<!-- /.box-header -->
-												<div class="box-body" align="right"">
+												<div class="box-body" align="left">
 													<span><fmt:setLocale value="en_IN" />
 														<fmt:formatNumber value="${ac.value}" type="currency" /></span>
 												</div>
@@ -130,7 +135,7 @@
 													<!-- /.box-tools -->
 												</div>
 												<!-- /.box-header -->
-												<div class="box-body" align="right"">
+												<div class="box-body" align="left">
 													<span><fmt:setLocale value="en_IN" />
 														<fmt:formatNumber value="${ac.value}" type="currency" /></span>
 												</div>

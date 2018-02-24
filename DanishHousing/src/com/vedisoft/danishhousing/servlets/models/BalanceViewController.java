@@ -20,42 +20,53 @@ import com.vedisoft.danishhousing.daos.AccountDao;
 @WebServlet("/admin/pages/BalanceViewController")
 public class BalanceViewController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public BalanceViewController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public BalanceViewController() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doPost(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		Date date =new Date() ;
+		Date date = new Date();
 		if (request.getParameter("date") != null && request.getParameter("date").trim().length() > 0) {
 			date = DateUtils.convertDate(request.getParameter("date"));
 		}
 		System.out.println(date);
-//		//String operation=new String();
-//		if (request.getParameter("opeartion") != null && request.getParameter("opeartion").trim().length() > 0) {
-//			operation = request.getParameter("opeartion");
-//		}
-		HttpSession se = request.getSession();
-		se.setAttribute("accList", new AccountDao().findAllBalanceByDate(date));
-			String page = "/pages/admin/ViewBankBalance.jsp";
-			RequestDispatcher rd = request.getRequestDispatcher(page);
+		String operation = new String();
+		if (request.getParameter("printButton") != null && request.getParameter("printButton").trim().length() > 0) {
+			operation = request.getParameter("printButton");
+		}
+		String page = "/pages/admin/ViewBankBalance.jsp";
+		String page1 = "/pages/admin/BalancePrint.jsp";
+		if (operation.equals("print")) {
+			request.setAttribute("accList", new AccountDao().findAllBalanceByDate(date));
+			RequestDispatcher rd = request.getRequestDispatcher(page1);
+			request.setAttribute("date", DateUtils.dateFormat(date));
 			rd.forward(request, response);
-		
+		} else {
+			request.setAttribute("accList", new AccountDao().findAllBalanceByDate(date));
+			RequestDispatcher rd = request.getRequestDispatcher(page);
+			request.setAttribute("date", DateUtils.dateFormat(date));
+			rd.forward(request, response);
+		}
 	}
 
 }

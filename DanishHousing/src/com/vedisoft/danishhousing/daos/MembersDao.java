@@ -26,7 +26,8 @@ public class MembersDao {
 					+ "maint,water,wsupdte,establ,wc_lr_dt,wat_chg,extamt,cost,build_flag, m_nominal, muta_no1, muta_dt1, gender, category, defaulter,"
 					+ " mother_name ,pan_no, eli_ineli,ref_amt) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,"
 					+ "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-			PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS,ResultSet.CONCUR_UPDATABLE);
+			PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS,
+					ResultSet.CONCUR_UPDATABLE);
 			ps.setString(1, member.getPrefix());
 			ps.setString(2, member.getMemName());
 			ps.setString(3, member.getfHRelation());
@@ -93,7 +94,7 @@ public class MembersDao {
 			if (member.getNocDt() != null)
 				nocDte = new java.sql.Date(member.getNocDt().getTime());
 			ps.setDate(45, nocDte);
-	
+
 			java.sql.Date refDte = null;
 			if (member.getRefDt() != null)
 				refDte = new java.sql.Date(member.getRefDt().getTime());
@@ -116,9 +117,9 @@ public class MembersDao {
 			ps.setDouble(56, member.getCost());
 			ps.setString(57, member.getBuildFlag());
 			ps.setString(58, member.getmNominal());
-			ps.setInt(59 , member.getMutaNo1());
+			ps.setInt(59, member.getMutaNo1());
 			java.sql.Date mutaDt1 = null;
-			if (member.getMutaDt1()!= null)
+			if (member.getMutaDt1() != null)
 				wcLrDt = new java.sql.Date(member.getMutaDt1().getTime());
 			ps.setDate(60, mutaDt1);
 			ps.setString(61, member.getGender());
@@ -132,13 +133,13 @@ public class MembersDao {
 			if (x == 0) {
 				Exception a = new Exception();
 				throw a;
-				}
+			}
 			ResultSet generatedKeys = ps.getGeneratedKeys();
 			if (generatedKeys.next()) {
 				id = generatedKeys.getInt(1);
 			}
-			String sql1="update members set membno=? where member_id = ?";
-			PreparedStatement ps1 = conn.prepareStatement(sql1,ResultSet.CONCUR_UPDATABLE);
+			String sql1 = "update members set membno=? where member_id = ?";
+			PreparedStatement ps1 = conn.prepareStatement(sql1, ResultSet.CONCUR_UPDATABLE);
 			ps1.setInt(1, id);
 			ps1.setInt(2, id);
 			int x1 = ps1.executeUpdate();
@@ -242,7 +243,7 @@ public class MembersDao {
 			if (member.getNocDt() != null)
 				nocDte = new java.sql.Date(member.getNocDt().getTime());
 			ps.setDate(45, nocDte);
-	
+
 			java.sql.Date refDte = null;
 			if (member.getRefDt() != null)
 				refDte = new java.sql.Date(member.getRefDt().getTime());
@@ -265,9 +266,9 @@ public class MembersDao {
 			ps.setDouble(56, member.getCost());
 			ps.setString(57, member.getBuildFlag());
 			ps.setString(58, member.getmNominal());
-			ps.setInt(59 , member.getMutaNo1());
+			ps.setInt(59, member.getMutaNo1());
 			java.sql.Date mutaDt1 = null;
-			if (member.getMutaDt1()!= null)
+			if (member.getMutaDt1() != null)
 				wcLrDt = new java.sql.Date(member.getMutaDt1().getTime());
 			ps.setDate(60, mutaDt1);
 			ps.setString(61, member.getGender());
@@ -277,15 +278,14 @@ public class MembersDao {
 			ps.setString(65, member.getPanNo());
 			ps.setString(66, member.getEliInl());
 			ps.setDouble(67, member.getRefAmt());
-			ps.setInt(68 , member.getMemberId());
-			
+			ps.setInt(68, member.getMemberId());
+
 			int x = ps.executeUpdate();
 			if (x == 0) {
 				System.out.println("Record not Saved");
 				return false;
 			}
-			
-			
+
 		} catch (SQLException sq) {
 			sq.printStackTrace();
 			return false;
@@ -584,7 +584,7 @@ public class MembersDao {
 				member.setPanNo(rs.getString("pan_no"));
 				member.setEliInl(rs.getString("eli_ineli"));
 				member.setRefAmt(rs.getDouble("ref_amt"));
-				
+
 				listMembers.add(member);
 			}
 		} catch (SQLException sq) {
@@ -737,7 +737,7 @@ public class MembersDao {
 		return listMembers;
 
 	}
-	
+
 	public static int totalRows() {
 		int id = -1;
 		ConnectionPool pool = ConnectionPool.getInstance();
@@ -758,34 +758,27 @@ public class MembersDao {
 		return id;
 
 	}
-	
-	public static ArrayList<Members> findAll(int start, int num ,String s,String COLUMN_NAME, String DIRECTION ) {
+
+	public static ArrayList<Members> findAll(int start, int num, String s, String COLUMN_NAME, String DIRECTION) {
 		ConnectionPool pool = ConnectionPool.getInstance();
 		pool.initialize();
 		Connection conn = pool.getConnection();
 		ArrayList<Members> listMembers = new ArrayList<Members>();
 		String sqli = new String();
 		String sql = new String();
-		String globalSearch = " where membno like '%" + s + "%'"
-			    + "or membnme like '%" + s + "%'"
-			    + "or f_h_name like '%" + s+ "%'"
-			    + "or dob like '%" + s+ "%'"
-			    + "or email like  '%" + s+ "%'"
-			    + "or mobile like '%" + s+ "%'"
-				+ "or live_dead like '%" + s+ "%'"
-				+ "or mad1 like '%" + s+ "%'"
-				+ "or mad2 like '%" + s+ "%'"
-				+ "or mad3 like '%" + s+ "%'";
-		
-		 sqli += " order by " + COLUMN_NAME + " " + DIRECTION;
-		
+		String globalSearch = " where membno like '%" + s + "%'" + "or membnme like '%" + s + "%'"
+				+ "or f_h_name like '%" + s + "%'" + "or dob like '%" + s + "%'" + "or email like  '%" + s + "%'"
+				+ "or mobile like '%" + s + "%'" + "or live_dead like '%" + s + "%'" + "or mad1 like '%" + s + "%'"
+				+ "or mad2 like '%" + s + "%'" + "or mad3 like '%" + s + "%'";
+
+		sqli += " order by " + COLUMN_NAME + " " + DIRECTION;
+
 		try {
-			if(s != null){
+			if (s != null) {
 				System.out.println("String : " + s);
-				 sql = "select * from members " + globalSearch + sqli + " limit ? , ? " ;
-			}
-			else{
-				 sql = "select * from members " + sqli + " limit ? , ? " ;
+				sql = "select * from members " + globalSearch + sqli + " limit ? , ? ";
+			} else {
+				sql = "select * from members " + sqli + " limit ? , ? ";
 			}
 			System.out.println(sql);
 			PreparedStatement ps = conn.prepareStatement(sql);
@@ -912,17 +905,38 @@ public class MembersDao {
 				member.setPanNo(rs.getString("pan_no"));
 				member.setEliInl(rs.getString("eli_ineli"));
 				member.setRefAmt(rs.getDouble("ref_amt"));
-				
+
 				listMembers.add(member);
 			}
 		} catch (SQLException sq) {
-			System.out.println("Unable to create a new row.");
+			System.out.println("Unable to find row.");
 		} finally {
 			pool.putConnection(conn);
 		}
 		return listMembers;
 	}
 
+	public int findMember(int memberId) {
+		System.out.println(memberId);
+		ConnectionPool pool = ConnectionPool.getInstance();
+		pool.initialize();
+		Connection conn = pool.getConnection();
+		int id = -1;
+		try {
+			String sql = "select member_id from members where membno = ?";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, memberId);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				id = rs.getInt("member_id");
+			}
+		} catch (SQLException sq) {
+			System.out.println("Unable to find row.");
+		} finally {
+			pool.putConnection(conn);
+		}
+		return id;
+	}
 
 	public static void main(String a[]) {
 		MembersDao dao = new MembersDao();

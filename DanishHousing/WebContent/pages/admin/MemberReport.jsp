@@ -6,7 +6,7 @@
 	overflow: auto;
 }
 </style>
-		<style type="text/css" media="print">
+<style type="text/css" media="print">
 @media print {
 	.result {
 		height: 100%;
@@ -14,9 +14,18 @@
 	}
 }
 </style>
-		<style>
-		.no-js #loader { display: none;  }
-.js #loader { display: block; position: absolute; left: 100px; top: 0; }
+<style>
+.no-js #loader {
+	display: none;
+}
+
+.js #loader {
+	display: block;
+	position: absolute;
+	left: 100px;
+	top: 0;
+}
+
 .se-pre-con {
 	position: fixed;
 	left: 0px;
@@ -24,11 +33,10 @@
 	width: 100%;
 	height: 100%;
 	z-index: 9999;
-	background: url(../../../DanishHousing/pages/photos/Eclipse.gif) center no-repeat #fff;
+	background: url(../../../DanishHousing/pages/photos/Eclipse.gif) center
+		no-repeat #fff;
 }
-		
-		
-		
+
 body, html {
 	width: 100%;
 	height: 100%;
@@ -59,6 +67,7 @@ body, html {
 	padding: 1px;
 	font-size: 9pt;
 }
+
 .table>tbody>tr>td {
 	padding: 1px;
 	font-size: 8pt;
@@ -83,9 +92,9 @@ body, html {
 		<!-- =============================================== -->
 		<!-- Content Wrapper. Contains page content -->
 
-<div class="se-pre-con"></div>
+		<div class="se-pre-con"></div>
 
-		
+
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
@@ -150,8 +159,9 @@ body, html {
 								</div>
 							</div>
 						</form>
-						<div class="invoice-box" id="printMemberReport" style="display: none;">
-							<div class="row" >
+						<div class="invoice-box" id="printMemberReport"
+							style="display: none;">
+							<div class="row">
 
 								<div class="col-md-12">
 									<div class="col-md-12" align="center">
@@ -165,18 +175,27 @@ body, html {
 											<h4>
 												<u>Member Details</u>
 											</h4>
-											
-											<h5><label><b>Member No :</b>&emsp;${requestScope.member.memberNo}</label>&emsp;&emsp;${requestScope.member.prefix}
+
+											<h5>
+												<label><b>Member No :</b>&emsp;${requestScope.member.memberNo}</label>&emsp;&emsp;${requestScope.member.prefix}
 												${requestScope.member.memName}&emsp;${requestScope.member.fHRelation}
-												${requestScope.member.fHRelName}&emsp;<b>Water Connection Date :</b>&nbsp;<fmt:formatDate type="date" pattern="dd/MM/yyyy"
-																	value="${requestScope.member.waterConnDate}" />&emsp;<b>Water Supply Date :</b>&nbsp;<fmt:formatDate type="date" pattern="dd/MM/yyyy"
-																	value="${requestScope.member.watSupplyDt}" /><br> <label><b>Plot
-												No :</b>&nbsp;</label><span>${requestScope.member.plotNo}</span>&emsp;&emsp;<b>Size
-												:</b>&nbsp;<span>${requestScope.member.plotSize}</span>&emsp;&emsp;<b>Project
-												Name :</b>&nbsp;<span>${requestScope.projectName}&emsp;</span>&emsp;<b>Registration Date :</b>&nbsp;<fmt:formatDate type="date" pattern="dd/MM/yyyy"
-																	value="${requestScope.member.regDt}" />&emsp;&emsp;<b>NOC Date :</b>&nbsp;<fmt:formatDate type="date" pattern="dd/MM/yyyy"
-																	value="${requestScope.member.nocDt}" />	<br> 
-												<b>Address :</b>&nbsp;${requestScope.member.address1}&nbsp;${requestScope.member.address2}&nbsp;${requestScope.member.address3}&emsp;&emsp;				
+												${requestScope.member.fHRelName}&emsp;<b>Water
+													Connection Date :</b>&nbsp;
+												<fmt:formatDate type="date" pattern="dd/MM/yyyy"
+													value="${requestScope.member.waterConnDate}" />
+												&emsp;<b>Water Supply Date :</b>&nbsp;
+												<fmt:formatDate type="date" pattern="dd/MM/yyyy"
+													value="${requestScope.member.watSupplyDt}" />
+												<br> <label><b>Plot No :</b>&nbsp;</label><span>${requestScope.member.plotNo}</span>&emsp;&emsp;<b>Size
+													:</b>&nbsp;<span>${requestScope.member.plotSize}</span>&emsp;&emsp;<b>Project
+													Name :</b>&nbsp;<span>${requestScope.projectName}&emsp;</span>&emsp;<b>Registration
+													Date :</b>&nbsp;
+												<fmt:formatDate type="date" pattern="dd/MM/yyyy"
+													value="${requestScope.member.regDt}" />
+												&emsp;&emsp;<b>NOC Date :</b>&nbsp;
+												<fmt:formatDate type="date" pattern="dd/MM/yyyy"
+													value="${requestScope.member.nocDt}" />
+												<br> <b>Address :</b>&nbsp;${requestScope.member.address1}&nbsp;${requestScope.member.address2}&nbsp;${requestScope.member.address3}&emsp;&emsp;
 											</h5>
 										</div>
 									</div>
@@ -193,30 +212,46 @@ body, html {
 												<thead
 													style="border-top: 3px solid black; border-bottom: 3px solid black;">
 													<tr>
+														<th>Date</th>
 														<th>Recept No.</th>
-														<th>Amount</th>
-														<th>Chl/Tr</th>
+														<th>Cash</th>
+														<th>Cheque/DD</th>
+														<th>Transfer</th>
 														<th>Transaction No</th>
 														<th>Bank Name</th>
 														<th>Remark</th>
-														<th>Date</th>
+
 													</tr>
 												</thead>
 												<tbody>
-													<c:forEach items="${requestScope.receiptList}"
-														var="rec">
+													<c:forEach items="${requestScope.receiptList}" var="rec">
 														<tr>
+															<td><fmt:formatDate type="date" pattern="dd/MM/yyyy"
+																	value="${rec.receipt.recDte}" /></td>
 															<td><c:out value="${rec.receipt.receiptNo}" /></td>
+															<c:choose>
+															<c:when test="${rec.bankCode=='01'}">
 															<td><c:out value="${rec.receipt.amount}" /></td>
-															
+															</c:when>
+															<c:otherwise>
+															<td><c:out value="0.0" /></td>
+															</c:otherwise>
+															</c:choose>
+															<c:choose>
+															<c:when test="${rec.bankCode!='01'}">
+															<td><c:out value="${rec.receipt.amount}" /></td>
+															</c:when>
+															<c:otherwise>
+															<td><c:out value="0.0" /></td>
+															</c:otherwise>
+															</c:choose>
 
 															<td><c:out value="${rec.receipt.balChq}" /></td>
 
 															<td><c:out value="${rec.receipt.cDd}" /></td>
-															<td><c:out value="${rec.bankName}" /></td>
+															<td><c:out value="${rec.receipt.branch}" /></td>
 															<td><c:out value="${rec.receipt.remarks}" /></td>
-															<td><fmt:formatDate type="date" pattern="dd/MM/yyyy"
-																	value="${rec.receipt.recDte}" /></td>
+
 
 														</tr>
 													</c:forEach>
@@ -240,9 +275,8 @@ body, html {
 												<thead
 													style="border-top: 3px solid black; border-bottom: 3px solid black">
 													<tr>
-														
-														<th>Transaction No</th>
 														<th>Transaction Date</th>
+														<th>Transaction No</th>
 														<th>Amount</th>
 														<th>Remark</th>
 													</tr>
@@ -250,10 +284,10 @@ body, html {
 												<tbody>
 													<c:forEach items="${requestScope.refPayList}" var="refund">
 														<tr>
-															
-															<td><c:out value="${refund.transactionNo}" /></td>
 															<td><fmt:formatDate type="date" pattern="dd/MM/yyyy"
 																	value="${refund.cdDate}" /></td>
+															<td><c:out value="${refund.transactionNo}" /></td>
+
 															<td><c:out value="${refund.amount}" /></td>
 															<td><c:out value="${refund.remarks}" /></td>
 														</tr>
@@ -278,27 +312,27 @@ body, html {
 												<thead
 													style="border-top: 3px solid black; border-bottom: 3px solid black">
 													<tr>
-														<th>Account Code</th>
-														<th>Amount</th>
 														<th>Transfer Date</th>
 														<th>Voucher Number</th>
+														<th>Account Code</th>
+														<th>Amount</th>
 														<th>Remark</th>
 													</tr>
 												</thead>
 												<tbody>
 													<tr>
-													<c:forEach items="${requestScope.transferList}" var="transfer">
-														<tr>
-															<td><c:out value="${transfer.acCode}" /></td>
-															<td><c:out value="${transfer.amt}" /></td>
-															<td><fmt:formatDate type="date" pattern="dd/MM/yyyy"
-																	value="${transfer.docDte}" /></td>
-															<td><c:out value="${transfer.vrNo}" /></td>
-															<td><c:out value="${transfer.parti}" /></td>
-														</tr>
-													</c:forEach>
+														<c:forEach items="${requestScope.transferList}"
+															var="transfer">
+															<tr>
+																<td><fmt:formatDate type="date"
+																		pattern="dd/MM/yyyy" value="${transfer.docDte}" /></td>
+																<td><c:out value="${transfer.vrNo}" /></td>
+																<td><c:out value="${transfer.acCode}" /></td>
+																<td><c:out value="${transfer.amt}" /></td>
 
-
+																<td><c:out value="${transfer.parti}" /></td>
+															</tr>
+														</c:forEach>
 												</tbody>
 												<!-- Table Body -->
 
@@ -310,20 +344,32 @@ body, html {
 										<div class="col-md-6" align="left">
 											<table>
 												<tr>
-													<td><h4><label>&emsp;Total Receipt Amount &emsp;</label></h4></td>
+													<td><h4>
+															<label>&emsp;Total Receipt Amount &emsp;</label>
+														</h4></td>
 													<td><label>:&emsp;</label></td>
-													<td align="right"><h4><span><fmt:setLocale value="en_IN"/><fmt:formatNumber value="${requestScope.receiptTotalAmount}" type="currency" /></span></h4></td>
+													<td align="right"><h4>
+															<span><fmt:setLocale value="en_IN" /> <fmt:formatNumber
+																	value="${requestScope.receiptTotalAmount}"
+																	type="currency" /></span>
+														</h4></td>
 												</tr>
 
 												<tr>
 													<td><div id="refundAmount">
-															<h4><label>&emsp;Refund Amount &emsp;</label></h4>
+															<h4>
+																<label>&emsp;Refund Amount &emsp;</label>
+															</h4>
 														</div></td>
 													<td><div id="refundAmount">
 															<label>:&emsp;</label>
 														</div></td>
 													<td align="right"><div id="refundAmount">
-															<h4><span><fmt:setLocale value="en_IN"/><fmt:formatNumber value="${requestScope.refundTotalAmount}" type="currency" /></span></h4>
+															<h4>
+																<span><fmt:setLocale value="en_IN" /> <fmt:formatNumber
+																		value="${requestScope.refundTotalAmount}"
+																		type="currency" /></span>
+															</h4>
 														</div></td>
 												</tr>
 
@@ -332,9 +378,14 @@ body, html {
 												</tr>
 
 												<tr>
-													<td><h4><label>&emsp;Balance Amount &emsp;</label></h4></td>
+													<td><h4>
+															<label>&emsp;Balance Amount &emsp;</label>
+														</h4></td>
 													<td><label>:&emsp;</label></td>
-													<td align="right"><h4><span><fmt:setLocale value="en_IN"/><fmt:formatNumber value="${requestScope.balanceAmount}" type="currency" /></span></h4></td>
+													<td align="right"><h4>
+															<span><fmt:setLocale value="en_IN" /> <fmt:formatNumber
+																	value="${requestScope.balanceAmount}" type="currency" /></span>
+														</h4></td>
 												</tr>
 												<tr>
 													<td colspan="3">----------------------------------------------------------------------</td>
@@ -350,8 +401,13 @@ body, html {
 													<td>&nbsp;</td>
 												</tr>
 												<tr>
-													<td><h4><label>Other Receipt &nbsp;<span><fmt:setLocale value="en_IN"/><fmt:formatNumber value="${requestScope.receiptTotalAmount}" type="currency" /></span>&emsp;
-													</label></h4></td>
+													<td><h4>
+															<label>Other Receipt &nbsp;<span><fmt:setLocale
+																		value="en_IN" /> <fmt:formatNumber
+																		value="${requestScope.receiptTotalAmount}"
+																		type="currency" /></span>&emsp;
+															</label>
+														</h4></td>
 												</tr>
 											</table>
 										</div>
@@ -369,9 +425,9 @@ body, html {
 							<!-- User Form -->
 
 							<!-- /.box-body -->
-							
 
-							
+
+
 						</div>
 						<div class="box-footer">View Member Report</div>
 						<!-- /.box-footer-->
@@ -387,13 +443,14 @@ body, html {
 	</div>
 	<!-- ./wrapper -->
 	<%@ include file="../design/Bottom.jsp"%>
- <!--  <script src="../../bootstrap/js/jquery.min.js"></script>-->
-  <script src="../../bootstrap/js/modernizr.js"></script>
+	<!--  <script src="../../bootstrap/js/jquery.min.js"></script>-->
+	<script src="../../bootstrap/js/modernizr.js"></script>
 	<script>
-	$(window).load(function() {
-		// Animate loader off screen
-		$(".se-pre-con").fadeOut("slow");;
-	});
+		$(window).load(function() {
+			// Animate loader off screen
+			$(".se-pre-con").fadeOut("slow");
+			;
+		});
 	</script>
 	<script>
 		<c:choose>
@@ -463,5 +520,4 @@ body, html {
 
 			document.body.innerHTML = originalContents;
 		}
-		
 	</script>
