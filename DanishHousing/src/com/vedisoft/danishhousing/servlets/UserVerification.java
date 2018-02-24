@@ -1,6 +1,7 @@
 package com.vedisoft.danishhousing.servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,9 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.vedisoft.danishhousing.daos.RightsDao;
 import com.vedisoft.danishhousing.daos.UsersDao;
+import com.vedisoft.danishhousing.pojos.Rights;
 import com.vedisoft.danishhousing.pojos.Users;
-
 
 /**
  * Servlet implementation class UserVerification
@@ -54,9 +56,25 @@ public class UserVerification extends HttpServlet {
 			Users user = usersDao.find(userId);
 			HttpSession session = request.getSession();
 			session.setAttribute("userLogin", user);
-			if (userType.equals("Administrator")) {
-				page = "/pages/admin/blank.jsp";
+			session.setAttribute("userType", userType);
+			System.out.println(userType);
+			
+			if (userType.equals("Administrator")){
+				System.out.println("admin");
+				ArrayList<Integer> rights=RightsDao.findAllRightsId();
+				for(int rt:rights)
+					System.out.println(rt);
+				session.setAttribute("rights1", rights);
+			}else{
+				System.out.println("Not admin");
+				ArrayList<Integer> rights= RightsDao.findRights(userType);
+				for(int rt:rights)
+					System.out.println(rt);
+				session.setAttribute("rights2", RightsDao.findRights(userType));
 			}
+			// if (userType.equals("Administrator")) {
+			page = "/pages/admin/blank.jsp";
+			// }
 		} else {
 			page = "../../index.jsp?error=1";
 		}
