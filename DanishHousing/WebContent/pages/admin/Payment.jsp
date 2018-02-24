@@ -52,12 +52,13 @@
 							<div class="row">
 								<c:forEach var="ac" items="${sessionScope.accList}"
 									varStatus="loop">
-									<c:set var="counter"  value="${loop.index}" />
+									<c:set var="counter" value="${loop.index}" />
 									<c:if test="${counter < 6 }">
 										<div class="col-md-2">
-											<div class="box box-info box-solid" style="height: 120px; width: 160px;">
+											<div class="box box-info box-solid"
+												style="height: 120px; width: 160px;">
 												<div class="box-header with-border"
-													style="background-color: #3c8dbc;height: 75px;">
+													style="background-color: #3c8dbc; height: 75px;">
 													<h3 class="box-title">${ac.key}</h3>
 
 													<div class="box-tools pull-right">
@@ -69,7 +70,7 @@
 													<!-- /.box-tools -->
 												</div>
 												<!-- /.box-header -->
-												<div class="box-body" align="right">
+												<div class="box-body" align="left">
 													<span>Rs&nbsp;:&emsp;<fmt:formatNumber type="number"
 															maxFractionDigits="3" value="${ac.value}" /></span>
 												</div>
@@ -80,19 +81,20 @@
 									</c:if>
 								</c:forEach>
 							</div>
-							
+
 							<div class="row">
 								<c:forEach var="ac" items="${sessionScope.accList}"
 									varStatus="loop">
-									<c:set var="counter"  value="${loop.count}" />
+									<c:set var="counter" value="${loop.count}" />
 									<c:if test="${counter > 6 }">
 										<div class="col-md-2">
-											<div class="box box-info box-solid" style="height: 120px; width: 160px;">
+											<div class="box box-info box-solid"
+												style="height: 120px; width: 160px;">
 												<div class="box-header with-border"
 													style="background-color: #3c8dbc; height: 75px;">
 													<h3 class="box-title">${ac.key}</h3>
 
-													<div class="box-tools pull-right" >
+													<div class="box-tools pull-right">
 														<button type="button" class="btn btn-box-tool"
 															data-widget="collapse">
 															<i class="fa fa-minus"></i>
@@ -101,7 +103,7 @@
 													<!-- /.box-tools -->
 												</div>
 												<!-- /.box-header -->
-												<div class="box-body" align="right" ">
+												<div class="box-body" align="left">
 													<span>Rs&nbsp;:&emsp;<fmt:formatNumber type="number"
 															maxFractionDigits="3" value="${ac.value}" /></span>
 												</div>
@@ -115,7 +117,7 @@
 							<br>
 							<div class="row">
 								<!-- col -->
-						
+
 								<!-- col -->
 								<div class="col-md-4">
 									<!--  form group -->
@@ -158,7 +160,7 @@
 							</div>
 							<!-- /.row -->
 							<!-- Row Default box -->
-						
+
 							<!-- /.Row Default box -->
 							<!-- Row Default box -->
 							<div class="row">
@@ -183,7 +185,9 @@
 													<i class="fa fa-minus"></i>
 												</button>
 												<button type="button" class="btn btn-box-tool"
-													data-widget="remove" onclick="remove('accountCode1','amount1')" data-toggle="tooltip" title="Remove">
+													data-widget="remove"
+													onclick="remove('accountCode1','amount1')"
+													data-toggle="tooltip" title="Remove">
 													<i class="fa fa-times"></i>
 												</button>
 											</div>
@@ -204,6 +208,22 @@
 														<p id="errorAccountCode1"></p>
 													</div>
 													<!-- End Account Code -->
+													<!-- /.form-group -->
+
+													<!--  form-group -->
+													<!-- Party Code -->
+													<div class="form-group" id="divFormPartyCode1"
+														style="display: none;">
+														<label>Party Code</label>
+														<div class="input-group">
+															<span class="input-group-addon"><i
+																class="fa fa-info-circle"></i></span> <input type="text"
+																class="form-control partyCode" placeholder="Party Code"
+																id="partyCode1" name="partyCode1" />
+														</div>
+														<p id="errorPartyCode1"></p>
+													</div>
+													<!-- End Party Code -->
 													<!-- /.form-group -->
 
 													<!-- form group -->
@@ -235,6 +255,22 @@
 																id="accountName1" name="accountName1" />
 														</div>
 														<p id="errorAccountName1"></p>
+													</div>
+													<!-- End Account Name -->
+													<!-- /.form-group -->
+
+													<!--  form-group -->
+													<!-- Account Name -->
+													<div class="form-group" id="divFormPartyName1"
+														style="display: none;">
+														<label>Party Name</label>
+														<div class="input-group">
+															<span class="input-group-addon"><i
+																class="fa fa-bars"></i></span> <input type="text"
+																class="form-control" placeholder="Party Name"
+																id="partyName1" name="partyName1" />
+														</div>
+														<p id="errorPartyName1"></p>
 													</div>
 													<!-- End Account Name -->
 													<!-- /.form-group -->
@@ -397,7 +433,8 @@
 								<button type="reset" class="btn btn-block btn-danger">Cancel</button>
 							</div>
 							<div class="col-xs-4" align="center">
-								<button type="button" onclick="sub();" class="btn btn-primary btn-block btn-flat">Submit</button>
+								<button type="button" onclick="sub();"
+									class="btn btn-primary btn-block btn-flat">Submit</button>
 							</div>
 
 						</div>
@@ -407,7 +444,8 @@
 					<!-- User Form -->
 
 					<!-- /.box-body -->
-					<div class="box-footer">Provide the Details For adding Payment Record</div>
+					<div class="box-footer">Provide the Details For adding
+						Payment Record</div>
 					<!-- /.box-footer-->
 				</div>
 				<!-- /.box -->
@@ -448,7 +486,10 @@
 														+ '<button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">'
 														+ '<i class="fa fa-minus"></i></button>'
 														+ '<button type="button" class="btn btn-box-tool"'
-														+ 'data-widget="remove" onclick="remove(\'accountCode' + n +'\',\'amount' + n 
+														+ 'data-widget="remove" onclick="remove(\'accountCode'
+														+ n
+														+ '\',\'amount'
+														+ n
 														+ '\')" data-toggle="tooltip" title="Remove">'
 														+ '<i class="fa fa-times"></i>'
 														+ '</button>'
@@ -460,9 +501,12 @@
 														+ '<div class="input-group">'
 														+ '<span class="input-group-addon"><i class="fa fa-info-circle"></i></span> <input type="text" class="form-control accCode" placeholder="Account Code" id="accountCode' + n +'" name="accountCode' + n +'" />'
 														+ '</div><p id="errorAccountCode' + n +'"></p></div>'
-														+
-
-														'<div class="form-group" id="divFormAmount' + n +'">'
+														+ '<div class="form-group" id="divFormPartyCode' + n +'" style="display: none;">'
+														+ '<label>Party Code</label>'
+														+ '<div class="input-group">'
+														+ '<span class="input-group-addon"><i class="fa fa-info-circle"></i></span> <input type="text" class="form-control partyCode" placeholder="Party Code" id="partyCode' + n +'" name="partyCode' + n +'" />'
+														+ '</div><p id="errorPartyCode' + n +'"></p></div>'
+														+'<div class="form-group" id="divFormAmount' + n +'">'
 														+ '<label>Amount</label>'
 														+ '<div class="input-group">'
 														+ '<span class="input-group-addon"><i class="fa fa-inr"></i></span>'
@@ -474,6 +518,11 @@
 														+ '<div class="input-group">'
 														+ '<span class="input-group-addon"><i class="fa fa-bars"></i></span> <input type="text" class="form-control" placeholder="Account Name" id="accountName' + n +'" name="accountName' + n +'" />'
 														+ '</div><p id="errorAccountName' + n +'"></p></div>'
+														+ '<div class="form-group" id="divFormPartyName' + n +'"style="display: none;">'
+														+ '<label>Party Name</label>'
+														+ '<div class="input-group">'
+														+ '<span class="input-group-addon"><i class="fa fa-bars"></i></span> <input type="text" class="form-control" placeholder="Party Name" id="partyName' + n +'" name="partyName' + n +'" />'
+														+ '</div><p id="errorPartyName' + n +'"></p></div>'
 														+ '<div class="form-group" id="divFormRemarks' + n +'">'
 														+ '<label>Remarks</label>'
 														+ '<div class="input-group">'
@@ -484,108 +533,185 @@
 		});
 	</script>
 	<script>
-	$('#accounts')
-	.on(
-			'keyup',
-			'.accCode',
-			function(e) {
-				e.preventDefault();
-			var s = $(this).val();
-			if(s.length >= 1 ) {
-		    $.ajax({
-		     url:"http://localhost:8080/DanishHousing/AutoCompleteVoucher",
-		     type:"post",
-		     data:{'val' : s},
-		     success:function(data){
-		      $('.accCode').autocomplete({   
-		          source: data,
-		          select: function(event,ui){    
-		              event.preventDefault();   
-		              var selectedArr = ui.item.value.split(":");
-		              this.value=$.trim(selectedArr[1]);            
-		          } 
-		        });
-		     
-		     },error:  function(data, status, er){
-		              console.log(data+"_"+status+"_"+er);
-		          },
-		           
-		    });
-			}
-		    });
-		   
-		 
- 
+		$('#accounts')
+				.on(
+						'blur',
+						'.accCode',
+						function(e) {
+							e.preventDefault();
+							var code = $(this).val();
+							if (code.length > 0) {
+								var id = $(this).attr('id');
+								var lastChar = id[id.length - 1];
+								if (document.getElementById('accountCode'
+										+ lastChar).value == 'P0079'|| document.getElementById('accountCode'
+												+ lastChar).value == 'p0079') {
+									$('#divFormPartyCode' + lastChar).show();
+									$('#divFormPartyName' + lastChar).show();
+								} else {
+									$('#divFormPartyCode' + lastChar).hide();
+									$('#divFormPartyName' + lastChar).hide();
+								}
+							}
+						});
 	</script>
 	<script>
-	$('#bankCode')
-	.bind(
-			'keyup',
-			function(e) {
-				e.preventDefault();
-			var s = $('#bankCode').val();
-			if(s.length >= 1 ) {
-		    $.ajax({
-		     url:"http://localhost:8080/DanishHousing/AutoCompleteBank",
-		     type:"post",
-		     data:{'val' : s},
-		     success:function(data){
-		      $('#bankCode').autocomplete({   
-		          source: data,
-		          select: function(event,ui){    
-		              event.preventDefault();   
-		              var selectedArr = ui.item.value.split(":");
-		              this.value=$.trim(selectedArr[1]);            
-		          } 
-		        });
-		     
-		     },error:  function(data, status, er){
-		              console.log(data+"_"+status+"_"+er);
-		          },
-		           
-		    });
-			}
-		    });
-		   
-		 
- 
+		$('#accounts')
+				.on(
+						'keyup',
+						'.accCode',
+						function(e) {
+							e.preventDefault();
+							var s = $(this).val();
+							if (s.length >= 1) {
+								$
+										.ajax({
+											url : "http://localhost:8080/DanishHousing/AutoCompleteVoucher",
+											type : "post",
+											data : {
+												'val' : s
+											},
+											success : function(data) {
+												$('.accCode')
+														.autocomplete(
+																{
+																	source : data,
+																	select : function(
+																			event,
+																			ui) {
+																		event
+																				.preventDefault();
+																		var selectedArr = ui.item.value
+																				.split(":");
+																		this.value = $
+																				.trim(selectedArr[1]);
+																	}
+																});
+
+											},
+											error : function(data, status, er) {
+												console.log(data + "_" + status
+														+ "_" + er);
+											},
+
+										});
+							}
+						});
+
+		$('#accounts')
+				.on(
+						'keyup',
+						'.partyCode',
+						function(e) {
+							e.preventDefault();
+							var s = $(this).val();
+							if (s.length >= 1) {
+								$
+										.ajax({
+											url : "http://localhost:8080/DanishHousing/AutoCompleteParty",
+											type : "post",
+											data : {
+												'val' : s
+											},
+											success : function(data) {
+												$('.partyCode')
+														.autocomplete(
+																{
+																	source : data,
+																	select : function(
+																			event,
+																			ui) {
+																		event
+																				.preventDefault();
+																		var selectedArr = ui.item.value
+																				.split(":");
+																		this.value = $
+																				.trim(selectedArr[1]);
+																	}
+																});
+
+											},
+											error : function(data, status, er) {
+												console.log(data + "_" + status
+														+ "_" + er);
+											},
+
+										});
+							}
+						});
 	</script>
 	<script>
-	function remove(a,b){
-		document.getElementById(a).value = "";
-		document.getElementById(b).value = 0;
-		var totalAccount = $(
-				'#totalAccounts').val();
-		var total = 0;
-		for (i = 1; i <= totalAccount; i++) {
-			var amt = $('#amount' + i)
-					.val();
-			if ($.isNumeric(amt)) {
-				total = total
-						+ parseInt(amt);
-			} else {
-				document
-						.getElementById("errorAmount"
-								+ i).innerHTML = "Invalid Amount";
-				document
-						.getElementById("divFormAmount"
-								+ i).className = 'alert alert-warning alert-dismissible';
-				document
-						.getElementById(
-								"divFormAmount"
-										+ i)
-						.scrollIntoView();
+		$('#bankCode')
+				.bind(
+						'keyup',
+						function(e) {
+							e.preventDefault();
+							var s = $('#bankCode').val();
+							if (s.length >= 1) {
+								$
+										.ajax({
+											url : "http://localhost:8080/DanishHousing/AutoCompleteBank",
+											type : "post",
+											data : {
+												'val' : s
+											},
+											success : function(data) {
+												$('#bankCode')
+														.autocomplete(
+																{
+																	source : data,
+																	select : function(
+																			event,
+																			ui) {
+																		event
+																				.preventDefault();
+																		var selectedArr = ui.item.value
+																				.split(":");
+																		this.value = $
+																				.trim(selectedArr[1]);
+																	}
+																});
+
+											},
+											error : function(data, status, er) {
+												console.log(data + "_" + status
+														+ "_" + er);
+											},
+
+										});
+							}
+						});
+	</script>
+	<script>
+		function remove(a, b) {
+			document.getElementById(a).value = "";
+			document.getElementById(b).value = 0;
+			var totalAccount = $('#totalAccounts').val();
+			var total = 0;
+			for (i = 1; i <= totalAccount; i++) {
+				var amt = $('#amount' + i).val();
+				if ($.isNumeric(amt)) {
+					total = total + parseInt(amt);
+				} else {
+					document.getElementById("errorAmount" + i).innerHTML = "Invalid Amount";
+					document.getElementById("divFormAmount" + i).className = 'alert alert-warning alert-dismissible';
+					document.getElementById("divFormAmount" + i)
+							.scrollIntoView();
+				}
 			}
+			$('#totalAmount').val(total);
 		}
-		$('#totalAmount').val(total);
-	}
-	
+
 		<c:choose>
 		<c:when test="${param.msg == '1'}">
-		$(document).ready(function() {
-			$("#typeError").addClass("form-group has-success");
-			$("#errorTop").html("Payment Record Added Successfully Of Voucher No. : ${param.docNo}");
-		});
+		$(document)
+				.ready(
+						function() {
+							$("#typeError").addClass("form-group has-success");
+							$("#errorTop")
+									.html(
+											"Payment Record Added Successfully Of Voucher No. : ${param.docNo}");
+						});
 		</c:when>
 		<c:when test="${param.msg=='2'}">
 		$(document).ready(function() {
@@ -599,7 +725,6 @@
 		function validateForm(form) {
 			error = "Please fill this field .";
 
-			
 			//Voucher Number validation
 			var rec = document.getElementById("voucherNumber").value;
 			if (rec == null || rec === "") {
@@ -673,25 +798,37 @@
 
 			//Bank Name Validation
 			var name = document.getElementById("bankName").value;
-			if (!(name == null || name === "")) {
-				var nameValid = /^[a-zA-Z ]+$/;
-				if (!name.match(nameValid)) {
+			if (name == null || name === "") {
 
-					document.getElementById("errorbankName").innerHTML = 'Invalid Name';
-					document.getElementById("divFormBankName").className = 'alert alert-warning alert-dismissible';
-					document.getElementById("divFormBankName").scrollIntoView();
-					return false;
-				}
+				document.getElementById("errorbankName").innerHTML = 'error';
+				document.getElementById("divFormBankName").className = 'alert alert-danger alert-dismissible';
+				document.getElementById("divFormBankName").scrollIntoView();
+				return false;
+			}
+			//if (!(name == null || name === "")) {
+			//	var nameValid = /^[a-zA-Z ]+$/;
+			//	if (!name.match(nameValid)) {
+
+			//		document.getElementById("errorbankName").innerHTML = 'Invalid Name';
+			//		document.getElementById("divFormBankName").className = 'alert alert-warning alert-dismissible';
+			//		document.getElementById("divFormBankName").scrollIntoView();
+			//		return false;
+			//	}
 
 				document.getElementById("errorbankName").innerHTML = "";
 				document.getElementById("divFormBankName").className = 'form-group has-success';
-			}
+			//}
 			//End Bank Name Validation
 
 			//Transaction ID Validation
 			var tr = document.getElementById("transactionID").value;
-			
+			if (tr == null || tr === "") {
 
+				document.getElementById("errorTransctionID").innerHTML = error;
+				document.getElementById("divFormTransctionID").className = 'alert alert-danger alert-dismissible';
+				document.getElementById("divFormTransctionID").scrollIntoView();
+				return false;
+			}
 			if (!(tr == null || tr === "")) {
 
 				var trValid = /^[a-zA-Z0-9- ]+$/;
@@ -709,8 +846,8 @@
 
 			return true;
 		}
-		
-		function sub(){
+
+		function sub() {
 			//Unique Id Vaildation
 			var id = $('#voucherNumber').val();
 			var dat = $('#date').val();
@@ -726,47 +863,40 @@
 								'date' : dat
 							},
 
-							success : function(
-									data) {
+							success : function(data) {
 								var data0 = data["data"][0];
 								bool = data0["avail"];
 								if (bool === false) {
-									alert("Voucher Number is not available for given financial year . Use Voucher No. : " + data0["next"]);
-									document.getElementById("errorVoucherNumber").innerHTML = 'Receipt Number Already exist';
-									document.getElementById("divFormVoucherNumber").className = 'alert alert-warning alert-dismissible';
-									document.getElementById("divFormVoucherNumber")
+									alert("Voucher Number is not available for given financial year . Use Voucher No. : "
+											+ data0["next"]);
+									document
+											.getElementById("errorVoucherNumber").innerHTML = 'Receipt Number Already exist';
+									document
+											.getElementById("divFormVoucherNumber").className = 'alert alert-warning alert-dismissible';
+									document.getElementById(
+											"divFormVoucherNumber")
 											.scrollIntoView();
-									
-								}
-								else
-									{
-									document.getElementById("errorVoucherNumber").innerHTML = '';
-									document.getElementById("divFormVoucherNumber").className = 'form-group has-success';
+
+								} else {
+									document
+											.getElementById("errorVoucherNumber").innerHTML = '';
+									document
+											.getElementById("divFormVoucherNumber").className = 'form-group has-success';
 									$('#form').submit();
-									
-									}
+
+								}
 							},
 
-							error : function(
-									req,
-									status,
-									err) {
+							error : function(req, status, err) {
 								alert('Error');
-								console
-										.log(req
-												+ ' '
-												+ status
-												+ ' '
-												+ err);
+								console.log(req + ' ' + status + ' ' + err);
 							}
 
 						});
 			}
 			//End Id Validation
-			
-			
+
 		}
-		
 
 		$(function() {
 			//Date picker
@@ -836,6 +966,82 @@
 																						data["acName"]);
 																		$(
 																				'#accountName'
+																						+ lastChar)
+																				.prop(
+																						'disabled',
+																						true);
+																	}
+																},
+
+																error : function(
+																		req,
+																		status,
+																		err) {
+																	alert('Error');
+																	console
+																			.log(req
+																					+ ' '
+																					+ status
+																					+ ' '
+																					+ err);
+																}
+
+															});
+												}
+
+											});
+							//Party Details Auto Fill
+							$('#accounts')
+									.on(
+											'blur',
+											'.partyCode',
+											function(e) {
+												e.preventDefault();
+												var code = $(this).val();
+												if (code.length > 0) {
+													var id = $(this).attr('id');
+													var lastChar = id[id.length - 1];
+													$
+															.ajax({
+																url : 'http://localhost:8080/DanishHousing/ReceiptAutoFill',
+																dataType : 'json',
+																type : 'post',
+																data : {
+																	'partycode' : code
+																},
+																success : function(
+																		data) {
+																	var bool = data["supplId"] === 0;
+																	$(
+																			'#divFormPartyCode'
+																					+ lastChar)
+																			.toggleClass(
+																					'alert alert-danger alert-dismissible',
+																					bool);
+																	$(
+																			'#partyName'
+																					+ lastChar)
+																			.val(
+																					'');
+																	$(
+																			'#errorPartyCode'
+																					+ lastChar)
+																			.empty();
+																	if (data["supplId"] === 0) {
+																		$(
+																				'#errorPartyCode'
+																						+ lastChar)
+																				.text(
+																						'Party Code doesn\'t exist');
+																	} else {
+																		$(
+																				'#partyName'
+																						+ lastChar)
+																				.val(
+																						data["supplName"]);
+
+																		$(
+																				'#partyName'
 																						+ lastChar)
 																				.prop(
 																						'disabled',
@@ -934,28 +1140,29 @@
 																	} else {
 																		if (data["bkCode"] == '001') {
 																			$(
-																			"#paymentMode")
-																			.val(
-																					$(
-																							"#paymentMode option:eq(0)")
-																							.val())
-																			.change();
+																					"#paymentMode")
+																					.val(
+																							$(
+																									"#paymentMode option:eq(0)")
+																									.val())
+																					.change();
 																			$(
 																					'#transactionID')
 																					.prop(
 																							'disabled',
 																							true);
 																			$(
-																			'#transactionID')
-																			.val("");
+																					'#transactionID')
+																					.val(
+																							"");
 
 																			$(
 																					'#trDate')
 																					.prop(
 																							'disabled',
 																							true);
-																			
-																					$(
+
+																			$(
 																					'#trDate')
 																					.val(
 																							"");

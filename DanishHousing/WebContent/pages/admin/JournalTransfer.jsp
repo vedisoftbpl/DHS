@@ -52,12 +52,13 @@
 							<div class="row">
 								<c:forEach var="ac" items="${sessionScope.accList}"
 									varStatus="loop">
-									<c:set var="counter"  value="${loop.index}" />
+									<c:set var="counter" value="${loop.index}" />
 									<c:if test="${counter < 6 }">
 										<div class="col-md-2">
-											<div class="box box-info box-solid" style="height: 120px; width: 160px;">
+											<div class="box box-info box-solid"
+												style="height: 120px; width: 160px;">
 												<div class="box-header with-border"
-													style="background-color: #3c8dbc;height: 75px;">
+													style="background-color: #3c8dbc; height: 75px;">
 													<h3 class="box-title">${ac.key}</h3>
 
 													<div class="box-tools pull-right">
@@ -69,8 +70,9 @@
 													<!-- /.box-tools -->
 												</div>
 												<!-- /.box-header -->
-												<div class="box-body" align="right" ">
-													<span><fmt:setLocale value="en_IN"/><fmt:formatNumber value="${ac.value}" type="currency" /></span>
+												<div class="box-body" align="left">
+													<span><fmt:setLocale value="en_IN" /> <fmt:formatNumber
+															value="${ac.value}" type="currency" /></span>
 												</div>
 												<!-- /.box-body -->
 											</div>
@@ -79,19 +81,20 @@
 									</c:if>
 								</c:forEach>
 							</div>
-							
+
 							<div class="row">
 								<c:forEach var="ac" items="${sessionScope.accList}"
 									varStatus="loop">
-									<c:set var="counter"  value="${loop.count}" />
+									<c:set var="counter" value="${loop.count}" />
 									<c:if test="${counter > 6 }">
 										<div class="col-md-2">
-											<div class="box box-info box-solid" style="height: 120px; width: 160px;">
+											<div class="box box-info box-solid"
+												style="height: 120px; width: 160px;">
 												<div class="box-header with-border"
 													style="background-color: #3c8dbc; height: 75px;">
 													<h3 class="box-title">${ac.key}</h3>
 
-													<div class="box-tools pull-right" >
+													<div class="box-tools pull-right">
 														<button type="button" class="btn btn-box-tool"
 															data-widget="collapse">
 															<i class="fa fa-minus"></i>
@@ -100,8 +103,9 @@
 													<!-- /.box-tools -->
 												</div>
 												<!-- /.box-header -->
-												<div class="box-body" align="right" ">
-													<span><fmt:setLocale value="en_IN"/><fmt:formatNumber value="${ac.value}" type="currency" /></span>
+												<div class="box-body" align="left">
+													<span><fmt:setLocale value="en_IN" /> <fmt:formatNumber
+															value="${ac.value}" type="currency" /></span>
 												</div>
 												<!-- /.box-body -->
 											</div>
@@ -155,23 +159,23 @@
 								<!-- /.col -->
 							</div>
 							<div class="row">
-							<div class="col-md-8">
-								<!--  form group -->
-								<!--  Remark -->
-								<div class="form-group" id="divFormRemark">
-									<label> Narration </label>
-									<div class="input-group">
-										<span class="input-group-addon"><i
-											class="fa  fa-info-circle "></i></span> <input type="text"
-											class="form-control" placeholder="Narration goes here."
-											id="remark" name="remark" />
+								<div class="col-md-8">
+									<!--  form group -->
+									<!--  Remark -->
+									<div class="form-group" id="divFormRemark">
+										<label> Narration </label>
+										<div class="input-group">
+											<span class="input-group-addon"><i
+												class="fa  fa-info-circle "></i></span> <input type="text"
+												class="form-control" placeholder="Narration goes here."
+												id="remark" name="remark" />
+										</div>
+										<p id="errorRemark"></p>
 									</div>
-									<p id="errorRemark"></p>
-								</div>
-								<!--  End Receipt Number -->
-								<!-- /. form-group -->
+									<!--  End Receipt Number -->
+									<!-- /. form-group -->
 
-							</div>
+								</div>
 							</div>
 							<!-- /.row -->
 							<!-- Row Default box -->
@@ -199,14 +203,15 @@
 											<table class="table table-striped" id="table">
 												<thead>
 													<tr>
-														<th colspan="6">Account Code</th>
+														<th colspan="5">Account Code</th>
+														<th colspan="4" ><div id="partyName" style="display:none;">Party Name</div></th>
 														<th>Credit</th>
 														<th>Debit</th>
 														<th>&nbsp;</th>
 													</tr>
 												</thead>
 												<tr id="account1">
-													<td colspan="6">
+													<td colspan="5">
 														<div id="divFormAccountCode1">
 
 															<div class="input-group">
@@ -216,6 +221,18 @@
 															</div>
 															<span id="AccountCodeName1"></span>
 															<p id="errorAccountCode1"></p>
+														</div>
+													</td>
+													<td colspan="4">
+														<div id="divFormPartyCode1" style="display: none;">
+
+															<div class="input-group">
+																<input type="text" class="form-control partyCode"
+																	placeholder="Party Code" id="partyCode1"
+																	name="partyCode1" /> <span id="PartyCodeName1"></span>
+															</div>
+															<span id="PartyCodeName1"></span>
+															<p id="errorPartyCode1"></p>
 														</div>
 													</td>
 													<td>
@@ -238,14 +255,17 @@
 															<i class="fa fa-times"></i>
 														</button></td>
 												</tr>
+
 												<tfoot>
 													<tr>
-														<th colspan="6">Total Amount :</th>
-														<th id="totalCredit"></th>
-														<th id="totalDebit"></th>
-														<th>&nbsp;</th>
+														<th colspan="4">Total Amount&nbsp;(Credit &nbsp;&&nbsp; Debit)&nbsp; :</th>
+														<th colspan="4">&nbsp;</th>	
+														<th  id="totalCredit"></th>
+														<th  id="totalDebit"></th>
+														<th >&nbsp;</th>
 													<tr>
 												</tfoot>
+
 											</table>
 										</div>
 										<!-- /.box-body -->
@@ -317,7 +337,7 @@
 								$('#table')
 										.append(
 												'<tr id="account'+n+'">'
-														+ '<td colspan="6">'
+														+ '<td colspan="5">'
 														+ '<div  id="divFormAccountCode'+n+'">'
 														+ '<div class="input-group">'
 														+ '<input type="text"'
@@ -326,6 +346,17 @@
 														+ '<span id="AccountCodeName'+n+'"></span>'
 														+ '</div>'
 														+ '<p id="errorAccountCode'+n+'"></p>'
+														+ '</div>'
+														+ '</td>'
+														+ '<td colspan="4">'
+														+ '<div  id="divFormPartyCode'+n+'" style="display: none;">'
+														+ '<div class="input-group">'
+														+ '<input type="text"'
+												  +'class="form-control partyCode" placeholder="Party Code"'
+												  +'id="partyCode'+n+'" name="partyCode'+n+'" />'
+														+ '<span id="PartyCodeName'+n+'"></span>'
+														+ '</div>'
+														+ '<p id="errorPartyCode'+n+'"></p>'
 														+ '</div>'
 														+ '</td>'
 														+ '<td>'
@@ -352,41 +383,114 @@
 							});
 		});
 	</script>
-<script>
-	$('#accounts')
-	.on(
-			'keyup',
-			'.accCode',
-			function(e) {
-				e.preventDefault();
-			var s = $(this).val();
-			if(s.length >= 1 ) {
-		    $.ajax({
-		     url:"http://localhost:8080/DanishHousing/AutoCompleteVoucher",
-		     type:"post",
-		     data:{'val' : s},
-		     success:function(data){
-		      $('.accCode').autocomplete({   
-		          source: data,
-		          select: function(event,ui){    
-		              event.preventDefault();   
-		              var selectedArr = ui.item.value.split(":");
-		              this.value=$.trim(selectedArr[1]);            
-		          } 
-		        });
-		     
-		     },error:  function(data, status, er){
-		              console.log(data+"_"+status+"_"+er);
-		          },
-		           
-		    });
-			}
-		    });
-		   
-		 
- 
+	<script>
+		$('#accounts')
+				.on(
+						'blur',
+						'.accCode',
+						function(e) {
+							e.preventDefault();
+							var code = $(this).val();
+							if (code.length > 0) {
+								var id = $(this).attr('id');
+								var lastChar = id[id.length - 1];
+								if (document.getElementById('accountCode'
+										+ lastChar).value == 'P0079'|| document.getElementById('accountCode'
+												+ lastChar).value == 'p0079') {
+									$('#divFormPartyCode'+lastChar).show();
+									$('#partyName').show();
+			
+								}else{
+									$('#divFormPartyCode'+lastChar).hide();
+									$('#partyName').hide();
+								}
+							}
+						});
+
+		$('#accounts')
+				.on(
+						'keyup',
+						'.accCode',
+						function(e) {
+							e.preventDefault();
+							var s = $(this).val();
+							if (s.length >= 1) {
+								$
+										.ajax({
+											url : "http://localhost:8080/DanishHousing/AutoCompleteVoucher",
+											type : "post",
+											data : {
+												'val' : s
+											},
+											success : function(data) {
+												$('.accCode')
+														.autocomplete(
+																{
+																	source : data,
+																	select : function(
+																			event,
+																			ui) {
+																		event
+																				.preventDefault();
+																		var selectedArr = ui.item.value
+																				.split(":");
+																		this.value = $
+																				.trim(selectedArr[1]);
+																	}
+																});
+
+											},
+											error : function(data, status, er) {
+												console.log(data + "_" + status
+														+ "_" + er);
+											},
+
+										});
+							}
+						});
+		$('#accounts')
+				.on(
+						'keyup',
+						'.partyCode',
+						function(e) {
+							e.preventDefault();
+							var s = $(this).val();
+							if (s.length >= 1) {
+								$
+										.ajax({
+											url : "http://localhost:8080/DanishHousing/AutoCompleteParty",
+											type : "post",
+											data : {
+												'val' : s
+											},
+											success : function(data) {
+												$('.partyCode')
+														.autocomplete(
+																{
+																	source : data,
+																	select : function(
+																			event,
+																			ui) {
+																		event
+																				.preventDefault();
+																		var selectedArr = ui.item.value
+																				.split(":");
+																		this.value = $
+																				.trim(selectedArr[1]);
+																	}
+																});
+
+											},
+											error : function(data, status, er) {
+												console.log(data + "_" + status
+														+ "_" + er);
+											},
+
+										});
+							}
+						});
 	</script>
-	
+
 	<script>
 		function remove(a, b) {
 			var lastChar = a[a.length - 1];
@@ -508,14 +612,12 @@
 			var totalAccount = $('#totalAccounts').val();
 			var totalCr = 0, totalDb = 0;
 			for (i = 1; i <= totalAccount; i++) {
-				if($('#accountCode' + i).val() != ""){
+				if ($('#accountCode' + i).val() != "") {
 					var amt = $('#credit' + i).val();
 					var amt1 = $('#debit' + i).val();
-					if($('#credit' + i)
-							.val().length < 1)
+					if ($('#credit' + i).val().length < 1)
 						amt = 0;
-					if($('#debit' + i)
-							.val().length < 1)
+					if ($('#debit' + i).val().length < 1)
 						amt1 = 0;
 					if ($.isNumeric(amt)) {
 						totalCr = totalCr + parseInt(amt);
@@ -532,9 +634,9 @@
 						document.getElementById("divFormDebit" + i).className = 'alert alert-warning alert-dismissible';
 						document.getElementById("divFormDebit" + i)
 								.scrollIntoView();
-					}	
+					}
 				}
-				
+
 			}
 			if (totalDb != totalCr) {
 				alert('Credit not equal to Debit. Check amount and try again.');
@@ -623,7 +725,7 @@
 													var lastChar = id[id.length - 1];
 													$
 															.ajax({
-																url : 'http://request.getSession().getServletContext()/DanishHousing/ReceiptAutoFill',
+																url : 'http://localhost:8080/DanishHousing/ReceiptAutoFill',
 																dataType : 'json',
 																type : 'post',
 																data : {
@@ -682,6 +784,77 @@
 												}
 
 											});
+							//Party Details Auto fill
+							$('#accounts')
+									.on(
+											'blur',
+											'.partyCode',
+											function(e) {
+												e.preventDefault();
+												var code = $(this).val();
+												if (code.length > 0) {
+													var id = $(this).attr('id');
+													var lastChar = id[id.length - 1];
+													$
+															.ajax({
+																url : 'http://localhost:8080/DanishHousing/ReceiptAutoFill',
+																dataType : 'json',
+																type : 'post',
+																data : {
+																	'partycode' : code
+																},
+																success : function(
+																		data) {
+																	var bool = data["supplId"] === 0;
+																	$(
+																			'#divFormPartyCode'
+																					+ lastChar)
+																			.toggleClass(
+																					'alert alert-danger alert-dismissible',
+																					bool);
+																	$(
+																			'#partyName'
+																					+ lastChar)
+																			.val(
+																					'');
+																	$(
+																			'#errorPartyCode'
+																					+ lastChar)
+																			.empty();
+																	if (data["supplId"] === 0) {
+																		$(
+																				'#errorPartyCode'
+																						+ lastChar)
+																				.text(
+																						'Party Code doesn\'t exist');
+																	} else {
+
+																		$(
+																				'#PartyCodeName'
+																						+ lastChar)
+																				.html(
+																						data["supplName"]);
+
+																	}
+																},
+
+																error : function(
+																		req,
+																		status,
+																		err) {
+																	alert('Error');
+																	console
+																			.log(req
+																					+ ' '
+																					+ status
+																					+ ' '
+																					+ err);
+																}
+
+															});
+												}
+
+											});
 
 							$('#accounts')
 									.on(
@@ -695,17 +868,18 @@
 												for (i = 1; i <= totalAccount; i++) {
 													var amt = $('#credit' + i)
 															.val();
-													if($('#credit' + i).val().length < 1)
+													if ($('#credit' + i).val().length < 1)
 														amt = 0;
-													if ($.isNumeric(amt)&& parseInt(amt) >= 0) {
+													if ($.isNumeric(amt)
+															&& parseInt(amt) >= 0) {
 														total = total
 																+ parseInt(amt);
 														document
-														.getElementById("errorCredit"
-																+ i).innerHTML = "";
-												document
-														.getElementById("divFormCredit"
-																+ i).className = '';
+																.getElementById("errorCredit"
+																		+ i).innerHTML = "";
+														document
+																.getElementById("divFormCredit"
+																		+ i).className = '';
 													} else {
 														document
 																.getElementById("errorCredit"
@@ -736,18 +910,18 @@
 												for (i = 1; i <= totalAccount; i++) {
 													var amt = $('#debit' + i)
 															.val();
-													if($('#debit' + i)
-															.val().length < 1)
+													if ($('#debit' + i).val().length < 1)
 														amt = 0;
-													if ($.isNumeric(amt) && parseInt(amt) >= 0) {
+													if ($.isNumeric(amt)
+															&& parseInt(amt) >= 0) {
 														total = total
 																+ parseInt(amt);
 														document
-														.getElementById("errorDebit"
-																+ i).innerHTML = "";
-												document
-														.getElementById("divFormDebit"
-																+ i).className = '';
+																.getElementById("errorDebit"
+																		+ i).innerHTML = "";
+														document
+																.getElementById("divFormDebit"
+																		+ i).className = '';
 													} else {
 														document
 																.getElementById("errorDebit"

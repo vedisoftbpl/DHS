@@ -69,6 +69,7 @@ public class PaymentController extends HttpServlet {
 			totalAccounts = Integer.parseInt(request.getParameter("totalAccounts"));
 		}
 
+		
 		String bankCode = new String(); // transaction
 		if (request.getParameter("bankCode") != null && request.getParameter("bankCode").trim().length() > 0) {
 			bankCode = request.getParameter("bankCode");
@@ -126,6 +127,12 @@ public class PaymentController extends HttpServlet {
 					accountCode = request.getParameter("accountCode" + j);
 				}
 
+				int partyCode = 0;
+				if (request.getParameter("partyCode" + j) != null
+						&& request.getParameter("partyCode" + j).trim().length() > 0) {
+					partyCode = Integer.parseInt(request.getParameter("partyCode" + j));
+				}
+				
 				AccountMaster acc = new AccountMasterDao().findByCode(accountCode);
 
 				String accountName = new String();
@@ -155,7 +162,7 @@ public class PaymentController extends HttpServlet {
 
 					if (paymentMode.equals("Cash")) {
 						TransactionRecords t = new TransactionRecords(voucherNo, d, voucherDate, "W", accountCode,
-								bankCode, transctionID, trDate, " ", 0, Amount, remarks, flag, voucherNo,
+								bankCode, transctionID, trDate, " ", 0, Amount, remarks, partyCode, flag, voucherNo,
 								0, u.getUserId(), new Date());
 						
 						k = new ChequePaymentDao().create(t);
@@ -165,7 +172,7 @@ public class PaymentController extends HttpServlet {
 							d++;
 					} else {
 						TransactionRecords t = new TransactionRecords(voucherNo, d, voucherDate, "W", accountCode,
-								bankCode, transctionID, trDate, " ", 0, Amount, remarks, flag, voucherNo,
+								bankCode, transctionID, trDate, " ", 0, Amount, remarks, partyCode, flag, voucherNo,
 								0, u.getUserId(), new Date());
 						ChequePayment ch = new ChequePayment(voucherNo, voucherDate, bankCode, paymentMode,
 								transctionID, trDate, Amount, d1);

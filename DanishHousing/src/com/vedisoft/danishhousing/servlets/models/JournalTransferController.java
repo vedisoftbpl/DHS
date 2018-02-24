@@ -92,6 +92,12 @@ public class JournalTransferController extends HttpServlet {
 					accountCode = request.getParameter("accountCode" + j);
 				}
 
+				int  partyCode = 0;
+				if (request.getParameter("partyCode" + j) != null
+						&& request.getParameter("partyCode" + j).trim().length() > 0) {
+					partyCode = Integer.parseInt(request.getParameter("partyCode" + j));
+				}
+				
 				AccountMaster acc = new AccountMasterDao().findByCode(accountCode);
 
 				Double credit = 0.0;
@@ -114,7 +120,7 @@ public class JournalTransferController extends HttpServlet {
 					System.out.println("Payment For Master Account : " + accountCode + " : " + d);
 					if(credit > 0){
 						TransactionRecords t = new TransactionRecords(voucherNo, d, voucherDate, "D", accountCode,
-								" ", " ", null, " ", 0, credit, remark, flag, voucherNo,
+								" ", " ", null, " ", 0, credit, remark,partyCode, flag, voucherNo,
 								0, u.getUserId(), new Date());
 						k = new ChequePaymentDao().create(t);
 						if (k <= 0) {
@@ -125,7 +131,7 @@ public class JournalTransferController extends HttpServlet {
 					}
 					if(debit > 0){
 						TransactionRecords t = new TransactionRecords(voucherNo, d, voucherDate, "W", accountCode,
-								" ", " ", null, " ", 0, debit, remark, flag, voucherNo,
+								" ", " ", null, " ", 0, credit, remark,partyCode, flag, voucherNo,
 								0, u.getUserId(), new Date());
 						k = new ChequePaymentDao().create(t);
 						if (k <= 0) {

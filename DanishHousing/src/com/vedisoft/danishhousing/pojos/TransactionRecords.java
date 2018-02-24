@@ -94,6 +94,38 @@ public class TransactionRecords {
 		this.lastUpdate = lastUpdate;
 	}
 	
+	public TransactionRecords( int docNo, int slno, Date docDte, String docType, String acCode, String bkCode,
+			String chqNo, Date chDate, String bankBr, int membNo, double amt, String parti,int partyCd, int flag, int vrNo,
+			int projCd, int userId, Date lastUpdate) {
+		super();
+		
+		this.docNo = docNo;
+		this.slno = slno;
+		this.docDte = docDte;
+		this.docType = docType;
+		this.acCode = acCode;
+		this.bkCode = bkCode;
+		this.chqNo = chqNo;
+		this.chDate = chDate;
+		this.bankBr = bankBr;
+		this.membNo = membNo;
+		this.amt = amt;
+		this.parti = parti;
+		this.aP = " ";
+		this.flag = flag;
+		this.vrNo = vrNo;
+		this.sN = " ";
+		this.sR = " ";
+		this.docNoo = " ";
+		this.projCd = projCd;
+		this.wcLrDt = null;
+		this.chClDt = null;
+		this.cFlag = " ";
+		this.partyCd = 0;
+		this.userId = userId;
+		this.lastUpdate = lastUpdate;
+	}
+	
 	public int getsNo() {
 		return sNo;
 	}
