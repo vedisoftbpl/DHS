@@ -209,10 +209,10 @@ body, html {
 
 							<div class="col-md-12">
 								<div class="col-md-12" align="center">
-									<h2>
+									<h3>
 										<b><u>DANISH GRIH NIRMAN SAHAKARI SANSTHA MARYADIT
 												BHOPAL</u></b>
-									</h2>
+									</h3>
 								</div>
 								<div class="row" align="center">
 
@@ -234,21 +234,21 @@ body, html {
 
 
 									<div class="col-md-12">
-										<h4>
-											<u>Transactions Details</u>
-										</h4>
 										<table class="table" align="center">
 
 											<!-- Table Header -->
 											<thead
 												style="border-top: 2px solid black; border-bottom: 2px solid black;">
 												<tr>
-													<th>Date</th>
-													<th>Particulars</th>
-													<th>Receipt No./<br>Vr. No.</th>
-													<th>Debit</th>
-													<th>Credit</th>
-													<th>Balance</th>
+													<th><div align="center">Date</div></th>
+													<th><div style="text-align: center;">
+															Particulars<br>
+														</div></th>
+													<th>Receipt No./<br>Vr. No.
+													</th>
+													<th align="center">Debit</th>
+													<th align="center">Credit</th>
+													<th align="center">Balance</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -282,18 +282,35 @@ body, html {
 													</c:forEach>
 													<tr>
 														<td colspan=3><h5>
-																<b>&emsp;&emsp;&emsp;&emsp;Monthly &emsp;:&nbsp;</b>
+																<b>&emsp;&emsp;&emsp;&emsp; &emsp;&nbsp;</b>
 															</h5></td>
 														<td><h5>
-																<b><fmt:setLocale value="en_IN"/><fmt:formatNumber value="${tran.monthlyCredit}" type="currency" /></b>
+																<b><fmt:setLocale value="en_IN" />
+																	<fmt:formatNumber value="${tran.monthlyDebit}"
+																		type="currency" currencySymbol=" " /></b>
 															</h5></td>
 														<td><h5>
-																<b><fmt:setLocale value="en_IN"/><fmt:formatNumber value="${tran.monthlyDebit}" type="currency" /></b>
+																<b><fmt:setLocale value="en_IN" />
+																	<fmt:formatNumber value="${tran.monthlyCredit}"
+																		type="currency" currencySymbol=" " /></b>
 															</h5></td>
 														<td>
 															<h5>
-																<b><fmt:setLocale value="en_IN"/><fmt:formatNumber value="${tran.monthlyBalance}" type="currency" /></b>
+
+																<c:if test="${tran.monthlyBalance > 0}">
+																	<c:set var="mode" value="CR" />
+																</c:if>
+																<c:if test="${tran.monthlyBalance < 0}">
+																	<c:set var="mode" value="DR" />
+																</c:if>
+
+
+																<b><fmt:setLocale value="en_IN" />
+																	<fmt:formatNumber value="${tran.monthlyBalance}"
+																		type="currency" currencySymbol=" " /> ${mode}</b>
+
 															</h5>
+
 														</td>
 													</tr>
 												</c:forEach>
@@ -305,48 +322,7 @@ body, html {
 								</div>
 
 
-								<div class="row">
-									<div class="col-md-6">
-										<table>
 
-
-											<tr>
-												<td colspan="6">----------------------------------------------------------------------</td>
-											</tr>
-
-											<tr>
-												<td><label>&emsp;Total Debit Amount &emsp;</label></td>
-												<td><label>:&emsp;</label></td>
-												<td align="right"><span><fmt:setLocale value="en_IN"/><fmt:formatNumber value="${requestScope.totalDebitAmount}" type="currency" /></span></td>
-											</tr>
-
-											<tr>
-												<td><label>&emsp;Total Credit Amount &emsp;</label></td>
-												<td><label>:&emsp;</label></td>
-												<td align="right"><span><fmt:setLocale value="en_IN"/><fmt:formatNumber value="${requestScope.totalCreditAmount}" type="currency" /></span></td>
-											</tr>
-											<tr>
-												<td colspan="6">----------------------------------------------------------------------</td>
-											</tr>
-										</table>
-									</div>
-									<div class="col-md-1"></div>
-									<div class="col-md-5">
-										<table>
-											<tr>
-												<td colspan="3">--------------------------------------------------------</td>
-											</tr>
-
-											<tr>
-
-												<td align="right"><label>Balance&emsp;:&emsp;</label><span><fmt:setLocale value="en_IN"/><fmt:formatNumber value="${requestScope.balanceAmount}" type="currency" /></span></td>
-											</tr>
-											<tr>
-												<td colspan="3">-------------------------------------------------------</td>
-											</tr>
-										</table>
-									</div>
-								</div>
 								<div class="row" align="center">
 
 									<div>
@@ -401,7 +377,7 @@ body, html {
 							if (s.length >= 1) {
 								$
 										.ajax({
-											url : "http://localhost:8080/DanishHousing/AutoCompleteVoucher",
+											url : "../../AutoCompleteVoucher",
 											type : "post",
 											data : {
 												'val' : s
@@ -520,7 +496,7 @@ body, html {
 													var id = $(this).attr('id');
 													$
 															.ajax({
-																url : 'http://localhost:8080/DanishHousing/ReceiptAutoFill',
+																url : '../../ReceiptAutoFill',
 																dataType : 'json',
 																type : 'post',
 																data : {
