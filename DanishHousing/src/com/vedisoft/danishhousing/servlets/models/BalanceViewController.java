@@ -51,8 +51,8 @@ public class BalanceViewController extends HttpServlet {
 		}
 		System.out.println(date);
 		String operation = new String();
-		if (request.getParameter("printButton") != null && request.getParameter("printButton").trim().length() > 0) {
-			operation = request.getParameter("printButton");
+		if (request.getParameter("operation") != null && request.getParameter("operation").trim().length() > 0) {
+			operation = request.getParameter("operation");
 		}
 		String page = "/pages/admin/ViewBankBalance.jsp";
 		String page1 = "/pages/admin/BalancePrint.jsp";
@@ -61,7 +61,8 @@ public class BalanceViewController extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher(page1);
 			request.setAttribute("date", DateUtils.dateFormat(date));
 			rd.forward(request, response);
-		} else {
+		}else{
+			System.out.println("View Balance");
 			request.setAttribute("accList", new AccountDao().findAllBalanceByDate(date));
 			RequestDispatcher rd = request.getRequestDispatcher(page);
 			request.setAttribute("date", DateUtils.dateFormat(date));

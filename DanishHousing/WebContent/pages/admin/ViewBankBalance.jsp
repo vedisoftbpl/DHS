@@ -46,7 +46,7 @@
 					<!-- User Form -->
 					<form
 						action="${pageContext.request.contextPath}/admin/pages/BalanceViewController"
-						method="post" onsubmit="return validateForm(this)" id="form">
+						method="post" onsubmit="return validateForm(this)" name="BalanceViewForm" id="form">
 						<div class="box-body">
 							<div class="row">
 								<div class="col-md-2"></div>
@@ -71,18 +71,18 @@
 								</div>
 								<div class="col-md-2" align="center">
 									<label>&nbsp;</label>
-									<button type="submit" class="btn btn-block btn-info">View</button>
+									<button type="submit"  class="btn btn-block btn-info" >View</button>
 									<br>
 								</div>
 								<div class="col-md-2" align="center">
 									<label>&nbsp;</label>
-									<button type="submit"  name="printButton" class="btn btn-block btn-info" value="print">Print</button>
+									<button type="button"  class="btn btn-block btn-info" onclick="fun();">Print</button>
 									<br>
 								</div>
 							</div>
 							<div class="row">
 
-								<c:forEach var="ac" items="${sessionScope.accList}"
+								<c:forEach var="ac" items="${requestScope.accList}"
 									varStatus="loop">
 									<c:set var="counter" value="${loop.index}" />
 									<c:if test="${counter < 6 }">
@@ -115,7 +115,7 @@
 							</div>
 
 							<div class="row">
-								<c:forEach var="ac" items="${sessionScope.accList}"
+								<c:forEach var="ac" items="${requestScope.accList}"
 									varStatus="loop">
 									<c:set var="counter" value="${loop.count}" />
 									<c:if test="${counter > 6 }">
@@ -198,4 +198,8 @@
 			//Initialize Select2 Elements
 			$(".select2").select2();
 		});
+		function fun(){
+			document.getElementById("operation").value = "print";
+			document.BalanceViewForm.submit();
+		}
 	</script>
