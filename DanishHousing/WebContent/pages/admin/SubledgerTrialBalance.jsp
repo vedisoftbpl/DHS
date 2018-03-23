@@ -184,15 +184,15 @@ body, html {
 
 							<div class="col-md-12">
 								<div class="col-md-12" align="center">
-									<h2>
+									<h3>
 										<b><u>DANISH GRIH NIRMAN SAHAKARI SANSTHA MARYADIT
 												BHOPAL</u></b>
-									</h2>
+									</h3>
 								</div>
 								<div class="row" align="center">
 
 									<div class="col-md-12">
-										<h5>TRIAL BALANCE ${requestScope.date1} TO
+										<h5>SUBLEDGER TRIAL BALANCE ${requestScope.date1} TO
 											${requestScope.date2}</h5>
 									</div>
 								</div>
@@ -212,8 +212,8 @@ body, html {
 												<tr>
 													<th>Party Code</th>
 													<th>Party Name</th>
-													<th>Receipt Amount</th>
 													<th>Payment Amount</th>
+													<th>Receipt Amount</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -223,10 +223,10 @@ body, html {
 														<td><c:out value="${tran.acName}" /></td>
 														<td><fmt:setLocale value="en_IN" />
 															<fmt:formatNumber value="${ tran.payAmount}"
-																type="currency" /></td>
+																type="currency" currencySymbol=" "/></td>
 														<td><fmt:setLocale value="en_IN" />
 															<fmt:formatNumber value="${tran.recAmount}"
-																type="currency" /></td>
+																type="currency" currencySymbol=" "/></td>
 													</tr>
 												</c:forEach>
 									
@@ -234,16 +234,16 @@ body, html {
 													<td colspan="2"><h5><b>Grand Total</b></h5></td>
 													<td><h5><b><fmt:setLocale value="en_IN" />
 														<fmt:formatNumber value="${requestScope.totalReceiptAmt}"
-															type="currency" /></b></h5></td>
+															type="currency" currencySymbol=" "/></b></h5></td>
 													<td><h5><b><fmt:setLocale value="en_IN" />
 														<fmt:formatNumber value="${requestScope.totalPaymentAmt}"
-															type="currency" /></b></h5></td>
+															type="currency" currencySymbol=" "/></b></h5></td>
 												</tr>
 												<tr>
 													<td colspan="2"><h5><b>Difference</b></h5></td>
 													<td><fmt:setLocale value="en_IN" />
 														<fmt:formatNumber value="${requestScope.totalReceiptAmt-requestScope.totalPaymentAmt}"
-															type="currency" /></td>
+															type="currency" currencySymbol=" "/></td>
 												</tr>
 											</tbody>
 											<!-- Table Body -->

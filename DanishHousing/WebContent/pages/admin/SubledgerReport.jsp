@@ -209,10 +209,10 @@ body, html {
 
 							<div class="col-md-12">
 								<div class="col-md-12" align="center">
-									<h2>
+									<h3>
 										<b><u>DANISH GRIH NIRMAN SAHAKARI SANSTHA MARYADIT
 												BHOPAL</u></b>
-									</h2>
+									</h3>
 								</div>
 								<div class="row" align="center">
 
@@ -234,9 +234,7 @@ body, html {
 
 
 									<div class="col-md-12">
-										<h4>
-											<u>Transactions Details</u>
-										</h4>
+										
 										<table class="table" align="center">
 
 											<!-- Table Header -->
@@ -244,7 +242,7 @@ body, html {
 												style="border-top: 2px solid black; border-bottom: 2px solid black;">
 												<tr>
 													<th>Date</th>
-													<th>Particulars</th>
+													<th style="text-align: center;">Particulars</th>
 													<th>Receipt No./<br>Vr. No.</th>
 													<th>Debit</th>
 													<th>Credit</th>
@@ -281,17 +279,23 @@ body, html {
 													</c:forEach>
 													<tr>
 													<td colspan=3><h5>
-																<b>&emsp;&emsp;&emsp;&emsp;Total &emsp;:&nbsp;</b>
+																<b>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Total &emsp;:&nbsp;</b>
 															</h5></td>
 														<td><h5>
-																<b><fmt:setLocale value="en_IN"/><fmt:formatNumber value="${requestScope.totalDebitAmount}" type="currency" /></b>
+																<b><fmt:setLocale value="en_IN"/><fmt:formatNumber value="${requestScope.totalDebitAmount}" type="currency" currencySymbol=" "/></b>
 															</h5></td>
 														<td><h5>
-																<b><fmt:setLocale value="en_IN"/><fmt:formatNumber value="${requestScope.totalCreditAmount}" type="currency" /></b>
+																<b><fmt:setLocale value="en_IN"/><fmt:formatNumber value="${requestScope.totalCreditAmount}" type="currency" currencySymbol=" "/></b>
 															</h5></td>
 														<td>
 															<h5>
-																<b><fmt:setLocale value="en_IN"/><fmt:formatNumber value="${requestScope.balanceAmount}" type="currency" /></b>
+															<c:if test="${requestScope.balanceAmount > 0}">
+																	<c:set var="mode" value="CR" />
+																</c:if>
+																<c:if test="${requestScope.balanceAmount < 0}">
+																	<c:set var="mode" value="DR" />
+																</c:if>
+																<b><fmt:setLocale value="en_IN"/><fmt:formatNumber value="${requestScope.balanceAmount}" type="currency" currencySymbol=" "/>${mode}</b>
 															</h5>
 														</td>
 													</tr>
