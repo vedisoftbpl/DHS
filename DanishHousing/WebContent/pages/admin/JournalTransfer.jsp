@@ -1,3 +1,4 @@
+<%@page import="com.vedisoft.danishhousing.config.*" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!-- daterange picker -->
@@ -204,7 +205,8 @@
 												<thead>
 													<tr>
 														<th colspan="5">Account Code</th>
-														<th colspan="4" ><div id="partyName" style="display:none;">Party Name</div></th>
+														<th colspan="4"><div id="partyName"
+																style="display: none;">Party Name</div></th>
 														<th>Credit</th>
 														<th>Debit</th>
 														<th>&nbsp;</th>
@@ -258,11 +260,12 @@
 
 												<tfoot>
 													<tr>
-														<th colspan="4">Total Amount&nbsp;(Credit &nbsp;&&nbsp; Debit)&nbsp; :</th>
-														<th colspan="4">&nbsp;</th>	
-														<th  id="totalCredit"></th>
-														<th  id="totalDebit"></th>
-														<th >&nbsp;</th>
+														<th colspan="4">Total Amount&nbsp;(Credit
+															&nbsp;&&nbsp; Debit)&nbsp; :</th>
+														<th colspan="4">&nbsp;</th>
+														<th id="totalCredit"></th>
+														<th id="totalDebit"></th>
+														<th>&nbsp;</th>
 													<tr>
 												</tfoot>
 
@@ -395,13 +398,15 @@
 								var id = $(this).attr('id');
 								var lastChar = id[id.length - 1];
 								if (document.getElementById('accountCode'
-										+ lastChar).value == 'P0079'|| document.getElementById('accountCode'
-												+ lastChar).value == 'p0079') {
-									$('#divFormPartyCode'+lastChar).show();
+										+ lastChar).value == 'P0079'
+										|| document
+												.getElementById('accountCode'
+														+ lastChar).value == 'p0079') {
+									$('#divFormPartyCode' + lastChar).show();
 									$('#partyName').show();
-			
-								}else{
-									$('#divFormPartyCode'+lastChar).hide();
+
+								} else {
+									$('#divFormPartyCode' + lastChar).hide();
 									$('#partyName').hide();
 								}
 							}
@@ -417,7 +422,7 @@
 							if (s.length >= 1) {
 								$
 										.ajax({
-											url : "http://localhost:8080/DanishHousing/AutoCompleteVoucher",
+											url : "../../AutoCompleteVoucher",
 											type : "post",
 											data : {
 												'val' : s
@@ -458,7 +463,7 @@
 							if (s.length >= 1) {
 								$
 										.ajax({
-											url : "http://localhost:8080/DanishHousing/AutoCompleteParty",
+											url : "../../AutoCompleteParty",
 											type : "post",
 											data : {
 												'val' : s
@@ -654,7 +659,7 @@
 			if (id.length > 0) {
 				$
 						.ajax({
-							url : 'http://localhost:8080/DanishHousing/ReceiptAutoFill',
+							url : '../../ReceiptAutoFill',
 							dataType : 'json',
 							type : 'post',
 							data : {
@@ -725,7 +730,7 @@
 													var lastChar = id[id.length - 1];
 													$
 															.ajax({
-																url : 'http://localhost:8080/DanishHousing/ReceiptAutoFill',
+																url : '../../ReceiptAutoFill',
 																dataType : 'json',
 																type : 'post',
 																data : {
@@ -797,7 +802,7 @@
 													var lastChar = id[id.length - 1];
 													$
 															.ajax({
-																url : 'http://localhost:8080/DanishHousing/ReceiptAutoFill',
+																url : '../../ReceiptAutoFill',
 																dataType : 'json',
 																type : 'post',
 																data : {

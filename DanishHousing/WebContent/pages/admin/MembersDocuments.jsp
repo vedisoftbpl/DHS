@@ -2,9 +2,6 @@
 <%@ include file="../design/Top.jsp"%>
 <body class="hold-transition skin-blue sidebar-mini">
 	<!-- Site wrapper -->
-	<%
-out.print(request.getSession().getServletContext());
-%>
 	<div class="wrapper">
 		<jsp:include page="../design/Header.jsp" flush="true" />
 		<!-- =============================================== -->
@@ -266,7 +263,7 @@ out.print(request.getSession().getServletContext());
 												if (id.length > 0) {
 													$
 															.ajax({
-																url : 'servletContext()/DanishHousing/ReceiptAutoFill',
+																url : '../../ReceiptAutoFill',
 																dataType : 'json',
 																type : 'post',
 																data : {

@@ -233,7 +233,7 @@
 												if (id.length > 0) {
 													$
 															.ajax({
-																url : '/DanishHousing/ReceiptAutoFill',
+																url : '../../ReceiptAutoFill',
 																dataType : 'json',
 																type : 'post',
 																data : {

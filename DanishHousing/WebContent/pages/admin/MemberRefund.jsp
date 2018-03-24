@@ -524,7 +524,7 @@
 							if (s.length >= 1) {
 								$
 										.ajax({
-											url : "http://localhost:8080/DanishHousing/AutoCompleteVoucher",
+											url : "../../AutoCompleteVoucher",
 											type : "post",
 											data : {
 												'val' : s
@@ -566,7 +566,7 @@
 							if (s.length >= 1) {
 								$
 										.ajax({
-											url : "http://localhost:8080/DanishHousing/AutoCompleteBank",
+											url : "../../AutoCompleteBank",
 											type : "post",
 											data : {
 												'val' : s
@@ -780,7 +780,7 @@
 			if (id.length > 0) {
 				$
 						.ajax({
-							url : 'http://localhost:8080/DanishHousing/ReceiptAutoFill',
+							url : '../../ReceiptAutoFill',
 							dataType : 'json',
 							type : 'post',
 							data : {
@@ -847,7 +847,7 @@
 												if (id.length > 0) {
 													$
 															.ajax({
-																url : 'http://localhost:8080/DanishHousing/ReceiptAutoFill',
+																url : '../../ReceiptAutoFill',
 																dataType : 'json',
 																type : 'post',
 																data : {
@@ -947,7 +947,7 @@
 													var lastChar = id[id.length - 1];
 													$
 															.ajax({
-																url : 'http://localhost:8080/DanishHousing/ReceiptAutoFill',
+																url : '../../ReceiptAutoFill',
 																dataType : 'json',
 																type : 'post',
 																data : {
@@ -1055,7 +1055,7 @@
 												if (code.length > 0) {
 													$
 															.ajax({
-																url : 'http://localhost:8080/DanishHousing/ReceiptAutoFill',
+																url : '../../ReceiptAutoFill',
 																dataType : 'json',
 																type : 'post',
 																data : {

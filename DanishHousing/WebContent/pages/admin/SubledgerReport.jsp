@@ -362,7 +362,7 @@ body, html {
 							if (s.length >= 1) {
 								$
 										.ajax({
-											url : "http://localhost:8080/DanishHousing/AutoCompleteParty",
+											url : "../../AutoCompleteParty",
 											type : "post",
 											data : {
 												'val' : s
@@ -481,7 +481,7 @@ body, html {
 													var id = $(this).attr('id');
 													$
 															.ajax({
-																url : 'http://localhost:8080/DanishHousing/ReceiptAutoFill',
+																url : '../../ReceiptAutoFill',
 																dataType : 'json',
 																type : 'post',
 																data : {

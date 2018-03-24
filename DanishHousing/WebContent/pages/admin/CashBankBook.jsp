@@ -510,7 +510,7 @@ div.scrollmenu {
 													var id = $(this).attr('id');
 													$
 															.ajax({
-																url : 'http://localhost:8080/DanishHousing/ReceiptAutoFill',
+																url : '../../ReceiptAutoFill',
 																dataType : 'json',
 																type : 'post',
 																data : {
