@@ -506,7 +506,7 @@
 														+ '<div class="input-group">'
 														+ '<span class="input-group-addon"><i class="fa fa-info-circle"></i></span> <input type="text" class="form-control partyCode" placeholder="Party Code" id="partyCode' + n +'" name="partyCode' + n +'" />'
 														+ '</div><p id="errorPartyCode' + n +'"></p></div>'
-														+'<div class="form-group" id="divFormAmount' + n +'">'
+														+ '<div class="form-group" id="divFormAmount' + n +'">'
 														+ '<label>Amount</label>'
 														+ '<div class="input-group">'
 														+ '<span class="input-group-addon"><i class="fa fa-inr"></i></span>'
@@ -544,8 +544,10 @@
 								var id = $(this).attr('id');
 								var lastChar = id[id.length - 1];
 								if (document.getElementById('accountCode'
-										+ lastChar).value == 'P0079'|| document.getElementById('accountCode'
-												+ lastChar).value == 'p0079') {
+										+ lastChar).value == 'P0079'
+										|| document
+												.getElementById('accountCode'
+														+ lastChar).value == 'p0079') {
 									$('#divFormPartyCode' + lastChar).show();
 									$('#divFormPartyName' + lastChar).show();
 								} else {
@@ -556,131 +558,93 @@
 						});
 	</script>
 	<script>
-		$('#accounts')
-				.on(
-						'keyup',
-						'.accCode',
-						function(e) {
-							e.preventDefault();
-							var s = $(this).val();
-							if (s.length >= 1) {
-								$
-										.ajax({
-											url : "../../AutoCompleteVoucher",
-											type : "post",
-											data : {
-												'val' : s
-											},
-											success : function(data) {
-												$('.accCode')
-														.autocomplete(
-																{
-																	source : data,
-																	select : function(
-																			event,
-																			ui) {
-																		event
-																				.preventDefault();
-																		var selectedArr = ui.item.value
-																				.split(":");
-																		this.value = $
-																				.trim(selectedArr[1]);
-																	}
-																});
-
-											},
-											error : function(data, status, er) {
-												console.log(data + "_" + status
-														+ "_" + er);
-											},
-
-										});
+		$('#accounts').on('keyup', '.accCode', function(e) {
+			e.preventDefault();
+			var s = $(this).val();
+			if (s.length >= 1) {
+				$.ajax({
+					url : "../../AutoCompleteVoucher",
+					type : "post",
+					data : {
+						'val' : s
+					},
+					success : function(data) {
+						$('.accCode').autocomplete({
+							source : data,
+							select : function(event, ui) {
+								event.preventDefault();
+								var selectedArr = ui.item.value.split(":");
+								this.value = $.trim(selectedArr[1]);
 							}
 						});
 
-		$('#accounts')
-				.on(
-						'keyup',
-						'.partyCode',
-						function(e) {
-							e.preventDefault();
-							var s = $(this).val();
-							if (s.length >= 1) {
-								$
-										.ajax({
-											url : "../../AutoCompleteParty",
-											type : "post",
-											data : {
-												'val' : s
-											},
-											success : function(data) {
-												$('.partyCode')
-														.autocomplete(
-																{
-																	source : data,
-																	select : function(
-																			event,
-																			ui) {
-																		event
-																				.preventDefault();
-																		var selectedArr = ui.item.value
-																				.split(":");
-																		this.value = $
-																				.trim(selectedArr[1]);
-																	}
-																});
+					},
+					error : function(data, status, er) {
+						console.log(data + "_" + status + "_" + er);
+					},
 
-											},
-											error : function(data, status, er) {
-												console.log(data + "_" + status
-														+ "_" + er);
-											},
+				});
+			}
+		});
 
-										});
+		$('#accounts').on('keyup', '.partyCode', function(e) {
+			e.preventDefault();
+			var s = $(this).val();
+			if (s.length >= 1) {
+				$.ajax({
+					url : "../../AutoCompleteParty",
+					type : "post",
+					data : {
+						'val' : s
+					},
+					success : function(data) {
+						$('.partyCode').autocomplete({
+							source : data,
+							select : function(event, ui) {
+								event.preventDefault();
+								var selectedArr = ui.item.value.split(":");
+								this.value = $.trim(selectedArr[1]);
 							}
 						});
+
+					},
+					error : function(data, status, er) {
+						console.log(data + "_" + status + "_" + er);
+					},
+
+				});
+			}
+		});
 	</script>
 	<script>
-		$('#bankCode')
-				.bind(
-						'keyup',
-						function(e) {
-							e.preventDefault();
-							var s = $('#bankCode').val();
-							if (s.length >= 1) {
-								$
-										.ajax({
-											url : "../../AutoCompleteBank",
-											type : "post",
-											data : {
-												'val' : s
-											},
-											success : function(data) {
-												$('#bankCode')
-														.autocomplete(
-																{
-																	source : data,
-																	select : function(
-																			event,
-																			ui) {
-																		event
-																				.preventDefault();
-																		var selectedArr = ui.item.value
-																				.split(":");
-																		this.value = $
-																				.trim(selectedArr[1]);
-																	}
-																});
-
-											},
-											error : function(data, status, er) {
-												console.log(data + "_" + status
-														+ "_" + er);
-											},
-
-										});
+		$('#bankCode').bind('keyup', function(e) {
+			e.preventDefault();
+			var s = $('#bankCode').val();
+			if (s.length >= 1) {
+				$.ajax({
+					url : "../../AutoCompleteBank",
+					type : "post",
+					data : {
+						'val' : s
+					},
+					success : function(data) {
+						$('#bankCode').autocomplete({
+							source : data,
+							select : function(event, ui) {
+								event.preventDefault();
+								var selectedArr = ui.item.value.split(":");
+								this.value = $.trim(selectedArr[1]);
 							}
 						});
+
+					},
+					error : function(data, status, er) {
+						console.log(data + "_" + status + "_" + er);
+					},
+
+				});
+			}
+		});
 	</script>
 	<script>
 		function remove(a, b) {
@@ -815,32 +779,36 @@
 			//		return false;
 			//	}
 
-				document.getElementById("errorbankName").innerHTML = "";
-				document.getElementById("divFormBankName").className = 'form-group has-success';
+			document.getElementById("errorbankName").innerHTML = "";
+			document.getElementById("divFormBankName").className = 'form-group has-success';
 			//}
 			//End Bank Name Validation
 
 			//Transaction ID Validation
 			var tr = document.getElementById("transactionID").value;
-			if (tr == null || tr === "") {
+			var trmode = document.getElementById("paymentMode").value;
+			if (trmode != "Cash") {
+				if (tr == null || tr === "") {
 
-				document.getElementById("errorTransctionID").innerHTML = error;
-				document.getElementById("divFormTransctionID").className = 'alert alert-danger alert-dismissible';
-				document.getElementById("divFormTransctionID").scrollIntoView();
-				return false;
-			}
-			if (!(tr == null || tr === "")) {
-
-				var trValid = /^[a-zA-Z0-9- ]+$/;
-				if (!tr.match(trValid)) {
-					document.getElementById("errorTransctionID").innerHTML = 'Invalid Transaction ID';
-					document.getElementById("divFormTransctionID").className = 'alert alert-warning alert-dismissible';
+					document.getElementById("errorTransctionID").innerHTML = error;
+					document.getElementById("divFormTransctionID").className = 'alert alert-danger alert-dismissible';
 					document.getElementById("divFormTransctionID")
 							.scrollIntoView();
 					return false;
 				}
-				document.getElementById("errorTransctionID").innerHTML = "";
-				document.getElementById("divFormTransctionID").className = 'form-group has-success';
+				if (!(tr == null || tr === "")) {
+
+					var trValid = /^[a-zA-Z0-9- ]+$/;
+					if (!tr.match(trValid)) {
+						document.getElementById("errorTransctionID").innerHTML = 'Invalid Transaction ID';
+						document.getElementById("divFormTransctionID").className = 'alert alert-warning alert-dismissible';
+						document.getElementById("divFormTransctionID")
+								.scrollIntoView();
+						return false;
+					}
+					document.getElementById("errorTransctionID").innerHTML = "";
+					document.getElementById("divFormTransctionID").className = 'form-group has-success';
+				}
 			}
 			//End Transaction ID Validation
 
