@@ -281,6 +281,7 @@
 
 			//End Supplier Name Validation
 
+<%--
 			//Supplier Address 1 Validation
 			var name = document.getElementById("supplierAddress1").value;
 			if (name == null || name === "") {
@@ -307,7 +308,7 @@
 
 			//End City Validation
 
-<!--			
+			
 			//Supplier Balance Validation
 
 			var bal = document.getElementById("balance").value;
@@ -366,7 +367,7 @@
 			document.getElementById("divSupplierFormGST").className = 'form-group has-success';
 
 			//End GST Validation
--->
+--%>
 			return true;
 		}
 
