@@ -1,5 +1,6 @@
 package com.vedisoft.danishhousing.servlets.models;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -7,12 +8,14 @@ import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.vedisoft.danishhousing.config.DateUtils;
+import com.vedisoft.danishhousing.config.GeneratePdf;
 import com.vedisoft.danishhousing.daos.AccountDao;
 import com.vedisoft.danishhousing.daos.TransactionRecordsDao;
 import com.vedisoft.danishhousing.pojos.Account;
@@ -20,6 +23,8 @@ import com.vedisoft.danishhousing.pojos.CashBankBookDto;
 import com.vedisoft.danishhousing.pojos.DailyTransactionDto;
 import com.vedisoft.danishhousing.pojos.TransactionRecords;
 import com.vedisoft.danishhousing.pojos.TrialBalanceDto;
+
+
 
 /**
  * Servlet implementation class CashBankBookReport
@@ -107,20 +112,20 @@ public class CashBankBookReportController extends HttpServlet {
 			ArrayList<CashBankBookDto> tranList = new ArrayList<CashBankBookDto>();
 			Date curDate = date1;
 			for (CashBankBookDto t : transactionList) {
-				if (t.getDocDate().equals(DateUtils.getNextDate(curDate))) {
+				if (t.getDocDate().after(curDate)) {
+					System.out.println("Docdate : " + t.getDocDate());
 					DailyTransactionDto dailyRecord = new DailyTransactionDto();
 					ArrayList<CashBankBookDto> tempTranList = new ArrayList<CashBankBookDto>(tranList);
 					dailyRecord.setDailyTransaction(tempTranList);
-					dailyRecord.setOpeningBalance(new AccountDao()
-							.findAllBankBalanceByDateWithShortName(DateUtils.getPreviousDate(curDate), "opBal"));
-					dailyRecord.setClosingBalance(
-							new AccountDao().findAllBankBalanceByDateWithShortName(curDate, "clsBal"));
+					dailyRecord.setOpeningBalance(
+							new AccountDao().findAllBankBalanceByDateWithShortName(DateUtils.getPreviousDate(curDate), "opBal"));
+					dailyRecord.setClosingBalance(new AccountDao().findAllBankBalanceByDateWithShortName(curDate, "clsBal"));
 					dailyRecord.setCurrDate(curDate);
-					dailyRecord.setTotalPay(totalDebit);
-					dailyRecord.setTotalRec(totalCredit);
 					dailyTranList.add(dailyRecord);
 					tranList.clear();
-					curDate = DateUtils.getNextDate(curDate);
+					curDate = t.getDocDate();
+					System.out.println("New Currdate : " + curDate);
+					System.out.println(tempTranList);
 				}
 				tranList.add(t);
 				if(t.getDocType()!=null){
@@ -143,6 +148,12 @@ public class CashBankBookReportController extends HttpServlet {
 					dailyTranList.add(dailyRecord);
 				}
 			}
+//			response.setContentType("application/pdf;charset=UTF-8");
+//			response.addHeader("Content-Disposition", "inline; filename=" + "cashbookreport.pdf");
+//			ServletOutputStream out = response.getOutputStream();
+//			ByteArrayOutputStream baos = GeneratePdf.getCashBookPdfFile(dailyTranList);
+//			baos.writeTo(out);
+
 
 			RequestDispatcher rd;
 			if (transactionList.size() > 0) {

@@ -11,6 +11,7 @@ public class CashBankBookDto {
 	private double amount;
 	private double adjustment;
 	private int membNo;
+	private String membName;
 	private String chqNo;
 	private Date docDate;
 	private String bkCode;
@@ -21,9 +22,8 @@ public class CashBankBookDto {
 		super();
 	}
 
-
 	public CashBankBookDto(int docNo, String accNo, String accName, String remarks, double amount, double adjustment,
-			int membNo, String chqNo, Date docDate, String bkCode, String docType) {
+			int membNo, String membName, String chqNo, Date docDate, String bkCode, String docType) {
 		super();
 		this.docNo = docNo;
 		this.accNo = accNo;
@@ -32,12 +32,12 @@ public class CashBankBookDto {
 		this.amount = amount;
 		this.adjustment = adjustment;
 		this.membNo = membNo;
+		this.membName = membName;
 		this.chqNo = chqNo;
 		this.docDate = docDate;
 		this.bkCode = bkCode;
 		this.docType = docType;
 	}
-
 
 	public int getDocNo() {
 		return docNo;
@@ -149,6 +149,15 @@ public class CashBankBookDto {
 	}
 
 
+	public String getMembName() {
+		return membName;
+	}
+
+	public void setMembName(String membName) {
+		this.membName = membName;
+	}
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -165,11 +174,11 @@ public class CashBankBookDto {
 		result = prime * result + ((docDate == null) ? 0 : docDate.hashCode());
 		result = prime * result + docNo;
 		result = prime * result + ((docType == null) ? 0 : docType.hashCode());
+		result = prime * result + ((membName == null) ? 0 : membName.hashCode());
 		result = prime * result + membNo;
 		result = prime * result + ((remarks == null) ? 0 : remarks.hashCode());
 		return result;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -216,6 +225,11 @@ public class CashBankBookDto {
 				return false;
 		} else if (!docType.equals(other.docType))
 			return false;
+		if (membName == null) {
+			if (other.membName != null)
+				return false;
+		} else if (!membName.equals(other.membName))
+			return false;
 		if (membNo != other.membNo)
 			return false;
 		if (remarks == null) {
@@ -226,13 +240,14 @@ public class CashBankBookDto {
 		return true;
 	}
 
-
 	@Override
 	public String toString() {
 		return "CashBankBookDto [docNo=" + docNo + ", accNo=" + accNo + ", accName=" + accName + ", remarks=" + remarks
-				+ ", amount=" + amount + ", adjustment=" + adjustment + ", membNo=" + membNo + ", chqNo=" + chqNo
-				+ ", docDate=" + docDate + ", bkCode=" + bkCode + ", docType=" + docType + "]";
+				+ ", amount=" + amount + ", adjustment=" + adjustment + ", membNo=" + membNo + ", membName=" + membName
+				+ ", chqNo=" + chqNo + ", docDate=" + docDate + ", bkCode=" + bkCode + ", docType=" + docType + "]";
 	}
+
+	
 
 	
 	

@@ -20,6 +20,7 @@ import com.vedisoft.danishhousing.pojos.TrialBalanceDto;
 import com.vedisoft.danishhousing.pojos.Users;
 import com.vedisoft.danishhousing.pojos.CashBankBookDto;
 import com.vedisoft.danishhousing.pojos.DailyTransactionDto;
+import com.vedisoft.danishhousing.pojos.Members;
 
 public class TransactionRecordsDao {
 
@@ -165,6 +166,7 @@ public class TransactionRecordsDao {
 			}
 		} catch (SQLException sq) {
 			System.out.println("Unable to find a row." + sq);
+			System.out.println("Could'nt fetch the record");
 		} finally {
 			pool.putConnection(conn);
 		}
@@ -282,7 +284,7 @@ public class TransactionRecordsDao {
 				cashBankBookDto.setAccName(AccountMasterDao.findByCode(cashBankBookDto.getAccNo()).getAcName());
 				cashBankBookDto.setRemarks(rs.getString("parti"));
 				cashBankBookDto.setAmount(rs.getDouble("amt"));
-				if(rs.getInt("flag")==3)
+				if (rs.getInt("flag") == 3)
 					cashBankBookDto.setAdjustment(rs.getDouble("amt"));
 				else
 					cashBankBookDto.setAdjustment(0.0);
@@ -334,7 +336,7 @@ public class TransactionRecordsDao {
 				cashBankBookDto.setAccName(AccountMasterDao.findByCode(cashBankBookDto.getAccNo()).getAcName());
 				cashBankBookDto.setRemarks(rs.getString("parti"));
 				cashBankBookDto.setAmount(rs.getDouble("amt"));
-				if(rs.getInt("flag")==3)
+				if (rs.getInt("flag") == 3)
 					cashBankBookDto.setAdjustment(rs.getDouble("amt"));
 				else
 					cashBankBookDto.setAdjustment(0.0);
@@ -344,7 +346,7 @@ public class TransactionRecordsDao {
 					cashBankBookDto.setDocDate(new java.util.Date((docDate).getTime()));
 				else
 					cashBankBookDto.setDocDate(docDate);
-					
+
 				listCashBankBookDto.add(cashBankBookDto);
 			}
 		} catch (SQLException sq) {
@@ -354,7 +356,8 @@ public class TransactionRecordsDao {
 		}
 		return listCashBankBookDto;
 	}
-	
+
+//CashBankBook Report Dao
 	
 	public ArrayList<CashBankBookDto> findCashBankBookRecord(Date d1, Date d2) {
 		ConnectionPool pool = ConnectionPool.getInstance();
@@ -386,12 +389,14 @@ public class TransactionRecordsDao {
 				cashBankBookDto.setAccName(AccountMasterDao.findByCode(cashBankBookDto.getAccNo()).getAcName());
 				cashBankBookDto.setRemarks(rs.getString("parti"));
 				cashBankBookDto.setAmount(rs.getDouble("amt"));
-				if(rs.getInt("flag")==3)
+				if (rs.getInt("flag") == 3)
 					cashBankBookDto.setAdjustment(rs.getDouble("amt"));
 				else
 					cashBankBookDto.setAdjustment(0.0);
 				cashBankBookDto.setChqNo(rs.getString("chqno"));
 				cashBankBookDto.setMembNo(rs.getInt("membno"));
+				Members m=new MembersDao().find(rs.getInt("membno"));
+				cashBankBookDto.setMembName(m.getPrefix()+" "+m.getMemName());
 				java.sql.Date docDate = rs.getDate("docdte");
 				if (docDate != null)
 					cashBankBookDto.setDocDate(new java.util.Date((docDate).getTime()));
@@ -408,10 +413,6 @@ public class TransactionRecordsDao {
 		}
 		return listCashBankBookDto;
 	}
-	
-	
-	
-	
 
 	public static double bankOpeningBalance(Date d1, String bkCode) {
 		ConnectionPool pool = ConnectionPool.getInstance();
@@ -577,7 +578,6 @@ public class TransactionRecordsDao {
 		return true;
 	}
 
-	
 	public ArrayList<TrialBalanceDto> findRecTransactionRecord(Date d1, Date d2) {
 		ConnectionPool pool = ConnectionPool.getInstance();
 		pool.initialize();
@@ -694,7 +694,7 @@ public class TransactionRecordsDao {
 		}
 		return listRecBal;
 	}
-	
+
 	public ArrayList<TrialBalanceDto> findPartyPayTransactionRecord(Date d1, Date d2) {
 		ConnectionPool pool = ConnectionPool.getInstance();
 		pool.initialize();
@@ -733,7 +733,7 @@ public class TransactionRecordsDao {
 		}
 		return listRecBal;
 	}
-	
+
 	public static void main(String[] args) {
 
 		// List<TransactionRecords> list =new
@@ -762,86 +762,91 @@ public class TransactionRecordsDao {
 		// System.out.println(t);
 		//
 
-		java.util.Date date1 = DateUtils.convertDate("26/06/2017");
-		java.util.Date date2 = DateUtils.convertDate("30/06/2017");
-//		ArrayList<TrialBalanceDto> balList = new ArrayList<TrialBalanceDto>();
-//		ArrayList<TrialBalanceDto> recBalList = new TransactionRecordsDao().findRecTransactionRecord(d1, d2);
-//		ArrayList<TrialBalanceDto> payBalList = new TransactionRecordsDao().findPayTransactionRecord(d1, d2);
-//		for (TrialBalanceDto dto : recBalList) {
-//			TrialBalanceDto tdto = new TrialBalanceDto();
-//			int flag = 0;
-//			for (TrialBalanceDto d : payBalList) {
-//				if (dto.getAcCode().equals(d.getAcCode())) {
-//					tdto.setAcCode(dto.getAcCode());
-//					tdto.setAcName(dto.getAcName());
-//					tdto.setPayAmount(d.getPayAmount());
-//					tdto.setRecAmount(dto.getRecAmount());
-//					flag = 1;
-//				}
+		java.util.Date date1 = DateUtils.convertDate("15/04/2016");
+		java.util.Date date2 = DateUtils.convertDate("20/04/2016");
+		// ArrayList<TrialBalanceDto> balList = new
+		// ArrayList<TrialBalanceDto>();
+		// ArrayList<TrialBalanceDto> recBalList = new
+		// TransactionRecordsDao().findRecTransactionRecord(d1, d2);
+		// ArrayList<TrialBalanceDto> payBalList = new
+		// TransactionRecordsDao().findPayTransactionRecord(d1, d2);
+		// for (TrialBalanceDto dto : recBalList) {
+		// TrialBalanceDto tdto = new TrialBalanceDto();
+		// int flag = 0;
+		// for (TrialBalanceDto d : payBalList) {
+		// if (dto.getAcCode().equals(d.getAcCode())) {
+		// tdto.setAcCode(dto.getAcCode());
+		// tdto.setAcName(dto.getAcName());
+		// tdto.setPayAmount(d.getPayAmount());
+		// tdto.setRecAmount(dto.getRecAmount());
+		// flag = 1;
+		// }
+		// }
+		// if (flag == 0) {
+		// tdto.setAcCode(dto.getAcCode());
+		// tdto.setAcName(dto.getAcName());
+		// tdto.setPayAmount(dto.getPayAmount());
+		// tdto.setRecAmount(dto.getRecAmount());
+		// }
+		// balList.add(tdto);
+		// }
+		// for (TrialBalanceDto dto : payBalList) {
+		// int flag = 0;
+		// System.out.println("DTO :" + dto);
+		// TrialBalanceDto tdto = new TrialBalanceDto();
+		// for (TrialBalanceDto d : balList) {
+		// if (dto.getAcCode().equals(d.getAcCode())) {
+		// System.out.println("record found");
+		// flag=1;
+		// break;
+		// }
+		// }
+		// if (flag == 0) {
+		// tdto.setAcCode(dto.getAcCode());
+		// tdto.setAcName(dto.getAcName());
+		// tdto.setPayAmount(dto.getPayAmount());
+		// tdto.setRecAmount(dto.getRecAmount());
+		// System.out.println("tdto :" + tdto);
+		// balList.add(tdto);
+		// }
+		// }
+		// int counter = 0;
+		// System.out.println("Complete");
+		// for (TrialBalanceDto dto : balList) {
+		// System.out.println(dto);
+		// counter++;
+		// }
+		// System.out.println(counter);
+
+//		ArrayList<CashBankBookDto> transactionList = new TransactionRecordsDao().findCashBankBookRecord(date1, date2);
+//		for (CashBankBookDto t : transactionList)
+//			System.out.println(t);
+//		ArrayList<DailyTransactionDto> dailyTranList = new ArrayList<DailyTransactionDto>();
+//		ArrayList<CashBankBookDto> tranList = new ArrayList<CashBankBookDto>();
+//		Date curDate = date1;
+//		System.out.println("Currdate : " + curDate);
+//		for (CashBankBookDto t : transactionList) {
+//			System.out.println(t);
+//			if (t.getDocDate().after(curDate)) {
+//				System.out.println("Docdate : " + t.getDocDate());
+//				DailyTransactionDto dailyRecord = new DailyTransactionDto();
+//				ArrayList<CashBankBookDto> tempTranList = new ArrayList<CashBankBookDto>(tranList);
+//				dailyRecord.setDailyTransaction(tempTranList);
+//				dailyRecord.setOpeningBalance(
+//						new AccountDao().findAllBankBalanceByDate(DateUtils.getPreviousDate(curDate), "opBal"));
+//				dailyRecord.setClosingBalance(new AccountDao().findAllBankBalanceByDate(curDate, "clsBal"));
+//				dailyTranList.add(dailyRecord);
+//				tranList.clear();
+//				curDate = t.getDocDate();
+//				System.out.println("New Currdate : " + curDate);
+//				System.out.println(tempTranList);
 //			}
-//			if (flag == 0) {
-//				tdto.setAcCode(dto.getAcCode());
-//				tdto.setAcName(dto.getAcName());
-//				tdto.setPayAmount(dto.getPayAmount());
-//				tdto.setRecAmount(dto.getRecAmount());
+//				System.out.println("Same Date");
+//				tranList.add(t);
 //			}
-//			balList.add(tdto);
-//		}
-//		for (TrialBalanceDto dto : payBalList) {
-//			int flag = 0;
-//			System.out.println("DTO :" + dto);
-//			TrialBalanceDto tdto = new TrialBalanceDto();
-//			for (TrialBalanceDto d : balList) {
-//				if (dto.getAcCode().equals(d.getAcCode())) {
-//					System.out.println("record found");
-//					flag=1;
-//					break;
-//				}
-//			}
-//			if (flag == 0) {
-//				tdto.setAcCode(dto.getAcCode());
-//				tdto.setAcName(dto.getAcName());
-//				tdto.setPayAmount(dto.getPayAmount());
-//				tdto.setRecAmount(dto.getRecAmount());
-//				System.out.println("tdto :" + tdto);
-//				balList.add(tdto);
-//			}
-//		}
-//		int counter = 0;
-//		System.out.println("Complete");
-//		for (TrialBalanceDto dto : balList) {
-//			System.out.println(dto);
-//			counter++;
-//		}
-//		System.out.println(counter);
-		
-		
-//		ArrayList<CashBankBookDto> transactionList = new TransactionRecordsDao
-//				().findCashBankBookRecord(date1, date2);
-//				for(CashBankBookDto t:transactionList)
-//					System.out.println(t);
-//				ArrayList<DailyTransactionDto> dailyTranList = new ArrayList<DailyTransactionDto>();
-//				ArrayList<CashBankBookDto> tranList = new ArrayList<CashBankBookDto>();
-//				Date curDate = date1;
-//				for (CashBankBookDto t : transactionList) {
-//					System.out.println(t);
-//						if(t.getDocDate().equals(DateUtils.getNextDate(curDate))){
-//							System.out.println("Docdate : " + t.getDocDate());
-//							DailyTransactionDto dailyRecord=new DailyTransactionDto();
-//							ArrayList<CashBankBookDto> tempTranList = new ArrayList<CashBankBookDto>(tranList);
-//							dailyRecord.setDailyTransaction(tempTranList);
-//							dailyRecord.setOpeningBalance(new AccountDao().findAllBankBalanceByDate(DateUtils.getPreviousDate(curDate), "opBal"));
-//							dailyRecord.setClosingBalance(new AccountDao().findAllBankBalanceByDate(curDate, "clsBal"));
-//							dailyTranList.add(dailyRecord);
-//							tranList.clear();
-//							curDate=DateUtils.getNextDate(curDate);
-//							System.out.println("Currdate : " + curDate);
-//							System.out.println(tempTranList);
-//						}
-//						tranList.add(t);
-//				}
-//				
-//				System.out.println(dailyTranList);		
-	}
+
+			// System.out.println(dailyTranList);
+		}
+	
 
 }
