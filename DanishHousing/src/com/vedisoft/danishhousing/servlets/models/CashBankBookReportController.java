@@ -18,6 +18,7 @@ import com.vedisoft.danishhousing.config.DateUtils;
 import com.vedisoft.danishhousing.config.GeneratePdf;
 import com.vedisoft.danishhousing.daos.AccountDao;
 import com.vedisoft.danishhousing.daos.TransactionRecordsDao;
+import com.vedisoft.danishhousing.daos.UtilityDao;
 import com.vedisoft.danishhousing.pojos.Account;
 import com.vedisoft.danishhousing.pojos.CashBankBookDto;
 import com.vedisoft.danishhousing.pojos.DailyTransactionDto;
@@ -67,7 +68,12 @@ public class CashBankBookReportController extends HttpServlet {
 			request.setAttribute("msg", msg);
 			op = request.getParameter("operation");
 		}
+		int pageNo =UtilityDao.startingPageNo();
+		if (request.getParameter("pageNo") != null && request.getParameter("pageNo").trim
 
+				().length() > 0) {
+			pageNo = Integer.parseInt(request.getParameter("pageNo"));
+				}
 		Date date1 = null;
 		if (request.getParameter("openingDate") != null && request.getParameter("openingDate").trim
 
@@ -100,6 +106,7 @@ public class CashBankBookReportController extends HttpServlet {
 			//double opBal = TransactionRecordsDao.bankOpeningBalance(DateUtils.getPreviousDate(date1),
 
 			//		bkCode);
+			request.setAttribute("pageNo", pageNo);
 			double totalCredit = 0;
 			double totalDebit = 0;
 			request.setAttribute("date1", DateUtils.dateFormat(date1));
@@ -113,7 +120,6 @@ public class CashBankBookReportController extends HttpServlet {
 			Date curDate = date1;
 			for (CashBankBookDto t : transactionList) {
 				if (t.getDocDate().after(curDate)) {
-					System.out.println("Docdate : " + t.getDocDate());
 					DailyTransactionDto dailyRecord = new DailyTransactionDto();
 					ArrayList<CashBankBookDto> tempTranList = new ArrayList<CashBankBookDto>(tranList);
 					dailyRecord.setDailyTransaction(tempTranList);
@@ -124,7 +130,6 @@ public class CashBankBookReportController extends HttpServlet {
 					dailyTranList.add(dailyRecord);
 					tranList.clear();
 					curDate = t.getDocDate();
-					System.out.println("New Currdate : " + curDate);
 					System.out.println(tempTranList);
 				}
 				tranList.add(t);

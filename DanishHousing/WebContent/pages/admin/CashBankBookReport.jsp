@@ -151,9 +151,24 @@ body, html {
 												<i class="fa fa-calendar"></i>
 											</div>
 											<input type="text" class="form-control pull-right datepicker"
-												id="openingDate" name="openingDate" />
+												id="openingDate" name="openingDate" required/>
 										</div>
 										<p id="errorOpeningDate"></p>
+										<!-- /.input group -->
+									</div>
+
+									<!--End Opening Date -->
+									<!-- Page No -->
+									<div class="form-group" id="divpageNo">
+										<label>Page No From:</label>
+										<div class="input-group date">
+											<div class="input-group-addon">
+												<i class="fa fa-info-circle"></i>
+											</div>
+											<input type="text" class="form-control "
+												id="pageNo" name="pageNo" />
+										</div>
+										<p id="errorPageNo"></p>
 										<!-- /.input group -->
 									</div>
 
@@ -168,7 +183,7 @@ body, html {
 												<i class="fa fa-calendar"></i>
 											</div>
 											<input type="text" class="form-control pull-right datepicker"
-												id="closingDate" name="closingDate" />
+												id="closingDate" name="closingDate" required/>
 										</div>
 										<p id="errorClosingDate"></p>
 										<!-- /.input group -->
@@ -194,7 +209,7 @@ body, html {
 							</div>
 						</form>
 					</div>
-
+<%-- 
 					<div class="invoice-box " id="printBankCashReport"
 						style="display: none;">
 						<div class="row">
@@ -500,13 +515,8 @@ body, html {
 
 						</div>
 					</div>
-					<div class="row" align="center">
-
-						<div>
-							<button type=button class="btn btn-info " value="print"
-								id="printButton" onclick="printFunction();">&emsp;Print&emsp;</button>
-						</div>
-					</div>
+				--%>	
+					
 					<!-- User Form -->
 
 					<!-- /.box-body -->
@@ -575,14 +585,6 @@ body, html {
 		function validateForm(form) {
 			error = "Please enter this field";
 
-			//Account Code Validation
-			var bankName = document.getElementById("BankName").value;
-			if (bankName == null || bankName === "") {
-				document.getElementById("divFormBankName").className = 'alert alert-danger alert-dismissible';
-				document.getElementById("errorBankName").innerHTML = error;
-				return false;
-			}
-
 			//Opening Date Validation
 			var openingDate = document.getElementById("openingDate").value;
 			if (openingDate == null || openingDate === "") {
@@ -632,4 +634,24 @@ body, html {
 		//	}
 
 		
+	</script>
+	<script type="text/javascript">
+
+	$('#closingDate').on('blur', function() {
+		$.ajax({
+			url : "../../AutoCompletePageNo",
+			type : "post",
+			success : function(data) {
+				//alert("Data: " + data);
+				document.getElementById("pageNo").value=data ;
+				//$('#pageNo').val = "21";
+			},
+			error : function(data, status, er) {
+				console.log(data + "_" + status + "_" + er);
+			}
+		});
+
+	});
+
+	
 	</script>
