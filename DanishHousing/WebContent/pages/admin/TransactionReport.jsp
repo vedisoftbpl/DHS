@@ -234,21 +234,19 @@ body, html {
 
 
 									<div class="col-md-12">
-										<table class="table" align="center">
+										<table class="table">
 
 											<!-- Table Header -->
 											<thead
 												style="border-top: 2px solid black; border-bottom: 2px solid black;">
 												<tr>
 													<th><div align="center">Date</div></th>
-													<th><div style="text-align: center;">
-															Particulars<br>
-														</div></th>
+													<th valign="top"><div align="center" >Particulars</div></th>
 													<th>Receipt No./<br>Vr. No.
 													</th>
-													<th align="center">Debit</th>
-													<th align="center">Credit</th>
-													<th align="center">Balance</th>
+													<th  valign="top"><div align="center">Debit</div></th>
+													<th  valign="top"><div align="center">Credit</div></th>
+													<th  valign="top"><div align="center">Balance</div></th>
 												</tr>
 											</thead>
 											<tbody>
@@ -261,7 +259,7 @@ body, html {
 																	value="${rep.date}" /></td>
 															<td><c:out value="${rep.particular}" /></td>
 															<td><c:out value="${rep.recNo}" /></td>
-															<td><c:choose>
+															<td align="right"><c:choose>
 																	<c:when test="${rep.debit==0}">
 																		<c:out value=" " />
 																	</c:when>
@@ -269,7 +267,7 @@ body, html {
 																		<c:out value="${rep.debit}" />
 																	</c:when>
 																</c:choose></td>
-															<td><c:choose>
+															<td align="right"><c:choose>
 																	<c:when test="${rep.credit==0}">
 																		<c:out value=" " />
 																	</c:when>
@@ -281,20 +279,20 @@ body, html {
 														</tr>
 													</c:forEach>
 													<tr>
-														<td colspan=3><h5>
+														<td colspan="3" align="right"><h5>
 																<b>&emsp;&emsp;&emsp;&emsp; &emsp;&nbsp;</b>
 															</h5></td>
-														<td><h5>
+														<td align="right"><h5>
 																<b><fmt:setLocale value="en_IN" />
 																	<fmt:formatNumber value="${tran.monthlyDebit}"
 																		type="currency" currencySymbol=" " /></b>
 															</h5></td>
-														<td><h5>
+														<td align="right"><h5>
 																<b><fmt:setLocale value="en_IN" />
 																	<fmt:formatNumber value="${tran.monthlyCredit}"
 																		type="currency" currencySymbol=" " /></b>
 															</h5></td>
-														<td>
+														<td align="right">
 															<h5>
 
 																<c:if test="${tran.monthlyBalance > 0}">
@@ -434,7 +432,8 @@ body, html {
 		<c:when test="${requestScope.msg=='2'}">
 		$(document).ready(function() {
 			$("#typeError").addClass("form-group has-error");
-			$("#errorTop").html("Could Not Fetch Records of given period.");
+			$("#errorTop").html("Could Not Fetch Records of given period .");
+			//alert('Record Not Found')
 			$("#printTransactionReport").hide();
 		});
 		</c:when>

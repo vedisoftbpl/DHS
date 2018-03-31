@@ -97,22 +97,24 @@ public class TransactionReportController extends HttpServlet {
 					accCode);
 			ArrayList<TransactionReportDto> dto = new ArrayList<TransactionReportDto>();
 			ArrayList<MonthlyTransactionReportDto> mdto = new ArrayList<MonthlyTransactionReportDto>();
-			Date date = list.get(0).getDocDte();
+			Date date=new Date();
+			if (!list.isEmpty())
+				date = list.get(0).getDocDte();
 			LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 			int month = localDate.getMonthValue();
-			int counter=0;
-			//System.out.println("Month : "+month);
+			int counter = 0;
+			// System.out.println("Month : "+month);
 			for (TransactionRecords t : list) {
 				Date d1 = t.getDocDte();
 				LocalDate ld1 = d1.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 				int tempMonth1 = ld1.getMonthValue();
-				if(tempMonth1!=month){
+				if (tempMonth1 != month) {
 					counter++;
-					month=tempMonth1;
+					month = tempMonth1;
 				}
 			}
 			month = localDate.getMonthValue();
-			int i=0;
+			int i = 0;
 			for (TransactionRecords t : list) {
 				double credit = 0;
 				double debit = 0;
@@ -122,65 +124,62 @@ public class TransactionReportController extends HttpServlet {
 				Date d = t.getDocDte();
 				LocalDate ld = d.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 				int tempMonth = ld.getMonthValue();
-				//System.out.println("Temp Month : "+tempMonth);
-				if(tempMonth!=month){
+				// System.out.println("Temp Month : "+tempMonth);
+				if (tempMonth != month) {
 					ArrayList<TransactionReportDto> tempdto = new ArrayList<TransactionReportDto>();
-					for(TransactionReportDto rep:dto){
-						//System.out.println(rep);
+					for (TransactionReportDto rep : dto) {
+						// System.out.println(rep);
 						tempdto.add(rep);
-						}
-					MonthlyTransactionReportDto mReport = new MonthlyTransactionReportDto(tempdto,monthlyDebit,monthlyCredit,monthlyCredit-monthlyDebit);
-//					System.out.println("Mrep");
-//					System.out.println(mReport);
+					}
+					MonthlyTransactionReportDto mReport = new MonthlyTransactionReportDto(tempdto, monthlyDebit,
+							monthlyCredit, monthlyCredit - monthlyDebit);
+					// System.out.println("Mrep");
+					// System.out.println(mReport);
 					mdto.add(mReport);
-//					for(MonthlyTransactionReportDto rep:mdto){
-//						System.out.println(rep);
-//						}
-					monthlyDebit=0;
-					monthlyCredit=0;
+					// for(MonthlyTransactionReportDto rep:mdto){
+					// System.out.println(rep);
+					// }
 					dto.clear();
-//					for(MonthlyTransactionReportDto rep:mdto){
-//						System.out.println(rep);
-//						}
-//					for(TransactionReportDto rep:dto){
-//						System.out.println(rep);
-//						}
-					month=tempMonth;
-//					System.out.println("Month : "+month);
+					// for(MonthlyTransactionReportDto rep:mdto){
+					// System.out.println(rep);
+					// }
+					// for(TransactionReportDto rep:dto){
+					// System.out.println(rep);
+					// }
+					month = tempMonth;
+					// System.out.println("Month : "+month);
 					i++;
 				}
 				if (t.getDocType().equals("D")) {
-					
-					if (t.getFlag() == 2){
-						if(t.getMembNo() != 0)
+
+					if (t.getFlag() == 2) {
+						if (t.getMembNo() != 0)
 							particular = t.getParti() + " - " + m.getPrefix() + " " + m.getMemName() + ", Memb. No. : "
 									+ t.getMembNo() + " Chq. No. :" + t.getChqNo();
 						else
 							particular = t.getParti() + " Chq. No. :" + t.getChqNo();
-					}
-					else{
-						if(t.getMembNo() != 0)
+					} else {
+						if (t.getMembNo() != 0)
 							particular = t.getParti() + " - " + m.getPrefix() + " " + m.getMemName() + ", Memb. No. : "
 									+ t.getMembNo();
 						else
 							particular = t.getParti();
-					} 
+					}
 					credit = t.getAmt();
 				} else if (t.getDocType().equals("W")) {
-					if (t.getFlag() == 2){
-						if(t.getMembNo() != 0)
+					if (t.getFlag() == 2) {
+						if (t.getMembNo() != 0)
 							particular = t.getParti() + " - " + m.getPrefix() + " " + m.getMemName() + ", Memb. No. : "
 									+ t.getMembNo() + " Chq. No. :" + t.getChqNo();
 						else
 							particular = t.getParti() + " Chq. No. :" + t.getChqNo();
-					}
-					else{
-						if(t.getMembNo() != 0)
+					} else {
+						if (t.getMembNo() != 0)
 							particular = t.getParti() + " - " + m.getPrefix() + " " + m.getMemName() + ", Memb. No. : "
 									+ t.getMembNo();
 						else
 							particular = t.getParti();
-					} 
+					}
 					debit = t.getAmt();
 				}
 				if (t.getFlag() == 1)
@@ -192,32 +191,32 @@ public class TransactionReportController extends HttpServlet {
 
 				TransactionReportDto report = new TransactionReportDto(t.getDocNo(), t.getDocDte(), particular, mode,
 						credit, debit);
-//				System.out.println("Trep");
-//				System.out.println(report);
+				// System.out.println("Trep");
+				// System.out.println(report);
 				totalCredit += credit;
 				monthlyCredit += credit;
 				totalDebit += debit;
 				monthlyDebit += debit;
 				dto.add(report);
-			
+
 			}
-			if(i==counter){
+			if (i == counter) {
 				ArrayList<TransactionReportDto> tempdto = new ArrayList<TransactionReportDto>();
-				for(TransactionReportDto rep:dto){
-//					System.out.println(rep);
+				for (TransactionReportDto rep : dto) {
+					// System.out.println(rep);
 					tempdto.add(rep);
-					}
-				MonthlyTransactionReportDto mReport = new MonthlyTransactionReportDto(tempdto,monthlyDebit,monthlyCredit,monthlyCredit-monthlyDebit);
-//				System.out.println("Mrep");
-//				System.out.println(mReport);
+				}
+				MonthlyTransactionReportDto mReport = new MonthlyTransactionReportDto(tempdto, monthlyDebit,
+						monthlyCredit, monthlyCredit - monthlyDebit);
+				// System.out.println("Mrep");
+				// System.out.println(mReport);
 				mdto.add(mReport);
 			}
-//			for(MonthlyTransactionReportDto rep:mdto){
-//				System.out.println(rep);
-//				}
-				
-			
-			double balance=totalCredit-totalDebit;
+			// for(MonthlyTransactionReportDto rep:mdto){
+			// System.out.println(rep);
+			// }
+
+			double balance = totalCredit - totalDebit;
 			if (list.size() > 0) {
 				request.setAttribute("transactionList", mdto);
 				request.setAttribute("totalCreditAmount", totalCredit);
