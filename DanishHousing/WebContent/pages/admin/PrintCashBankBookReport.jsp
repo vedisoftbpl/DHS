@@ -130,7 +130,7 @@ table {
 
 				<div align="right" class="col-md-12">
 
-					<c:set var="pageno" value="1"></c:set>
+					<c:set var="pageno" value="${requestScope.pageNo}"></c:set>
 
 					<c:forEach items="${requestScope.dailyTranList}" var="tran">
 						<c:set var="sumOpBal" value="0.0"></c:set>
@@ -369,7 +369,7 @@ table {
 						<table width="90%">
 							<tr>
 								<td width="50%" colspan="6"></td>
-								<td width="26%"  align="center"
+								<td width="26%" align="center"
 									style="border-top: 2px solid black; border-bottom: 2px solid black; font-size: 11px;"><b>Total:</b></td>
 								<td width="8%" align="right"
 									style="border-top: 2px solid black; border-bottom: 2px solid black; font-size: 11px;"><fmt:setLocale
@@ -456,7 +456,7 @@ table {
 										value="en_IN" /> <fmt:formatNumber value="${totalRecBankBal}"
 										type="currency" currencySymbol=" " /></td>
 								<td width="8%" align="right"
-									style="border-top: 2px solid black; border-bottom: 2px solid black;border-right: 2px solid black; font-size: 11px;"><fmt:setLocale
+									style="border-top: 2px solid black; border-bottom: 2px solid black; border-right: 2px solid black; font-size: 11px;"><fmt:setLocale
 										value="en_IN" /> <fmt:formatNumber value="${totalRecCashBal}"
 										type="currency" currencySymbol=" " /></td>
 								<td width="26%" colspan="2" align="center"
@@ -493,6 +493,7 @@ table {
 
 
 		</div>
+		<input type="hidden" id="lastPageNo" value="${pageno}" />
 	</div>
 	<!-- User Form -->
 
@@ -512,6 +513,23 @@ table {
 		});
 	</script>
 	<script>
+	
+		$(document).ready(function() {
+			// your code here
+			var pageNo = $('#lastPageNo').val();
+			if (pageNo.length > 0) {
+				$.ajax({
+					url : '../../ReceiptAutoFill',
+					type : 'post',
+					data : {
+						'pageNo' : pageNo
+					},
+					success : function() {
+					}
+				});
+			}
+		});
+
 		function printFunction() {
 			window.print();
 			/*var divToPrint = document.getElementById('printBankCashReport');

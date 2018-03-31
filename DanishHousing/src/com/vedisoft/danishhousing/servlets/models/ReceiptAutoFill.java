@@ -55,7 +55,7 @@ public class ReceiptAutoFill extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		int memberId = 0,recNo,vrNo;
+		int memberId = 0,recNo,vrNo,pageNo;
 		String accCode = new String();
 		String bankCode = new String();
 		int partyCode=0;
@@ -124,6 +124,12 @@ public class ReceiptAutoFill extends HttpServlet {
 			response.setContentType("application/json");
 			response.getWriter().write("{\"data\": [" + json + "]}");
 		}
+		if (request.getParameter("pageNo") != null && request.getParameter("pageNo").trim().length() > 0) {
+			pageNo = Integer.parseInt(request.getParameter("pageNo"));
+			System.out.println(pageNo);
+			UtilityDao.savePageNo(pageNo);
+		}
+	
 	}
 
 }

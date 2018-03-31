@@ -124,7 +124,42 @@ public class UtilityDao {
 			return true;
 	}
 	
+	public static int startingPageNo() {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		pool.initialize();
+		int pageNo = 0;
+		Connection conn = pool.getConnection();
+		try {
+			String sql = "select page_no from cashbook_page_no";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				pageNo = rs.getInt("page_no");
+			}
+		} catch (SQLException sq) {
+			System.out.println("Unable to find a new row." + sq);
+		} finally {
+			pool.putConnection(conn);
+		}
+		return pageNo;
+	}
 	
+	public static void savePageNo(int pageNo) {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		pool.initialize();
+		Connection conn = pool.getConnection();
+		try {
+			String sql = "update cashbook_page_no set page_no = ?";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, pageNo);
+			ps.executeUpdate();
+		} catch (SQLException sq) {
+			System.out.println("Unable to create a new row." + sq);
+		} finally {
+			pool.putConnection(conn);
+		}
+		System.out.println("Record SuccessFully Added");
+	}
 public static void main(String args[]){
 //	System.out.println("Max Receipt Number :" + maxReceiptNo());
 //	System.out.println(checkReceiptNo(44926));
