@@ -77,8 +77,9 @@ public class SubledgerReportController extends HttpServlet {
 		if (request.getParameter("partyCode") != null && request.getParameter("partyCode").trim().length() > 0) {
 			partyCode = Integer.parseInt(request.getParameter("partyCode"));
 		}
-		Supplier s = new SupplierDao().find(partyCode);
+		
 		if (op.equals("create")) {
+			Supplier s = new SupplierDao().find(partyCode);
 			double totalCredit = 0;
 			double totalDebit = 0;
 			request.setAttribute("date1", DateUtils.dateFormat(date1));

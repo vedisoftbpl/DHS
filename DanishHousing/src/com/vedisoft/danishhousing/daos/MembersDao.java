@@ -26,7 +26,7 @@ public class MembersDao {
 					+ "maint,water,wsupdte,establ,wc_lr_dt,wat_chg,extamt,cost,build_flag, m_nominal, muta_no1, muta_dt1, gender, category, defaulter,"
 					+ " mother_name ,pan_no, eli_ineli,ref_amt) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,"
 					+ "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-			PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS,
+			PreparedStatement ps = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS,
 					ResultSet.CONCUR_UPDATABLE);
 			ps.setString(1, member.getPrefix());
 			ps.setString(2, member.getMemName());
@@ -176,7 +176,7 @@ public class MembersDao {
 					+ "water_con= ?,sec_dep= ?,wt_cn_dt= ?,opdte= ?,regi= ?,regdte= ?,regno= ?,r_c= ?,nocdte= ?,refdte= ?,diversion= ?,finalamt= ?"
 					+ ",maint= ?,water= ?,wsupdte= ?,establ= ?,wc_lr_dt= ?,wat_chg= ?,extamt= ?,cost= ? ,build_flag= ?, m_nominal= ?, muta_no1= ?, muta_dt1= ?, "
 					+ "gender= ?, category= ?, defaulter= ?, mother_name= ?,  pan_no= ?, eli_ineli = ?,ref_amt=? where member_id = ? ";
-			PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement ps = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 			ps.setString(1, member.getPrefix());
 			ps.setString(2, member.getMemName());
 			ps.setString(3, member.getfHRelation());

@@ -304,7 +304,7 @@ public class AccountDao {
 				m.put(rs.getString("bk_code"), bankInitials(rs.getString("bk_name")));
 			}
 		} catch (SQLException sq) {
-			System.out.println("Unable tofind row.");
+			System.out.println("Unable to find row.");
 		} finally {
 			pool.putConnection(conn);
 		}

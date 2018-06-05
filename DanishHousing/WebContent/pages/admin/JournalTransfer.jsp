@@ -21,7 +21,7 @@
 				<h1>Journal Transfer</h1>
 				<ol class="breadcrumb">
 					<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-					<li><a href="#">Examples</a></li>
+					<li><a href="#">Payments</a></li>
 					<li class="active">Journal Transfer</li>
 				</ol>
 			</section>
@@ -207,8 +207,8 @@
 														<th colspan="5">Account Code</th>
 														<th colspan="4"><div id="partyName"
 																style="display: none;">Party Name</div></th>
-														<th>Credit</th>
 														<th>Debit</th>
+														<th>Credit</th>
 														<th>&nbsp;</th>
 													</tr>
 												</thead>
@@ -238,18 +238,18 @@
 														</div>
 													</td>
 													<td>
-														<div class="form-group" id="divFormCredit1">
-															<span><input style="color: green; width: 100px;"
-																type="text" class="form-control credit" value="0.0"
-																id="credit1" name="credit1" /></span>
-															<p id="errorCredit1"></p>
-														</div>
-													</td>
-													<td><div class="form-group" id="divFormDebit1">
+														<div class="form-group" id="divFormDebit1">
 															<span><input style="color: red; width: 100px;"
 																type="text" class="form-control debit" value="0.0"
 																id="debit1" name="debit1" /></span>
 															<p id="errorDebit1"></p>
+														</div>
+													</td>
+													<td><div class="form-group" id="divFormCredit1">
+															<span><input style="color: green; width: 100px;"
+																type="text" class="form-control credit" value="0.0"
+																id="credit1" name="credit1" /></span>
+															<p id="errorCredit1"></p>
 														</div></td>
 													<td><button type="button" class="btn btn-box-tool"
 															onclick="remove('accountCode1','account1')"
@@ -260,11 +260,11 @@
 
 												<tfoot>
 													<tr>
-														<th colspan="4">Total Amount&nbsp;(Credit
-															&nbsp;&&nbsp; Debit)&nbsp; :</th>
+														<th colspan="4">Total Amount&nbsp;(Debit
+															&nbsp;&&nbsp; Credit)&nbsp; :</th>
 														<th colspan="4">&nbsp;</th>
-														<th id="totalCredit"></th>
 														<th id="totalDebit"></th>
+														<th id="totalCredit"></th>
 														<th>&nbsp;</th>
 													<tr>
 												</tfoot>
@@ -363,16 +363,16 @@
 														+ '</div>'
 														+ '</td>'
 														+ '<td>'
-														+ '<div class="form-group" id="divFormCredit'+n+'">'
-														+ '<span ><input style = "color:green; width:100px;" type="text" class="form-control credit" value="0.0"'
-												  +'id="credit'+n+'" name="credit'+n+'" /></span>'
-														+ '<p id="errorCredit'+n+'"></p>'
-														+ '</div>'
-														+ '</td>'
-														+ '<td><div class="form-group" id="divFormDebit'+n+'">'
+														+ '<div class="form-group" id="divFormDebit'+n+'">'
 														+ '<span ><input style = "color:red; width:100px;" type="text" class="form-control debit" value="0.0"'
 												  +'id="debit'+n+'" name="debit'+n+'" /></span>'
 														+ '<p id="errorDebit'+n+'"></p>'
+														+ '</div>'
+														+ '</td>'
+														+ '<td><div class="form-group" id="divFormCredit'+n+'">'
+														+ '<span ><input style = "color:green; width:100px;" type="text" class="form-control credit" value="0.0"'
+												  +'id="credit'+n+'" name="credit'+n+'" /></span>'
+														+ '<p id="errorCredit'+n+'"></p>'
 														+ '</div></td>'
 														+ '<td><button type="button" class="btn btn-box-tool"'
 														+ ' onclick="remove(\'accountCode'

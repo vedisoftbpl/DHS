@@ -109,7 +109,7 @@
 												<option  value="A" ${requestScope.accountmaster.acClass eq 'A' ? 'selected' : ''}>Assets</option>
 												<option value="I" ${requestScope.accountmaster.acClass eq 'I' ? 'selected' : ''}>Income</option>
 												<option value="L" ${requestScope.accountmaster.acClass eq 'L' ? 'selected' : ''}>Liability</option>
-												<option value="E" ${requestScope.accountmaster.acClass eq 'E' ? 'selected' : ''}>Extended</option>
+												<option value="E" ${requestScope.accountmaster.acClass eq 'E' ? 'selected' : ''}>Expenses</option>
 											</select>
 										</div>
 									</div>
@@ -144,8 +144,9 @@
 											</div>
 											<select class="form-control select2" id="projectCode" name="projectCode"
 												style="width: 100%;" >
+												<option  value="0">N/A</option>
 												<c:forEach items="${requestScope.projectList}" var="project">
-													<option value="${project.getProjectId()}" ${requestScope.accountmaster.projCd eq project.getProjectId() ? 'selected' : ''}>${project.getProjectName()}</option>
+													<option value="${project.getProjectId()}"<c:if test="${requestScope.accountmaster.projCd !=0}"> ${requestScope.accountmaster.projCd eq project.getProjectId() ? 'selected' : ''}</c:if>>${project.getProjectName()}</option>
 												</c:forEach>
 											</select>
 										</div>

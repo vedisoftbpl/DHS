@@ -213,6 +213,28 @@ public class AccountMasterDao {
 		return listVoucher;
 	}
 
+	public static int findTotalAccountCode() {
+		
+		ConnectionPool pool = ConnectionPool.getInstance();
+		pool.initialize();
+		Connection conn = pool.getConnection();
+		int total=0;
+		try {
+			String sql = "SELECT count(*) as total FROM account_master ";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				total = rs.getInt("total");
+				
+			}
+		} catch (SQLException sq) {
+			System.out.println("Unable to create a new row.");
+		} finally {
+			pool.putConnection(conn);
+		}
+		return total;
+	}
+	
 
 	public ArrayList<AccountMaster> findAll() {
 		ConnectionPool pool = ConnectionPool.getInstance();
@@ -220,7 +242,7 @@ public class AccountMasterDao {
 		Connection conn = pool.getConnection();
 		ArrayList<AccountMaster> listAccountMaster = new ArrayList<AccountMaster>();
 		try {
-			String sql = "select * from account_master";
+			String sql = "select * from account_master order by accode";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
@@ -247,18 +269,18 @@ public class AccountMasterDao {
 				if(rs.getString("flag") != null && rs.getString("flag") != "")
 					accountmaster.setFlag(rs.getString("flag"));
 				else
-					accountmaster.setFlag(rs.getString(""));
+					accountmaster.setFlag("");
 				accountmaster.setProjCd(rs.getInt("projcd"));
 				listAccountMaster.add(accountmaster);
 			}
 		} catch (SQLException sq) {
-			System.out.println("Unable to create a new row.");
+			System.out.println("Unable to find row."+sq);
 		} finally {
 			pool.putConnection(conn);
 		}
 		return listAccountMaster;
 	}
-
+	
 	public ArrayList<AccountMaster> findAll(int start, int num) {
 		ConnectionPool pool = ConnectionPool.getInstance();
 		pool.initialize();

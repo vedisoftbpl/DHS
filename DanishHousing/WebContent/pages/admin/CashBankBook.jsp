@@ -5,12 +5,12 @@
 <link rel="stylesheet" href="../../plugins/select2/select2.css">
 <%@ include file="../design/Top.jsp"%>
 <div class="se-pre-con"></div>
-		<style type="text /css">.result {
+<style type="text /css">.result {
 	height: 200px;
 	overflow: auto;
 }
 </style>
-		<style type="text/css" media="print">
+<style type="text/css" media="print">
 @media print {
 	.result {
 		height: 100%;
@@ -18,10 +18,18 @@
 	}
 }
 </style>
-		<style>
-		
-			.no-js #loader { display: none;  }
-.js #loader { display: block; position: absolute; left: 100px; top: 0; }
+<style>
+.no-js #loader {
+	display: none;
+}
+
+.js #loader {
+	display: block;
+	position: absolute;
+	left: 100px;
+	top: 0;
+}
+
 .se-pre-con {
 	position: fixed;
 	left: 0px;
@@ -29,11 +37,10 @@
 	width: 100%;
 	height: 100%;
 	z-index: 9999;
-	background: url(../../../DanishHousing/pages/photos/Eclipse.gif) center no-repeat #fff;
+	background: url(../../../DanishHousing/pages/photos/Eclipse.gif) center
+		no-repeat #fff;
 }
-		
-		
-		
+
 body, html {
 	width: 100%;
 	height: 100%;
@@ -47,16 +54,19 @@ body, html {
 	z-index: 100000; /* CSS
 		doesn't support infinity */ /* Any other Print Properties */
 }
-#printTransactionReport{
-    overflow-x: scroll;
-    width: auto;
-    white-space: nowrap;
+
+#printTransactionReport {
+	overflow-x: scroll;
+	width: auto;
+	white-space: nowrap;
 }
+
 div.scrollmenu {
-    background-color: #333;
-    overflow: auto;
-    white-space: nowrap;
+	background-color: #333;
+	overflow: auto;
+	white-space: nowrap;
 }
+
 .invoice-box {
 	max-width: 1000px;
 	margin: auto;
@@ -73,6 +83,7 @@ div.scrollmenu {
 	padding: 1px;
 	font-size: 9pt;
 }
+
 .table>tbody>tr>td {
 	padding: 1px;
 	font-size: 8pt;
@@ -101,15 +112,15 @@ div.scrollmenu {
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
-				<h1>Cash/Bank - Book  Report</h1>
+				<h1>Cash/Bank - Book Report</h1>
 				<ol class="breadcrumb">
 					<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
 					<li><a href="#">Reports</a></li>
-					<li class="active">Cash/Bank - Book  Report</li>
+					<li class="active">Cash/Bank - Book Report</li>
 				</ol>
 			</section>
 			<!-- Main content -->
-			<section class="content" >
+			<section class="content">
 				<!-- Default box -->
 				<div class="box">
 					<div class="box-header with-border">
@@ -182,14 +193,14 @@ div.scrollmenu {
 											<div class="input-group-addon">
 												<i class="fa fa-navicon"></i>
 											</div>
-											<select class="form-control select2" id="BankName" name="BankName"
-												style="width: 100%;">
+											<select class="form-control select2" id="BankName"
+												name="BankName" style="width: 100%;">
 												<option value="">--- Select Bank Name ---</option>
 												<c:forEach items="${requestScope.accounts}" var="val">
 													<option value="${val.key}">${val.value}</option>
 												</c:forEach>
 											</select>
-											
+
 										</div>
 										<p id="errorBankName"></p>
 									</div>
@@ -217,73 +228,112 @@ div.scrollmenu {
 						</form>
 					</div>
 
-					<div class="invoice-box " id="printBankCashReport" style="display: none;">
+					<div class="invoice-box " id="printBankCashReport"
+						style="display: none;">
 						<div class="row">
 
 							<div class="col-md-12">
 								<div class="col-md-12" align="center">
-									<h2>
+									<h3>
 										<b><u>DANISH GRIH NIRMAN SAHAKARI SANSTHA MARYADIT
 												BHOPAL</u></b>
-									</h2>
+									</h3>
 								</div>
 								<div class="row" align="center">
 
 									<div class="col-md-12">
-										<h4>CASH/BANK - BOOK FOR PERIOD ${requestScope.date1} TO
+										<h5>CASH/BANK - BOOK FOR PERIOD ${requestScope.date1} TO
 											${requestScope.date2}</h5>
 									</div>
 								</div>
 								<div class="row" align="center">
 
 									<div class="col-md-12">
-									<span style="display:inline-block;">
-									<h5><b>BANK CODE :</b> ${requestScope.bkCode} ,-
+										<span style="display: inline-block;">
+											<h5>
+												<b>BANK CODE :</b> ${requestScope.bkCode} ,-
 											</h5>
-										<h5><b>BANK NAME : </b>${requestScope.bkName} 
+											<h5>
+												<b>BANK NAME : </b>${requestScope.bkName}
 											</h5>
-									</span>
-										
+										</span>
+
 									</div>
 								</div>
 								<div class="row" align="left">
 
-<div align="left"><p><b>&emsp;Opening Balance :&emsp;</b><fmt:setLocale value="en_IN"/><fmt:formatNumber value="${requestScope.openingBalance}" type="currency" /></p></div>
+									<div align="left">
+										<p>
+											<b>&emsp;Opening Balance :&emsp;</b>
+											<fmt:setLocale value="en_IN" />
+											<fmt:formatNumber value="${requestScope.openingBalance}"
+												type="currency" currencySymbol=" " />
+										</p>
+									</div>
 									<div class="col-md-12">
-										<h4>
-											<u><b>RECEIPTS</b></u>
-										</h4>
-										
-										<table class="table" align="center">
+
+										<table class="table">
 
 											<!-- Table Header -->
 											<thead
-												style="border-top: 3px solid black; border-bottom: 3px solid black;">
+												style="border-top: 3px solid black; border-bottom: 3px solid black; text-align: center;">
 												<tr>
-													<th>Recept No./Vr. No.</th>
-													<th>Date</th>
-													<th>Cheque No.</th>
-													<th>Member No.</th>
-													<th>Particulars</th>
-													<th>Total</th>
-													<th>Adjustments</th>
-											
+													<th><div align="center">
+															Receipt No./<br>Vr. No.
+														</div></th>
+													<th><div align="center">Date</div></th>
+													<th><div align="center">Cheque No.</div></th>
+													<th><div align="center">Particulars</div></th>
+													<th><div align="center">Receipt</div></th>
+													<th><div align="center">Payments</div></th>
+
 												</tr>
 											</thead>
 											<tbody>
-												<c:forEach items="${requestScope.creditList}"
-													var="receipt">
+												<c:forEach items="${requestScope.transactionList}"
+													var="dRec">
 													<tr>
-														<td><c:out value="${receipt.docNo}" /></td>
+
+														<td><c:out value="${dRec.docNo}" /></td>
+
+
 														<td><fmt:formatDate type="date" pattern="dd/MM/yyyy"
-																	value="${receipt.docDate}"/></td>
-														<td><c:out value="${receipt.chqNo}" /></td>
-														<td><c:out value="${receipt.membNo}" /></td>
-														<td><b><c:out value="${receipt.accName}" /></b><br><c:out value="${receipt.remarks}" /></td>
-														<td><c:out value="${receipt.amount}" /></td>
-														<td><c:out value="${receipt.adjustment}" /></td>
-
-
+																value="${dRec.docDate}" /></td>
+														<td><c:out value="${dRec.chqNo}" /></td>
+														<c:choose>
+															<c:when test="${dRec.membNo ==0}">
+																<td width="23%" align="left"><b><c:out
+																			value="${dRec.accName}" /></b><br> <c:out
+																		value="${dRec.remarks}" /></td>
+															</c:when>
+															<c:otherwise>
+																<td width="23%" align="left"><b><c:out
+																			value="${dRec.accName}" /></b><br> <c:out
+																		value="${dRec.remarks}" /><br>MS No.&nbsp;<c:out
+																		value="${dRec.membNo}" />&emsp;<c:out
+																		value="${dRec.membName}" /></td>
+															</c:otherwise>
+														</c:choose>
+														<c:choose>
+															<c:when test="${dRec.docType=='D'}">
+																<td align="right"><fmt:setLocale value="en_IN" />
+																	<fmt:formatNumber value="${dRec.amount}"
+																		type="currency" currencySymbol=" " /></td>
+															</c:when>
+															<c:otherwise>
+																<td align="right"><c:out value=" " /></td>
+															</c:otherwise>
+														</c:choose>
+														<c:choose>
+															<c:when test="${dRec.docType=='W'}">
+																<td align="right"><fmt:setLocale value="en_IN" />
+																	<fmt:formatNumber value="${dRec.amount}"
+																		type="currency" currencySymbol=" " /></td>
+															</c:when>
+															<c:otherwise>
+																<td align="right"><c:out value=" " /></td>
+															</c:otherwise>
+														</c:choose>
 													</tr>
 												</c:forEach>
 											</tbody>
@@ -291,95 +341,44 @@ div.scrollmenu {
 
 										</table>
 									</div>
-									<div class="row" align="right">
-									<div class="col-md-12" >
-										<table>
-											
+									<div class="row" align="left">
+										<div class="col-md-12">
+											<table>
 
-											<tr>
-												<td colspan="12">----------------------------------------------------------------------</td>
-											</tr>
-
-											<tr>
-												<td><label>&emsp;Total Receipt Amount &emsp;</label></td>
-												<td><label>:&emsp;</label></td>
-												<td ><span><fmt:setLocale value="en_IN"/><fmt:formatNumber value="${requestScope.totalCreditAmount}" type="currency" /></span></td>
-											</tr>
-
-											
-												<td colspan="12">----------------------------------------------------------------------</td>
-											</tr>
-										</table>
-									</div>
-								
-								</div>
-									<div class="col-md-12">
-										<h4>
-											<u><b>PAYMENTS</b></u>
-										</h4>
-										<table class="table" align="center">
-
-											<!-- Table Header -->
-											<thead
-												style="border-top: 3px solid black; border-bottom: 3px solid black;">
 												<tr>
-													<th>Payment No./Vr. No.</th>
-													<th>Date</th>
-													<th>Particulars</th>
-													<th>Total</th>
-													<th>Adjustments</th>
+													<td><label>&emsp;Total Receipts &emsp;</label></td>
+													<td><label>:&emsp;</label></td>
+													<td align="right"><span><fmt:setLocale
+																value="en_IN" /> <fmt:formatNumber
+																value="${requestScope.totalCreditAmount}"
+																type="currency" currencySymbol=" " /></span></td>
 												</tr>
-											</thead>
-											<tbody>
-												<c:forEach items="${requestScope.debitList}"
-													var="payment">
-													<tr>
-														<td><c:out value="${payment.docNo}" /></td>
-														<td><fmt:formatDate type="date" pattern="dd/MM/yyyy"
-																	value="${payment.docDate}" /></td>
-														<td><b><c:out value="${payment.accName}" /></b><br><c:out value="${payment.remarks} (Chq No/Tr No :${payment.chqNo})"/></td>
-														<td><c:out value="${payment.amount}" /></td>
-														<td><c:out value="${payment.adjustment}" /></td>
+												<tr>
+													<td><label>&emsp;Total Payments &emsp;</label></td>
+													<td><label>:&emsp;</label></td>
+													<td align="right"><span><fmt:setLocale
+																value="en_IN" /> <fmt:formatNumber
+																value="${requestScope.totalDebitAmount}" type="currency"
+																currencySymbol=" " /></span></td>
+												</tr>
 
+												<tr>
+													<td><label>&emsp;Closing Balance &emsp;</label></td>
+													<td><label>:&emsp;</label></td>
+													<td align="right"><span><fmt:setLocale
+																value="en_IN" /> <fmt:formatNumber
+																value="${requestScope.closingBalance}" type="currency"
+																currencySymbol=" " /></span></td>
+												</tr>
+											</table>
+										</div>
 
-													</tr>
-												</c:forEach>
-											</tbody>
-											<!-- Table Body -->
-
-										</table>
 									</div>
+
 								</div>
 
 
-								<div class="row" align="right">
-									<div class="col-md-12" >
-										<table>
-											
 
-											<tr>
-												<td colspan="12">----------------------------------------------------------------------</td>
-											</tr>
-
-											<tr>
-												<td><label>&emsp;Total Payments Amount &emsp;</label></td>
-												<td><label>:&emsp;</label></td>
-												<td ><span><fmt:setLocale value="en_IN"/><fmt:formatNumber value="${requestScope.totalDebitAmount}" type="currency" /></span></td>
-											</tr>
-
-											
-											<tr>
-												<td colspan="12">----------------------------------------------------------------------</td>
-											</tr>
-										</table>
-									</div>
-								
-								</div>
-								<div class="row" ><br>
-								-----------------------------------------------------------------------------------------------------------
-								<div align="left"><label>&emsp;Closing Balance :&emsp;<fmt:setLocale value="en_IN"/><fmt:formatNumber value="${requestScope.closingBalance}" type="currency" /></label></div>
-								-----------------------------------------------------------------------------------------------------------
-								</div>
 								<div class="row" align="center">
 
 									<div>
@@ -416,12 +415,13 @@ div.scrollmenu {
 	<script src="../../plugins/datepicker/bootstrap-datepicker.js"></script>
 	<!-- select2 -->
 	<script src="../../plugins/select2/select2.js"></script>
-<script src="../../bootstrap/js/modernizr.js"></script>
+	<script src="../../bootstrap/js/modernizr.js"></script>
 	<script>
-	$(window).load(function() {
-		// Animate loader off screen
-		$(".se-pre-con").fadeOut("slow");;
-	});
+		$(window).load(function() {
+			// Animate loader off screen
+			$(".se-pre-con").fadeOut("slow");
+			;
+		});
 	</script>
 	<script>
 		$(function() {
@@ -545,8 +545,14 @@ div.scrollmenu {
 																						'<b>'
 																								+ data["bkCode"]
 																								+ '</b>');
-																		
-																		$("#BankName option[value="+data["bkCode"]+"]").prop('selected', 'selected');
+
+																		$(
+																				"#BankName option[value="
+																						+ data["bkCode"]
+																						+ "]")
+																				.prop(
+																						'selected',
+																						'selected');
 
 																	}
 																},

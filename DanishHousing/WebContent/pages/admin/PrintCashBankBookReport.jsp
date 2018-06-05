@@ -144,10 +144,6 @@ table {
 						<%@ include file="CashBookHeader.jsp"%>
 						<c:set var="counter" value="0"></c:set>
 						<table class="table" width="90%">
-
-							<tr>
-								<td colspan="10">&nbsp;</td>
-							</tr>
 							<tr>
 								<td colspan="2" width="25%" align="center" valign="top"
 									style="font-size: 10px;"><b><c:out
@@ -196,6 +192,7 @@ table {
 								<tr>
 									<c:choose>
 										<c:when test="${dRec.docType == 'D'}">
+
 											<td width="6%" align="left" valign="top"><c:out
 													value="${dRec.docNo}" /></td>
 											<c:choose>
@@ -281,6 +278,7 @@ table {
 										<c:when test="${dRec.docType == 'W'}">
 											<td width="6%" align="left" valign="top"><c:out
 													value="${dRec.docNo}" /></td>
+
 											<td width="23%" align="left"><b><c:out
 														value="${dRec.accName}" /></b><br> <c:out
 													value="${dRec.remarks} (Chq No/Tr No :${dRec.chqNo})" /></td>
@@ -352,18 +350,19 @@ table {
 							</table>
 							<c:set var="counter" value="${counter+1}"></c:set>
 
-							<c:if test="${counter>11}">
+							<c:if test="${counter>8}">
 								<table class="table">
 									<tr>
-										<td colspan="10"><p id="total"
-												style="background-color: black;">&nbsp;</p></td>
+										<td colspan="10"><p style="background-color: black;">&nbsp;</p></td>
 
 									</tr>
 								</table>
+								<%@ include file="CashBookTotalAmount.jsp"%>
 								<div style="page-break-after: always;"></div>
 								<c:set var="counter" value="0"></c:set>
 								<c:set var="pageno" value="${pageno+1}"></c:set>
 								<%@ include file="CashBookHeader.jsp"%>
+								<%@ include file="CashBookTotalAmount.jsp"%>
 							</c:if>
 						</c:forEach>
 						<table width="90%">
@@ -513,7 +512,6 @@ table {
 		});
 	</script>
 	<script>
-	
 		$(document).ready(function() {
 			// your code here
 			var pageNo = $('#lastPageNo').val();

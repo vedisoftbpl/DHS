@@ -309,24 +309,24 @@ public int create(TransactionRecords transaction) {
 		
 	
 	public static void main(String a[]) {
-		ChequePaymentDao dao = new ChequePaymentDao();
-		 Date d1 = null;
-		 Date d2 = new Date();
-		 Date d3 = new Date();
-		 d3 = DateUtils.convertDate("02/04/2016");
-	
-
-		 TransactionRecords t = new TransactionRecords(
-		 44901,1,d1,"D","E0010","01","hv",d1," ",7299,8400.00,"ESTABLISHMENT FEES UPTO 31/03/2016",1,26,8,1,d2);
-		 
-		 ChequePayment c = new ChequePayment(458, d2,"bCode","paymentMode","transactionNo",
-					d3,5431.00,d2);
-		 
-		 int id = dao.create(t, c);
-		 System.out.println(id);
-		 
-		 int flag = dao.createCheque(c);
-		 System.out.println(flag);
+//		ChequePaymentDao dao = new ChequePaymentDao();
+//		 Date d1 = null;
+//		 Date d2 = new Date();
+//		 Date d3 = new Date();
+//		 d3 = DateUtils.convertDate("02/04/2016");
+//	
+//
+//		 TransactionRecords t = new TransactionRecords(
+//		 44901,1,d1,"D","E0010","01","hv",d1," ",7299,8400.00,"ESTABLISHMENT FEES UPTO 31/03/2016",1,26,8,1,d2);
+//		 
+//		 ChequePayment c = new ChequePayment(458, d2,"bCode","paymentMode","transactionNo",
+//					d3,5431.00,d2);
+//		 
+//		 int id = dao.create(t, c);
+//		 System.out.println(id);
+//		 
+//		 int flag = dao.createCheque(c);
+//		 System.out.println(flag);
 		 
 	}	
 	

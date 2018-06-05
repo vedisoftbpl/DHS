@@ -84,11 +84,11 @@
 						<div align="center">
 							<h1>DANISH GRIH NIRMAN SAHAKARI SANSTHA</h1>
 							<h1>MYDT. BHOPAL</h1>
-							<h6>216- A, ZONE-I, M.P NAGAR, BHOPAL-462011</h6>
-							<h1>
-								<b>BALANCE</b>
-							</h1>
-							<h4><b>${requestScope.date}</b></h4>
+							<h6>BF1 BASEMENT FLOOR 216- A, ZONE-I, M.P NAGAR, BHOPAL-462011</h6>
+							<h2>
+								<b><u>BALANCE</u></b>
+							</h2>
+							<h4><b>Date &nbsp;:&nbsp;${requestScope.date}</b></h4>
 						</div>
 <br><br>
 					</td>
@@ -106,10 +106,10 @@
 								</thead>
 								<tr><td>&nbsp;</td></tr>
 								<c:forEach items="${requestScope.accList}" var="ac">
-									<tr align="left">
-										<td>${ac.key}</td>
-										<td><fmt:setLocale value="en_IN" /> <fmt:formatNumber
-												value="${ac.value}" type="currency" /></td>
+									<tr >
+										<td align="left">${ac.key}</td>
+										<td style="text-align: right;"><fmt:setLocale value="en_IN" /> <fmt:formatNumber
+												value="${ac.value}" type="currency"  currencySymbol=" "/></td>
 									</tr>
 								</c:forEach>
 

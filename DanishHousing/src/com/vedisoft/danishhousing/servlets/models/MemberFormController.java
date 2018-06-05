@@ -280,10 +280,10 @@ public class MemberFormController extends HttpServlet {
 			refDt = DateUtils.convertDate(request.getParameter("refDt"));
 
 		}
-		double referenceAmount = 0;
+		double refundAmount = 0;
 		if (request.getParameter("referenceAmount") != null
 				&& request.getParameter("referenceAmount").trim().length() > 0) {
-			referenceAmount = Double.parseDouble(request.getParameter("referenceAmount"));
+			refundAmount = Double.parseDouble(request.getParameter("referenceAmount"));
 		}
 		double waterConnectionCharge = 0;
 		if (request.getParameter("waterConnectionCharge") != null
@@ -495,7 +495,7 @@ public class MemberFormController extends HttpServlet {
 					memberAddress1, memberAddress2, memberCity, memberOccupation, relation, relativeFullName,
 					memberNomineeRelation, memberNomineeName, membershipFee, entranceFee, receiptDt, fullPay, inst1,
 					inst2, inst3, openingBalance, securityDeposit, waterConnectionCharge, registered, regDt,
-					registrationNo, rC, nocDt, liveDead, referenceAmount, refDt, diversion, wtCnDt, finalamt,
+					registrationNo, rC, nocDt, liveDead, refundAmount, refDt, diversion, wtCnDt, finalamt,
 					establishmentCharge, waterCharge, extraAmount, cost, memberPhone, memberEmail, dob, memberPhoto,
 					addressProof, memberAdhaar, buildingFlag, memberNominal, mutationNo, mutaDt, gender, category,
 					defaulter, memberMotherName, memberPAN, eligibleIneligible,maint,memAge, user.getUserId(), new Date());

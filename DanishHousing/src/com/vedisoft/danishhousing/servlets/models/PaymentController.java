@@ -133,7 +133,7 @@ public class PaymentController extends HttpServlet {
 					partyCode = Integer.parseInt(request.getParameter("partyCode" + j));
 				}
 				
-				AccountMaster acc = new AccountMasterDao().findByCode(accountCode);
+//				AccountMaster acc = new AccountMasterDao().findByCode(accountCode);
 
 				String accountName = new String();
 				if (request.getParameter("accountName" + j) != null

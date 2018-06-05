@@ -92,11 +92,11 @@ body, html {
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
-				<h1>Trial Balance</h1>
+				<h1>Financial Project Report</h1>
 				<ol class="breadcrumb">
 					<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
 					<li><a href="#">Reports</a></li>
-					<li class="active">Trial Balance</li>
+					<li class="active">Financial Project Report</li>
 				</ol>
 			</section>
 			<!-- Main content -->
@@ -123,26 +123,25 @@ body, html {
 					<!-- User Form -->
 					<div class="box-body">
 						<form
-							action="${pageContext.request.contextPath}/admin/pages/TrialBalanceController"
+							action="${pageContext.request.contextPath}/admin/pages/FinancialProjectReportController"
 							method="post" onsubmit="return validateForm(this)">
 
 							<div class="row">
 								<div class="col-md-4">
-									<!-- Opening Date -->
-									<div class="form-group" id="divOpeningDate">
-										<label>Opening Date :</label>
-										<div class="input-group date">
+
+									<div class="form-group" id="divFormProjectCode">
+										<label>Project Code :</label>
+										<div class="input-group">
 											<div class="input-group-addon">
-												<i class="fa fa-calendar"></i>
+												<i class="fa fa-navicon"></i>
 											</div>
-											<input type="text" class="form-control pull-right datepicker"
-												id="openingDate" name="openingDate" />
+											<input type="text" class="form-control "
+												placeholder="Project Code" id="projectCode"
+												name="projectCode" />
 										</div>
-										<p id="errorOpeningDate"></p>
-										<!-- /.input group -->
+										<p id="errorProjectCode"></p>
 									</div>
 
-									<!--End Opening Date -->
 								</div>
 								<div class="col-md-4">
 									<!-- Closing Date -->
@@ -158,7 +157,6 @@ body, html {
 										<p id="errorClosingDate"></p>
 										<!-- /.input group -->
 									</div>
-
 
 									<!--End Closing Date -->
 								</div>
@@ -178,7 +176,7 @@ body, html {
 						</form>
 					</div>
 
-					<div class="invoice-box" id="printTrialBalance"
+					<div class="invoice-box" id="printFinancialProjectReport"
 						style="display: none;">
 						<div class="row">
 
@@ -192,13 +190,20 @@ body, html {
 								<div class="row" align="center">
 
 									<div class="col-md-12">
-										<h5>TRIAL BALANCE ${requestScope.date1} TO
-											${requestScope.date2}</h5>
+										<h5>FINANCIAL POSITION OF MEMBERS AS ON
+											${requestScope.date1}</h5>
+										<h5>${requestScope.projectName}</h5>
 									</div>
 								</div>
 
 								<div class="row" align="left">
 
+									<c:set var="sumCost" value="0.0"></c:set>
+									<c:set var="sumExtWork" value="0.0"></c:set>
+									<c:set var="sumTotalCost" value="0.0"></c:set>
+									<c:set var="sumRecAmt" value="0.0"></c:set>
+									<c:set var="sumRefAmt" value="0.0"></c:set>
+									<c:set var="sumBalAmt" value="0.0"></c:set>
 
 									<div class="col-md-12">
 
@@ -208,95 +213,96 @@ body, html {
 											<thead
 												style="border-top: 2px solid black; border-bottom: 2px solid black;">
 												<tr>
-													<th style="text-align: center;">Ac-Code</th>
-													<th style="text-align: center;">Account Head</th>
-													<th style="text-align: center;">Receipts</th>
-													<th style="text-align: center;">Payments</th>
+													<th style="text-align: center;">S No.</th>
+													<th style="text-align: center;">Member No.</th>
+													<th style="text-align: center;">Member Name</th>
+													<th style="text-align: center;">B. No.</th>
+													<th style="text-align: center;">Size</th>
+													<th style="text-align: center;">Cost</th>
+													<th style="text-align: center;">Ext. Work</th>
+													<th style="text-align: center;">Total Cost</th>
+													<th style="text-align: center;">Received Amt</th>
+													<th style="text-align: center;">Refund Amt</th>
+													<th style="text-align: center;">Balance Amt</th>
+													<th style="text-align: center;">Remark</th>
 												</tr>
 											</thead>
 											<tbody>
-												<tr>
-													<td colspan="2"><b><c:out
-																value="OPENING BALANCE -" /></b></td>
-													<td colspan="2">&nbsp;</td>
-												</tr>
-												<c:forEach items="${requestScope.opBalList}" var="tran">
 
 
+												<c:forEach items="${requestScope.projectReportList}"
+													var="rep" varStatus="loop">
 													<tr>
-
-														<td><c:out value="${tran.acCode}" /></td>
-														<td><c:out value="${tran.acName}" /></td>
+														<td><c:out value="${loop.index+1}" /></td>
+														<td><c:out value="${rep.memberNo}" /></td>
+														<td><c:out value="${rep.memberName}" /></td>
+														<td><c:out value="${rep.plotNo}" /></td>
+														<td><c:out value="${rep.plotSize}" /></td>
 														<td align="right"><fmt:setLocale value="en_IN" /> <fmt:formatNumber
-																value="${tran.recAmount}" type="currency"
-																currencySymbol=" " /></td>
+																value="${rep.plotCost}" type="currency"
+																currencySymbol=" " />
+															<c:set var="sumCost" value="${sumCost+rep.plotCost}"></c:set></td>
 														<td align="right"><fmt:setLocale value="en_IN" /> <fmt:formatNumber
-																value="${ tran.payAmount}" type="currency"
-																currencySymbol=" " /></td>
-													</tr>
-												</c:forEach>
-												<tr>
-													<td colspan="4">&nbsp;</td>
-												</tr>
-												<c:forEach items="${requestScope.balList}" var="tran">
-													<tr>
-														<td><c:out value="${tran.acCode}" /></td>
-														<td><c:out value="${tran.acName}" /></td>
+																value="${rep.extraWork}" type="currency"
+																currencySymbol=" " />
+															<c:set var="sumExtWork"
+																value="${sumExtWork+rep.extraWork}"></c:set></td>
 														<td align="right"><fmt:setLocale value="en_IN" /> <fmt:formatNumber
-																value="${tran.recAmount}" type="currency"
-																currencySymbol=" " /></td>
+																value="${rep.totalCost}" type="currency"
+																currencySymbol=" " />
+															<c:set var="sumTotalCost"
+																value="${sumTotalCost+rep.totalCost}"></c:set></td>
 														<td align="right"><fmt:setLocale value="en_IN" /> <fmt:formatNumber
-																value="${ tran.payAmount}" type="currency"
-																currencySymbol=" " /></td>
-													</tr>
-												</c:forEach>
-												<tr>
-													<td colspan="5">&nbsp;</td>
-												</tr>
-												<tr>
-													<td colspan="2"><b><c:out
-																value="CLOSING BALANCE -" /></b></td>
-													<td colspan="2">&nbsp;</td>
-												</tr>
-												<c:forEach items="${requestScope.clsBalList}" var="tran">
-													<tr>
-
-														<td><c:out value="${tran.acCode}" /></td>
-														<td><c:out value="${tran.acName}" /></td>
-
-														
+																value="${rep.recAmount}" type="currency"
+																currencySymbol=" " />
+															<c:set var="sumRecAmt" value="${sumRecAmt+rep.recAmount}"></c:set></td>
 														<td align="right"><fmt:setLocale value="en_IN" /> <fmt:formatNumber
-																value="${tran.recAmount}" type="currency"
-																currencySymbol=" " /></td>
+																value="${rep.refAmount}" type="currency"
+																currencySymbol=" " />
+															<c:set var="sumRefAmt" value="${sumRefAmt+rep.refAmount}"></c:set></td>
 														<td align="right"><fmt:setLocale value="en_IN" /> <fmt:formatNumber
-																value="${ tran.payAmount}" type="currency"
-																currencySymbol=" " /></td>		
+																value="${rep.balAmount}" type="currency"
+																currencySymbol=" " />
+															<c:set var="sumBalAmt" value="${sumBalAmt+rep.balAmount}"></c:set></td>
+														<td>&nbsp;</td>
 													</tr>
 												</c:forEach>
 
+
+
 												<tr>
-													<td colspan="2"><h5>
-															<b>Grand Total</b>
+													<td colspan="5" align="center"><h5>
+															<b>Total</b>
 														</h5></td>
 													<td align="right"><h5>
 															<b><fmt:setLocale value="en_IN" /> <fmt:formatNumber
-																	value="${requestScope.totalReceiptAmt}" type="currency"
+																	value="${sumCost}" type="currency" currencySymbol=" " /></b>
+														</h5></td>
+													<td align="right"><h5>
+															<b><fmt:setLocale value="en_IN" /> <fmt:formatNumber
+																	value="${sumExtWork}" type="currency"
 																	currencySymbol=" " /></b>
 														</h5></td>
 													<td align="right"><h5>
 															<b><fmt:setLocale value="en_IN" /> <fmt:formatNumber
-																	value="${requestScope.totalPaymentAmt}" type="currency"
+																	value="${sumTotalCost}" type="currency"
 																	currencySymbol=" " /></b>
 														</h5></td>
-												</tr>
-												<tr>
-													<td colspan="2"><h5>
-															<b>Difference</b>
+													<td align="right"><h5>
+															<b><fmt:setLocale value="en_IN" /> <fmt:formatNumber
+																	value="${sumRecAmt}" type="currency" currencySymbol=" " /></b>
 														</h5></td>
-													<td align="right"><fmt:setLocale value="en_IN" /> <b><fmt:formatNumber
-																value="${requestScope.totalReceiptAmt-requestScope.totalPaymentAmt}"
-																type="currency" currencySymbol=" " /></b></td>
+													<td align="right"><h5>
+															<b><fmt:setLocale value="en_IN" /> <fmt:formatNumber
+																	value="${sumRefAmt}" type="currency" currencySymbol=" " /></b>
+														</h5></td>
+													<td align="right"><h5>
+															<b><fmt:setLocale value="en_IN" /> <fmt:formatNumber
+																	value="${sumBalAmt}" type="currency" currencySymbol=" " /></b>
+														</h5></td>
+													<td>&nbsp;</td>
 												</tr>
+
 											</tbody>
 											<!-- Table Body -->
 
@@ -311,11 +317,7 @@ body, html {
 									<div>
 										<button type=button class="btn btn-info " value="print"
 											id="printButton"
-											onclick="printFunction('printTrialBalance');">&emsp;Print&emsp;</button>
-									</div>
-									<div>
-										<button type=button class="btn btn-info " value="print"
-											id="excelButton">&emsp;Download Excel&emsp;</button>
+											onclick="printFunction('printFinancialProjectReport');">&emsp;Print&emsp;</button>
 									</div>
 								</div>
 							</div>
@@ -353,15 +355,36 @@ body, html {
 			$(".se-pre-con").fadeOut("slow");
 			;
 		});
-		$("[id$=excelButton]").click(
-				function(e) {
-					window
-							.open('data:application/vnd.ms-excel,'
-									+ encodeURIComponent($(
-											'div[id$=printTrialBalance]')
-											.html()));
-					e.preventDefault();
+
+		$('#projectCode').on('keyup', function(e) {
+			e.preventDefault();
+			var s = $(this).val();
+			console.log(s);
+			if (s.length >= 1) {
+				$.ajax({
+					url : "../../AutoCompleteProject",
+					type : "post",
+					data : {
+						'val' : s
+					},
+					success : function(data) {
+						$('#projectCode').autocomplete({
+							source : data,
+							select : function(event, ui) {
+								event.preventDefault();
+								var selectedArr = ui.item.value.split(":");
+								this.value = $.trim(selectedArr[1]);
+							}
+						});
+
+					},
+					error : function(data, status, er) {
+						console.log(data + "_" + status + "_" + er);
+					},
+
 				});
+			}
+		});
 	</script>
 	<script>
 		$(function() {
@@ -378,37 +401,27 @@ body, html {
 		<c:choose>
 		<c:when test="${requestScope.msg=='1'}">
 		$(document).ready(function() {
-			$("#divFormAccountCode").addClass("form-group has-success");
-			$("#errorAccountCode").html("");
 			$("#typeError").addClass("form-group has-success");
 			$("#errorTop").html("Records shown below.");
-			$("#printTrialBalance").show();
+			$("#printFinancialProjectReport").show();
 		});
 		</c:when>
 		<c:when test="${requestScope.msg=='2'}">
 		$(document).ready(function() {
 			$("#typeError").addClass("form-group has-error");
 			$("#errorTop").html("Could Not Fetch Records of given period.");
-			$("#printTrialBalance").hide();
+			$("#printFinancialProjectReport").hide();
 		});
 		</c:when>
 		</c:choose>
 		function validateForm(form) {
 			error = "Please enter this field";
 
-			//Account Code Validation
-			var accountCode = document.getElementById("accountCode").value;
-			if (accountCode == null || accountCode === "") {
-				document.getElementById("divFormAccountCode").className = 'alert alert-danger alert-dismissible';
-				document.getElementById("errorAccountCode").innerHTML = error;
-				return false;
-			}
-
-			//Opening Date Validation
-			var openingDate = document.getElementById("openingDate").value;
-			if (openingDate == null || openingDate === "") {
-				document.getElementById("errorOpeningDate").innerHTML = error;
-				document.getElementById("divOpeningDate").className = 'alert alert-danger alert-dismissible';
+			//Project Code Validation
+			var projectCode = document.getElementById("projectCode").value;
+			if (projectCode == null || projectCode === "") {
+				document.getElementById("divProjectCode").className = 'alert alert-danger alert-dismissible';
+				document.getElementById("errorProjectCode").innerHTML = error;
 				return false;
 			}
 

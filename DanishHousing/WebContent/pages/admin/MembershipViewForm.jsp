@@ -1007,7 +1007,7 @@
 														<!-- form group -->
 														<!--Reference Date-->
 														<div class="form-group" id="divReferenceDate">
-															<label>Reference Date</label>
+															<label>Refund Date</label>
 
 															<div class="input-group date">
 																<div class="input-group-addon">
@@ -1028,12 +1028,12 @@
 
 														<!-- Reference Amount -->
 														<div class="form-group" id="divReferenceAmount">
-															<label>Reference Amount</label>
+															<label>Refund Amount</label>
 															<div class="input-group">
 																<span class="input-group-addon"> <i
 																	class="fa  fa-inr"></i></span> <input type="text"
-																	class="form-control" id="referenceAmount"
-																	name="referenceAmount"
+																	class="form-control" id="refundAmount"
+																	name="refundAmount"
 																	value="${requestScope.member.refAmt}">
 															</div>
 															<p id="errorReferenceAmount"></p>
@@ -1098,15 +1098,15 @@
 														<!--End Water Connection Date -->
 														<!-- /.form group -->
 														<!-- Diversion -->
-														<div class="form-group" id="divDiversion">
-															<label>Diversion</label>
+														<div class="form-group" id="divExtraAmount">
+															<label>Extra Amount</label>
 															<div class="input-group">
 																<span class="input-group-addon"> <i
 																	class="fa  fa-inr"></i></span> <input type="text"
-																	class="form-control" id="diversion" name="diversion"
-																	value="${requestScope.member.diversion}">
+																	class="form-control" id="extraAmount" name="extraAmount"
+																	value="${requestScope.member.extraAmount}">
 															</div>
-															<p id="errorDiversion"></p>
+															<p id="errorExtraAmount"></p>
 														</div>
 														<!-- Diversion -->
 														<!-- /.form group -->
@@ -1815,6 +1815,20 @@
 				}
 				document.getElementById("errorDiversion").innerHTML = "";
 				document.getElementById("divDiversion").className = 'form-group has-success';
+			}
+			//End Diversion Validation
+			
+			// ExtraAmount Validation
+			var diversion = document.getElementById("extraAmount").value;
+			if (!(diversion == null || diversion === "")) {
+				var diversionValid = /^\d+(\.\d+)?$/;
+				if (!(diversion.match(diversionValid))) {
+					document.getElementById("errorExtraAmount").innerHTML = "Invalid amount";
+					document.getElementById("divExtraAmount").className = 'alert alert-warning alert-dismissible';
+					return false;
+				}
+				document.getElementById("errorExtraAmount").innerHTML = "";
+				document.getElementById("divExtraAmount").className = 'form-group has-success';
 			}
 			//End Diversion Validation
 

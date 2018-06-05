@@ -88,13 +88,7 @@ public class CashBankBookReportController extends HttpServlet {
 			date2 = DateUtils.convertDate(request.getParameter("closingDate"));
 		}
 
-//		String bkCode = "02";
-//		if (request.getParameter("BankName") != null && request.getParameter("BankName").trim().length() > 0)
-//
-//		{
-//			bkCode = request.getParameter("BankName");
-//		}
-//
+
 //		//Account a = new AccountDao().findByBankCode(bkCode);
 
 		HashMap<String, String> accounts = new AccountDao().findAllBankNameInitialInMap();
@@ -102,10 +96,7 @@ public class CashBankBookReportController extends HttpServlet {
 
 		if (op.equals("create")) {
 
-			//System.out.println(DateUtils.getPreviousDate(date1));
-			//double opBal = TransactionRecordsDao.bankOpeningBalance(DateUtils.getPreviousDate(date1),
-
-			//		bkCode);
+			
 			request.setAttribute("pageNo", pageNo);
 			double totalCredit = 0;
 			double totalDebit = 0;
@@ -153,11 +144,6 @@ public class CashBankBookReportController extends HttpServlet {
 					dailyTranList.add(dailyRecord);
 				}
 			}
-//			response.setContentType("application/pdf;charset=UTF-8");
-//			response.addHeader("Content-Disposition", "inline; filename=" + "cashbookreport.pdf");
-//			ServletOutputStream out = response.getOutputStream();
-//			ByteArrayOutputStream baos = GeneratePdf.getCashBookPdfFile(dailyTranList);
-//			baos.writeTo(out);
 
 
 			RequestDispatcher rd;

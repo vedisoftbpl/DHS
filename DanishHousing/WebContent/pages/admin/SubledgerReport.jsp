@@ -241,12 +241,12 @@ body, html {
 											<thead
 												style="border-top: 2px solid black; border-bottom: 2px solid black;">
 												<tr>
-													<th>Date</th>
+													<th style="text-align: center;">Date</th>
 													<th style="text-align: center;">Particulars</th>
-													<th>Receipt No./<br>Vr. No.</th>
-													<th>Debit</th>
-													<th>Credit</th>
-													<th>Balance</th>
+													<th style="text-align: center;">Receipt No./<br>Vr. No.</th>
+													<th style="text-align: center;">Debit</th>
+													<th style="text-align: center;">Credit</th>
+													<th style="text-align: center;">Balance</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -257,37 +257,37 @@ body, html {
 															<td><fmt:formatDate type="date" pattern="dd/MM/yyyy"
 																	value="${tran.date}" /></td>
 															<td><c:out value="${tran.particular}" /></td>
-															<td><c:out value="${tran.recNo}" /></td>
-															<td><c:choose>
+															<td align="center"><c:out value="${tran.recNo}" /></td>
+															<td align="right"><c:choose>
 																	<c:when test="${tran.debit==0}">
 																		<c:out value=" " />
 																	</c:when>
 																	<c:when test="${tran.debit!=0}">
-																		<c:out value="${tran.debit}" />
+																		<fmt:setLocale value="en_IN"/><fmt:formatNumber value="${tran.debit}" type="currency" currencySymbol=" "/>
 																	</c:when>
 																</c:choose></td>
-															<td><c:choose>
+															<td align="right"><c:choose>
 																	<c:when test="${tran.credit==0}">
 																		<c:out value=" " />
 																	</c:when>
 																	<c:when test="${tran.credit!=0}">
-																		<c:out value="${tran.credit}" />
+																		<fmt:setLocale value="en_IN"/><fmt:formatNumber value="${tran.credit}" type="currency" currencySymbol=" "/>
 																	</c:when>
 																</c:choose></td>
-															<td><c:out value="" /></td>
+															<td><c:out value="" /></td> 
 														</tr>
 													</c:forEach>
 													<tr>
 													<td colspan=3><h5>
 																<b>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Total &emsp;:&nbsp;</b>
 															</h5></td>
-														<td><h5>
+														<td align="right"><h5>
 																<b><fmt:setLocale value="en_IN"/><fmt:formatNumber value="${requestScope.totalDebitAmount}" type="currency" currencySymbol=" "/></b>
 															</h5></td>
-														<td><h5>
+														<td align="right"><h5>
 																<b><fmt:setLocale value="en_IN"/><fmt:formatNumber value="${requestScope.totalCreditAmount}" type="currency" currencySymbol=" "/></b>
 															</h5></td>
-														<td>
+														<td align="right">
 															<h5>
 															<c:if test="${requestScope.balanceAmount > 0}">
 																	<c:set var="mode" value="CR" />

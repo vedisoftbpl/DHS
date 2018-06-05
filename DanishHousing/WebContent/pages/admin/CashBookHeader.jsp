@@ -8,6 +8,11 @@
 										
 									</div></td>
 							</tr>
+							<tr><td colspan="10"><div align="center" style="font-size: 9pt;">
+										
+											<b>CASH/BANK - BOOK</b>
+										
+									</div></td></tr>
 							<tr>
 								<td colspan="5" align="left" style="font-size: 10pt;">
 										<b>DATE :- &nbsp;<fmt:formatDate type="date"

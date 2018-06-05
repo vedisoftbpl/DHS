@@ -121,7 +121,7 @@ public class TransactionRecords {
 		this.wcLrDt = null;
 		this.chClDt = null;
 		this.cFlag = " ";
-		this.partyCd = 0;
+		this.partyCd = partyCd;
 		this.userId = userId;
 		this.lastUpdate = lastUpdate;
 	}

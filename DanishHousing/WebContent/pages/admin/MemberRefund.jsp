@@ -20,7 +20,7 @@
 				<h1>Member Refund</h1>
 				<ol class="breadcrumb">
 					<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-					<li><a href="#">Examples</a></li>
+					<li><a href="#">Payments</a></li>
 					<li class="active">Member Refund</li>
 				</ol>
 			</section>
@@ -626,13 +626,13 @@
 							$("#typeError").addClass("form-group has-success");
 							$("#errorTop")
 									.html(
-											"Payment Record Added Successfully of Voucher No. : ${param.docNo}");
+											"Refund Record Added Successfully of Voucher No. : ${param.docNo}");
 						});
 		</c:when>
 		<c:when test="${param.msg=='2'}">
 		$(document).ready(function() {
 			$("#typeError").addClass("form-group has-error");
-			$("#errorTop").html("Fail to Add Payment Record.");
+			$("#errorTop").html("Fail to Add Refund Record.");
 		});
 		</c:when>
 		</c:choose>
@@ -1083,7 +1083,7 @@
 																				.text(
 																						'Bank Code doesn\'t exist');
 																	} else {
-																		if (data["bkCode"] == '001') {
+																		if (data["bkCode"] == '01') {
 																			$(
 																					"#paymentMode")
 																					.val(

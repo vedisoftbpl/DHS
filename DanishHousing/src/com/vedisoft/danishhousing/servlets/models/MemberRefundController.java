@@ -57,7 +57,7 @@ public class MemberRefundController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		int id = 0,msg = 2;
+		int id = 0, msg = 2;
 		StringBuilder qu = new StringBuilder("?");
 
 		int memberNo = 0;
@@ -161,33 +161,61 @@ public class MemberRefundController extends HttpServlet {
 					remarks = request.getParameter("remarks" + j);
 				}
 
-				
 				Users u = (Users) se.getAttribute("userLogin");
 				Date d1 = null;
 
 				if (accountCode != null && accountCode.trim().length() > 0) {
 					System.out.println("Payment For Master Account : " + accountCode + " : " + d);
+					if (accountCode.equals("S0001") || (accountCode.equals("S0010"))) {
+						if (paymentMode.equals("Cash")) {
+							TransactionRecords t = new TransactionRecords(voucherNo, d, voucherDate, "W", accountCode,
+									bankCode, transctionID, trDate, " ", memberNo, Amount, remarks, flag, voucherNo,
+									mem.getProjectCd(), u.getUserId(), new Date());
+							RefundPayment ref = new RefundPayment("R", memberNo, Amount, transctionID, voucherDate, remarks,
+									acc.getFlag(), voucherNo, d, paymentMode,accountCode);
+							k = new RefundPaymentDao().create(t, ref,memberNo);
+							if (k <= 0) {
+								break;
+							} else
+								d++;
+						} else {
+							TransactionRecords t = new TransactionRecords(voucherNo, d, voucherDate, "W", accountCode,
+									bankCode, transctionID, trDate, " ", memberNo, Amount, remarks, flag, voucherNo,
+									mem.getProjectCd(), u.getUserId(), new Date());
+							RefundPayment ref = new RefundPayment("R", memberNo, Amount, transctionID, voucherDate, remarks,
+									acc.getFlag(), voucherNo, d, paymentMode,accountCode);
+							ChequePayment ch = new ChequePayment(voucherNo, voucherDate, bankCode, paymentMode,
+									transctionID, trDate, Amount, d1);
+							k = new RefundPaymentDao().create(t, ref, ch,memberNo);
+							if (k <= 0) {
+								break;
+							} else
+								d++;
 
+						}
+					} else {
 					if (paymentMode.equals("Cash")) {
 						TransactionRecords t = new TransactionRecords(voucherNo, d, voucherDate, "W", accountCode,
 								bankCode, transctionID, trDate, " ", memberNo, Amount, remarks, flag, voucherNo,
 								mem.getProjectCd(), u.getUserId(), new Date());
 						RefundPayment ref = new RefundPayment("R", memberNo, Amount, transctionID, trDate, remarks,
-								acc.getFlag(), voucherNo, d, paymentMode);
+								acc.getFlag(), voucherNo, d, paymentMode,accountCode);
 						k = new RefundPaymentDao().create(t, ref);
 						if (k <= 0) {
 							break;
 						} else
 							d++;
 					} else {
+						System.out.println("Cheque");
 						TransactionRecords t = new TransactionRecords(voucherNo, d, voucherDate, "W", accountCode,
 								bankCode, transctionID, trDate, " ", memberNo, Amount, remarks, flag, voucherNo,
 								mem.getProjectCd(), u.getUserId(), new Date());
 						RefundPayment ref = new RefundPayment("R", memberNo, Amount, transctionID, trDate, remarks,
-								acc.getFlag(), voucherNo, d, paymentMode);
+								acc.getFlag(), voucherNo, d, paymentMode,accountCode);
 						ChequePayment ch = new ChequePayment(voucherNo, voucherDate, bankCode, paymentMode,
 								transctionID, trDate, Amount, d1);
 						k = new RefundPaymentDao().create(t, ref, ch);
+						System.out.println("K : "+k);
 						if (k <= 0) {
 							break;
 						} else
@@ -196,22 +224,22 @@ public class MemberRefundController extends HttpServlet {
 					}
 
 				}
-
+				}
 			}
-			if (k > 0){
+			if (k > 0) {
 				msg = 1;
-				qu.append("docNo="+voucherNo+"&");
+				qu.append("docNo=" + voucherNo + "&");
 			}
-			qu.append("voucherNo="+UtilityDao.maxVoucherNo(new Date())+"&");
-			
-			qu.append("today="+DateUtils.dateFormat(new java.util.Date())+"&");
-			qu.append("msg="+msg);
-			response.sendRedirect("/DanishHousing"+page+qu);	
+			qu.append("voucherNo=" + UtilityDao.maxVoucherNo(new Date()) + "&");
+
+			qu.append("today=" + DateUtils.dateFormat(new java.util.Date()) + "&");
+			qu.append("msg=" + msg);
+			response.sendRedirect("/DanishHousing" + page + qu);
 		} else {
-			qu.append("voucherNo="+UtilityDao.maxVoucherNo(new Date())+"&");
-			
-			qu.append("today="+DateUtils.dateFormat(new java.util.Date()));
-			response.sendRedirect("/DanishHousing"+page+qu);
+			qu.append("voucherNo=" + UtilityDao.maxVoucherNo(new Date()) + "&");
+
+			qu.append("today=" + DateUtils.dateFormat(new java.util.Date()));
+			response.sendRedirect("/DanishHousing" + page + qu);
 		}
 
 	}

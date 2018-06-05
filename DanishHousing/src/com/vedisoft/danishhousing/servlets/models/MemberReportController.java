@@ -110,6 +110,8 @@ public class MemberReportController extends HttpServlet {
 			for (ReceiptBankDto r : receiptList) {
 				System.out.println(r);
 				receiptTotalAmount = receiptTotalAmount + r.getReceipt().getAmount();
+				if(r.getReceipt().getBalChq()!=0.0)
+					receiptTotalAmount = receiptTotalAmount + r.getReceipt().getBalChq();
 			}
 
 			for (TransactionRecords t : transferList)

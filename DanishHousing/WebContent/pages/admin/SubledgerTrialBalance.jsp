@@ -178,7 +178,7 @@ body, html {
 						</form>
 					</div>
 
-					<div class="invoice-box" id="printTransactionReport"
+					<div class="invoice-box" id="printSubledgerTrialBalance"
 						style="display: none;">
 						<div class="row">
 
@@ -201,19 +201,18 @@ body, html {
 
 
 									<div class="col-md-12">
-										<h4>
-											<u>Transactions Details</u>
-										</h4>
+
 										<table class="table" align="center">
 
 											<!-- Table Header -->
 											<thead
 												style="border-top: 2px solid black; border-bottom: 2px solid black;">
 												<tr>
-													<th>Party Code</th>
-													<th>Party Name</th>
-													<th>Payment Amount</th>
-													<th>Receipt Amount</th>
+													<th style="text-align: center;">Party Code</th>
+													<th style="text-align: center;">Party Name</th>
+													<th style="text-align: center;">Receipts</th>
+													<th style="text-align: center;">Payments</th>
+													<th style="text-align: center;">Balance</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -221,30 +220,42 @@ body, html {
 													<tr>
 														<td><c:out value="${tran.acCode}" /></td>
 														<td><c:out value="${tran.acName}" /></td>
-														<td><fmt:setLocale value="en_IN" />
-															<fmt:formatNumber value="${ tran.payAmount}"
-																type="currency" currencySymbol=" "/></td>
-														<td><fmt:setLocale value="en_IN" />
-															<fmt:formatNumber value="${tran.recAmount}"
-																type="currency" currencySymbol=" "/></td>
+
+														<td align="right"><fmt:setLocale value="en_IN" /> <fmt:formatNumber
+																value="${tran.recAmount}" type="currency"
+																currencySymbol=" " /></td>
+
+														<td align="right"><fmt:setLocale value="en_IN" /> <fmt:formatNumber
+																value="${ tran.payAmount}" type="currency"
+																currencySymbol=" " /></td>
+														<c:set var="balAmount"
+															value="${tran.recAmount-tran.payAmount}"></c:set>
+														<td align="right"><fmt:setLocale value="en_IN" /> <fmt:formatNumber
+																value="${balAmount}" type="currency" currencySymbol=" " /></td>
 													</tr>
 												</c:forEach>
-									
+
 												<tr>
-													<td colspan="2"><h5><b>Grand Total</b></h5></td>
-													<td><h5><b><fmt:setLocale value="en_IN" />
-														<fmt:formatNumber value="${requestScope.totalReceiptAmt}"
-															type="currency" currencySymbol=" "/></b></h5></td>
-													<td><h5><b><fmt:setLocale value="en_IN" />
-														<fmt:formatNumber value="${requestScope.totalPaymentAmt}"
-															type="currency" currencySymbol=" "/></b></h5></td>
+													<td colspan="2"><h5>
+															<b>Grand Total</b>
+														</h5></td>
+													<td align="right"><h5>
+															<b><fmt:setLocale value="en_IN" /> <fmt:formatNumber
+																	value="${requestScope.totalReceiptAmt}" type="currency"
+																	currencySymbol=" " /></b>
+														</h5></td>
+													<td align="right"><h5>
+															<b><fmt:setLocale value="en_IN" /> <fmt:formatNumber
+																	value="${requestScope.totalPaymentAmt}" type="currency"
+																	currencySymbol=" " /></b>
+														</h5></td>
+													<c:set var="totalBalAmount"
+														value="${requestScope.totalReceiptAmt-requestScope.totalPaymentAmt}"></c:set>
+													<td align="right"><fmt:setLocale value="en_IN" /> <fmt:formatNumber
+															value="${totalBalAmount}" type="currency"
+															currencySymbol=" " /></td>
 												</tr>
-												<tr>
-													<td colspan="2"><h5><b>Difference</b></h5></td>
-													<td><fmt:setLocale value="en_IN" />
-														<fmt:formatNumber value="${requestScope.totalReceiptAmt-requestScope.totalPaymentAmt}"
-															type="currency" currencySymbol=" "/></td>
-												</tr>
+
 											</tbody>
 											<!-- Table Body -->
 
@@ -259,7 +270,11 @@ body, html {
 									<div>
 										<button type=button class="btn btn-info " value="print"
 											id="printButton"
-											onclick="printFunction('printTransactionReport');">&emsp;Print&emsp;</button>
+											onclick="printFunction('printSubledgerTrialBalance');">&emsp;Print&emsp;</button>
+									</div>
+									<div>
+										<button type=button class="btn btn-info " value="print"
+											id="excelButton">&emsp;Download Excel&emsp;</button>
 									</div>
 								</div>
 							</div>
@@ -297,6 +312,14 @@ body, html {
 			$(".se-pre-con").fadeOut("slow");
 			;
 		});
+		$("[id$=excelButton]").click(
+				function(e) {
+					window.open('data:application/vnd.ms-excel,'
+							+ encodeURIComponent($(
+									'div[id$=printSubledgerTrialBalance]')
+									.html()));
+					e.preventDefault();
+				});
 	</script>
 	<script>
 		$(function() {
@@ -313,18 +336,16 @@ body, html {
 		<c:choose>
 		<c:when test="${requestScope.msg=='1'}">
 		$(document).ready(function() {
-			$("#divFormAccountCode").addClass("form-group has-success");
-			$("#errorAccountCode").html("");
 			$("#typeError").addClass("form-group has-success");
 			$("#errorTop").html("Records shown below.");
-			$("#printTransactionReport").show();
+			$("#printSubledgerTrialBalance").show();
 		});
 		</c:when>
 		<c:when test="${requestScope.msg=='2'}">
 		$(document).ready(function() {
 			$("#typeError").addClass("form-group has-error");
 			$("#errorTop").html("Could Not Fetch Records of given period.");
-			$("#printTransactionReport").hide();
+			$("#printSubledgerTrialBalance").hide();
 		});
 		</c:when>
 		</c:choose>
@@ -361,6 +382,4 @@ body, html {
 
 			document.body.innerHTML = originalContents;
 		}
-
-		
 	</script>

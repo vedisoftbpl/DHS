@@ -559,89 +559,64 @@
 		});
 	</script>
 	<script>
-		$('#accounts')
-				.on(
-						'keyup',
-						'.accCode',
-						function(e) {
-							e.preventDefault();
-							var s = $(this).val();
-							if (s.length >= 1) {
-								$
-										.ajax({
-											url : "../../AutoCompleteVoucher",
-											type : "post",
-											data : {
-												'val' : s
-											},
-											success : function(data) {
-												$('.accCode')
-														.autocomplete(
-																{
-																	source : data,
-																	select : function(
-																			event,
-																			ui) {
-																		event
-																				.preventDefault();
-																		var selectedArr = ui.item.value
-																				.split(":");
-																		this.value = $
-																				.trim(selectedArr[1]);
-																	}
-																});
-
-											},
-											error : function(data, status, er) {
-												console.log(data + "_" + status
-														+ "_" + er);
-											},
-
-										});
+		$('#accounts').on('keyup', '.accCode', function(e) {
+			e.preventDefault();
+			var s = $(this).val();
+			if (s.length >= 1) {
+				$.ajax({
+					url : "../../AutoCompleteVoucher",
+					type : "post",
+					data : {
+						'val' : s
+					},
+					success : function(data) {
+						$('.accCode').autocomplete({
+							source : data,
+							select : function(event, ui) {
+								event.preventDefault();
+								var selectedArr = ui.item.value.split(":");
+								this.value = $.trim(selectedArr[1]);
 							}
 						});
+
+					},
+					error : function(data, status, er) {
+						console.log(data + "_" + status + "_" + er);
+					},
+
+				});
+			}
+		});
 	</script>
 	<script>
-		$('#bankCode')
-				.bind(
-						'keyup',
-						function(e) {
-							e.preventDefault();
-							var s = $('#bankCode').val();
-							if (s.length >= 1) {
-								$
-										.ajax({
-											url : "../../AutoCompleteBank",
-											type : "post",
-											data : {
-												'val' : s
-											},
-											success : function(data) {
-												$('#bankCode')
-														.autocomplete(
-																{
-																	source : data,
-																	select : function(
-																			event,
-																			ui) {
-																		event
-																				.preventDefault();
-																		var selectedArr = ui.item.value
-																				.split(":");
-																		this.value = $
-																				.trim(selectedArr[1]);
-																	}
-																});
-
-											},
-											error : function(data, status, er) {
-												console.log(data + "_" + status
-														+ "_" + er);
-											},
-
-										});
+		$('#bankCode').bind('keyup', function(e) {
+			e.preventDefault();
+			var s = $('#bankCode').val();
+			if (s.length >= 1) {
+				$.ajax({
+					url : "../../AutoCompleteBank",
+					type : "post",
+					data : {
+						'val' : s
+					},
+					success : function(data) {
+						$('#bankCode').autocomplete({
+							source : data,
+							select : function(event, ui) {
+								event.preventDefault();
+								var selectedArr = ui.item.value.split(":");
+								this.value = $.trim(selectedArr[1]);
 							}
 						});
+
+					},
+					error : function(data, status, er) {
+						console.log(data + "_" + status + "_" + er);
+					},
+
+				});
+			}
+		});
 	</script>
 	<script>
 		function remove(a, b) {
@@ -739,8 +714,6 @@
 
 			//End Receipt Number validation
 
-			
-			
 			//Bank Code Validation
 			var bankCode = document.getElementById("bankCode").value;
 			if (bankCode == null || bankCode === "") {
@@ -806,26 +779,29 @@
 
 			//Transaction ID Validation
 			var tr = document.getElementById("transactionID").value;
-			if (tr == null || tr === "") {
+			var trmode = document.getElementById("paymentMode").value;
+			if (trmode != "Cash") {
+				if (tr == null || tr === "") {
 
-				document.getElementById("errorTransctionID").innerHTML = 'Invalid Transaction ID';
-				document.getElementById("divFormTransctionID").className = 'alert alert-danger alert-dismissible';
-				document.getElementById("divFormTransctionID")
-						.scrollIntoView();
-				return false;
-			}
-			if (!(tr == null || tr === "")) {
-
-				var trValid = /^[a-zA-Z0-9- ]+$/;
-				if (!tr.match(trValid)) {
 					document.getElementById("errorTransctionID").innerHTML = 'Invalid Transaction ID';
-					document.getElementById("divFormTransctionID").className = 'alert alert-warning alert-dismissible';
+					document.getElementById("divFormTransctionID").className = 'alert alert-danger alert-dismissible';
 					document.getElementById("divFormTransctionID")
 							.scrollIntoView();
 					return false;
 				}
-				document.getElementById("errorTransctionID").innerHTML = "";
-				document.getElementById("divFormTransctionID").className = 'form-group has-success';
+				if (!(tr == null || tr === "")) {
+
+					var trValid = /^[a-zA-Z0-9- ]+$/;
+					if (!tr.match(trValid)) {
+						document.getElementById("errorTransctionID").innerHTML = 'Invalid Transaction ID';
+						document.getElementById("divFormTransctionID").className = 'alert alert-warning alert-dismissible';
+						document.getElementById("divFormTransctionID")
+								.scrollIntoView();
+						return false;
+					}
+					document.getElementById("errorTransctionID").innerHTML = "";
+					document.getElementById("divFormTransctionID").className = 'form-group has-success';
+				}
 			}
 			//End Transaction ID Validation
 
@@ -1237,7 +1213,7 @@
 																				.text(
 																						'Bank Code doesn\'t exist');
 																	} else {
-																		if (data["bkCode"] == '001') {
+																		if (data["bkCode"] == '01') {
 																			$(
 																					"#paymentMode")
 																					.val(

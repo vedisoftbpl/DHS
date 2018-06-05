@@ -54,12 +54,17 @@ body, html {
 .invoice-box {
 	max-width: 1000px;
 	margin: auto;
-	padding: 30px;
+	padding: 5px 30px 30px;
 	border: 1px solid #eee;
 	font-size: 16px;
 	line-height: 16px;
 	font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
 	color: #555;
+}
+
+table {
+	border-spacing: 0;
+	border-collapse: collapse;
 }
 
 .table>thead>tr>th {
@@ -162,61 +167,94 @@ body, html {
 						<div class="invoice-box" id="printMemberReport"
 							style="display: none;">
 							<div class="row">
+								<div class="col-md-12" align="center">
+									<h5>Danish Housing Co-op. Society Ltd.</h5>
+								</div>
 
 								<div class="col-md-12">
 									<div class="col-md-12" align="center">
 										<h3>
-											<b><u>MEMBER REPORT</u></b>
+											<b><u>${requestScope.member.prefix}&nbsp;${requestScope.member.memName}&emsp;${requestScope.member.fHRelation}&nbsp;${requestScope.member.fHRelName}</u></b><br>
 										</h3>
+										<h4>${requestScope.member.address1}&nbsp;${requestScope.member.address2}&nbsp;${requestScope.member.address3}&emsp; <c:out value="${requestScope.member.rC}" /></h4>
 									</div>
 									<div class="row" align="left">
 
 										<div class="col-md-12">
-
-											<h5>
-												<label><b>Member No :</b>&emsp;${requestScope.member.memberNo}</label>&emsp;&emsp;${requestScope.member.prefix}
-												${requestScope.member.memName}&emsp;${requestScope.member.fHRelation}
-												${requestScope.member.fHRelName}&emsp;<b>Water
-													Connection Date :</b>&nbsp;
-												<fmt:formatDate type="date" pattern="dd/MM/yyyy"
-													value="${requestScope.member.waterConnDate}" />
-												&emsp;<b>Water Supply Date :</b>&nbsp;
-												<fmt:formatDate type="date" pattern="dd/MM/yyyy"
-													value="${requestScope.member.watSupplyDt}" />
-												<br> <label><b>Plot No :</b>&nbsp;</label><span>${requestScope.member.plotNo}</span>&emsp;&emsp;<b>Size
-													:</b>&nbsp;<span>${requestScope.member.plotSize}</span>&emsp;&emsp;<b>Project
-													Name :</b>&nbsp;<span>${requestScope.projectName}&emsp;</span>&emsp;<b>Registration
-													Date :</b>&nbsp;
-												<fmt:formatDate type="date" pattern="dd/MM/yyyy"
-													value="${requestScope.member.regDt}" />
-												&emsp;&emsp;<b>NOC Date :</b>&nbsp;
-												<fmt:formatDate type="date" pattern="dd/MM/yyyy"
-													value="${requestScope.member.nocDt}" />
-												<br> <b>Address :</b>&nbsp;${requestScope.member.address1}&nbsp;${requestScope.member.address2}&nbsp;${requestScope.member.address3}&emsp;&emsp;
-											</h5>
+											<table style="font-size: 15px;">
+												<tr>
+													<td align="left"><b>Member No :</b></td>
+													<td align="left">&emsp;${requestScope.member.memberNo}&emsp;</td>
+													<td align="left"><b>Water Connection Date :</b></td>
+													<td align="left">&emsp;<fmt:formatDate type="date"
+															pattern="dd/MM/yyyy"
+															value="${requestScope.member.waterConnDate}" />&emsp;
+													</td>
+													<td align="left"><b>Water Disconnection Date :</b></td>
+													<td align="left">&emsp;<fmt:formatDate type="date"
+															pattern="dd/MM/yyyy"
+															value="${requestScope.member.watSupplyDt}" /></td>
+												</tr>
+												<tr>
+													<td align="left"><b>Plot No :</b></td>
+													<td align="left">&emsp;${requestScope.member.plotNo}&emsp;</td>
+													<td align="left"><b>Plot Size :</b></td>
+													<td align="left">&emsp;${requestScope.member.plotSize}&emsp;</td>
+													<td align="left"><b>Project Name :</b></td>
+													<td align="left">&emsp;${requestScope.projectName}</td>
+												</tr>
+												<tr>
+													<td align="left"><b>DOR :</b></td>
+													<td align="left">&emsp;<fmt:formatDate type="date"
+															pattern="dd/MM/yyyy" value="${requestScope.member.regDt}" />&emsp;
+													</td>
+													<td align="left"><b>NOC Date :</b></td>
+													<td align="left">&emsp;<fmt:formatDate type="date"
+															pattern="dd/MM/yyyy" value="${requestScope.member.nocDt}" /></td>
+													<td align="left"><b>Mutation No. :</b></td>
+													<td align="left">&emsp;${requestScope.member.mutaNo1}</td>
+												</tr>
+												<tr>
+													<td align="left"><b>Mutation Date :</b></td>
+													<td align="left">&emsp;<fmt:formatDate type="date"
+															pattern="dd/MM/yyyy"
+															value="${requestScope.member.mutaDt1}" />&emsp;
+													</td>
+													<td align="left">&emsp;</td>
+										
+												</tr>
+											</table>
 										</div>
 									</div>
 									<div class="row" align="left">
-
+										<c:set var="sumTotalChq" value="0.0"></c:set>
+										<c:set var="sumTotalTrn" value="0.0"></c:set>
+										<c:set var="sumTotalCash" value="0.0"></c:set>
+										<c:set var="totalTransfer" value="0.0"></c:set>
 
 										<div class="col-md-12">
 											<h4>
 												<u>Receipt Details</u>
 											</h4>
-											<table class="table" align="center">
+											<table class="table">
 
 												<!-- Table Header -->
 												<thead
-													style="border-top: 3px solid black; border-bottom: 3px solid black;">
+													style="border-top: 3px solid black; border-bottom: 3px solid black; text-align: center;">
 													<tr>
-														<th>Date</th>
-														<th>Recept No.</th>
-														<th>Cheque/DD</th>
-														<th>Transfer</th>
-														<th>Cash</th>
-														<th>Transaction No</th>
-														<th>Bank Name</th>
-														<th>Remark</th>
+														<th colspan="2"></th>
+														<th colspan="3" style="text-align: center;">Amount</th>
+														<th colspan="3"></th>
+													</tr>
+													<tr>
+														<th style="text-align: center;">Date</th>
+														<th style="text-align: center;">Recept No.</th>
+														<th style="text-align: center;">CHQ/DD</th>
+														<th style="text-align: center;">Transfer</th>
+														<th style="text-align: center;">Cash</th>
+														<th style="text-align: center;">CHQ/DD No.</th>
+														<th style="text-align: center;">Bank</th>
+														<th style="text-align: center;">Remark</th>
 
 													</tr>
 												</thead>
@@ -227,24 +265,37 @@ body, html {
 																	value="${rec.receipt.recDte}" /></td>
 															<td><c:out value="${rec.receipt.receiptNo}" /></td>
 
-															<td><c:out value="${rec.receipt.balChq}" /></td>
-															<c:choose>
-																<c:when test="${rec.bankCode=='01'}">
-																	<td><c:out value="${rec.receipt.amount}" /></td>
-																</c:when>
-																<c:otherwise>
-																	<td><c:out value="0.0" /></td>
-																</c:otherwise>
-															</c:choose>
+
+
 															<c:choose>
 																<c:when test="${rec.bankCode!='01'}">
-																	<td><c:out value="${rec.receipt.amount}" /></td>
+																	<td align="right"><fmt:setLocale value="en_IN" />
+																		<fmt:formatNumber value="${rec.receipt.amount}"
+																			type="currency" currencySymbol=" " /></td>
+																	<c:set var="sumTotalChq"
+																		value="${sumTotalChq+rec.receipt.amount}"></c:set>
 																</c:when>
 																<c:otherwise>
-																	<td><c:out value="0.0" /></td>
+																	<td align="right"><c:out value="0.0" /></td>
 																</c:otherwise>
 															</c:choose>
-															<td><c:out value="${rec.receipt.cDd}" /></td>
+															<td align="right"><fmt:setLocale value="en_IN" /> <fmt:formatNumber
+																	value="${rec.receipt.balChq}" type="currency"
+																	currencySymbol=" " /> <c:set var="sumTotalTrn"
+																	value="${sumTotalTrn+rec.receipt.balChq}"></c:set></td>
+															<c:choose>
+																<c:when test="${rec.bankCode=='01'}">
+																	<td align="right"><fmt:setLocale value="en_IN" />
+																		<fmt:formatNumber value="${rec.receipt.amount}"
+																			type="currency" currencySymbol=" " /></td>
+																	<c:set var="sumTotalCash"
+																		value="${sumTotalCash+rec.receipt.amount}"></c:set>
+																</c:when>
+																<c:otherwise>
+																	<td align="right"><c:out value="0.0" /></td>
+																</c:otherwise>
+															</c:choose>
+															<td align="center"><c:out value="${rec.receipt.cDd}" /></td>
 															<td><c:out value="${rec.receipt.branch}" /></td>
 															<td><c:out value="${rec.receipt.remarks}" /></td>
 
@@ -253,7 +304,24 @@ body, html {
 													</c:forEach>
 												</tbody>
 												<!-- Table Body -->
-
+												<tfoot style="font-size: 11pt; font-weight: bold;">
+													<tr>
+														<td colspan="2">Total Receipt</td>
+														<td align="right"><span><fmt:setLocale
+																	value="en_IN" /> <fmt:formatNumber
+																	value="${sumTotalChq}" type="currency"
+																	currencySymbol=" " /></span></td>
+														<td align="right"><span><fmt:setLocale
+																	value="en_IN" /> <fmt:formatNumber
+																	value="${sumTotalTrn}" type="currency"
+																	currencySymbol=" " /></span></td>
+														<td align="right"><span><fmt:setLocale
+																	value="en_IN" /> <fmt:formatNumber
+																	value="${sumTotalCash}" type="currency"
+																	currencySymbol=" " /></span></td>
+														<td colspan="3"></td>
+													</tr>
+												</tfoot>
 											</table>
 										</div>
 									</div>
@@ -271,10 +339,10 @@ body, html {
 												<thead
 													style="border-top: 3px solid black; border-bottom: 3px solid black">
 													<tr>
-														<th>Transaction Date</th>
-														<th>Transaction No</th>
-														<th>Amount</th>
-														<th>Remark</th>
+														<th style="text-align: center;">Transaction Date</th>
+														<th style="text-align: center;">CHQ/DD No.</th>
+														<th style="text-align: center;">Amount</th>
+														<th style="text-align: center;">Remark</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -284,13 +352,24 @@ body, html {
 																	value="${refund.cdDate}" /></td>
 															<td><c:out value="${refund.transactionNo}" /></td>
 
-															<td><c:out value="${refund.amount}" /></td>
+															<td align="right"><fmt:setLocale value="en_IN" /> <fmt:formatNumber
+																	value="${refund.amount}" type="currency"
+																	currencySymbol=" " /></td>
 															<td><c:out value="${refund.remarks}" /></td>
 														</tr>
 													</c:forEach>
 												</tbody>
 												<!-- Table Body -->
-
+												<tfoot style="font-size: 11pt; font-weight: bold;">
+													<tr>
+														<td colspan="2" align="right">Total Refund</td>
+														<td align="right"><span><fmt:setLocale
+																	value="en_IN" /> <fmt:formatNumber
+																	value="${requestScope.refundTotalAmount}"
+																	type="currency" currencySymbol=" " /></span></td>
+														<td></td>
+													</tr>
+												</tfoot>
 											</table>
 										</div>
 									</div>
@@ -308,52 +387,67 @@ body, html {
 												<thead
 													style="border-top: 3px solid black; border-bottom: 3px solid black">
 													<tr>
-														<th>Transfer Date</th>
-														<th>Voucher Number</th>
-														<th>Account Code</th>
-														<th>Amount</th>
-														<th>Remark</th>
+														<th style="text-align: center;">Transfer Date</th>
+														<th style="text-align: center;">Voucher Number</th>
+														<th style="text-align: center;">Account Code</th>
+														<th style="text-align: center;">Amount</th>
+														<th style="text-align: center;">Remark</th>
 													</tr>
 												</thead>
 												<tbody>
 													<tr>
 														<c:forEach items="${requestScope.transferList}"
 															var="transfer">
+															<c:if test="${transfer.vrNo!=0}">
 															<tr>
 																<td><fmt:formatDate type="date"
 																		pattern="dd/MM/yyyy" value="${transfer.docDte}" /></td>
 																<td><c:out value="${transfer.vrNo}" /></td>
 																<td><c:out value="${transfer.acCode}" /></td>
-																<td><c:out value="${transfer.amt}" /></td>
+																<td align="right"><fmt:setLocale value="en_IN" />
+																	<fmt:formatNumber value="${transfer.amt}"
+																		type="currency" currencySymbol=" " /> <c:set
+																		var="totalTransfer"
+																		value="${totalTransfer+transfer.amt}"></c:set></td>
 
 																<td><c:out value="${transfer.parti}" /></td>
 															</tr>
+															</c:if>
 														</c:forEach>
 												</tbody>
 												<!-- Table Body -->
-
+												<tfoot style="font-size: 11pt; font-weight: bold;">
+													<tr>
+														<td colspan="3" align="right">Total Transfer Amount</td>
+														<td align="right"><span><fmt:setLocale
+																	value="en_IN" /> <fmt:formatNumber
+																	value="${totalTransfer}" type="currency"
+																	currencySymbol=" " /></span></td>
+														<td></td>
+													</tr>
+												</tfoot>
 											</table>
 										</div>
 									</div>
-
+									<c:set var="totalReceipt"
+										value="${sumTotalChq+sumTotalTrn+sumTotalCash}"></c:set>
 									<div class="row">
 										<div class="col-md-6" align="left">
-											<table  >
+											<table>
 												<tbody style="padding: 1px; font-size: 14px;">
 													<tr>
-														<td><label>&emsp;Total Receipt Amount &emsp;</label>
-														</td>
+														<td><label>&emsp;Total Receipt &emsp;</label></td>
 														<td><label>:&emsp;</label></td>
 														<td align="right"><span><fmt:setLocale
 																	value="en_IN" /> <fmt:formatNumber
-																	value="${requestScope.receiptTotalAmount}"
-																	type="currency" /></span></td>
+																	value="${totalReceipt}" type="currency"
+																	currencySymbol=" " /></span></td>
 													</tr>
 
 													<tr>
 														<td><div id="refundAmount">
 
-																<label>&emsp;Refund Amount &emsp;</label>
+																<label>&emsp;Total Refund &emsp;</label>
 
 															</div></td>
 														<td><div id="refundAmount">
@@ -363,43 +457,22 @@ body, html {
 
 																<span><fmt:setLocale value="en_IN" /> <fmt:formatNumber
 																		value="${requestScope.refundTotalAmount}"
-																		type="currency" /></span>
+																		type="currency" currencySymbol=" " /></span>
 
 															</div></td>
 													</tr>
 
-													<tr>
-														<td colspan="3">-----------------------------------------------------------------------------------------------</td>
-													</tr>
 
 													<tr>
-														<td><label>&emsp;Balance Amount &emsp;</label></td>
+														<td><label>&emsp;Balance &emsp;</label></td>
 														<td><label>:&emsp;</label></td>
 														<td align="right"><span><fmt:setLocale
 																	value="en_IN" /> <fmt:formatNumber
-																	value="${requestScope.balanceAmount}" type="currency" /></span>
-														</td>
+																	value="${requestScope.balanceAmount}" type="currency"
+																	currencySymbol=" " /></span></td>
 													</tr>
-													<tr>
-														<td colspan="3">------------------------------------------------------------------------------------------------</td>
-													</tr>
-													<tr>
-														<td><div>
 
-																<label>&emsp;Other Receipt &emsp;</label>
 
-															</div></td>
-														<td><div>
-																<label>:&emsp;</label>
-															</div></td>
-														<td align="right"><div>
-
-																<span><fmt:setLocale value="en_IN" /> <fmt:formatNumber
-																		value="${requestScope.receiptTotalAmount}"
-																		type="currency" /></span>
-
-															</div></td>
-													</tr>
 												</tbody>
 											</table>
 										</div>

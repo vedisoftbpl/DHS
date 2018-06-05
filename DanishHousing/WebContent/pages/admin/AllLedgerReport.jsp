@@ -123,7 +123,7 @@ body, html {
 					<!-- User Form -->
 					<div class="box-body">
 						<form
-							action="${pageContext.request.contextPath}/admin/pages/TransactionReportController"
+							action="${pageContext.request.contextPath}/admin/pages/AllLedgerController"
 							method="post" onsubmit="return validateForm(this)">
 
 							<div class="row">
@@ -136,7 +136,7 @@ body, html {
 												<i class="fa fa-calendar"></i>
 											</div>
 											<input type="text" class="form-control pull-right datepicker"
-												id="openingDate" name="openingDate" />
+												id="openingDate" name="openingDate" required />
 										</div>
 										<p id="errorOpeningDate"></p>
 										<!-- /.input group -->
@@ -153,7 +153,7 @@ body, html {
 												<i class="fa fa-calendar"></i>
 											</div>
 											<input type="text" class="form-control pull-right datepicker"
-												id="closingDate" name="closingDate" />
+												id="closingDate" name="closingDate" required />
 										</div>
 										<p id="errorClosingDate"></p>
 										<!-- /.input group -->
@@ -167,26 +167,44 @@ body, html {
 							<div class="row">
 								<div class="col-md-4">
 
-									<div class="form-group" id="divFormAccountCode">
-										<label>Account Code :</label>
+									<div class="form-group" id="divFormPageNo">
+										<label>Page No :</label>
 										<div class="input-group">
 											<div class="input-group-addon">
 												<i class="fa fa-navicon"></i>
 											</div>
-											<input type="text" class="form-control accCode"
-												placeholder="Account Code" id="accountCode"
-												name="accountCode" />
+											<input type="text" class="form-control "
+												placeholder="Page No." id="pageNo" name="pageNo" />
 										</div>
-										<p id="errorAccountCode"></p>
+										<p id="errorpageNo"></p>
 									</div>
 
 								</div>
+
 								<div class="col-md-4">
-									<label>Account Name :</label><br>
-									<h4>
-										<span id="AccountCodeName"></span>
-									</h4>
+								<c:set var="ledgerPage" value="${requestScope.totalAccount / 100}"></c:set>
+				
+									<div class="form-group" id="divFormLedgerNo">
+										<label>Ledger No :</label>
+										<div class="input-group">
+											<div class="input-group-addon">
+												<i class="fa fa-navicon"></i>
+											</div>
+											<select class="form-control select2" id="ledgerNo"
+												name="ledgerNo" style="width: 100%;">
+												<c:set var="counter" value="1" />
+												<c:forEach  begin = "0" end = "${ledgerPage}">
+													<option value="${counter}">Ledger From ${counter}  to ${counter+100-1}</option>
+													<c:set var="counter" value="${counter+100}" />
+												</c:forEach>
+											</select>
+											<span>Total Ledger : ${requestScope.totalAccount}</span>
+										</div>
+										<p id="errorLedgerNo"></p>
+									</div>
+
 								</div>
+
 							</div>
 							<div class="row">
 								<input id="operation" name="operation" type="hidden"
@@ -205,126 +223,135 @@ body, html {
 
 					<div class="invoice-box" id="printTransactionReport"
 						style="display: none;">
+
+						<c:set var="pageno" value="${requestScope.pageNo}"></c:set>
+
 						<div class="row">
 
 							<div class="col-md-12">
-								<div class="col-md-12" align="center">
-									<h3>
-										<b><u>DANISH GRIH NIRMAN SAHAKARI SANSTHA MARYADIT
-												BHOPAL</u></b>
-									</h3>
-								</div>
-								<div class="row" align="center">
-
-									<div class="col-md-12">
-										<h5>GENERAL LEDGER FOR PERIOD ${requestScope.date1} TO
-											${requestScope.date2}</h5>
+								<c:forEach items="${requestScope.allLedgerList}" var="ledger">
+									<div class="col-md-12" align="center">
+										<h3>
+											<b><u>DANISH GRIH NIRMAN SAHAKARI SANSTHA MARYADIT
+													BHOPAL</u></b>
+										</h3>
 									</div>
-								</div>
-								<div class="row" align="center">
+									<div class="row" align="center">
 
-									<div class="col-md-12">
-										<h5>
-											<b>ACCOUNT CODE :</b> ${requestScope.accCode} -
-											${requestScope.accName}
-										</h5>
+										<div class="col-md-12">
+											<h5>GENERAL LEDGER FOR PERIOD ${requestScope.date1} TO
+												${requestScope.date2}</h5>
+										</div>
 									</div>
-								</div>
-								<div class="row" align="left">
+									<div class="row" align="left">
+
+										<div class="col-md-10">
+											<h5>
+												<b>ACCOUNT CODE :</b> ${ledger.acCode} - ${ledger.acName}
+											</h5>
+										</div>
+										<div class="col-md-2" align="right">
+											<h5>
+												<b>Page No :</b> ${pageno}
+											</h5>
+										</div>
+									</div>
+									<div class="row" align="left">
 
 
-									<div class="col-md-12">
-										<table class="table">
+										<div class="col-md-12">
+											<table class="table">
 
-											<!-- Table Header -->
-											<thead
-												style="border-top: 2px solid black; border-bottom: 2px solid black;">
-												<tr>
-													<th><div align="center">Date</div></th>
-													<th valign="top"><div align="center">Particulars</div></th>
-													<th>Receipt No./<br>Vr. No.
-													</th>
-													<th valign="top"><div align="center">Debit</div></th>
-													<th valign="top"><div align="center">Credit</div></th>
-													<th valign="top"><div align="center">Balance</div></th>
-												</tr>
-											</thead>
-											<tbody>
-												<c:forEach items="${requestScope.transactionList}"
-													var="tran">
-													<c:forEach items="${tran.tdto}" var="rep">
+												<!-- Table Header -->
+												<thead
+													style="border-top: 2px solid black; border-bottom: 2px solid black;">
+													<tr>
+														<th><div align="center">Date</div></th>
+														<th valign="top"><div align="center">Particulars</div></th>
+														<th>Receipt No./<br>Vr. No.
+														</th>
+														<th valign="top"><div align="center">Debit</div></th>
+														<th valign="top"><div align="center">Credit</div></th>
+														<th valign="top"><div align="center">Balance</div></th>
+													</tr>
+												</thead>
+												<tbody>
+													<c:forEach items="${ledger.tranRecord}" var="tran">
+														<c:forEach items="${tran.tdto}" var="rep">
 
+															<tr>
+																<td><fmt:formatDate type="date"
+																		pattern="dd/MM/yyyy" value="${rep.date}" /></td>
+																<td><c:out value="${rep.particular}" /></td>
+																<td align="center"><c:out value="${rep.recNo}" /></td>
+																<td align="right"><c:choose>
+																		<c:when test="${rep.debit==0}">
+																			<c:out value=" " />
+																		</c:when>
+																		<c:when test="${rep.debit!=0}">
+																			<fmt:setLocale value="en_IN" />
+																			<fmt:formatNumber value="${rep.debit}"
+																				type="currency" currencySymbol=" " />
+																		</c:when>
+																	</c:choose></td>
+																<td align="right"><c:choose>
+																		<c:when test="${rep.credit==0}">
+																			<c:out value=" " />
+																		</c:when>
+																		<c:when test="${rep.credit!=0}">
+																			<fmt:setLocale value="en_IN" />
+																			<fmt:formatNumber value="${rep.credit}"
+																				type="currency" currencySymbol=" " />
+																			<c:out value="" />
+																		</c:when>
+																	</c:choose></td>
+																<td><c:out value="" /></td>
+															</tr>
+														</c:forEach>
 														<tr>
-															<td><fmt:formatDate type="date" pattern="dd/MM/yyyy"
-																	value="${rep.date}" /></td>
-															<td><c:out value="${rep.particular}" /></td>
-															<td align="center"><c:out value="${rep.recNo}" /></td>
-															<td align="right"><c:choose>
-																	<c:when test="${rep.debit==0}">
-																		<c:out value=" " />
-																	</c:when>
-																	<c:when test="${rep.debit!=0}">
-																		<fmt:setLocale value="en_IN" />
-																		<fmt:formatNumber value="${rep.debit}" type="currency"
-																			currencySymbol=" " />
-																	</c:when>
-																</c:choose></td>
-															<td align="right"><c:choose>
-																	<c:when test="${rep.credit==0}">
-																		<c:out value=" " />
-																	</c:when>
-																	<c:when test="${rep.credit!=0}">
-																		<fmt:setLocale value="en_IN" />
-																		<fmt:formatNumber value="${rep.credit}" type="currency"
-																			currencySymbol=" " /><c:out value="" />
-																	</c:when>
-																</c:choose></td>
-															<td><c:out value="" /></td>
+															<td colspan="3" align="right"><h5>
+																	<b>&emsp;&emsp;&emsp;&emsp; &emsp;&nbsp;</b>
+																</h5></td>
+															<td align="right"><h5>
+																	<b><fmt:setLocale value="en_IN" /> <fmt:formatNumber
+																			value="${tran.monthlyDebit}" type="currency"
+																			currencySymbol=" " /></b>
+																</h5></td>
+															<td align="right"><h5>
+																	<b><fmt:setLocale value="en_IN" /> <fmt:formatNumber
+																			value="${tran.monthlyCredit}" type="currency"
+																			currencySymbol=" " /></b>
+																</h5></td>
+															<td align="right">
+																<h5>
+
+																	<c:if test="${tran.monthlyBalance > 0}">
+																		<c:set var="mode" value="CR" />
+																	</c:if>
+																	<c:if test="${tran.monthlyBalance < 0}">
+																		<c:set var="mode" value="DR" />
+																	</c:if>
+
+
+																	<b><fmt:setLocale value="en_IN" /> <fmt:formatNumber
+																			value="${tran.monthlyBalance}" type="currency"
+																			currencySymbol=" " /> ${mode}</b>
+
+																</h5>
+
+															</td>
 														</tr>
 													</c:forEach>
-													<tr>
-														<td colspan="3" align="right"><h5>
-																<b>&emsp;&emsp;&emsp;&emsp; &emsp;&nbsp;</b>
-															</h5></td>
-														<td align="right"><h5>
-																<b><fmt:setLocale value="en_IN" /> <fmt:formatNumber
-																		value="${tran.monthlyDebit}" type="currency"
-																		currencySymbol=" " /></b>
-															</h5></td>
-														<td align="right"><h5>
-																<b><fmt:setLocale value="en_IN" /> <fmt:formatNumber
-																		value="${tran.monthlyCredit}" type="currency"
-																		currencySymbol=" " /></b>
-															</h5></td>
-														<td align="right">
-															<h5>
+												</tbody>
+												<!-- Table Body -->
 
-																<c:if test="${tran.monthlyBalance > 0}">
-																	<c:set var="mode" value="CR" />
-																</c:if>
-																<c:if test="${tran.monthlyBalance < 0}">
-																	<c:set var="mode" value="DR" />
-																</c:if>
-
-
-																<b><fmt:setLocale value="en_IN" /> <fmt:formatNumber
-																		value="${tran.monthlyBalance}" type="currency"
-																		currencySymbol=" " /> ${mode}</b>
-
-															</h5>
-
-														</td>
-													</tr>
-												</c:forEach>
-											</tbody>
-											<!-- Table Body -->
-
-										</table>
+											</table>
+										</div>
 									</div>
-								</div>
+									<div style="page-break-after: always;"></div>
+									<c:set var="pageno" value="${pageno+1}"></c:set>
 
-
-
+								</c:forEach>
 								<div class="row" align="center">
 
 									<div>
@@ -454,6 +481,22 @@ body, html {
 			if (closingDate == null || closingDate === "") {
 				document.getElementById("errorClosingDate").innerHTML = error;
 				document.getElementById("divClosingDate").className = 'alert alert-danger alert-dismissible';
+				return false;
+			}
+
+			//Page No.  Validation
+			var accountCode = document.getElementById("pageNo").value;
+			if (accountCode == null || accountCode === "") {
+				document.getElementById("divFormPageNo").className = 'alert alert-danger alert-dismissible';
+				document.getElementById("errorPageNo").innerHTML = error;
+				return false;
+			}
+
+			//Ledger No. Validation
+			var accountCode = document.getElementById("ledgerNo").value;
+			if (accountCode == null || accountCode === "") {
+				document.getElementById("divFormLedgerNo").className = 'alert alert-danger alert-dismissible';
+				document.getElementById("errorLedgerNo").innerHTML = error;
 				return false;
 			}
 

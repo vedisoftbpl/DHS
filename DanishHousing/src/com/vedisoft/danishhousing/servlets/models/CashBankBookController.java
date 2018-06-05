@@ -99,23 +99,19 @@ public class CashBankBookController extends HttpServlet {
 			request.setAttribute("bkCode", bkCode);
 			request.setAttribute("bkName", a.getBkName());
 			System.out.println(bkCode + " - " + a.getBkName());
-			ArrayList<CashBankBookDto> creditlist = new TransactionRecordsDao
-
-			().findCashBankBookDtoReceipt(date1, date2, bkCode);
-			ArrayList<CashBankBookDto> debitlist = new TransactionRecordsDao
-
-			().findCashBankBookDtoPayment(date1, date2, bkCode);
-			for (CashBankBookDto t : creditlist) {
-				
-				totalCredit += t.getAmount();
+			ArrayList<CashBankBookDto> transactionList = new TransactionRecordsDao().findCashBankBookRecord(date1,
+					date2,bkCode);
+			for (CashBankBookDto t : transactionList){
+				System.out.println(t);
+			if(t.getDocType()!=null){
+				if (t.getDocType().equals("D"))
+					totalCredit += t.getAmount();
+				if (t.getDocType().equals("W"))
+					totalDebit += t.getAmount();
+				}
 			}
-			for (CashBankBookDto t : debitlist) {
-				
-				totalDebit += t.getAmount();
-			}
-			if (creditlist.size() > 0 || debitlist.size() > 0) {
-				request.setAttribute("creditList", creditlist);
-				request.setAttribute("debitList", debitlist);
+			if (transactionList.size() > 0) {
+				request.setAttribute("transactionList", transactionList);
 				request.setAttribute("totalCreditAmount", totalCredit);
 				request.setAttribute("totalDebitAmount", totalDebit);
 				request.setAttribute("openingBalance", opBal);

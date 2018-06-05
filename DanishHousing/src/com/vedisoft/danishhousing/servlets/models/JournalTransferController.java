@@ -93,6 +93,7 @@ public class JournalTransferController extends HttpServlet {
 				}
 
 				int  partyCode = 0;
+				System.out.println(request.getParameter("partyCode" + j));
 				if (request.getParameter("partyCode" + j) != null
 						&& request.getParameter("partyCode" + j).trim().length() > 0) {
 					partyCode = Integer.parseInt(request.getParameter("partyCode" + j));
@@ -131,7 +132,7 @@ public class JournalTransferController extends HttpServlet {
 					}
 					if(debit > 0){
 						TransactionRecords t = new TransactionRecords(voucherNo, d, voucherDate, "W", accountCode,
-								" ", " ", null, " ", 0, credit, remark,partyCode, flag, voucherNo,
+								" ", " ", null, " ", 0, debit, remark,partyCode, flag, voucherNo,
 								0, u.getUserId(), new Date());
 						k = new ChequePaymentDao().create(t);
 						if (k <= 0) {

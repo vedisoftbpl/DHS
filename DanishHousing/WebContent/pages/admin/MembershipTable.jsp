@@ -64,11 +64,11 @@
 
 									<th>Member No.</th>
 									<th>Name</th>
-									<th>F/H Name</th>
-									<th>DOB</th>
+									<th>Pjoject Name</th>
+									<th>DOR</th>
 									<th>Address</th>
-									<th>Email</th>
-									<th>Mobile</th>
+									<th>Plot No.</th>
+									<th>Plot Size</th>
 									<th>Status</th>
 									<th></th>
 								</tr>

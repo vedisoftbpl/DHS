@@ -13,6 +13,8 @@ import javax.servlet.http.HttpSession;
 
 import com.vedisoft.danishhousing.daos.RightsDao;
 import com.vedisoft.danishhousing.daos.UsersDao;
+import com.vedisoft.danishhousing.pojos.MenuProcessDto;
+import com.vedisoft.danishhousing.pojos.ProcessDto;
 import com.vedisoft.danishhousing.pojos.Rights;
 import com.vedisoft.danishhousing.pojos.Users;
 
@@ -58,22 +60,61 @@ public class UserVerification extends HttpServlet {
 			session.setAttribute("userLogin", user);
 			session.setAttribute("userType", userType);
 			System.out.println(userType);
-			
-			if (userType.equals("Administrator")){
+
+			if (userType.equals("Administrator")) {
 				System.out.println("admin");
-				ArrayList<Integer> rights=RightsDao.findAllRightsId();
-				for(int rt:rights)
-					System.out.println(rt);
-				session.setAttribute("rights1", rights);
-			}else{
+				ArrayList<String> rights = RightsDao.findAllPages();
+				for (String s : rights)
+					System.out.println(s);
+				session.setAttribute("userRights", rights);
+				ArrayList<ProcessDto> processList = RightsDao.findAllProcess();
+				ArrayList<MenuProcessDto> menuList = new ArrayList<MenuProcessDto>();
+				ArrayList<ProcessDto> pDto = new ArrayList<ProcessDto>();
+				String menu = "Master Data";
+				System.out.println(menu);
+				for (ProcessDto p : processList) {
+					if (!(p.getMenu().equals(menu))) {
+							System.out.println("Menu :" + p.getMenu());
+							ArrayList<ProcessDto> tempPDto = new ArrayList<ProcessDto>(pDto);
+							MenuProcessDto mDto = new MenuProcessDto();
+							System.out.println(tempPDto);
+							mDto.setSubMenu(tempPDto);
+							mDto.setMenu(menu);
+							menuList.add(mDto);
+							// System.out.println(menuList);
+							pDto.clear();
+							menu = p.getMenu();
+						}
+						pDto.add(p);
+				}
+				System.out.println(menuList);
+				session.setAttribute("menuList", menuList);
+			} else {
 				System.out.println("Not admin");
-				ArrayList<Integer> rights= RightsDao.findRights(userType);
-				for(int rt:rights)
-					System.out.println(rt);
-				session.setAttribute("rights2", RightsDao.findRights(userType));
+				ArrayList<String> rights = RightsDao.findPages(userType);
+				session.setAttribute("userRights", rights);
+				ArrayList<ProcessDto> processList = RightsDao.findAllProcess(userType);
+				ArrayList<MenuProcessDto> menuList = new ArrayList<MenuProcessDto>();
+				ArrayList<ProcessDto> pDto = new ArrayList<ProcessDto>();
+				String menu = "Master Data";
+				for (ProcessDto p : processList) {
+		
+						if (!(p.getMenu().equals(menu))) {
+							ArrayList<ProcessDto> tempPDto = new ArrayList<ProcessDto>(pDto);
+							MenuProcessDto mDto = new MenuProcessDto();
+							mDto.setSubMenu(tempPDto);
+							mDto.setMenu(menu);
+							menuList.add(mDto);
+							pDto.clear();
+							menu = p.getMenu();
+						}
+						pDto.add(p);
+
+				}
+				session.setAttribute("menuList", menuList);
 			}
 			// if (userType.equals("Administrator")) {
-			page = "/pages/admin/blank.jsp";
+			page = "/pages/admin/UserHome.jsp";
 			// }
 		} else {
 			page = "../../index.jsp?error=1";

@@ -14,11 +14,12 @@ public class RefundPayment {
 	private int voucherNo;
 	private int slNo;
 	private String paymentmode;
+	private String accode;
 	public RefundPayment() {
 		super();
 	}
 	public RefundPayment(String payType, int memberNo, double amount, String transactionNo, Date cdDate, String remarks,
-			String pD, int voucherNo, int slNo, String paymentmode) {
+			String pD, int voucherNo, int slNo, String paymentmode, String accode) {
 		super();
 		this.payType = payType;
 		this.memberNo = memberNo;
@@ -30,6 +31,7 @@ public class RefundPayment {
 		this.voucherNo = voucherNo;
 		this.slNo = slNo;
 		this.paymentmode = paymentmode;
+		this.accode = accode;
 	}
 	public String getPayType() {
 		return payType;
@@ -91,11 +93,18 @@ public class RefundPayment {
 	public void setPaymentmode(String paymentmode) {
 		this.paymentmode = paymentmode;
 	}
+	public String getAccode() {
+		return accode;
+	}
+	public void setAccode(String accode) {
+		this.accode = accode;
+	}
 	@Override
 	public String toString() {
 		return "RefundPayment [payType=" + payType + ", memberNo=" + memberNo + ", amount=" + amount
 				+ ", transactionNo=" + transactionNo + ", cdDate=" + cdDate + ", remarks=" + remarks + ", pD=" + pD
-				+ ", voucherNo=" + voucherNo + ", slNo=" + slNo + ", paymentmode=" + paymentmode + "]";
+				+ ", voucherNo=" + voucherNo + ", slNo=" + slNo + ", paymentmode=" + paymentmode + ", accode=" + accode
+				+ "]";
 	}
 	
 	

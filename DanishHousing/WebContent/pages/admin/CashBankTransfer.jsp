@@ -45,7 +45,7 @@
 
 					<!-- User Form -->
 					<form
-						action="${pageContext.request.contextPath}/admin/pages/PaymentController"
+						action="${pageContext.request.contextPath}/admin/pages/CashBankAmountController"
 						method="post" onsubmit="return validateForm(this)" id="form">
 						<div class="box-body">
 
@@ -116,8 +116,7 @@
 							</div>
 							<br>
 							<div class="row">
-								<!-- col -->
-
+								
 								<!-- col -->
 								<div class="col-md-4">
 									<!--  form group -->
@@ -139,8 +138,8 @@
 								<!-- col -->
 								<div class="col-md-4">
 									<!-- form group -->
-									<!-- Receipt Date -->
-									<div class="form-group" id="divAccountFormDate">
+									<!-- Payment Date -->
+									<div class="form-group" id="divPaymentFormDate">
 										<label>Payment Date :</label>
 										<div class="input-group date">
 											<div class="input-group-addon">
@@ -150,18 +149,16 @@
 												id="date" name="date" required="required"
 												value="${param.today}" />
 										</div>
-										<p id="errorReceiptDate"></p>
+										<p id="errorPaymentDate"></p>
 										<!-- /.input group -->
 									</div>
-									<!--End Receipt Date -->
+									<!--End Payment Date -->
 									<!-- /.form group -->
 								</div>
 								<!-- /.col -->
 							</div>
 							<!-- /.row -->
-							<!-- Row Default box -->
-
-							<!-- /.Row Default box -->
+							
 							<!-- Row Default box -->
 							<div class="row">
 								<div class="box-header with-border">
@@ -203,28 +200,15 @@
 															<span class="input-group-addon"><i
 																class="fa fa-info-circle"></i></span> <input type="text"
 																class="form-control accCode" placeholder="Account Code"
-																id="accountCode1" name="accountCode1" />
+																id="accountCode" name="accountCode" />
 														</div>
 														<p id="errorAccountCode1"></p>
 													</div>
 													<!-- End Account Code -->
 													<!-- /.form-group -->
 
-													<!--  form-group -->
-													<!-- Party Code -->
-													<div class="form-group" id="divFormPartyCode1"
-														style="display: none;">
-														<label>Party Code</label>
-														<div class="input-group">
-															<span class="input-group-addon"><i
-																class="fa fa-info-circle"></i></span> <input type="text"
-																class="form-control partyCode" placeholder="Party Code"
-																id="partyCode1" name="partyCode1" />
-														</div>
-														<p id="errorPartyCode1"></p>
-													</div>
-													<!-- End Party Code -->
-													<!-- /.form-group -->
+													
+													
 
 													<!-- form group -->
 													<!-- Amount -->
@@ -259,22 +243,8 @@
 													<!-- End Account Name -->
 													<!-- /.form-group -->
 
-													<!--  form-group -->
-													<!-- Account Name -->
-													<div class="form-group" id="divFormPartyName1"
-														style="display: none;">
-														<label>Party Name</label>
-														<div class="input-group">
-															<span class="input-group-addon"><i
-																class="fa fa-bars"></i></span> <input type="text"
-																class="form-control" placeholder="Party Name"
-																id="partyName1" name="partyName1" />
-														</div>
-														<p id="errorPartyName1"></p>
-													</div>
-													<!-- End Account Name -->
-													<!-- /.form-group -->
-
+												
+													
 													<!--  form-group -->
 													<!-- Remarks -->
 													<div class="form-group" id="divFormRemarks1">
@@ -305,24 +275,35 @@
 								<div class="box-header with-border">
 									<h3 class="box-title">Transaction Details</h3>
 								</div>
-								<div class="box-body">
+								<div id="transaction" class="box-body">
 									<div class="row">
 										<div class="col-md-4">
 											<!--  form-group -->
 											<!-- Bank Code -->
-											<div class="form-group" id="divFormBankCode">
-												<label>Bank Code</label>
-												<div class="input-group">
-													<span class="input-group-addon"><i
-														class="fa fa-bars"></i></span> <input type="text"
-														class="form-control" placeholder="Bank Code" id="bankCode"
-														name="bankCode" />
-												</div>
-												<p id="errorBankCode"></p>
+											<div class="form-group" id="divFormBankCode1">
+												<label>Bank Code(From)</label>
+														<div class="input-group">
+															<span class="input-group-addon"><i
+																class="fa fa-info-circle"></i></span> <input type="text"
+																class="form-control bankCode" placeholder="From Bank "
+																id="bankCodeFrom" name="bankCodeFrom" />
+														</div>
+												<p id="errorBankCodeFrom"></p>
 											</div>
 											<!-- End Bank Code -->
 											<!-- /.form-group -->
-
+											<!-- Bank Code -->
+											<div class="form-group" id="divFormBankCode2">
+												<label>Bank Code(To)</label>
+														<div class="input-group">
+															<span class="input-group-addon"><i
+																class="fa fa-info-circle"></i></span> <input type="text"
+																class="form-control bankCode" placeholder="To Bank "
+																id="bankCodeTo" name="bankCodeTo" />
+														</div>
+												<p id="errorBankCodeTo"></p>
+											</div>
+											<!-- End Bank Code -->
 											<!-- form group -->
 											<!-- Payment Mode -->
 											<div class="form-group" id="divFormPaymentMode">
@@ -372,14 +353,25 @@
 												<div class="input-group">
 													<span class="input-group-addon"><i
 														class="fa fa-info-circle"></i></span> <input type="text"
-														class="form-control" placeholder="Bank Name" id="bankName"
+														class="form-control bankName" placeholder="Bank Name" id="bankName"
 														name="bankName" />
 												</div>
 												<p id="errorbankName"></p>
 											</div>
 											<!-- End Bank Name -->
 											<!-- /.form-group -->
-
+											<!-- Bank Name -->
+											<div class="form-group" id="divFormBankName">
+												<label>Bank Name</label>
+												<div class="input-group">
+													<span class="input-group-addon"><i
+														class="fa fa-info-circle"></i></span> <input type="text"
+														class="form-control bankName" placeholder="Bank Name" id="bankName"
+														name="bankName" />
+												</div>
+												<p id="errorbankName"></p>
+											</div>
+											<!-- End Bank Name -->
 											<!--  form-group -->
 											<!-- Transction ID -->
 											<div class="form-group" id="divFormTransctionID">
@@ -433,8 +425,7 @@
 								<button type="reset" class="btn btn-block btn-danger">Cancel</button>
 							</div>
 							<div class="col-xs-4" align="center">
-								<button type="button" onclick="sub();"
-									class="btn btn-primary btn-block btn-flat">Submit</button>
+								<button type="button" class="btn btn-primary btn-block btn-flat">Submit</button>
 							</div>
 
 						</div>
@@ -469,67 +460,7 @@
 			//Set formatted date in input fields
 			document.getElementById("date").value = document
 					.getElementById("today").innerHTML;
-			//Function to Add More Accounts
-			var button = document.getElementById('addAccount');
-			$(button)
-					.click(
-							function(e) {
-								e.preventDefault();
-								var n = document
-										.getElementById('totalAccounts').value;
-								n++;
-								$('#accounts')
-										.append(
-												'<div class="panel box box-primary"><div class="box-header with-border"><h4 class="box-title">Payment Account Details'
-														+ '</h4>'
-														+ '<div class="box-tools pull-right"> '
-														+ '<button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">'
-														+ '<i class="fa fa-minus"></i></button>'
-														+ '<button type="button" class="btn btn-box-tool"'
-														+ 'data-widget="remove" onclick="remove(\'accountCode'
-														+ n
-														+ '\',\'amount'
-														+ n
-														+ '\')" data-toggle="tooltip" title="Remove">'
-														+ '<i class="fa fa-times"></i>'
-														+ '</button>'
-														+ '</div></div>'
-														+ '<div class="box-body"><div class="row">'
-														+ '<div class="col-md-4">'
-														+ '<div class="form-group" id="divFormAccountCode' + n +'">'
-														+ '<label>Account Code</label>'
-														+ '<div class="input-group">'
-														+ '<span class="input-group-addon"><i class="fa fa-info-circle"></i></span> <input type="text" class="form-control accCode" placeholder="Account Code" id="accountCode' + n +'" name="accountCode' + n +'" />'
-														+ '</div><p id="errorAccountCode' + n +'"></p></div>'
-														+ '<div class="form-group" id="divFormPartyCode' + n +'" style="display: none;">'
-														+ '<label>Party Code</label>'
-														+ '<div class="input-group">'
-														+ '<span class="input-group-addon"><i class="fa fa-info-circle"></i></span> <input type="text" class="form-control partyCode" placeholder="Party Code" id="partyCode' + n +'" name="partyCode' + n +'" />'
-														+ '</div><p id="errorPartyCode' + n +'"></p></div>'
-														+ '<div class="form-group" id="divFormAmount' + n +'">'
-														+ '<label>Amount</label>'
-														+ '<div class="input-group">'
-														+ '<span class="input-group-addon"><i class="fa fa-inr"></i></span>'
-														+ '<input type="text" class="form-control accAmount" value = "0" placeholder="0.00" id="amount' + n +'" name="amount' + n +'" />'
-														+ '</div><p id="errorAmount' + n +'"></p></div></div>'
-														+ '<div class="col-md-8">'
-														+ '<div class="form-group" id="divFormAccountName' + n +'">'
-														+ '<label>Account Name</label>'
-														+ '<div class="input-group">'
-														+ '<span class="input-group-addon"><i class="fa fa-bars"></i></span> <input type="text" class="form-control" placeholder="Account Name" id="accountName' + n +'" name="accountName' + n +'" />'
-														+ '</div><p id="errorAccountName' + n +'"></p></div>'
-														+ '<div class="form-group" id="divFormPartyName' + n +'"style="display: none;">'
-														+ '<label>Party Name</label>'
-														+ '<div class="input-group">'
-														+ '<span class="input-group-addon"><i class="fa fa-bars"></i></span> <input type="text" class="form-control" placeholder="Party Name" id="partyName' + n +'" name="partyName' + n +'" />'
-														+ '</div><p id="errorPartyName' + n +'"></p></div>'
-														+ '<div class="form-group" id="divFormRemarks' + n +'">'
-														+ '<label>Remarks</label>'
-														+ '<div class="input-group">'
-														+ '<span class="input-group-addon"><i class="fa fa-info"></i></span> <input type="text" class="form-control" placeholder="Remarks" id="remarks' + n +'" name="remarks' + n +'" />'
-														+ '</div><p id="errorRemarks' + n +'"></p></div></div></div>');
-								document.getElementById('totalAccounts').value = n;
-							});
+
 		});
 	</script>
 	<script>
@@ -557,69 +488,11 @@
 							}
 						});
 	</script>
+
 	<script>
-		$('#accounts').on('keyup', '.accCode', function(e) {
+		$('#transaction').bind('keyup', '.bankCode', function(e) {
 			e.preventDefault();
 			var s = $(this).val();
-			if (s.length >= 1) {
-				$.ajax({
-					url : "../../AutoCompleteVoucher",
-					type : "post",
-					data : {
-						'val' : s
-					},
-					success : function(data) {
-						$('.accCode').autocomplete({
-							source : data,
-							select : function(event, ui) {
-								event.preventDefault();
-								var selectedArr = ui.item.value.split(":");
-								this.value = $.trim(selectedArr[1]);
-							}
-						});
-
-					},
-					error : function(data, status, er) {
-						console.log(data + "_" + status + "_" + er);
-					},
-
-				});
-			}
-		});
-
-		$('#accounts').on('keyup', '.partyCode', function(e) {
-			e.preventDefault();
-			var s = $(this).val();
-			if (s.length >= 1) {
-				$.ajax({
-					url : "../../AutoCompleteParty",
-					type : "post",
-					data : {
-						'val' : s
-					},
-					success : function(data) {
-						$('.partyCode').autocomplete({
-							source : data,
-							select : function(event, ui) {
-								event.preventDefault();
-								var selectedArr = ui.item.value.split(":");
-								this.value = $.trim(selectedArr[1]);
-							}
-						});
-
-					},
-					error : function(data, status, er) {
-						console.log(data + "_" + status + "_" + er);
-					},
-
-				});
-			}
-		});
-	</script>
-	<script>
-		$('#bankCode').bind('keyup', function(e) {
-			e.preventDefault();
-			var s = $('#bankCode').val();
 			if (s.length >= 1) {
 				$.ajax({
 					url : "../../AutoCompleteBank",
@@ -628,7 +501,7 @@
 						'val' : s
 					},
 					success : function(data) {
-						$('#bankCode').autocomplete({
+						$('.bankCode').autocomplete({
 							source : data,
 							select : function(event, ui) {
 								event.preventDefault();
@@ -688,31 +561,6 @@
 	<script>
 		function validateForm(form) {
 			error = "Please fill this field .";
-
-			//Voucher Number validation
-			var rec = document.getElementById("voucherNumber").value;
-			if (rec == null || rec === "") {
-				document.getElementById("errorVoucherNumber").innerHTML = error;
-				document.getElementById("divFormVoucherNumber").className = 'alert alert-danger alert-dismissible';
-				document.getElementById("divFormVoucherNumber")
-						.scrollIntoView();
-				return false;
-			}
-
-			if (!(rec == null || rec === "")) {
-				var recValid = /^\d+$/;
-				if (!rec.match(recValid)) {
-					document.getElementById("errorVoucherNumber").innerHTML = 'Invalid Receipt Number';
-					document.getElementById("divFormVoucherNumber").className = 'alert alert-warning alert-dismissible';
-					document.getElementById("divFormVoucherNumber")
-							.scrollIntoView();
-					return false;
-				}
-				document.getElementById("errorVoucherNumber").innerHTML = "";
-				document.getElementById("divFormVoucherNumber").className = 'form-group has-success';
-			}
-
-			//End Receipt Number validation
 
 			//Bank Code Validation
 			var bankCode = document.getElementById("bankCode").value;
@@ -784,34 +632,6 @@
 			//}
 			//End Bank Name Validation
 
-			//Transaction ID Validation
-			var tr = document.getElementById("transactionID").value;
-			var trmode = document.getElementById("paymentMode").value;
-			if (trmode != "Cash") {
-				if (tr == null || tr === "") {
-
-					document.getElementById("errorTransctionID").innerHTML = error;
-					document.getElementById("divFormTransctionID").className = 'alert alert-danger alert-dismissible';
-					document.getElementById("divFormTransctionID")
-							.scrollIntoView();
-					return false;
-				}
-				if (!(tr == null || tr === "")) {
-
-					var trValid = /^[a-zA-Z0-9- ]+$/;
-					if (!tr.match(trValid)) {
-						document.getElementById("errorTransctionID").innerHTML = 'Invalid Transaction ID';
-						document.getElementById("divFormTransctionID").className = 'alert alert-warning alert-dismissible';
-						document.getElementById("divFormTransctionID")
-								.scrollIntoView();
-						return false;
-					}
-					document.getElementById("errorTransctionID").innerHTML = "";
-					document.getElementById("divFormTransctionID").className = 'form-group has-success';
-				}
-			}
-			//End Transaction ID Validation
-
 			return true;
 		}
 
@@ -881,7 +701,39 @@
 				.ready(
 						function() {
 
-							//Account Details Auto fill
+							$('#accounts')
+									.on(
+											'blur',
+											'.accAmount',
+											function(e) {
+												e.preventDefault();
+												var totalAccount = $(
+														'#totalAccounts').val();
+												var total = 0;
+												for (i = 1; i <= totalAccount; i++) {
+													var amt = $('#amount' + i)
+															.val();
+													if ($.isNumeric(amt)) {
+														total = total
+																+ parseInt(amt);
+													} else {
+														document
+																.getElementById("errorAmount"
+																		+ i).innerHTML = "Invalid Amount";
+														document
+																.getElementById("divFormAmount"
+																		+ i).className = 'alert alert-warning alert-dismissible';
+														document
+																.getElementById(
+																		"divFormAmount"
+																				+ i)
+																.scrollIntoView();
+													}
+												}
+												$('#totalAmount').val(total);
+
+											});
+
 							$('#accounts')
 									.on(
 											'blur',
@@ -958,123 +810,14 @@
 												}
 
 											});
-							//Party Details Auto Fill
-							$('#accounts')
-									.on(
-											'blur',
-											'.partyCode',
+
+							//Bank Details Auto fill
+							$('#transaction')
+									.bind(
+											"blur",".bankCode",
 											function(e) {
 												e.preventDefault();
 												var code = $(this).val();
-												if (code.length > 0) {
-													var id = $(this).attr('id');
-													var lastChar = id[id.length - 1];
-													$
-															.ajax({
-																url : '../../ReceiptAutoFill',
-																dataType : 'json',
-																type : 'post',
-																data : {
-																	'partycode' : code
-																},
-																success : function(
-																		data) {
-																	var bool = data["supplId"] === 0;
-																	$(
-																			'#divFormPartyCode'
-																					+ lastChar)
-																			.toggleClass(
-																					'alert alert-danger alert-dismissible',
-																					bool);
-																	$(
-																			'#partyName'
-																					+ lastChar)
-																			.val(
-																					'');
-																	$(
-																			'#errorPartyCode'
-																					+ lastChar)
-																			.empty();
-																	if (data["supplId"] === 0) {
-																		$(
-																				'#errorPartyCode'
-																						+ lastChar)
-																				.text(
-																						'Party Code doesn\'t exist');
-																	} else {
-																		$(
-																				'#partyName'
-																						+ lastChar)
-																				.val(
-																						data["supplName"]);
-
-																		$(
-																				'#partyName'
-																						+ lastChar)
-																				.prop(
-																						'disabled',
-																						true);
-																	}
-																},
-
-																error : function(
-																		req,
-																		status,
-																		err) {
-																	alert('Error');
-																	console
-																			.log(req
-																					+ ' '
-																					+ status
-																					+ ' '
-																					+ err);
-																}
-
-															});
-												}
-
-											});
-
-							$('#accounts')
-									.on(
-											'blur',
-											'.accAmount',
-											function(e) {
-												e.preventDefault();
-												var totalAccount = $(
-														'#totalAccounts').val();
-												var total = 0;
-												for (i = 1; i <= totalAccount; i++) {
-													var amt = $('#amount' + i)
-															.val();
-													if ($.isNumeric(amt)) {
-														total = total
-																+ parseInt(amt);
-													} else {
-														document
-																.getElementById("errorAmount"
-																		+ i).innerHTML = "Invalid Amount";
-														document
-																.getElementById("divFormAmount"
-																		+ i).className = 'alert alert-warning alert-dismissible';
-														document
-																.getElementById(
-																		"divFormAmount"
-																				+ i)
-																.scrollIntoView();
-													}
-												}
-												$('#totalAmount').val(total);
-
-											});
-
-							//Bank Details Auto fill
-							$('#bankCode')
-									.bind(
-											"blur",
-											function(e) {
-												e.preventDefault();
-												var code = $('#bankCode').val();
 												if (code.length > 0) {
 													$
 															.ajax({
@@ -1094,7 +837,7 @@
 																					'alert alert-danger alert-dismissible',
 																					bool);
 																	$(
-																			'#bankName')
+																			'.bankName')
 																			.val(
 																					'');
 																	$(
@@ -1106,63 +849,19 @@
 																				.text(
 																						'Bank Code doesn\'t exist');
 																	} else {
-																		if (data["bkCode"] == '01') {
+																		
+																	
 																			$(
-																					"#paymentMode")
-																					.val(
-																							$(
-																									"#paymentMode option:eq(0)")
-																									.val())
-																					.change();
-																			$(
-																					'#transactionID')
-																					.prop(
-																							'disabled',
-																							true);
-																			$(
-																					'#transactionID')
-																					.val(
-																							"");
-
-																			$(
-																					'#trDate')
-																					.prop(
-																							'disabled',
-																							true);
-
-																			$(
-																					'#trDate')
-																					.val(
-																							"");
-																			$(
-																					'#bankName')
-																					.val(
-																							data["bkName"]);
-																		} else {
-																			$(
-																					'#transactionID')
-																					.prop(
-																							'disabled',
-																							false);
-																			$(
-																					'#trDate')
-																					.prop(
-																							'disabled',
-																							false);
-
-																			$(
-																					'#bankName')
+																					'.bankName')
 																					.val(
 																							data["bkName"]);
 																			$(
-																					"#paymentMode")
-																					.val(
-																							$(
-																									"#paymentMode option:eq(1)")
-																									.val())
-																					.change();
+																					'.bankName')																							
+																					.prop(
+																							'disabled',
+																							true);
 																		}
-																	}
+																	
 
 																},
 

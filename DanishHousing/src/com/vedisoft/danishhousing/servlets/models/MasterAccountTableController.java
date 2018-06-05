@@ -160,7 +160,7 @@ public class MasterAccountTableController extends HttpServlet {
 			   else if(u.getAcClass().equals("L"))
 				   acclass = "Liability";
 			   else if(u.getAcClass().equals("E"))
-				   acclass = "Extended";
+				   acclass = "Expenses";
 			   else acclass = "N/A";
 			   ja.put(acclass);
 			   

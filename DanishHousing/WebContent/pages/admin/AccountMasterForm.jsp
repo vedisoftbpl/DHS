@@ -91,7 +91,7 @@
 												<option selected="selected" value="A">Assets</option>
 												<option value="I">Income</option>
 												<option value="L">Liability</option>
-												<option value="E">Extended</option>
+												<option value="E">Expenses</option>
 											</select>
 										</div>
 									</div>
@@ -129,6 +129,7 @@
 											</div>
 											<select class="form-control select2" id="projectCode" name="projectCode"
 												style="width: 100%;" >
+												<option selected="selected" value="0" ${requestScope.accountmaster.projCd eq 0 ? 'selected' : ''}>N/A</option>
 												<c:forEach items="${requestScope.projectList}" var="project">
 													<option value="${project.getProjectId()}" >${project.getProjectName()}</option>
 												</c:forEach>

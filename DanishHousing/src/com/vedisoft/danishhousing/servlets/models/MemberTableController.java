@@ -18,6 +18,7 @@ import org.json.JSONObject;
 import com.vedisoft.danishhousing.config.DateUtils;
 import com.vedisoft.danishhousing.daos.AccountDao;
 import com.vedisoft.danishhousing.daos.MembersDao;
+import com.vedisoft.danishhousing.daos.ProjectsDao;
 import com.vedisoft.danishhousing.pojos.Account;
 import com.vedisoft.danishhousing.pojos.Members;
 
@@ -145,25 +146,23 @@ public class MemberTableController extends HttpServlet {
 			System.out.println(u);
 			ja.put(u.getMemberId());
 			ja.put(u.getMemName());
-			if (u.getfHRelation() != null)
-				ja.put(u.getfHRelation() + " ," + u.getfHRelName());
-			else
-				ja.put(u.getfHRelName());
-			ja.put(DateUtils.dateFormat(u.getDob()));
+			int projCd = u.getProjectCd();
+			ja.put(new ProjectsDao().find(projCd).getProjectName());
+			ja.put(DateUtils.dateFormat(u.getRegDt()));
 			if (u.getAddress1() == null && u.getAddress2() != null && u.getAddress3() != null)
-				ja.put(u.getAddress2()+" " + u.getAddress3());
+				ja.put(u.getAddress2() + " " + u.getAddress3());
 			else if (u.getAddress1() != null && u.getAddress2() == null && u.getAddress3() != null)
-				ja.put(u.getAddress1()+" " + u.getAddress3());
+				ja.put(u.getAddress1() + " " + u.getAddress3());
 			else if (u.getAddress1() != null && u.getAddress2() != null && u.getAddress3() == null)
-				ja.put(u.getAddress1() +" "+ u.getAddress2());
+				ja.put(u.getAddress1() + " " + u.getAddress2());
 			else if (u.getAddress1() == null && u.getAddress2() == null && u.getAddress3() != null)
 				ja.put(u.getAddress3());
 			else if (u.getAddress1() == null && u.getAddress2() == null && u.getAddress3() == null)
 				ja.put("N/A");
 			else
-				ja.put(u.getAddress1()+" " + u.getAddress2()+" " + u.getAddress3());
-			ja.put(u.getEmail());
-			ja.put(u.getMobile());
+				ja.put(u.getAddress1() + " " + u.getAddress2() + " " + u.getAddress3());
+			ja.put(u.getPlotNo());
+			ja.put(u.getPlotSize());
 			String g = new String();
 			if (u.getLiveDead() == 'L')
 				g = "Live";

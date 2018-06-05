@@ -77,8 +77,9 @@ public class MasterAccountFormController extends HttpServlet {
 		}
 		
 		int projectCode = 0;
-		if(request.getParameter("ProjectCode") != null && request.getParameter("ProjectCode").trim().length() > 0)
-			projectCode =  Integer.parseInt(request.getParameter("ProjectCode"));
+		if(request.getParameter("projectCode") != null && request.getParameter("projectCode").trim().length() > 0)
+			projectCode =  Integer.parseInt(request.getParameter("projectCode"));
+		System.out.println("Project Code :"+projectCode);
 		
 		String ixpge = new String();
 		if(request.getParameter("ixpge")!= null && request.getParameter("ixpge").trim().length() > 0) {

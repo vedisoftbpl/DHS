@@ -62,7 +62,9 @@ public class ReceiptFormController extends HttpServlet {
 		}
 		
 		Members mem = new MembersDao().find(memberNo);
-		
+		String fhRel=new String();
+		if (mem.getfHRelation() != null)
+			fhRel = mem.getfHRelation(); 
 		String prefix = new String();
 		if (request.getParameter("prefix") != null && request.getParameter("prefix").trim().length() > 0) {
 			prefix = request.getParameter("prefix");
@@ -206,7 +208,6 @@ public class ReceiptFormController extends HttpServlet {
 					HttpSession se = request.getSession();
 					Users u = (Users) se.getAttribute("userLogin");
 					Date d1 = null;
-					
 					ReceiptRecord r;
 					TransactionRecords t = new TransactionRecords(
 							 receiptNo,d,receiptDate,"D",accountCode,bankCode,transctionID,trDate,branch,memberNo,Amount,remarks,flag,0,mem.getProjectCd(),u.getUserId(),new Date());
@@ -219,7 +220,7 @@ public class ReceiptFormController extends HttpServlet {
 					}else{
 					 r = new
 							 ReceiptRecord('R',d,receiptDate,receiptNo, mem.getPrefix(), mem.getMemName(),
-									 mem.getMemberNo(),mem.getfHRelation() + " " + mem.getfHRelName(), mem.getAddress1(),mem.getAddress2(), mem.getAddress3(), 0.0,
+									 mem.getMemberNo(),fhRel + " " + mem.getfHRelName(), mem.getAddress1(),mem.getAddress2(), mem.getAddress3(), 0.0,
 										Amount, transctionID,trDate,mem.getFullPay(), mem.getInst1(), mem.getInst2(), mem.getInst3(),0,
 										d1, mem.getPlotSize(), mem.getPlotNo(), mem.getProjectCd()," ", " ", 'R',
 										remarks, mem.getrC(), acc.getFlag(), accountCode, branch, paymentMode, d1,u.getUserId(), new Date(), city);
@@ -293,7 +294,7 @@ public class ReceiptFormController extends HttpServlet {
 				}else{
 				 r = new
 						 ReceiptRecord('R',d,receiptDate,receiptNo, mem.getPrefix(), mem.getMemName(),
-								 mem.getMemberNo(),mem.getfHRelation() + " " + mem.getfHRelName(), mem.getAddress1(),mem.getAddress2(), mem.getAddress3(), Amount,
+								 mem.getMemberNo(),fhRel + " " + mem.getfHRelName(), mem.getAddress1(),mem.getAddress2(), mem.getAddress3(), Amount,
 									0.0, transctionID,trDate,mem.getFullPay(), mem.getInst1(), mem.getInst2(), mem.getInst3(),0,
 									d1, mem.getPlotSize(), mem.getPlotNo(), mem.getProjectCd()," ", " ", 'R',
 									remarks, mem.getrC(), acc.getFlag(), accountCode, branch, paymentMode, d1,u.getUserId(), new Date(), city);

@@ -11,6 +11,8 @@ import java.util.List;
 
 import com.vedisoft.danishhousing.config.ConnectionPool;
 import com.vedisoft.danishhousing.config.DateUtils;
+import com.vedisoft.danishhousing.pojos.FinancialProjectReportDto;
+import com.vedisoft.danishhousing.pojos.ProjectPlotDevReportDto;
 import com.vedisoft.danishhousing.pojos.Projects;
 
 public class ProjectsDao {
@@ -136,7 +138,71 @@ public class ProjectsDao {
 		}
 		return projects;
 	}
-
+	public ArrayList<FinancialProjectReportDto> financialProjectReport(int projectId,Date clsDate) {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		pool.initialize();
+		Connection conn = pool.getConnection();
+		ArrayList<FinancialProjectReportDto> projectRepList=new ArrayList<FinancialProjectReportDto>();
+		try {
+			String sql = "SELECT * FROM members where projcd = ?  and recedte <= ? and live_dead='L'";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, projectId);
+			ps.setDate(2, new java.sql.Date(clsDate.getTime()));
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				FinancialProjectReportDto projectRep=new FinancialProjectReportDto();
+				projectRep.setMemberNo(rs.getInt("membno"));
+				projectRep.setMemberName(rs.getString("prefix")+ " "+rs.getString("membnme"));
+				projectRep.setPlotSize(rs.getString("plsize"));
+				projectRep.setPlotNo(rs.getString("plno"));
+				projectRep.setExtraWork(rs.getDouble("extamt"));
+				projectRep.setPlotCost(rs.getDouble("cost"));
+				projectRep.setTotalCost(projectRep.getPlotCost()+projectRep.getExtraWork());
+				projectRep.setRecAmount(ReceiptDao.findTotalRecAmtByMember(projectRep.getMemberNo(),projectId,clsDate));
+				projectRep.setrefAmount(RefundPaymentDao.findTotalRecRefund(projectRep.getMemberNo(),clsDate));
+				projectRep.setBalAmount(projectRep.getTotalCost()-projectRep.getrefAmount()-projectRep.getRecAmount());
+				projectRepList.add(projectRep);
+			}
+		} catch (SQLException sq) {
+			System.out.println("Unable to find a row." + sq);
+		} finally {
+			pool.putConnection(conn);
+		}
+		return projectRepList;
+	}
+	
+	public ArrayList<ProjectPlotDevReportDto> projectPlotDevReport(int projectId,Date clsDate) {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		pool.initialize();
+		Connection conn = pool.getConnection();
+		ArrayList<ProjectPlotDevReportDto> projectRepList=new ArrayList<ProjectPlotDevReportDto>();
+		try {
+			String sql = "SELECT * FROM members where projcd = ?  and recedte <= ? and live_dead='L'";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, projectId);
+			ps.setDate(2, new java.sql.Date(clsDate.getTime()));
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				ProjectPlotDevReportDto projectRep=new ProjectPlotDevReportDto();
+				projectRep.setMembNo(rs.getInt("membno"));
+				projectRep.setMembName(rs.getString("prefix")+ " "+rs.getString("membnme"));
+				projectRep.setPlotSize(rs.getString("plsize"));
+				projectRep.setPlotNo(rs.getString("plno"));
+				projectRep.setPlotCost(ReceiptDao.findTotalPlotCostOfMember(projectRep.getMembNo(),projectId,clsDate));
+				projectRep.setPlotRefund(RefundPaymentDao.findTotalPlotRefund(projectRep.getMembNo(),clsDate));
+				projectRep.setDevCost(ReceiptDao.findTotalDevCostOfMember(projectRep.getMembNo(),projectId,clsDate));
+				projectRep.setDevRefund(RefundPaymentDao.findTotalDevRefund(projectRep.getMembNo(),clsDate));
+				projectRep.setTotal((projectRep.getPlotCost()-projectRep.getPlotRefund())+(projectRep.getDevCost()-projectRep.getDevRefund()));
+				projectRepList.add(projectRep);
+			}
+		} catch (SQLException sq) {
+			System.out.println("Unable to find a row." + sq);
+		} finally {
+			pool.putConnection(conn);
+		}
+		return projectRepList;
+	}
+	
 	public  ArrayList<Projects> findAll() {
 		ConnectionPool pool = ConnectionPool.getInstance();
 		pool.initialize();
@@ -203,12 +269,35 @@ public class ProjectsDao {
 		return listProjects;
 	}
 
+	public ArrayList<String> findAll(String name) {
+		System.out.println("In AutoComplete");
+		ConnectionPool pool = ConnectionPool.getInstance();
+		pool.initialize();
+		Connection conn = pool.getConnection();
+		ArrayList<String> listProject = new ArrayList<String>();
+		try {
+			String sql = "select project_name,project_id from projects where project_name like '%"+name+"%' or project_id like '%"+name+"%'";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				String project = new String();
+				System.out.println("Found: " + rs.getString("project_name") + " : " + rs.getString("project_id"));
+				project = rs.getString("project_name")+ " : " + rs.getString("project_id");
+				listProject.add(project);
+			}
+		} catch (SQLException sq) {
+			System.out.println("Unable to find row.");
+		} finally {
+			pool.putConnection(conn);
+		}
+		return listProject;
+	}
 	
 	public static void main(String[] args) {
-		ProjectsDao dao = new ProjectsDao();
+//		ProjectsDao dao = new ProjectsDao();
 		//System.out.println(new Date());
 //		Date d1 = new Date();
-//		d1 = DateUtils.convertDate("01/04/2017");
+//		d1 = DateUtils.convertDate("11/04/2017");
 //		Date d2 = new Date();
 //		d1 = DateUtils.convertDate("25-07-1996");
 //		Projects u = new Projects("Christo Enclave New","B",d1);
@@ -235,9 +324,9 @@ public class ProjectsDao {
 //		 y = dao.find(4);
 //		 System.out.println(y);
 		
-		 List<Projects> list = dao.findAll();
-		 for(Projects u1 : list)
-		 System.out.println(u1);
+//		 List<Projects> list = dao.findAll();
+//		 for(Projects u1 : list)
+//		 System.out.println(u1);
 		
 //		 List<Projects> list2 = dao.findAll(1, 2);
 //		 for(Projects u2 : list2)
@@ -248,6 +337,8 @@ public class ProjectsDao {
 //		 System.out.println(userId);
 //		 System.out.println("User Id");
 		//
+//		List<FinancialProjectReportDto> list=new ProjectsDao().financialProjectReport(36, d1);
+//		System.out.println(list);
 	}
 
 }

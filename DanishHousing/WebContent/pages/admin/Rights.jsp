@@ -57,11 +57,11 @@
 											<tr>
 												<td><c:out value=" ${rights.rightsName}"></c:out></td>
 												<td><input type="checkbox" name="accounts"
-													value="${rights.rightsId}" /></td>
+													value="${rights.rightsId}" <c:if test="${rights.accounts == 'yes'}">checked</c:if>/></td>
 												<td><input type="checkbox" name="dataEntry"
-													value="${rights.rightsId}" /></td>
+													value="${rights.rightsId}" <c:if test="${rights.dataEntry == 'yes'}">checked</c:if>/></td>
 												<td><input type="checkbox" name="reception"
-													value="${rights.rightsId}" /></td>
+													value="${rights.rightsId}" <c:if test="${rights.reception == 'yes'}">checked</c:if>/></td>
 											</tr>
 										</c:forEach>
 
